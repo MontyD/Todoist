@@ -1,10 +1,4 @@
-if (!user)
-  ul
-    li
-      a(href="/users/register", title="Register") Register
-    li
-      a(href="/users/login", title="Login") Login
-else
+if (user)
   ul
     li
       a(href="/users/home", title="Your account") Hello #{user.firstName}

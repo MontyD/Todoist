@@ -4,7 +4,6 @@ var express = require('express'),
     router = express.Router(),
     path = require('path'),
     passport = require('passport'),
-    mailer = require(path.join(__dirname, '..', 'mailer')),
     models = require(path.join(__dirname, '..', 'models')),
     respondsToJSON = require(path.join(__dirname, '..', 'middlewares', 'respondsJSON')),
     checkUser = require(path.join(__dirname, '..', 'middlewares', 'checkUser')),
@@ -29,11 +28,23 @@ router.get('/login', function(req, res, next) {
 });
 
 // Post login - authenticate
-router.post('/login', passport.authenticate('local', {
-    failureRedirect: '/users/login'
-}), function(req, res, next) {
-    var redirect = req.body.originalURL || '/users/home';
-    res.redirect(redirect);
+router.post('/login', function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.render('login', {
+                badCredentials: true
+            });
+        }
+        req.logIn(user, function(err) {
+            if (err) {
+                return next(err);
+            }
+            return res.redirect('/');
+        });
+    })(req, res, next);
 });
 
 

@@ -6,7 +6,7 @@ $colorSubtle: #E0E0E0;
 $colorAccent: #FFCA28;
 $colorAccentLight: #FFE082;
 $colorError: #E64A19;
-$colorBlack: #757575;
+$colorBlack: #212121;
 $colorWhite: #FAFAFA;
 $colorGrey: #E0E0E0;
 $sans-serif: 'Droid Sans', sans-serif;
@@ -91,7 +91,7 @@ ui-view {
 }
 h1 {
     font-family: $serif;
-    font-size  : 3em;
+    font-size  : 5em;
     &.shadow {
         text-shadow: 5px 5px 0 $colorDark;
     }
@@ -230,11 +230,6 @@ input[type="submit"] {
     box-sizing: border-box;
     text-align: center;
     @include shadow(1);
-    h1,
-    h2,
-    h3 {
-        font-size: 1.4em;
-    }
     &.main {
         margin: 5% auto;
     }

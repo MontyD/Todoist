@@ -5,6 +5,8 @@ var express = require('express'),
     path = require('path'),
     passUser = require(path.join(__dirname, '..', 'middlewares', 'passUser'));
 
+router.use('/users', require('./users.js'));
+
 // render index
 router.get('/', passUser, function(req, res) {
   if (req.user) {

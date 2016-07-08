@@ -376,7 +376,7 @@ ui-view {
   width: 100%;
   font-family: "Droid Sans", sans-serif;
   background: #E0E0E0;
-  color: #757575;
+  color: #212121;
   -webkit-font-smoothing: antialiased; }
 
 .halfWidth {
@@ -395,7 +395,7 @@ ui-view {
 
 h1 {
   font-family: "butlerbold", serif;
-  font-size: 3em; }
+  font-size: 5em; }
   h1.shadow {
     text-shadow: 5px 5px 0 #004D40; }
 
@@ -544,10 +544,6 @@ input[type="submit"] {
   box-sizing: border-box;
   text-align: center;
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
-  .modal h1,
-  .modal h2,
-  .modal h3 {
-    font-size: 1.4em; }
   .modal.main {
     margin: 5% auto; }
 
@@ -557,7 +553,7 @@ input[type="submit"] {
   width: 100%; }
   .modal h3 {
     font-size: 1.4em;
-    color: #757575;
+    color: #212121;
     padding: 0.2em 0; }
   .modal button.trigger {
     border: none;
@@ -589,7 +585,7 @@ input[type="submit"] {
     opacity: 0;
     transition: opacity 0.2s ease-out;
     background: #FAFAFA;
-    color: #757575;
+    color: #212121;
     border: 1px solid #E0E0E0;
     box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
   .modal.active button.trigger {
@@ -617,7 +613,7 @@ input[type="submit"] {
 
 .light {
   background: #FAFAFA;
-  color: #757575; }
+  color: #212121; }
 
 .grey {
   background: #E0E0E0;
@@ -629,7 +625,7 @@ input[type="submit"] {
 
 .black {
   color: #FAFAFA;
-  background: #757575; }
+  background: #212121; }
 
 .white {
   color: #FAFAFA;
@@ -680,13 +676,14 @@ input[type="text"],
 input[type="password"],
 textarea {
   display: block;
-  padding: 0.6em;
+  padding: 0.6em 0.4em;
   margin: 0.2em auto 1.4em;
   border-radius: 0.3em;
-  border: 1px solid #448AFF;
+  border: 1px solid #009688;
   box-sizing: border-box;
   resize: none;
-  width: 90%; }
+  width: 90%;
+  font-size: 0.8em; }
   input[type="currency"]:active, input[type="currency"]:focus,
   input[type="date"]:active,
   input[type="date"]:focus,
@@ -780,7 +777,7 @@ select {
     color: transparent;
     border: none;
     padding: 0.4em 0.6em;
-    border-bottom: 1px solid #757575;
+    border-bottom: 1px solid #212121;
     transition: color 0.3s ease-out; }
     .customSelect button span.lnr {
       vertical-align: middle;
@@ -789,7 +786,7 @@ select {
     .customSelect button:hover {
       box-shadow: none; }
     .customSelect button.active {
-      color: #757575; }
+      color: #212121; }
   .customSelect ul.customSelect {
     display: inline-block;
     position: absolute;
@@ -812,11 +809,11 @@ select {
     z-index: 9000;
     color: transparent; }
     .customSelect ul.customSelect.active {
-      color: #757575; }
+      color: #212121; }
     .customSelect ul.customSelect li.customSelect {
       list-style: none;
       cursor: pointer;
-      color: #757575;
+      color: #212121;
       background: #E0E0E0;
       transition: background 0.2s, opacity 0.4s;
       padding: 0.4em 0.8em;
@@ -1270,7 +1267,7 @@ ui-view {
   width: 100%;
   font-family: "Droid Sans", sans-serif;
   background: #E0E0E0;
-  color: #757575;
+  color: #212121;
   -webkit-font-smoothing: antialiased; }
 
 .halfWidth {
@@ -1289,7 +1286,7 @@ ui-view {
 
 h1 {
   font-family: "butlerbold", serif;
-  font-size: 3em; }
+  font-size: 5em; }
   h1.shadow {
     text-shadow: 5px 5px 0 #004D40; }
 
@@ -1438,10 +1435,6 @@ input[type="submit"] {
   box-sizing: border-box;
   text-align: center;
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
-  .modal h1,
-  .modal h2,
-  .modal h3 {
-    font-size: 1.4em; }
   .modal.main {
     margin: 5% auto; }
 
@@ -1451,7 +1444,7 @@ input[type="submit"] {
   width: 100%; }
   .modal h3 {
     font-size: 1.4em;
-    color: #757575;
+    color: #212121;
     padding: 0.2em 0; }
   .modal button.trigger {
     border: none;
@@ -1483,7 +1476,7 @@ input[type="submit"] {
     opacity: 0;
     transition: opacity 0.2s ease-out;
     background: #FAFAFA;
-    color: #757575;
+    color: #212121;
     border: 1px solid #E0E0E0;
     box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
   .modal.active button.trigger {
@@ -1511,7 +1504,7 @@ input[type="submit"] {
 
 .light {
   background: #FAFAFA;
-  color: #757575; }
+  color: #212121; }
 
 .grey {
   background: #E0E0E0;
@@ -1523,7 +1516,7 @@ input[type="submit"] {
 
 .black {
   color: #FAFAFA;
-  background: #757575; }
+  background: #212121; }
 
 .white {
   color: #FAFAFA;
@@ -1608,12 +1601,7 @@ footer {
 header {
   margin: 0 auto 2em 0;
   padding: 7em 0;
-  background: #009688;
   text-align: center; }
-  header h1 {
-    margin: 0.5 auto;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 6em; }
 
 .modal.main {
   top: 3em; }

@@ -1,0 +1,17 @@
+extends layouts/base
+block content
+  body
+    nav.top.absolute
+      .container
+        include ./includes/_headerLinks.pug
+    header.slightGradient
+      section.modal.light
+        h1 Login
+        if badCredentials
+          p.error Incorrect login details
+        form(method="POST", action="/users/login")
+          label(for="username") Username
+          input(type="text", name="username", id="username", autofocus="autofocus")
+          label(for="password") Password
+          input(type="password", name="password", id="password")
+          input(type="submit", value="Login")
