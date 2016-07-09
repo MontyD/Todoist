@@ -7,6 +7,8 @@ var express = require('express'),
 
 router.use('/users', require('./users.js'));
 
+router.use('/tasks', require('./tasks.js'));
+
 // render index
 router.get('/', passUser, function(req, res) {
   if (req.user) {

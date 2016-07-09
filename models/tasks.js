@@ -7,7 +7,5 @@ module.exports = function(sequelize, DataTypes) {
             status: DataTypes.ENUM('open','fixed','verified fixed','closed','next','in progress'),
             component: DataTypes.STRING,
         });
-
-
         return task;
 };

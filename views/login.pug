@@ -15,3 +15,5 @@ block content
           label(for="password") Password
           input(type="password", name="password", id="password")
           input(type="submit", value="Login")
+          if (originalURL)
+            input(type="text", value=originalURL, name="originalURL").hidden

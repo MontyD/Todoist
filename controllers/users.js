@@ -8,7 +8,7 @@ var express = require('express'),
     respondsToJSON = require(path.join(__dirname, '..', 'middlewares', 'respondsJSON')),
     checkUser = require(path.join(__dirname, '..', 'middlewares', 'checkUser')),
     handleError = require(path.join(__dirname, '..', 'middlewares', 'handleError'));
-    
+
 // Post login - authenticate
 router.post('/login', function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
@@ -17,14 +17,16 @@ router.post('/login', function(req, res, next) {
         }
         if (!user) {
             return res.render('login', {
-                badCredentials: true
+                badCredentials: true,
+                originalURL: req.body.originalURL
             });
         }
         req.logIn(user, function(err) {
             if (err) {
                 return next(err);
             }
-            return res.redirect('/');
+            var redirect = req.body.originalURL || '/';
+            return res.redirect(redirect);
         });
     })(req, res, next);
 });

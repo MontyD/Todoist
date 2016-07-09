@@ -35,6 +35,8 @@ db.Sequelize = Sequelize;
 
 
 // Relationships
+db.tasks.belongsTo(db.users);
+db.users.hasMany(db.tasks);
 
 
 module.exports = db;

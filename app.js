@@ -130,7 +130,7 @@ if (config.env === 'development') {
 // production error handler
 app.use(function(err, req, res, next) {
     if (err.status === 401) {
-        return res.render('login', {
+        return res.status(401).render('login', {
             originalURL: req.originalUrl
         });
     }
