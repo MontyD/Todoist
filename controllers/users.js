@@ -8,25 +8,7 @@ var express = require('express'),
     respondsToJSON = require(path.join(__dirname, '..', 'middlewares', 'respondsJSON')),
     checkUser = require(path.join(__dirname, '..', 'middlewares', 'checkUser')),
     handleError = require(path.join(__dirname, '..', 'middlewares', 'handleError'));
-// Get - login
-router.get('/login', function(req, res, next) {
-
-    req.logout();
-
-    var locals = {};
-
-    if (req.query.newAccount) {
-        locals.newAccount = true;
-    }
-
-    if (req.query.username) {
-        locals.temporaryUserName = req.query.username;
-    }
-
-    res.render('login', locals);
-
-});
-
+    
 // Post login - authenticate
 router.post('/login', function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
@@ -70,7 +52,6 @@ router.post('/register', function(req, res, next) {
         password: req.body.password,
         email: req.body.email,
     }).then(function(user) {
-        mailer.verificationEmail(user.email, user.firstName, user.username + '/verifyemail?hash=' + user.emailVerificationHash);
         res.redirect('/users/login?newAccount=true&username=' + user.username);
     }).catch(function(error) {
         handleError(error, next);
