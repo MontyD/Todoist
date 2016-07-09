@@ -109,6 +109,7 @@ app.use(function(req, res, next) {
 if (config.env === 'development') {
     app.use(function(err, req, res, next) {
         if (err.status === 401) {
+            res.status(401);
             return res.render('login', {
                 originalURL: req.originalUrl
             });
@@ -130,11 +131,11 @@ if (config.env === 'development') {
 // production error handler
 app.use(function(err, req, res, next) {
     if (err.status === 401) {
-        return res.status(401).render('login', {
+        res.status(401);
+        return res.render('login', {
             originalURL: req.originalUrl
         });
     }
-
     console.error(err);
     res.status(err.status || 500);
     if (/json/gi.test(req.get('accept'))) {
