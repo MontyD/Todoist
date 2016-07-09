@@ -110,6 +110,9 @@ if (config.env === 'development') {
     app.use(function(err, req, res, next) {
         if (err.status === 401) {
             res.status(401);
+            if (/json/gi.test(req.get('accept'))) {
+                return res.send('Unauthorised');
+            }
             return res.render('login', {
                 originalURL: req.originalUrl
             });
@@ -132,6 +135,9 @@ if (config.env === 'development') {
 app.use(function(err, req, res, next) {
     if (err.status === 401) {
         res.status(401);
+        if (/json/gi.test(req.get('accept'))) {
+            return res.send('Unauthorised');
+        }
         return res.render('login', {
             originalURL: req.originalUrl
         });

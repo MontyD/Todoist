@@ -61,7 +61,7 @@ router.post('/', function(req, res, next) {
 
     var task = req.body.task;
 
-    task.userId = 0;
+    task.userId = 1;
 
     models.tasks.create(task).then(function(task) {
         res.sendStatus(200);
