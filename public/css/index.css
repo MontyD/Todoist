@@ -547,15 +547,15 @@ input[type="submit"] {
   .modal.main {
     margin: 5% auto; }
 
-.modal {
+.innerModal {
   position: relative;
   display: inline-block;
   width: 100%; }
-  .modal h3 {
+  .innerModal h3 {
     font-size: 1.4em;
     color: #212121;
     padding: 0.2em 0; }
-  .modal button.trigger {
+  .innerModal button.trigger {
     border: none;
     position: absolute;
     top: 0;
@@ -573,7 +573,7 @@ input[type="submit"] {
     -webkit-transform: scale(1);
         -ms-transform: scale(1);
             transform: scale(1); }
-  .modal .hide {
+  .innerModal .hide {
     position: relative;
     margin: 0 auto;
     box-sizing: border-box;
@@ -588,19 +588,19 @@ input[type="submit"] {
     color: #212121;
     border: 1px solid #E0E0E0;
     box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
-  .modal.active button.trigger {
+  .innerModal.active button.trigger {
     opacity: 0;
     -webkit-transform: scale(0);
         -ms-transform: scale(0);
             transform: scale(0); }
-  .modal.active .hide {
+  .innerModal.active .hide {
     opacity: 1; }
-  .modal.primary button.trigger {
+  .innerModal.primary button.trigger {
     background: #FFCA28; }
-  .modal.primary .hide {
+  .innerModal.primary .hide {
     background: #FFCA28;
     border: 1px solid #FFCA28; }
-  .modal.primary.active button.trigger {
+  .innerModal.primary.active button.trigger {
     color: #FFCA28; }
 
 .dark {
@@ -1438,15 +1438,15 @@ input[type="submit"] {
   .modal.main {
     margin: 5% auto; }
 
-.modal {
+.innerModal {
   position: relative;
   display: inline-block;
   width: 100%; }
-  .modal h3 {
+  .innerModal h3 {
     font-size: 1.4em;
     color: #212121;
     padding: 0.2em 0; }
-  .modal button.trigger {
+  .innerModal button.trigger {
     border: none;
     position: absolute;
     top: 0;
@@ -1464,7 +1464,7 @@ input[type="submit"] {
     -webkit-transform: scale(1);
         -ms-transform: scale(1);
             transform: scale(1); }
-  .modal .hide {
+  .innerModal .hide {
     position: relative;
     margin: 0 auto;
     box-sizing: border-box;
@@ -1479,19 +1479,19 @@ input[type="submit"] {
     color: #212121;
     border: 1px solid #E0E0E0;
     box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
-  .modal.active button.trigger {
+  .innerModal.active button.trigger {
     opacity: 0;
     -webkit-transform: scale(0);
         -ms-transform: scale(0);
             transform: scale(0); }
-  .modal.active .hide {
+  .innerModal.active .hide {
     opacity: 1; }
-  .modal.primary button.trigger {
+  .innerModal.primary button.trigger {
     background: #FFCA28; }
-  .modal.primary .hide {
+  .innerModal.primary .hide {
     background: #FFCA28;
     border: 1px solid #FFCA28; }
-  .modal.primary.active button.trigger {
+  .innerModal.primary.active button.trigger {
     color: #FFCA28; }
 
 .dark {

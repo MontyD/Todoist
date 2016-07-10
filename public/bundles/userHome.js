@@ -36135,7 +36135,7 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>Home</h1>\n\n<pre><code>{{home.tasks | json}}</code></pre>\n";
+	module.exports = "<main class=\"container\">\n    <h1>Home</h1>\n\n    <pre><code>{{home.tasks | json}}</code></pre>\n\n    <button ng-click=\"home.getTasks()\">Get tasks</button>\n    <section class=\"modal\">\n        <form ng-submit=\"home.createTask()\" novalidate=\"novalidate\">\n\n            <label for=\"newTaskTitle\">Title</label>\n            <input type=\"text\" id=\"newTaskTitle\" name=\"title\" ng-model=\"home.newTask.title\" required=\"required\">\n\n\n            <label for=\"newTaskDescription\">Description</label>\n            <textarea id=\"newTaskDescription\" ng-model=\"home.newTask.description\" required=\"required\" name=\"description\"></textarea>\n\n            <label for=\"newTaskStatus\">Status</label>\n            <select ng-model=\"home.newTask.status\" required=\"required\" id=\"newTaskStatus\" name=\"status\">\n                <option value=\"open\">Open</option>\n                <option value=\"fixed\">Fixed</option>\n                <option value=\"verified fixed\">Verified resolved</option>\n                <option value=\"closed\">Closed</option>\n                <option value=\"next\">Next version</option>\n                <option value=\"in progress\">In progress</option>\n            </select>\n\n\n            <label for=\"newTaskComponent\">Component</label>\n            <input type=\"text\" name=\"component\" id=\"newTaskComponent\" ng-model=\"home.newTask.component\" required=\"required\">\n\n            <label for=\"newTaskPriority\">Priority</label>\n            <select ng-model=\"home.newTask.priority\" required=\"required\" id=\"newTaskPriority\" name=\"priority\">\n                <option value=\"urgent\">Urgent</option>\n                <option value=\"high\">High</option>\n                <option value=\"medium\">Medium</option>\n                <option value=\"low\">Low</option>\n                <option value=\"next\">Next version</option>\n            </select>\n\n            <label for=\"newTaskType\">Type</label>\n            <select ng-model=\"home.newTask.type\" required=\"required\" id=\"newTaskType\" name=\"type\">\n                <option value=\"feature\">Feature</option>\n                <option value=\"bug\">Bug</option>\n                <option value=\"improvement\">Improvement</option>\n            </select>\n\n            <input type=\"submit\" value=\"Create\">\n\n        </form>\n\n    </section>\n\n</main>\n";
 
 /***/ },
 /* 6 */
@@ -36144,28 +36144,67 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	    value: true
 	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var UserHomeCtrl = function UserHomeCtrl(Notification, TasksService) {
-	  var _this = this;
+	var UserHomeCtrl = (function () {
+	    function UserHomeCtrl(Notification, TasksService) {
+	        var _this = this;
 
-	  _classCallCheck(this, UserHomeCtrl);
+	        _classCallCheck(this, UserHomeCtrl);
 
-	  this.Notification = Notification;
-	  this.TasksService = TasksService;
+	        this.Notification = Notification;
+	        this.TasksService = TasksService;
 
-	  this.tasks = [];
+	        this.tasks = [];
 
-	  this.TasksService.read().then(function (result) {
-	    _this.tasks = result.data;
-	  }, function (error) {
-	    console.log(error);
-	    _this.Notification.error('Error getting tasks');
-	  });
-	};
+	        this.newTask = {
+	            status: 'open'
+	        };
+
+	        this.TasksService.read().then(function (result) {
+	            _this.tasks = result.data;
+	        }, function (error) {
+	            console.log(error);
+	            _this.Notification.error('Error getting tasks');
+	        });
+	    }
+
+	    _createClass(UserHomeCtrl, [{
+	        key: 'getTasks',
+	        value: function getTasks(start, limit, asAdmin) {
+	            var _this2 = this;
+
+	            this.TasksService.read(null, start, limit, asAdmin).then(function (result) {
+	                return _this2.tasks = result.data;
+	            }, function (error) {
+	                console.log(error);
+	                _this2.Notification.error('Error getting tasks');
+	            });
+	        }
+	    }, {
+	        key: 'createTask',
+	        value: function createTask() {
+	            var _this3 = this;
+
+	            this.TasksService.create(this.newTask).then(function (result) {
+	                _this3.newTask = {
+	                    status: 'open'
+	                };
+	                _this3.tasks.unshift(result.data);
+	            }, function (error) {
+	                console.log(error);
+	                _this3.Notification.error('Error saving tasks');
+	            });
+	        }
+	    }]);
+
+	    return UserHomeCtrl;
+	})();
 
 	UserHomeCtrl.$inject = ['Notification', 'TasksService'];
 

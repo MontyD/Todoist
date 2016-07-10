@@ -19,7 +19,7 @@ router.get('/', respondsToJSON, checkUser, function(req, res, next) {
         models.tasks.findAll({
             order: [
                 ['priority', 'DESC'],
-                ['updatedAt', 'DESC'],
+                ['updatedAt'],
             ],
             limit: limit,
             offset: start
@@ -90,10 +90,10 @@ router.post('/', respondsToJSON, checkUser, function(req, res, next) {
     var task = req.body.task;
 
     // for testing, remove
-    task.userId = 1;
+    task.userId = req.user.id;
 
-    models.tasks.create(task).then(function(task) {
-        res.sendStatus(200);
+    models.tasks.create(task).then(function(newTask) {
+        res.send(newTask);
     }).catch(function(err) {
         return handleError(err, next);
     });
