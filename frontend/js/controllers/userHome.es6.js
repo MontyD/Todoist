@@ -7,7 +7,9 @@ class UserHomeCtrl {
         this.Notification = Notification;
         this.TasksService = TasksService;
 
-        this.tasks = [];
+        this.responsibleTasks = [];
+
+        this.reportedTasks = [];
 
         this.newTask = {
             status: 'open'
@@ -15,7 +17,17 @@ class UserHomeCtrl {
 
         this.TasksService.read().then(
             result => {
-                this.tasks = result.data;
+                this.responsibleTasks = result.data;
+            },
+            error => {
+                console.log(error);
+                this.Notification.error('Error getting tasks');
+            }
+        );
+
+        this.TasksService.read(true).then(
+            result => {
+                this.reportedTasks = result.data;
             },
             error => {
                 console.log(error);
@@ -26,8 +38,20 @@ class UserHomeCtrl {
     }
 
     getTasks(start, limit, asAdmin) {
-        this.TasksService.read(null, start, limit, asAdmin).then(
-            result => this.tasks = result.data,
+        this.TasksService.read().then(
+            result => {
+                this.responsibleTasks = result.data;
+            },
+            error => {
+                console.log(error);
+                this.Notification.error('Error getting tasks');
+            }
+        );
+
+        this.TasksService.read(true).then(
+            result => {
+                this.reportedTasks = result.data;
+            },
             error => {
                 console.log(error);
                 this.Notification.error('Error getting tasks');
@@ -39,9 +63,9 @@ class UserHomeCtrl {
         this.TasksService.create(this.newTask).then(
             result => {
                 this.newTask = {
-                  status: 'open'
+                    status: 'open'
                 };
-                this.tasks.unshift(result.data);
+                this.responsibleTasks.unshift(result.data);
             },
             error => {
                 console.log(error);

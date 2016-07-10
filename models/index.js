@@ -36,7 +36,7 @@ db.Sequelize = Sequelize;
 
 // Relationships
 db.tasks.belongsTo(db.users, {as: 'reporter', foreignKey: 'reporterId'});
-db.users.hasMany(db.tasks, {as: 'responsibleForTask', foreignKey: 'responsibleUser'});
+db.users.hasMany(db.tasks, {as: 'responsibleForTask', foreignKey: 'responsibleUserId'});
 
 
 module.exports = db;

@@ -31,11 +31,16 @@ router.get('/', respondsToJSON, checkUser, function(req, res, next) {
 
         // STANDARD USER
     } else {
-        var reporterId = req.user.id;
+        var query = {
+            responsibleUserId: req.user.id
+        };
+        if (req.query.reporter) {
+          query = {
+            reporterId: req.user.id
+          };
+        }
         models.tasks.findAll({
-            where: {
-                reporterId: reporterId
-            },
+            where: query,
             order: [
                 ['priority', 'DESC'],
                 ['updatedAt', 'DESC'],
@@ -89,8 +94,7 @@ router.post('/', respondsToJSON, checkUser, function(req, res, next) {
 
     var task = req.body.task;
 
-    // for testing, remove
-    task.userId = req.user.id;
+    task.reporterId = req.user.id;
 
     models.tasks.create(task).then(function(newTask) {
         res.send(newTask);

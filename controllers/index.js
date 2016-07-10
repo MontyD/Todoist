@@ -9,7 +9,7 @@ router.use('/users', require('./users.js'));
 
 router.use('/tasks', require('./tasks.js'));
 
-// render index
+// render index or login if no user
 router.get('/', passUser, function(req, res) {
   if (req.user) {
     res.render('userHome');
