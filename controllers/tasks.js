@@ -31,10 +31,10 @@ router.get('/', respondsToJSON, checkUser, function(req, res, next) {
 
         // STANDARD USER
     } else {
-        var userId = req.user.id;
+        var reporterId = req.user.id;
         models.tasks.findAll({
             where: {
-                userId: userId
+                reporterId: reporterId
             },
             order: [
                 ['priority', 'DESC'],
