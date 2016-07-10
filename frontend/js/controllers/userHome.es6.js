@@ -7,6 +7,18 @@ class UserHomeCtrl {
         this.Notification = Notification;
         this.TasksService = TasksService;
 
+        this.tasks = [];
+
+        this.TasksService.read().then(
+          result => {
+            this.tasks = result.data;
+          },
+          error => {
+            console.log(error);
+            this.Notification.error('Error getting tasks');
+          }
+        );
+
     }
 
 }

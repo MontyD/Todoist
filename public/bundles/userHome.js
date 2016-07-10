@@ -36135,7 +36135,7 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>Hello from router!</h1>\n";
+	module.exports = "<h1>Home</h1>\n\n<pre><code>{{home.tasks | json}}</code></pre>\n";
 
 /***/ },
 /* 6 */
@@ -36144,16 +36144,27 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	    value: true
+	  value: true
 	});
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var UserHomeCtrl = function UserHomeCtrl(Notification, TasksService) {
-	    _classCallCheck(this, UserHomeCtrl);
+	  var _this = this;
 
-	    this.Notification = Notification;
-	    this.TasksService = TasksService;
+	  _classCallCheck(this, UserHomeCtrl);
+
+	  this.Notification = Notification;
+	  this.TasksService = TasksService;
+
+	  this.tasks = [];
+
+	  this.TasksService.read().then(function (result) {
+	    _this.tasks = result.data;
+	  }, function (error) {
+	    console.log(error);
+	    _this.Notification.error('Error getting tasks');
+	  });
 	};
 
 	UserHomeCtrl.$inject = ['Notification', 'TasksService'];
@@ -36432,7 +36443,7 @@
 	        key: 'read',
 	        value: function read(id, start, limit, asAdmin) {
 	            var requestURL = this.urlBase;
-	            if (id) {
+	            if (typeof id === 'number') {
 	                requestURL += id;
 	            }
 	            requestURL += '?';
@@ -36445,7 +36456,11 @@
 	            if (limit) {
 	                requestURL += 'limit=' + limit;
 	            }
-	            return this.$http.get(this.urlBase + id);
+	            if (requestURL.substr(requestURL.length - 1) === '&' || requestURL.substr(requestURL.length - 1) === '?') {
+	                requestURL = requestURL.substr(0, requestURL.length - 1);
+	            }
+
+	            return this.$http.get(requestURL);
 	        }
 	    }, {
 	        key: 'update',

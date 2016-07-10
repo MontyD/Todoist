@@ -15,7 +15,7 @@ class TasksService {
 
     read(id, start, limit, asAdmin) {
         let requestURL = this.urlBase;
-        if (id) {
+        if (typeof id === 'number') {
             requestURL += id;
         }
         requestURL += '?';
@@ -28,7 +28,11 @@ class TasksService {
         if (limit) {
             requestURL += 'limit=' + limit;
         }
-        return this.$http.get(this.urlBase + id);
+        if (requestURL.substr(requestURL.length - 1) === '&' || requestURL.substr(requestURL.length - 1) === '?') {
+          requestURL = requestURL.substr(0, requestURL.length - 1);
+        }
+
+        return this.$http.get(requestURL);
     }
 
     update(reqTaskId, reqTask, reqUserInitiated) {
