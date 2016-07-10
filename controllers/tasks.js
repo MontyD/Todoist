@@ -132,6 +132,8 @@ router.put('/:taskID', respondsToJSON, checkUser, function(req, res, next) {
 
 });
 
+
+// DELETE by ID
 router.delete('/:taskID', function(req, res, next) {
 
   if (isNaN(req.params.taskID)) {
@@ -146,7 +148,7 @@ router.delete('/:taskID', function(req, res, next) {
       } else {
           if (task.userId === req.user.id || req.user.admin) {
               task.destroy().then(function(confirm) {
-                  res.send(confirm);
+                  res.sendStatus(200);
               }).catch(function(err) {
                   return handleError(err, next);
               });

@@ -2,14 +2,15 @@
 
 class UserHomeCtrl {
 
-    constructor(Notification) {
+    constructor(Notification, TasksService) {
 
         this.Notification = Notification;
+        this.TasksService = TasksService;
 
     }
 
 }
 
-UserHomeCtrl.$inject = ['Notification'];
+UserHomeCtrl.$inject = ['Notification', 'TasksService'];
 
 export default UserHomeCtrl;

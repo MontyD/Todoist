@@ -70,7 +70,11 @@
 
 	var _angularUiNotification2 = _interopRequireDefault(_angularUiNotification);
 
-	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification']).controller('UserHomeCtrl', _controllersUserHomeEs6Js2['default']).config(_configUserHomeConfigEs6Js2['default']);
+	var _servicesTasksEs6Js = __webpack_require__(9);
+
+	var _servicesTasksEs6Js2 = _interopRequireDefault(_servicesTasksEs6Js);
+
+	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification']).controller('UserHomeCtrl', _controllersUserHomeEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).config(_configUserHomeConfigEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -36145,13 +36149,14 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var UserHomeCtrl = function UserHomeCtrl(Notification) {
+	var UserHomeCtrl = function UserHomeCtrl(Notification, TasksService) {
 	    _classCallCheck(this, UserHomeCtrl);
 
 	    this.Notification = Notification;
+	    this.TasksService = TasksService;
 	};
 
-	UserHomeCtrl.$inject = ['Notification'];
+	UserHomeCtrl.$inject = ['Notification', 'TasksService'];
 
 	exports['default'] = UserHomeCtrl;
 	module.exports = exports['default'];
@@ -36397,6 +36402,71 @@
 	});
 
 	angular.module("ui-notification").run(["$templateCache", function($templateCache) {$templateCache.put("angular-ui-notification.html","<div class=\"ui-notification\"><h3 ng-show=\"title\" ng-bind-html=\"title\"></h3><div class=\"message\" ng-bind-html=\"message\"></div></div>");}]);
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var TasksService = (function () {
+	    function TasksService($http) {
+	        _classCallCheck(this, TasksService);
+
+	        this.$http = $http;
+	        this.urlBase = '/tasks/';
+	    }
+
+	    _createClass(TasksService, [{
+	        key: 'create',
+	        value: function create(reqTask) {
+	            return this.$http.post(this.urlBase, {
+	                task: reqTask
+	            });
+	        }
+	    }, {
+	        key: 'read',
+	        value: function read(id, start, limit, asAdmin) {
+	            var requestURL = this.urlBase;
+	            if (id) {
+	                requestURL += id;
+	            }
+	            requestURL += '?';
+	            if (asAdmin) {
+	                requestURL += 'all=true&';
+	            }
+	            if (start) {
+	                requestURL += 'start=' + start + '&';
+	            }
+	            if (limit) {
+	                requestURL += 'limit=' + limit;
+	            }
+	            return this.$http.get(this.urlBase + id);
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update(reqTaskId, reqTask, reqUserInitiated) {
+	            return this.$http.put(this.urlBase + reqTaskId, {
+	                task: reqTask
+	            });
+	        }
+	    }, {
+	        key: 'destroy',
+	        value: function destroy(reqTaskId) {
+	            return this.$http['delete'](this.urlBase + reqTaskId);
+	        }
+	    }]);
+
+	    return TasksService;
+	})();
+
+	TasksService.$inject = ['$http'];
+
+	module.exports = TasksService;
 
 /***/ }
 /******/ ]);
