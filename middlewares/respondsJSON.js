@@ -4,7 +4,7 @@ var path = require('path');
 
 function respondsToJSON(req, res, next) {
 
-    if (req.accepts('json') && req.headers['user-agent']) {
+    if (/json/gi.test(req.get('accept'))) {
         next();
     } else {
         var err = new Error('Go away please');

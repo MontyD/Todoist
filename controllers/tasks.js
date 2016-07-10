@@ -50,23 +50,112 @@ router.get('/', respondsToJSON, checkUser, function(req, res, next) {
     }
 });
 
+
+// GET one task by ID
+router.get('/:taskID', respondsToJSON, checkUser, function(req, res, next) {
+
+    if (isNaN(req.params.taskID)) {
+        var error = new Error('Bad get request');
+        error.status = 400;
+        return next(error);
+    }
+
+    models.tasks.findById(req.params.taskID).then(function(task) {
+        if (!task) {
+            return next();
+        } else {
+            if (task.userId === req.user.id || req.user.admin) {
+                return res.json(task);
+            } else {
+                var error = new Error('Unauthorised');
+                error.status = 403;
+                return next(error);
+            }
+        }
+    }).catch(function(err) {
+        return handleError(err, next);
+    });
+
+});
+
 // CREATE NEW
-router.post('/', function(req, res, next) {
+router.post('/', respondsToJSON, checkUser, function(req, res, next) {
 
     if (!req.body.task) {
-      var error = new Error('Bad get request');
-      error.status = 400;
-      return next(error);
+        var error = new Error('Bad get request');
+        error.status = 400;
+        return next(error);
     }
 
     var task = req.body.task;
 
+    // for testing, remove
     task.userId = 1;
 
     models.tasks.create(task).then(function(task) {
         res.sendStatus(200);
     }).catch(function(err) {
-        handleError(err, next);
+        return handleError(err, next);
+    });
+
+});
+
+
+// Update task by id
+router.put('/:taskID', respondsToJSON, checkUser, function(req, res, next) {
+
+    if (isNaN(req.params.taskID) || !req.body.task) {
+        var error = new Error('Bad put data');
+        error.status = 400;
+        return next(error);
+    }
+
+    models.tasks.findById(req.params.taskID).then(function(task) {
+        if (!task) {
+            return next();
+        } else {
+            if (task.userId === req.user.id || req.user.admin) {
+                task.update(req.body.task).then(function(updatedTask) {
+                    res.sendStatus(200);
+                }).catch(function(err) {
+                    return handleError(err, next);
+                });
+            } else {
+                var error = new Error('Unauthorised');
+                error.status = 403;
+                return next(error);
+            }
+        }
+    }).catch(function(err) {
+        return handleError(err, next);
+    });
+
+});
+
+router.delete('/:taskID', function(req, res, next) {
+
+  if (isNaN(req.params.taskID)) {
+      var error = new Error('Bad put data');
+      error.status = 400;
+      return next(error);
+  }
+
+  models.tasks.findById(req.params.taskID).then(function(task) {
+      if (!task) {
+          return next();
+      } else {
+          if (task.userId === req.user.id || req.user.admin) {
+              task.destroy().then(function(confirm) {
+                  res.send(confirm);
+              }).catch(function(err) {
+                  return handleError(err, next);
+              });
+          } else {
+              var error = new Error('Unauthorised');
+              error.status = 403;
+              return next(error);
+          }
+      }
     });
 
 });
