@@ -36135,7 +36135,7 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = "<h2>Responsible for:</h2>\n<pre><code>{{home.responsibleTasks | json}}</code></pre>\n\n<h2>Reported:</h2>\n<pre><code>{{home.responsibleTasks | json}}</code></pre>\n\n\n<button ng-click=\"home.getTasks()\">Get tasks</button>\n<section class=\"modal\">\n    <form ng-submit=\"home.createTask()\" novalidate=\"novalidate\">\n\n        <label for=\"newTaskTitle\">Title</label>\n        <input type=\"text\" id=\"newTaskTitle\" name=\"title\" ng-model=\"home.newTask.title\" required=\"required\">\n\n\n        <label for=\"newTaskDescription\">Description</label>\n        <textarea id=\"newTaskDescription\" ng-model=\"home.newTask.description\" required=\"required\" name=\"description\"></textarea>\n\n        <label for=\"newTaskStatus\">Status</label>\n        <select ng-model=\"home.newTask.status\" required=\"required\" id=\"newTaskStatus\" name=\"status\">\n            <option value=\"open\">Open</option>\n            <option value=\"fixed\">Fixed</option>\n            <option value=\"verified fixed\">Verified resolved</option>\n            <option value=\"closed\">Closed</option>\n            <option value=\"next\">Next version</option>\n            <option value=\"in progress\">In progress</option>\n        </select>\n\n\n        <label for=\"newTaskComponent\">Component</label>\n        <input type=\"text\" name=\"component\" id=\"newTaskComponent\" ng-model=\"home.newTask.component\" required=\"required\">\n\n        <label for=\"newTaskPriority\">Priority</label>\n        <select ng-model=\"home.newTask.priority\" required=\"required\" id=\"newTaskPriority\" name=\"priority\">\n            <option value=\"urgent\">Urgent</option>\n            <option value=\"high\">High</option>\n            <option value=\"medium\">Medium</option>\n            <option value=\"low\">Low</option>\n            <option value=\"next\">Next version</option>\n        </select>\n\n        <label for=\"newTaskType\">Type</label>\n        <select ng-model=\"home.newTask.type\" required=\"required\" id=\"newTaskType\" name=\"type\">\n            <option value=\"feature\">Feature</option>\n            <option value=\"bug\">Bug</option>\n            <option value=\"improvement\">Improvement</option>\n        </select>\n\n        <input type=\"submit\" value=\"Create\">\n\n    </form>\n\n</section>\n";
+	module.exports = "<h2>Responsible for:</h2>\n<pre><code>{{home.responsibleTasks | json}}</code></pre>\n\n<h2>Reported:</h2>\n<pre><code>{{home.reportedTasks | json}}</code></pre>\n\n\n<button ng-click=\"home.getTasks()\">Get tasks</button>\n<section class=\"modal\">\n    <form ng-submit=\"home.createTask()\" novalidate=\"novalidate\">\n\n        <label for=\"newTaskTitle\">Title</label>\n        <input type=\"text\" id=\"newTaskTitle\" name=\"title\" ng-model=\"home.newTask.title\" required=\"required\">\n\n\n        <label for=\"newTaskDescription\">Description</label>\n        <textarea id=\"newTaskDescription\" ng-model=\"home.newTask.description\" required=\"required\" name=\"description\"></textarea>\n\n        <label for=\"newTaskStatus\">Status</label>\n        <select ng-model=\"home.newTask.status\" required=\"required\" id=\"newTaskStatus\" name=\"status\">\n            <option value=\"open\">Open</option>\n            <option value=\"fixed\">Fixed</option>\n            <option value=\"verified fixed\">Verified resolved</option>\n            <option value=\"closed\">Closed</option>\n            <option value=\"next\">Next version</option>\n            <option value=\"in progress\">In progress</option>\n        </select>\n\n\n        <label for=\"newTaskComponent\">Component</label>\n        <input type=\"text\" name=\"component\" id=\"newTaskComponent\" ng-model=\"home.newTask.component\" required=\"required\">\n\n        <label for=\"newTaskPriority\">Priority</label>\n        <select ng-model=\"home.newTask.priority\" required=\"required\" id=\"newTaskPriority\" name=\"priority\">\n            <option value=\"urgent\">Urgent</option>\n            <option value=\"high\">High</option>\n            <option value=\"medium\">Medium</option>\n            <option value=\"low\">Low</option>\n            <option value=\"next\">Next version</option>\n        </select>\n\n        <label for=\"newTaskType\">Type</label>\n        <select ng-model=\"home.newTask.type\" required=\"required\" id=\"newTaskType\" name=\"type\">\n            <option value=\"feature\">Feature</option>\n            <option value=\"bug\">Bug</option>\n            <option value=\"improvement\">Improvement</option>\n        </select>\n\n        <input type=\"submit\" value=\"Create\">\n\n    </form>\n\n</section>\n";
 
 /***/ },
 /* 6 */
@@ -36169,6 +36169,8 @@
 	        };
 
 	        this.TasksService.read().then(function (result) {
+	            console.log('responsible');
+	            console.log(result);
 	            _this.responsibleTasks = result.data;
 	        }, function (error) {
 	            console.log(error);
@@ -36176,6 +36178,8 @@
 	        });
 
 	        this.TasksService.read(true).then(function (result) {
+	            console.log('reporter');
+	            console.log(result);
 	            _this.reportedTasks = result.data;
 	        }, function (error) {
 	            console.log(error);
@@ -36188,17 +36192,15 @@
 	        value: function getTasks(start, limit, asAdmin) {
 	            var _this2 = this;
 
-	            this.TasksService.read().then(function (result) {
+	            this.TasksService.read(false, start, limit, asAdmin).then(function (result) {
 	                _this2.responsibleTasks = result.data;
 	            }, function (error) {
-	                console.log(error);
 	                _this2.Notification.error('Error getting tasks');
 	            });
 
-	            this.TasksService.read(true).then(function (result) {
+	            this.TasksService.read(true, start, limit, asAdmin).then(function (result) {
 	                _this2.reportedTasks = result.data;
 	            }, function (error) {
-	                console.log(error);
 	                _this2.Notification.error('Error getting tasks');
 	            });
 	        }
@@ -36211,7 +36213,7 @@
 	                _this3.newTask = {
 	                    status: 'open'
 	                };
-	                _this3.responsibleTasks.unshift(result.data);
+	                _this3.reportedTasks.unshift(result.data);
 	            }, function (error) {
 	                console.log(error);
 	                _this3.Notification.error('Error saving tasks');
