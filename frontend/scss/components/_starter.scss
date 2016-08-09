@@ -44,21 +44,9 @@ $containerWidth: 1000px; //** functions **//
     font-size: $size;
     font-size: calculateRem($size);
 }
-@mixin media-large {
-     @media only screen and (min-width: 50em){
-        @content;
-    }
-}
-@mixin media-medium {
-     @media only screen and (max-width: 50em){
-        @content;
-    }
-}
-@mixin media-small {
-     @media only screen and (max-width: 35em){
-        @content;
-    }
-}
+$largeBP: 1100px;
+$mediumBP: 1000px;
+$smallBP: 550px;
 //** Base styling **//
 html {
     min-height: 100%;
@@ -88,6 +76,42 @@ ui-view {
     box-sizing  : border-box;
     margin-left : 0;
     margin-right: 0;
+}
+.halves {
+	display       : inline-block;
+	width         : 49%;
+	padding       : 0 1em;
+	box-sizing    : border-box;
+	margin-left   : 0;
+	margin-right  : 0;
+	vertical-align: top;
+	p {
+		padding       : 0;
+		margin        : 1em auto;
+		vertical-align: top;
+		width         : 100%;
+	}
+	h3 {
+		margin-top: 0;
+		font-size : 2.2em;
+	}
+	@media(max-width: $mediumBP) {
+		display: block;
+		width  : 90%;
+		margin : 1em auto 3.5em;
+	}
+	@media(max-width: $smallBP) {
+		width: 98%;
+		img.boxed {
+			width: 95%;
+		}
+		p {
+			text-align: center;
+		}
+	}
+	img.boxed {
+		width: 80%;
+	}
 }
 h1 {
     font-family: $serif;

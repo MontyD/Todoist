@@ -3,10 +3,9 @@
 var bcrypt = require('bcrypt'),
     crypto = require('crypto');
 
-
 module.exports = function(sequelize, DataTypes) {
-    var user = sequelize.define('users', {
-        username: {
+    var room = sequelize.define('rooms', {
+        name: {
             type: DataTypes.STRING,
             unique: true,
             validate: {
@@ -26,21 +25,6 @@ module.exports = function(sequelize, DataTypes) {
                 }
             }
         },
-        emailVerified: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
-        emailVerificationHash: DataTypes.STRING,
-        fullName: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        firstName: DataTypes.STRING,
-        lastName: DataTypes.STRING,
-        admin: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -54,23 +38,18 @@ module.exports = function(sequelize, DataTypes) {
         salt: DataTypes.STRING
     }, {
         hooks: {
-            beforeCreate: function(user, options, cb) {
-                user.firstName = user.fullName.split(' ')[0] || '';
-                user.lastName = user.fullName.split(' ')[1] || '';
-                if (!user.emailVerified) {
-                  user.emailVerificationHash = crypto.randomBytes(20).toString('hex');
-                }
+            beforeCreate: function(room, options, cb) {
                 bcrypt.genSalt(12, function(err, salt) {
                     if (err) {
                         cb(err, options);
                     }
-                    user.salt = salt;
-                    bcrypt.hash(user.password, salt, function(err, hash) {
+                    room.salt = salt;
+                    bcrypt.hash(room.password, salt, function(err, hash) {
                         if (err) {
                             cb(err, options);
                         }
-                        user.password = hash;
-                        user.salt = salt;
+                        room.password = hash;
+                        room.salt = salt;
                         return cb(null, options);
                     });
                 });
@@ -78,5 +57,5 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
-    return user;
+    return room;
 };

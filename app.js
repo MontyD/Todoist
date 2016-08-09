@@ -157,25 +157,9 @@ app.use(function(err, req, res, next) {
 
 // Init - sync database and create default user if none exists
 models.sequelize.sync().then(function() {
-    models.users.count().then(function(count) {
-        if (count === 0) {
-            models.users.create({
-                username: config.defaultUser.username,
-                password: config.defaultUser.password,
-                email: config.defaultUser.email,
-                fullName: config.defaultUser.actualName,
-                emailVerified: true,
-                admin: true
-            }).then(function(user) {
-                console.log(user.username + ' created!');
-            }).catch(function(err) {
-                console.error(err);
-            });
-        }
-        app.listen(port, function() {
-            console.log('Listening on port ' + port);
-        });
-    }).catch(function(err) {
-        console.error(err);
+    app.listen(port, function() {
+        console.log('Listening on port ' + port);
     });
+}).catch(function(err) {
+    console.error(err);
 });

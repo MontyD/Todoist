@@ -17,8 +17,6 @@ class UserHomeCtrl {
 
         this.TasksService.read().then(
             result => {
-              console.log('responsible');
-              console.log(result);
                 this.responsibleTasks = result.data;
             },
             error => {
@@ -29,8 +27,6 @@ class UserHomeCtrl {
 
         this.TasksService.read(true).then(
             result => {
-              console.log('reporter');
-              console.log(result);
                 this.reportedTasks = result.data;
             },
             error => {

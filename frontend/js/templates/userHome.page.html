@@ -1,9 +1,11 @@
+<article class="light" ng-if="home.responsibleTasks.length > 0" ng-class="{'halves': home.reponsibleTask.length > 0 && home.reportedTasks.length > 0 }">
 <h2>Responsible for:</h2>
-<pre><code>{{home.responsibleTasks | json}}</code></pre>
-
+<task-list task="home.responsibleTask"></task-list>
+</article>
+<article class="light" ng-if="home.reportedTasks.length > 0" ng-class="{'halves': home.reponsibleTask.length > 0 && home.reportedTasks.length > 0 }">
 <h2>Reported:</h2>
-<pre><code>{{home.reportedTasks | json}}</code></pre>
-
+<task-list task="home.reportedTasks"></task-list>
+</article>
 
 <button ng-click="home.getTasks()">Get tasks</button>
 <section class="modal">
