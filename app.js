@@ -51,14 +51,13 @@ passport.deserializeUser(function(room, done) {
 });
 
 passport.use(new LocalStrategy(
-    function(name, password, done) {
+    function(username, password, done) {
         models.rooms.findOne({
             where: {
-                'name': name
+                'name': username
             },
             attributes: ['salt', 'password', 'id', 'name']
         }).then(function(room) {
-          console.log(room);
             if (!room) {
                 return done(null, false, {
                     message: 'Incorrect credentials.'
@@ -71,7 +70,7 @@ passport.use(new LocalStrategy(
                 if (hash === room.password) {
                     return done(null, {
                         id: room.id,
-                        name: name
+                        name: room.name
                     });
                 }
                 return done(null, false, {
