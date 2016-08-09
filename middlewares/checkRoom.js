@@ -1,9 +1,9 @@
 'use strict';
 
 
-function checkUser(req, res, next) {
+function checkRoom(req, res, next) {
 
-    if (req.user) {
+    if (req.room) {
         next();
     } else {
         var err = new Error('Please log in to view this page');
@@ -12,4 +12,4 @@ function checkUser(req, res, next) {
     }
 }
 
-module.exports = checkUser;
+module.exports = checkRoom;

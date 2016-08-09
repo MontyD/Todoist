@@ -5,59 +5,33 @@ var express = require('express'),
     path = require('path'),
     models = require(path.join(__dirname, '..', 'models')),
     respondsToJSON = require(path.join(__dirname, '..', 'middlewares', 'respondsJSON')),
-    checkUser = require(path.join(__dirname, '..', 'middlewares', 'checkUser')),
+    checkRoom = require(path.join(__dirname, '..', 'middlewares', 'checkRoom')),
     handleError = require(path.join(__dirname, '..', 'middlewares', 'handleError'));
 
 // GET ALL
-router.get('/', respondsToJSON, checkUser, function(req, res, next) {
+router.get('/', respondsToJSON, checkRoom, function(req, res, next) {
 
     var start = req.query.start || 0;
     var limit = req.query.limit || 10;
 
-    // ADMIN FETCH ALL
-    if (req.query.all && req.user.admin) {
-        models.tasks.findAll({
-            order: [
-                ['priority', 'DESC'],
-                ['updatedAt'],
-            ],
-            limit: limit,
-            offset: start
-        }).then(function(tasks) {
-            return res.json(tasks);
-        }).catch(function(err) {
-            return handleError(err, next);
-        });
+    // FETCH ALL
+    models.tasks.findAll({
+        order: [
+            ['updatedAt'],
+        ],
+        limit: limit,
+        offset: start
+    }).then(function(tasks) {
+        return res.json(tasks);
+    }).catch(function(err) {
+        return handleError(err, next);
+    });
 
-        // STANDARD USER
-    } else {
-        var query = {
-            responsibleUserId: req.user.id
-        };
-        if (req.query.reporter) {
-          query = {
-            reporterId: req.user.id
-          };
-        }
-        models.tasks.findAll({
-            where: query,
-            order: [
-                ['priority', 'DESC'],
-                ['updatedAt', 'DESC'],
-            ],
-            limit: limit,
-            offset: start
-        }).then(function(tasks) {
-            return res.json(tasks);
-        }).catch(function(err) {
-            return handleError(err, next);
-        });
-    }
 });
 
 
 // GET one task by ID
-router.get('/:taskID', respondsToJSON, checkUser, function(req, res, next) {
+router.get('/:taskID', respondsToJSON, checkRoom, function(req, res, next) {
 
     if (isNaN(req.params.taskID)) {
         var error = new Error('Bad get request');
@@ -84,7 +58,7 @@ router.get('/:taskID', respondsToJSON, checkUser, function(req, res, next) {
 });
 
 // CREATE NEW
-router.post('/', respondsToJSON, checkUser, function(req, res, next) {
+router.post('/', respondsToJSON, checkRoom, function(req, res, next) {
 
     if (!req.body.task) {
         var error = new Error('Bad get request');
@@ -106,7 +80,7 @@ router.post('/', respondsToJSON, checkUser, function(req, res, next) {
 
 
 // Update task by id
-router.put('/:taskID', respondsToJSON, checkUser, function(req, res, next) {
+router.put('/:taskID', respondsToJSON, checkRoom, function(req, res, next) {
 
     if (isNaN(req.params.taskID) || !req.body.task) {
         var error = new Error('Bad put data');
@@ -118,7 +92,7 @@ router.put('/:taskID', respondsToJSON, checkUser, function(req, res, next) {
         if (!task) {
             return next();
         } else {
-            if (task.userId === req.user.id || req.user.admin) {
+            if (task.roomId === req.room.id) {
                 task.update(req.body.task).then(function(updatedTask) {
                     res.sendStatus(200);
                 }).catch(function(err) {
@@ -140,28 +114,28 @@ router.put('/:taskID', respondsToJSON, checkUser, function(req, res, next) {
 // DELETE by ID
 router.delete('/:taskID', function(req, res, next) {
 
-  if (isNaN(req.params.taskID)) {
-      var error = new Error('Bad put data');
-      error.status = 400;
-      return next(error);
-  }
+    if (isNaN(req.params.taskID)) {
+        var error = new Error('Bad put data');
+        error.status = 400;
+        return next(error);
+    }
 
-  models.tasks.findById(req.params.taskID).then(function(task) {
-      if (!task) {
-          return next();
-      } else {
-          if (task.userId === req.user.id || req.user.admin) {
-              task.destroy().then(function(confirm) {
-                  res.sendStatus(200);
-              }).catch(function(err) {
-                  return handleError(err, next);
-              });
-          } else {
-              var error = new Error('Unauthorised');
-              error.status = 403;
-              return next(error);
-          }
-      }
+    models.tasks.findById(req.params.taskID).then(function(task) {
+        if (!task) {
+            return next();
+        } else {
+            if (task.roomId === req.room.id) {
+                task.destroy().then(function(confirm) {
+                    res.sendStatus(200);
+                }).catch(function(err) {
+                    return handleError(err, next);
+                });
+            } else {
+                var error = new Error('Unauthorised');
+                error.status = 403;
+                return next(error);
+            }
+        }
     });
 
 });

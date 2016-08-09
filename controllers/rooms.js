@@ -6,7 +6,7 @@ var express = require('express'),
     passport = require('passport'),
     models = require(path.join(__dirname, '..', 'models')),
     respondsToJSON = require(path.join(__dirname, '..', 'middlewares', 'respondsJSON')),
-    checkUser = require(path.join(__dirname, '..', 'middlewares', 'checkUser')),
+    checkRoom = require(path.join(__dirname, '..', 'middlewares', 'checkRoom')),
     handleError = require(path.join(__dirname, '..', 'middlewares', 'handleError'));
 
   // Get - register page
@@ -39,19 +39,14 @@ router.post('/login', function(req, res, next) {
 });
 
 
-// Post register - creates new user sends to login page with query string containing name and newAccount true, sets mailer to send verification email
+// Post register
 router.post('/new', function(req, res, next) {
     if (req.body.password !== req.body.confirm || !req.body.password || !req.body.confirm) {
         return res.render('security/new', {error: {message: 'Password confirmation incorrect.'}});
     }
-    models.rooms.create({
-        name: req.body.name,
-        password: req.body.password,
-        email: req.body.email,
-    }).then(function(room) {
-        res.redirect('/rooms/login?name=' + room.name);
+    models.rooms.create(req.body).then(function(room) {
+        return res.redirect('/rooms/login?name=' + room.name);
     }).catch(function(error) {
-        console.error(error);
         return res.render('security/new', {error: {message: error.errors[0].message}});
     });
 });
