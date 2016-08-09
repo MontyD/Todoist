@@ -7,7 +7,7 @@ var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var bundlesPath = path.resolve(__dirname, 'public', 'bundles');
 
 var entryPoints = {
-    userHome: path.resolve(__dirname, 'frontend', 'js', 'userHome.es6.js'),
+    room: path.resolve(__dirname, 'frontend', 'js', 'room.es6.js'),
 };
 
 module.exports = function(grunt) {
@@ -38,12 +38,12 @@ module.exports = function(grunt) {
                     ]
                 },
                 plugins: [
-                    // new Webpack.optimize.UglifyJsPlugin({
-                    //     minimize: true
-                    // }),
-                    // new StatsPlugin(path.join(__dirname, 'stats.json'), {
-                    //     chunkModules: true
-                    // })
+                    new Webpack.optimize.UglifyJsPlugin({
+                        minimize: true
+                    }),
+                    new StatsPlugin(path.join(__dirname, 'stats.json'), {
+                        chunkModules: true
+                    })
                 ]
             }
         },

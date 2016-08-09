@@ -9,6 +9,13 @@ var express = require('express'),
     checkUser = require(path.join(__dirname, '..', 'middlewares', 'checkUser')),
     handleError = require(path.join(__dirname, '..', 'middlewares', 'handleError'));
 
+  // Get - register page
+  router.get('/login', function(req, res, next) {
+      req.logout();
+      res.render('security/login', {name: req.query.name});
+
+  });
+
 // Post login - authenticate
 router.post('/login', function(req, res, next) {
     passport.authenticate('local', function(err, room, info) {
@@ -16,7 +23,7 @@ router.post('/login', function(req, res, next) {
             return next(err);
         }
         if (!room) {
-            return res.render('login', {
+            return res.render('security/login', {
                 badCredentials: true,
                 originalURL: req.body.originalURL
             });
@@ -32,37 +39,27 @@ router.post('/login', function(req, res, next) {
 });
 
 
-// Get - register page
-router.get('/login', function(req, res, next) {
-    req.logout();
-    res.render('login');
-
-});
-
 // Post register - creates new user sends to login page with query string containing name and newAccount true, sets mailer to send verification email
-router.post('/register', function(req, res, next) {
-    if (req.body.password !== req.body.passwordConfirmation || !req.body.password || !req.body.passwordConfirmation) {
-        return handleError({
-            status: 400,
-            message: 'Password not successfully confirmed'
-        }, next);
+router.post('/new', function(req, res, next) {
+    if (req.body.password !== req.body.confirm || !req.body.password || !req.body.confirm) {
+        return res.render('security/new', {error: {message: 'Password confirmation incorrect.'}});
     }
-    models.users.create({
-        username: req.body.username,
-        fullName: req.body.fullName,
+    models.rooms.create({
+        name: req.body.name,
         password: req.body.password,
         email: req.body.email,
-    }).then(function(user) {
-        res.redirect('/users/login?newAccount=true&username=' + user.username);
+    }).then(function(room) {
+        res.redirect('/rooms/login?name=' + room.name);
     }).catch(function(error) {
-        handleError(error, next);
+        console.error(error);
+        return res.render('security/new', {error: {message: error.errors[0].message}});
     });
 });
 
 // Get home - render user home admin
-router.get('/home', checkUser, function(req, res) {
+router.get('/new', function(req, res) {
 
-    res.render('userHome');
+    res.render('security/new');
 
 });
 

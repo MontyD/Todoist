@@ -42,22 +42,23 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser(function(user, done) {
-    done(null, user);
+passport.serializeUser(function(room, done) {
+    done(null, room);
 });
 
-passport.deserializeUser(function(user, done) {
-    done(null, user);
+passport.deserializeUser(function(room, done) {
+    done(null, room);
 });
 
 passport.use(new LocalStrategy(
     function(name, password, done) {
-        models.users.findOne({
+        models.rooms.findOne({
             where: {
                 'name': name
             },
-            attributes: ['salt', 'password', 'id', 'name', 'admin']
+            attributes: ['salt', 'password', 'id', 'name']
         }).then(function(room) {
+          console.log(room);
             if (!room) {
                 return done(null, false, {
                     message: 'Incorrect credentials.'

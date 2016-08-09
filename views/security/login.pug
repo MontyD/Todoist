@@ -1,17 +1,20 @@
-extends layouts/base
+extends ../layouts/base
 block content
   body
     nav.top.absolute
       .container
-        include ./includes/_headerLinks.pug
+        include ../includes/_headerLinks.pug
     header.slightGradient
       section.modal.light
         h1 Login
         if badCredentials
           p.error Incorrect login details
-        form(method="POST", action="/users/login")
+        form(method="POST", action="/rooms/login")
           label(for="username") Room name
-          input(type="text", name="name", id="name", autofocus="autofocus", required="required")
+          if (name)
+            input(type="text", name="name", id="name", autofocus="autofocus", required="required", value=name)
+          else
+            input(type="text", name="name", id="name", autofocus="autofocus", required="required")
           label(for="password") Room password
           input(type="password", name="password", id="password", required="required")
           input(type="submit", value="Login")

@@ -25,6 +25,7 @@ module.exports = function(sequelize, DataTypes) {
                 }
             }
         },
+        theme: DataTypes.STRING,
         password: {
             type: DataTypes.STRING,
             allowNull: false,
