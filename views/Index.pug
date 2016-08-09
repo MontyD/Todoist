@@ -1,0 +1,12 @@
+extends layouts/base
+block content
+  body
+    nav.top.absolute
+      .container
+        include ./includes/_headerLinks.pug
+    header.slightGradient
+      section.modal.light
+        h1 Todoist
+        p Where people come to get things done together
+        a.fakeButton.primary(href="/rooms/login", title="login") Login to a room
+        a.fakeButton(href="/rooms/new", title="new") Start a new room

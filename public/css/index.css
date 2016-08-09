@@ -571,12 +571,14 @@ input[type="submit"] {
   display: block;
   margin: 0 auto;
   max-width: 600px;
-  padding: 0.6em 1em;
+  padding: 3em 1em;
   box-sizing: border-box;
   text-align: center;
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
   .modal.main {
     margin: 5% auto; }
+  .modal h1, .modal h2, .modal h3 {
+    margin-top: 0; }
 
 .innerModal {
   position: relative;
@@ -1493,12 +1495,14 @@ input[type="submit"] {
   display: block;
   margin: 0 auto;
   max-width: 600px;
-  padding: 0.6em 1em;
+  padding: 3em 1em;
   box-sizing: border-box;
   text-align: center;
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
   .modal.main {
     margin: 5% auto; }
+  .modal h1, .modal h2, .modal h3 {
+    margin-top: 0; }
 
 .innerModal {
   position: relative;

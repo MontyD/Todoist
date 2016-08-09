@@ -5,7 +5,7 @@ var express = require('express'),
     path = require('path'),
     passUser = require(path.join(__dirname, '..', 'middlewares', 'passUser'));
 
-router.use('/users', require('./users.js'));
+router.use('/rooms', require('./rooms.js'));
 
 router.use('/tasks', require('./tasks.js'));
 
@@ -14,7 +14,7 @@ router.get('/', passUser, function(req, res) {
   if (req.user) {
     res.render('userHome');
   } else {
-    res.render('login');
+    res.render('Index');
   }
 });
 

@@ -250,12 +250,15 @@ input[type="submit"] {
     display   : block;
     margin    : 0 auto;
     max-width : 600px;
-    padding   : 0.6em 1em;
+    padding   : 3em 1em;
     box-sizing: border-box;
     text-align: center;
     @include shadow(1);
     &.main {
         margin: 5% auto;
+    }
+    h1,h2,h3 {
+      margin-top: 0;
     }
 }
 .innerModal {

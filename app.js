@@ -51,28 +51,26 @@ passport.deserializeUser(function(user, done) {
 });
 
 passport.use(new LocalStrategy(
-    function(reqUsername, password, done) {
+    function(name, password, done) {
         models.users.findOne({
             where: {
-                'username': reqUsername
+                'name': name
             },
-            attributes: ['salt', 'password', 'id', 'firstName', 'admin']
-        }).then(function(user) {
-            if (!user) {
+            attributes: ['salt', 'password', 'id', 'name', 'admin']
+        }).then(function(room) {
+            if (!room) {
                 return done(null, false, {
                     message: 'Incorrect credentials.'
                 });
             }
-            bcrypt.hash(password, user.salt, function(err, hash) {
+            bcrypt.hash(password, room.salt, function(err, hash) {
                 if (err) {
                     done(null, false, err);
                 }
-                if (hash === user.password) {
+                if (hash === room.password) {
                     return done(null, {
-                        id: user.id,
-                        username: reqUsername,
-                        firstName: user.firstName,
-                        admin: user.admin
+                        id: room.id,
+                        name: name
                     });
                 }
                 return done(null, false, {

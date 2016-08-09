@@ -11,17 +11,17 @@ var express = require('express'),
 
 // Post login - authenticate
 router.post('/login', function(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
+    passport.authenticate('local', function(err, room, info) {
         if (err) {
             return next(err);
         }
-        if (!user) {
+        if (!room) {
             return res.render('login', {
                 badCredentials: true,
                 originalURL: req.body.originalURL
             });
         }
-        req.logIn(user, function(err) {
+        req.logIn(room, function(err) {
             if (err) {
                 return next(err);
             }
@@ -33,10 +33,9 @@ router.post('/login', function(req, res, next) {
 
 
 // Get - register page
-router.get('/register', function(req, res, next) {
-
+router.get('/login', function(req, res, next) {
     req.logout();
-    res.render('register');
+    res.render('login');
 
 });
 
