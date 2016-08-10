@@ -14,8 +14,6 @@ router.get('/', respondsToJSON, checkRoom, function(req, res, next) {
     var start = req.query.start || 0;
     var limit = req.query.limit || 10;
 
-    console.log(req.user);
-
     // FETCH ALL
     models.tasks.findAll({
         where: {
@@ -74,6 +72,8 @@ router.post('/', respondsToJSON, checkRoom, function(req, res, next) {
     var task = req.body.task;
 
     task.roomId = req.user.id;
+
+    task.username = req.session.username;
 
     models.tasks.create(task).then(function(newTask) {
         res.send(newTask);
