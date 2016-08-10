@@ -1,6 +1,8 @@
 'use strict';
 
 function passRoomAndUser(req, res, next) {
+
+  //room is passed as req.user
     if (!req.user) {
         return next();
     }

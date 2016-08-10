@@ -43,7 +43,7 @@ router.get('/:taskID', respondsToJSON, checkRoom, function(req, res, next) {
         if (!task) {
             return next();
         } else {
-            if (task.userId === req.user.id || req.user.admin) {
+            if (task.roomId === req.user.id) {
                 return res.json(task);
             } else {
                 var error = new Error('Unauthorised');
@@ -68,7 +68,7 @@ router.post('/', respondsToJSON, checkRoom, function(req, res, next) {
 
     var task = req.body.task;
 
-    task.reporterId = req.user.id;
+    task.roomId = req.user.id;
 
     models.tasks.create(task).then(function(newTask) {
         res.send(newTask);
