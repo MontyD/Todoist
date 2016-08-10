@@ -11,7 +11,9 @@ block content
           p.error= error.message
         form(method="POST", action="/rooms/new")
           label(for="username") Room name
-          input(type="text", name="name", id="name", autofocus="autofocus", required="required")
+          input(type="text", name="username", id="username", autofocus="autofocus", required="required")
+          label(for="name") Your name
+          input(type="text", name="name", id="name", required="required")
           label(for="email") Your email address
           input(type="email", name="email", id="email", required="required")
           label(for="password") Room password

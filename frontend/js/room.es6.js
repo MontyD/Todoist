@@ -1,9 +1,9 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 
-import userHomeConfig from './config/userHomeConfig.es6.js';
+import RoomConfig from './config/RoomConfig.es6.js';
 
-import UserHomeCtrl from './controllers/userHome.es6.js';
+import RoomCtrl from './controllers/RoomCtrl.es6.js';
 
 //Vendor imports
 import uiNotification from 'angular-ui-notification';
@@ -11,6 +11,6 @@ import uiNotification from 'angular-ui-notification';
 import TasksService from './services/tasks.es6.js';
 
 angular.module('app', [uiRouter, 'ui-notification'])
-  .controller('UserHomeCtrl', UserHomeCtrl)
+  .controller('RoomCtrl', RoomCtrl)
   .service('TasksService', TasksService)
-  .config(userHomeConfig);
+  .config(RoomConfig);

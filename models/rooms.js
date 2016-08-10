@@ -9,9 +9,10 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             unique: true,
             validate: {
+                is: ['^[a-z0-9]+$', 'i'],
                 len: {
                     args: [5, 20],
-                    msg: 'Please enter a username between five and twenty characters long'
+                    msg: 'Please enter a username consisting of only letters and numbers between five and twenty characters long'
                 }
             }
         },
@@ -40,6 +41,7 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         hooks: {
             beforeCreate: function(room, options, cb) {
+              room.name = String(room.name).toLowerCase();
                 bcrypt.genSalt(12, function(err, salt) {
                     if (err) {
                         cb(err, options);

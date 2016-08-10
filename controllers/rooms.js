@@ -9,15 +9,12 @@ var express = require('express'),
     checkRoom = require(path.join(__dirname, '..', 'middlewares', 'checkRoom')),
     handleError = require(path.join(__dirname, '..', 'middlewares', 'handleError'));
 
-  // Get - register page
-  router.get('/login', function(req, res, next) {
-      req.logout();
-      res.render('security/login', {name: req.query.name});
 
-  });
-
-// Post login - authenticate
-router.post('/login', function(req, res, next) {
+  // Passport auth
+  function authenticateRoom(req, res, next) {
+    if (req.body.name) {
+      req.session.username = req.body.name;
+    }
     passport.authenticate('local', function(err, room, info) {
         if (err) {
             return next(err);
@@ -36,7 +33,17 @@ router.post('/login', function(req, res, next) {
             return res.redirect(redirect);
         });
     })(req, res, next);
-});
+  }
+
+  // Get - register page
+  router.get('/login', function(req, res, next) {
+      req.logout();
+      req.session.destroy();
+      res.render('security/login', {name: req.query.name});
+  });
+
+// Post login - authenticate
+router.post('/login', authenticateRoom);
 
 
 // Post register
@@ -44,8 +51,10 @@ router.post('/new', function(req, res, next) {
     if (req.body.password !== req.body.confirm || !req.body.password || !req.body.confirm) {
         return res.render('security/new', {error: {message: 'Password confirmation incorrect.'}});
     }
+    var newRoom = req.body;
+    newRoom.name = req.body.username;
     models.rooms.create(req.body).then(function(room) {
-        return res.redirect('/rooms/login?name=' + room.name);
+      authenticateRoom(req, res, next);
     }).catch(function(error) {
         return res.render('security/new', {error: {message: error.errors[0].message}});
     });

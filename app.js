@@ -52,9 +52,10 @@ passport.deserializeUser(function(room, done) {
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
+      var roomName = String(username).toLowerCase();
         models.rooms.findOne({
             where: {
-                'name': username
+                'name': roomName
             },
             attributes: ['salt', 'password', 'id', 'name']
         }).then(function(room) {

@@ -8,8 +8,8 @@ function config($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
         .state('home', {
             url: '/',
-            template: require('../templates/userHome.page.html'),
-            controller: 'UserHomeCtrl',
+            template: require('../templates/Room.page.html'),
+            controller: 'RoomCtrl',
             controllerAs: 'home'
         });
 }

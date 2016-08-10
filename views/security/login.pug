@@ -10,9 +10,14 @@ block content
         if badCredentials
           p.error Incorrect login details
         form(method="POST", action="/rooms/login")
+          label(for="name") Your name
+          if (userName)
+            input(type="text", name="name", id="name", required="required", value=userName)
+          else
+            input(type="text", name="name", id="name", autofocus="autofocus", required="required")
           label(for="username") Room name
-          if (name)
-            input(type="text", name="username", id="username", autofocus="autofocus", required="required", value=name)
+          if (roomName)
+            input(type="text", name="username", id="username", required="required", value=name)
           else
             input(type="text", name="username", id="username", autofocus="autofocus", required="required")
           label(for="password") Room password

@@ -1,6 +1,6 @@
 'use strict';
 
-class UserHomeCtrl {
+class RoomCtrl {
 
     constructor(Notification, TasksService) {
 
@@ -75,6 +75,6 @@ class UserHomeCtrl {
 
 }
 
-UserHomeCtrl.$inject = ['Notification', 'TasksService'];
+RoomCtrl.$inject = ['Notification', 'TasksService'];
 
-export default UserHomeCtrl;
+export default RoomCtrl;
