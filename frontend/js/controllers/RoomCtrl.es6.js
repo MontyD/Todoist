@@ -7,9 +7,7 @@ class RoomCtrl {
         this.Notification = Notification;
         this.TasksService = TasksService;
 
-        this.responsibleTasks = [];
-
-        this.reportedTasks = [];
+        this.task = [];
 
         this.newTask = {
             status: 'open'
@@ -17,17 +15,7 @@ class RoomCtrl {
 
         this.TasksService.read().then(
             result => {
-                this.responsibleTasks = result.data;
-            },
-            error => {
-                console.log(error);
-                this.Notification.error('Error getting tasks');
-            }
-        );
-
-        this.TasksService.read(true).then(
-            result => {
-                this.reportedTasks = result.data;
+                this.tasks = result.data;
             },
             error => {
                 console.log(error);

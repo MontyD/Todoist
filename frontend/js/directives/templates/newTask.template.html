@@ -1,0 +1,42 @@
+<form ng-submit="home.createTask()" novalidate="novalidate">
+
+    <label for="newTaskTitle">Title</label>
+    <input type="text" id="newTaskTitle" name="title" ng-model="home.newTask.title" required="required">
+
+
+    <label for="newTaskDescription">Description</label>
+    <textarea id="newTaskDescription" ng-model="home.newTask.description" required="required" name="description"></textarea>
+
+    <label for="newTaskStatus">Status</label>
+    <select ng-model="home.newTask.status" required="required" id="newTaskStatus" name="status">
+        <option value="open">Open</option>
+        <option value="fixed">Fixed</option>
+        <option value="verified fixed">Verified resolved</option>
+        <option value="closed">Closed</option>
+        <option value="next">Next version</option>
+        <option value="in progress">In progress</option>
+    </select>
+
+
+    <label for="newTaskComponent">Component</label>
+    <input type="text" name="component" id="newTaskComponent" ng-model="home.newTask.component" required="required">
+
+    <label for="newTaskPriority">Priority</label>
+    <select ng-model="home.newTask.priority" required="required" id="newTaskPriority" name="priority">
+        <option value="urgent">Urgent</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+        <option value="next">Next version</option>
+    </select>
+
+    <label for="newTaskType">Type</label>
+    <select ng-model="home.newTask.type" required="required" id="newTaskType" name="type">
+        <option value="feature">Feature</option>
+        <option value="bug">Bug</option>
+        <option value="improvement">Improvement</option>
+    </select>
+
+    <input type="submit" value="Create">
+
+</form>
