@@ -41,7 +41,6 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         hooks: {
             beforeCreate: function(room, options, cb) {
-              room.name = String(room.name).toLowerCase();
                 bcrypt.genSalt(12, function(err, salt) {
                     if (err) {
                         cb(err, options);

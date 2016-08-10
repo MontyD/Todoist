@@ -12,14 +12,14 @@ block content
         form(method="POST", action="/rooms/login")
           label(for="name") Your name
           if (userName)
-            input(type="text", name="name", id="name", required="required", value=userName)
+            input(type="text", name="name", id="name", autofocus="autofocus", required="required", value=userName)
           else
             input(type="text", name="name", id="name", autofocus="autofocus", required="required")
           label(for="username") Room name
           if (roomName)
-            input(type="text", name="username", id="username", required="required", value=name)
+            input(type="text", name="username", id="username", required="required", value=roomName)
           else
-            input(type="text", name="username", id="username", autofocus="autofocus", required="required")
+            input(type="text", name="username", id="username", required="required")
           label(for="password") Room password
           input(type="password", name="password", id="password", required="required")
           input(type="submit", value="Login")

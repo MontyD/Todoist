@@ -3,14 +3,14 @@
 var express = require('express'),
     router = express.Router(),
     path = require('path'),
-    passUser = require(path.join(__dirname, '..', 'middlewares', 'passUser'));
+    passRoomAndUser = require(path.join(__dirname, '..', 'middlewares', 'passRoomAndUser'));
 
 router.use('/rooms', require('./rooms.js'));
 
 router.use('/tasks', require('./tasks.js'));
 
 // render index or login if no user
-router.get('/', passUser, function(req, res) {
+router.get('/', passRoomAndUser, function(req, res) {
   if (req.user) {
     res.render('room');
   } else {

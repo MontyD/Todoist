@@ -7,13 +7,14 @@ var express = require('express'),
     models = require(path.join(__dirname, '..', 'models')),
     respondsToJSON = require(path.join(__dirname, '..', 'middlewares', 'respondsJSON')),
     checkRoom = require(path.join(__dirname, '..', 'middlewares', 'checkRoom')),
+    passRoomAndUser = require(path.join(__dirname, '..', 'middlewares', 'passRoomAndUser')),
     handleError = require(path.join(__dirname, '..', 'middlewares', 'handleError'));
 
 
-  // Passport auth
-  function authenticateRoom(req, res, next) {
+// Passport auth
+function authenticateRoom(req, res, next) {
     if (req.body.name) {
-      req.session.username = req.body.name;
+        req.session.username = req.body.name;
     }
     passport.authenticate('local', function(err, room, info) {
         if (err) {
@@ -33,14 +34,16 @@ var express = require('express'),
             return res.redirect(redirect);
         });
     })(req, res, next);
-  }
+}
 
-  // Get - register page
-  router.get('/login', function(req, res, next) {
-      req.logout();
-      req.session.destroy();
-      res.render('security/login', {name: req.query.name});
-  });
+// Get - register page
+router.get('/login', function(req, res, next) {
+    req.logout();
+    req.session.destroy();
+    res.render('security/login', {
+        roomName: req.query.name
+    });
+});
 
 // Post login - authenticate
 router.post('/login', authenticateRoom);
@@ -49,14 +52,18 @@ router.post('/login', authenticateRoom);
 // Post register
 router.post('/new', function(req, res, next) {
     if (req.body.password !== req.body.confirm || !req.body.password || !req.body.confirm) {
-        return res.render('security/new', {error: {message: 'Password confirmation incorrect.'}});
+        return res.render('security/new', {
+            error: {
+                message: 'Password confirmation incorrect.'
+            }
+        });
     }
     var newRoom = req.body;
     newRoom.name = req.body.username;
     models.rooms.create(req.body).then(function(room) {
-      authenticateRoom(req, res, next);
+        authenticateRoom(req, res, next);
     }).catch(function(error) {
-        return res.render('security/new', {error: {message: error.errors[0].message}});
+      return handleError(error, next);
     });
 });
 
