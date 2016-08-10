@@ -10,7 +10,7 @@ class RoomCtrl {
         this.task = [];
 
         this.newTask = {
-            status: 'open'
+            status: 'Todo'
         };
 
         this.TasksService.read().then(

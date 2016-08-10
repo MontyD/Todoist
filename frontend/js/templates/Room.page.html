@@ -2,6 +2,6 @@
 <button ng-click="home.getTasks()">Get tasks</button>
 <section class="modal">
 
-<new-task></new-task>
+<new-task create-task="home.createTask(newTask)" task="home.newTask"></new-task>
 
 </section>

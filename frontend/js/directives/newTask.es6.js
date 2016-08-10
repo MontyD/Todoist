@@ -13,3 +13,5 @@ function newTask() {
     }
   };
 }
+
+export default newTask;
