@@ -7,7 +7,7 @@ class RoomCtrl {
         this.Notification = Notification;
         this.TasksService = TasksService;
 
-        this.task = [];
+        this.tasks = [];
 
         this.newTask = {
             status: 'Todo'
@@ -25,19 +25,10 @@ class RoomCtrl {
 
     }
 
-    getTasks(start, limit, asAdmin) {
-        this.TasksService.read(false, start, limit, asAdmin).then(
+    getTasks(start, limit) {
+        this.TasksService.read(start, limit).then(
             result => {
-                this.responsibleTasks = result.data;
-            },
-            error => {
-                this.Notification.error('Error getting tasks');
-            }
-        );
-
-        this.TasksService.read(true, start, limit, asAdmin).then(
-            result => {
-                this.reportedTasks = result.data;
+                this.tasks = result.data;
             },
             error => {
                 this.Notification.error('Error getting tasks');
@@ -49,9 +40,9 @@ class RoomCtrl {
         this.TasksService.create(this.newTask).then(
             result => {
                 this.newTask = {
-                    status: 'open'
+                    status: 'Todo'
                 };
-                this.reportedTasks.unshift(result.data);
+                this.tasks.push(result.data);
             },
             error => {
                 console.log(error);

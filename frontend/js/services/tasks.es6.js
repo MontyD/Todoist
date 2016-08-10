@@ -13,18 +13,12 @@ class TasksService {
         });
     }
 
-    read(reporter, id, start, limit, asAdmin) {
+    read(id, start, limit) {
         let requestURL = this.urlBase;
         if (typeof id === 'number') {
             requestURL += id;
         }
         requestURL += '?';
-        if (reporter) {
-          requestURL += 'reporter=true&';
-        }
-        if (asAdmin) {
-            requestURL += 'all=true&';
-        }
         if (start) {
             requestURL += 'start=' + start + '&';
         }

@@ -36139,7 +36139,7 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<button ng-click=\"home.getTasks()\">Get tasks</button>\n<section class=\"modal\">\n\n<new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\"></new-task>\n\n</section>\n";
+	module.exports = "{{ home.tasks | json }}\n\n<button ng-click=\"home.getTasks()\">Get tasks</button>\n<section class=\"modal\">\n\n<new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\"></new-task>\n\n</section>\n";
 
 /***/ },
 /* 6 */
@@ -36164,7 +36164,7 @@
 	        this.Notification = Notification;
 	        this.TasksService = TasksService;
 
-	        this.task = [];
+	        this.tasks = [];
 
 	        this.newTask = {
 	            status: 'Todo'
@@ -36180,17 +36180,11 @@
 
 	    _createClass(RoomCtrl, [{
 	        key: 'getTasks',
-	        value: function getTasks(start, limit, asAdmin) {
+	        value: function getTasks(start, limit) {
 	            var _this2 = this;
 
-	            this.TasksService.read(false, start, limit, asAdmin).then(function (result) {
-	                _this2.responsibleTasks = result.data;
-	            }, function (error) {
-	                _this2.Notification.error('Error getting tasks');
-	            });
-
-	            this.TasksService.read(true, start, limit, asAdmin).then(function (result) {
-	                _this2.reportedTasks = result.data;
+	            this.TasksService.read(start, limit).then(function (result) {
+	                _this2.tasks = result.data;
 	            }, function (error) {
 	                _this2.Notification.error('Error getting tasks');
 	            });
@@ -36202,9 +36196,9 @@
 
 	            this.TasksService.create(this.newTask).then(function (result) {
 	                _this3.newTask = {
-	                    status: 'open'
+	                    status: 'Todo'
 	                };
-	                _this3.reportedTasks.unshift(result.data);
+	                _this3.tasks.push(result.data);
 	            }, function (error) {
 	                console.log(error);
 	                _this3.Notification.error('Error saving tasks');
@@ -36521,18 +36515,12 @@
 	        }
 	    }, {
 	        key: 'read',
-	        value: function read(reporter, id, start, limit, asAdmin) {
+	        value: function read(id, start, limit) {
 	            var requestURL = this.urlBase;
 	            if (typeof id === 'number') {
 	                requestURL += id;
 	            }
 	            requestURL += '?';
-	            if (reporter) {
-	                requestURL += 'reporter=true&';
-	            }
-	            if (asAdmin) {
-	                requestURL += 'all=true&';
-	            }
 	            if (start) {
 	                requestURL += 'start=' + start + '&';
 	            }

@@ -14,8 +14,13 @@ router.get('/', respondsToJSON, checkRoom, function(req, res, next) {
     var start = req.query.start || 0;
     var limit = req.query.limit || 10;
 
+    console.log(req.user);
+
     // FETCH ALL
     models.tasks.findAll({
+        where: {
+            roomId: req.user.id
+        },
         order: [
             ['updatedAt'],
         ],
