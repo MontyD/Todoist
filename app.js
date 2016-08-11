@@ -131,11 +131,12 @@ app.use(function(err, req, res, next) {
 });
 
 
-// Init - sync database and create default user if none exists
+// Init - sync database
 models.sequelize.sync().then(function() {
     app.listen(port, function() {
         console.log('Listening on port ' + port);
     });
 }).catch(function(err) {
     console.error(err);
+    process.exit(1);
 });
