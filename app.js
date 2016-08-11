@@ -2,11 +2,11 @@
 
 var express = require('express'),
     app = express(),
+    server = require('http').Server(app),
+    io = require('socket.io')(server),
     bodyParser = require('body-parser'),
     passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy,
     bodyParser = require('body-parser'),
-    bcrypt = require('bcrypt'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
     morgan = require('morgan'),
@@ -14,6 +14,7 @@ var express = require('express'),
     path = require('path'),
     controllers = require(path.join(__dirname, 'controllers')),
     models = require(path.join(__dirname, 'models')),
+    authentication = require(path.join(__dirname, 'middlewares', 'authentication.js')),
     config = require(path.join(__dirname, 'config.js'));
 
 app.set('views', __dirname + '/views');
@@ -50,36 +51,7 @@ passport.deserializeUser(function(room, done) {
     done(null, room);
 });
 
-passport.use(new LocalStrategy(
-    function(username, password, done) {
-        models.rooms.findOne({
-            where: {
-                'name': username
-            },
-            attributes: ['salt', 'password', 'id', 'name']
-        }).then(function(room) {
-            if (!room) {
-                return done(null, false, {
-                    message: 'Incorrect credentials.'
-                });
-            }
-            bcrypt.hash(password, room.salt, function(err, hash) {
-                if (err) {
-                    done(null, false, err);
-                }
-                if (hash === room.password) {
-                    return done(null, {
-                        id: room.id,
-                        name: room.name
-                    });
-                }
-                return done(null, false, {
-                    message: 'Incorrect credentials.'
-                });
-            });
-        });
-    }
-));
+passport.use(authentication);
 
 // Logging
 if (config.env === 'development') {
@@ -87,6 +59,12 @@ if (config.env === 'development') {
 } else {
     app.use(morgan('combined'));
 }
+
+// Add io to res
+app.use(function(req, res, next){
+  res.io = io;
+  next();
+});
 
 
 // Routing - in controllers
