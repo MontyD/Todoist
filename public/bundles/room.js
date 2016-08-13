@@ -43779,7 +43779,7 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var RoomCtrl = (function () {
-	    function RoomCtrl(Notification, TasksService, SocketsService) {
+	    function RoomCtrl(Notification, TasksService, SocketsService, $scope) {
 	        var _this = this;
 
 	        _classCallCheck(this, RoomCtrl);
@@ -43788,6 +43788,7 @@
 	        this.Notification = Notification;
 	        this.TasksService = TasksService;
 	        this.SocketsService = SocketsService;
+	        this.scope = $scope;
 
 	        // initial variables
 	        this.roomName = '';
@@ -43829,6 +43830,12 @@
 	            this.SocketsService.on('UserConnected', (function (data) {
 	                this.Notification.success(data);
 	            }).bind(this));
+
+	            this.SocketsService.on('NewTask', (function (data) {
+	                this.addTaskLocally(data);
+	                // force view to update;
+	                this.scope.apply();
+	            }).bind(this));
 	        }
 	    }, {
 	        key: 'getTasks',
@@ -43841,6 +43848,8 @@
 	                _this2.Notification.error('Error getting tasks');
 	            });
 	        }
+
+	        // create task on server
 	    }, {
 	        key: 'createTask',
 	        value: function createTask() {
@@ -43850,18 +43859,30 @@
 	                _this3.newTask = {
 	                    status: 'Todo'
 	                };
-	                _this3.tasks.push(result.data);
+	                _this3.addTaskLocally(result.data);
 	            }, function (error) {
 	                console.log(error);
 	                _this3.Notification.error('Error saving tasks');
 	            });
+	        }
+
+	        // add task locally within js array.
+	    }, {
+	        key: 'addTaskLocally',
+	        value: function addTaskLocally(newTask) {
+	            var alreadyAdded = this.tasks.find(function (task) {
+	                return task.id === newTask.id;
+	            });
+	            if (!alreadyAdded) {
+	                this.tasks.push(newTask);
+	            }
 	        }
 	    }]);
 
 	    return RoomCtrl;
 	})();
 
-	RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService'];
+	RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope'];
 
 	exports['default'] = RoomCtrl;
 	module.exports = exports['default'];

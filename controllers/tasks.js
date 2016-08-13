@@ -85,6 +85,7 @@ router.post('/', respondsToJSON, checkRoom, function(req, res, next) {
     task.username = req.session.username;
 
     models.tasks.create(task).then(function(newTask) {
+        res.io.to(req.user.name).emit('NewTask', newTask);
         res.send(newTask);
     }).catch(function(err) {
         return handleError(err, next);

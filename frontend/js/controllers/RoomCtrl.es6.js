@@ -2,12 +2,13 @@
 
 class RoomCtrl {
 
-    constructor(Notification, TasksService, SocketsService) {
+    constructor(Notification, TasksService, SocketsService, $scope) {
 
         // Dependencies
         this.Notification = Notification;
         this.TasksService = TasksService;
         this.SocketsService = SocketsService;
+        this.scope = $scope;
 
         // initial variables
         this.roomName = '';
@@ -48,7 +49,13 @@ class RoomCtrl {
 
         // Socket events config
         this.SocketsService.on('UserConnected', (function(data) {
-          this.Notification.success(data);
+            this.Notification.success(data);
+        }).bind(this));
+
+        this.SocketsService.on('NewTask', (function(data) {
+            this.addTaskLocally(data);
+            // force view to update;
+            this.scope.apply();
         }).bind(this));
     }
 
@@ -63,13 +70,14 @@ class RoomCtrl {
         );
     }
 
+    // create task on server
     createTask() {
         this.TasksService.create(this.newTask).then(
             result => {
                 this.newTask = {
                     status: 'Todo'
                 };
-                this.tasks.push(result.data);
+                this.addTaskLocally(result.data);
             },
             error => {
                 console.log(error);
@@ -79,8 +87,16 @@ class RoomCtrl {
 
     }
 
+    // add task locally within js array.
+    addTaskLocally(newTask) {
+        let alreadyAdded = this.tasks.find(task => task.id === newTask.id);
+        if (!alreadyAdded) {
+            this.tasks.push(newTask);
+        }
+    }
+
 }
 
-RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService'];
+RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope'];
 
 export default RoomCtrl;
