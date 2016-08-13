@@ -25,7 +25,11 @@ router.get('/', respondsToJSON, checkRoom, function(req, res, next) {
         limit: limit,
         offset: start
     }).then(function(tasks) {
-        return res.json(tasks);
+        return res.json({
+            tasks: tasks,
+            username: req.session.username,
+            roomName: req.user.name
+        });
     }).catch(function(err) {
         return handleError(err, next);
     });

@@ -7,6 +7,10 @@ class RoomCtrl {
         this.Notification = Notification;
         this.TasksService = TasksService;
 
+        this.roomName = '';
+
+        this.username = '';
+
         this.tasks = [];
 
         this.newTask = {
@@ -16,6 +20,8 @@ class RoomCtrl {
         this.TasksService.read().then(
             result => {
                 this.tasks = result.data;
+                this.username = result.data.username;
+                this.roomName = result.data.roomName;
             },
             error => {
                 console.log(error);
@@ -28,7 +34,7 @@ class RoomCtrl {
     getTasks(start, limit) {
         this.TasksService.read(start, limit).then(
             result => {
-                this.tasks = result.data;
+                this.tasks = result.data.tasks;
             },
             error => {
                 this.Notification.error('Error getting tasks');
