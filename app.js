@@ -12,6 +12,7 @@ var express = require('express'),
     morgan = require('morgan'),
     port = process.env.PORT || 3000,
     path = require('path'),
+    socketsRouting = require(path.join(__dirname, 'sockets')),
     controllers = require(path.join(__dirname, 'controllers')),
     models = require(path.join(__dirname, 'models')),
     authentication = require(path.join(__dirname, 'middlewares', 'authentication.js')),
@@ -66,6 +67,8 @@ app.use(function(req, res, next){
   next();
 });
 
+// socket routing
+io.on('connection', socketsRouting);
 
 // Routing - in controllers
 app.use(controllers);

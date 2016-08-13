@@ -88,7 +88,7 @@
 
 	window.io = _socketIoClient2['default'];
 
-	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).directive('newTask', _directivesNewTaskEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketService', _servicesSocketsEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
+	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).directive('newTask', _directivesNewTaskEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketsService', _servicesSocketsEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -43779,14 +43779,17 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var RoomCtrl = (function () {
-	    function RoomCtrl(Notification, TasksService, SocketService) {
+	    function RoomCtrl(Notification, TasksService, SocketsService) {
 	        var _this = this;
 
 	        _classCallCheck(this, RoomCtrl);
 
+	        // Dependencies
 	        this.Notification = Notification;
 	        this.TasksService = TasksService;
+	        this.SocketsService = SocketsService;
 
+	        // initial variables
 	        this.roomName = '';
 
 	        this.username = '';
@@ -43797,17 +43800,32 @@
 	            status: 'Todo'
 	        };
 
+	        // read tasks from server, and also get username
+	        // and room name
 	        this.TasksService.read().then(function (result) {
-	            _this.tasks = result.data;
+	            _this.tasks = result.data.tasks;
 	            _this.username = result.data.username;
 	            _this.roomName = result.data.roomName;
+
+	            // connect to socket by room name
+	            _this.initSockets();
 	        }, function (error) {
 	            console.log(error);
 	            _this.Notification.error('Error getting tasks');
 	        });
 	    }
 
+	    // have to create temporary room var,
+	    // as socket functions have to be called
+	    // with this as socket.
+
 	    _createClass(RoomCtrl, [{
+	        key: 'initSockets',
+	        value: function initSockets() {
+	            var room = this.roomName;
+	            this.SocketsService.emit('room', room);
+	        }
+	    }, {
 	        key: 'getTasks',
 	        value: function getTasks(start, limit) {
 	            var _this2 = this;
@@ -43838,7 +43856,7 @@
 	    return RoomCtrl;
 	})();
 
-	RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketService'];
+	RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService'];
 
 	exports['default'] = RoomCtrl;
 	module.exports = exports['default'];
@@ -44194,38 +44212,36 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var SocketsService = (function () {
-	  function SocketsService($window, $rootScope) {
-	    _classCallCheck(this, SocketsService);
+	    function SocketsService($window, $rootScope) {
+	        _classCallCheck(this, SocketsService);
 
-	    this.socket = $window.io.connect($window.location.origin);
-	    this.rootScope = $rootScope;
-	  }
-
-	  _createClass(SocketsService, [{
-	    key: 'on',
-	    value: function on(eventName, callback) {
-	      this.socket.on(eventName, function () {
-	        var args = arguments;
-	        this.rootScope.$apply(function () {
-	          callback.apply(this.socket, args);
-	        });
-	      });
+	        this.socket = $window.io.connect($window.location.origin);
+	        this.$rootScope = $rootScope;
 	    }
-	  }, {
-	    key: 'emit',
-	    value: function emit(eventName, data, callback) {
-	      this.socket.emit(eventName, data, function () {
-	        var args = arguments;
-	        this.rootScope.$apply(function () {
-	          if (callback) {
-	            callback.apply(this.socket, args);
-	          }
-	        });
-	      });
-	    }
-	  }]);
 
-	  return SocketsService;
+	    _createClass(SocketsService, [{
+	        key: 'on',
+	        value: function on(eventName, callback) {
+	            this.socket.on(eventName, function () {
+	                var args = arguments;
+	                callback.apply(this.socket, args);
+	            });
+	        }
+	    }, {
+	        key: 'emit',
+	        value: function emit(eventName, data, callback) {
+	            console.log(eventName);
+	            console.log(data);
+	            this.socket.emit(eventName, data, function () {
+	                var args = arguments;
+	                if (callback) {
+	                    callback.apply(this.socket, args);
+	                }
+	            });
+	        }
+	    }]);
+
+	    return SocketsService;
 	})();
 
 	SocketsService.$inject = ['$window', '$rootScope'];

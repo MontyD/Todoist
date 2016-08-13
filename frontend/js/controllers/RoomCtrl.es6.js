@@ -2,11 +2,14 @@
 
 class RoomCtrl {
 
-    constructor(Notification, TasksService, SocketService) {
+    constructor(Notification, TasksService, SocketsService) {
 
+        // Dependencies
         this.Notification = Notification;
         this.TasksService = TasksService;
+        this.SocketsService = SocketsService;
 
+        // initial variables
         this.roomName = '';
 
         this.username = '';
@@ -17,11 +20,16 @@ class RoomCtrl {
             status: 'Todo'
         };
 
+        // read tasks from server, and also get username
+        // and room name
         this.TasksService.read().then(
             result => {
-                this.tasks = result.data;
+                this.tasks = result.data.tasks;
                 this.username = result.data.username;
                 this.roomName = result.data.roomName;
+                
+                // connect to socket by room name
+                this.initSockets();
             },
             error => {
                 console.log(error);
@@ -29,6 +37,14 @@ class RoomCtrl {
             }
         );
 
+    }
+
+    // have to create temporary room var,
+    // as socket functions have to be called
+    // with this as socket.
+    initSockets() {
+        let room = this.roomName;
+        this.SocketsService.emit('room', room);
     }
 
     getTasks(start, limit) {
@@ -60,6 +76,6 @@ class RoomCtrl {
 
 }
 
-RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketService'];
+RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService'];
 
 export default RoomCtrl;
