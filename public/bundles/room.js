@@ -43801,8 +43801,8 @@
 	        };
 
 	        // read tasks from server, and also get username
-	        // and room name
-	        this.TasksService.read().then(function (result) {
+	        // and room name. Set initial to true (last arg);
+	        this.TasksService.read(undefined, undefined, undefined, true).then(function (result) {
 	            _this.tasks = result.data.tasks;
 	            _this.username = result.data.username;
 	            _this.roomName = result.data.roomName;
@@ -43824,6 +43824,11 @@
 	        value: function initSockets() {
 	            var room = this.roomName;
 	            this.SocketsService.emit('room', room);
+
+	            // Socket events config
+	            this.SocketsService.on('UserConnected', (function (data) {
+	                this.Notification.success(data);
+	            }).bind(this));
 	        }
 	    }, {
 	        key: 'getTasks',
@@ -44162,12 +44167,17 @@
 	        }
 	    }, {
 	        key: 'read',
-	        value: function read(id, start, limit) {
+	        value: function read(id, start, limit, initial) {
 	            var requestURL = this.urlBase;
+	            // ID is not part of query sting
 	            if (typeof id === 'number') {
 	                requestURL += id;
 	            }
+	            // begin query string
 	            requestURL += '?';
+	            if (initial) {
+	                requestURL += 'initial=true&';
+	            }
 	            if (start) {
 	                requestURL += 'start=' + start + '&';
 	            }
@@ -44222,16 +44232,11 @@
 	    _createClass(SocketsService, [{
 	        key: 'on',
 	        value: function on(eventName, callback) {
-	            this.socket.on(eventName, function () {
-	                var args = arguments;
-	                callback.apply(this.socket, args);
-	            });
+	            this.socket.on(eventName, callback);
 	        }
 	    }, {
 	        key: 'emit',
 	        value: function emit(eventName, data, callback) {
-	            console.log(eventName);
-	            console.log(data);
 	            this.socket.emit(eventName, data, function () {
 	                var args = arguments;
 	                if (callback) {

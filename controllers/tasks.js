@@ -13,6 +13,7 @@ router.get('/', respondsToJSON, checkRoom, function(req, res, next) {
 
     var start = req.query.start || 0;
     var limit = req.query.limit || 10;
+    var initial = !!req.query.initial;
 
     // FETCH ALL
     models.tasks.findAll({
@@ -25,6 +26,10 @@ router.get('/', respondsToJSON, checkRoom, function(req, res, next) {
         limit: limit,
         offset: start
     }).then(function(tasks) {
+        // emit socket that new user has joined
+        if (initial) {
+            res.io.to(req.user.name).emit('UserConnected', req.session.username + ' has joined!');
+        }
         return res.json({
             tasks: tasks,
             username: req.session.username,

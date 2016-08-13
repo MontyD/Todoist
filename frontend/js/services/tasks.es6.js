@@ -13,12 +13,17 @@ class TasksService {
         });
     }
 
-    read(id, start, limit) {
+    read(id, start, limit, initial) {
         let requestURL = this.urlBase;
+        // ID is not part of query sting
         if (typeof id === 'number') {
             requestURL += id;
         }
+        // begin query string
         requestURL += '?';
+        if (initial) {
+            requestURL += 'initial=true&';
+        }
         if (start) {
             requestURL += 'start=' + start + '&';
         }
@@ -26,7 +31,7 @@ class TasksService {
             requestURL += 'limit=' + limit;
         }
         if (requestURL.substr(requestURL.length - 1) === '&' || requestURL.substr(requestURL.length - 1) === '?') {
-          requestURL = requestURL.substr(0, requestURL.length - 1);
+            requestURL = requestURL.substr(0, requestURL.length - 1);
         }
 
         return this.$http.get(requestURL);

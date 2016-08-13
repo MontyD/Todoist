@@ -4,7 +4,8 @@ var socketsRouting = function(socket) {
 
     socket.on('room', function(room) {
       console.log('joining: ' + room);
-       socket.join(room);
+      socket.join(room);
+
    });
 
     socket.on('disconnect', function() {

@@ -8,15 +8,10 @@ class SocketsService {
     }
 
     on(eventName, callback) {
-        this.socket.on(eventName, function() {
-            var args = arguments;
-            callback.apply(this.socket, args);
-        });
+        this.socket.on(eventName, callback);
     }
 
     emit(eventName, data, callback) {
-      console.log(eventName);
-      console.log(data);
         this.socket.emit(eventName, data, function() {
             var args = arguments;
             if (callback) {
