@@ -2,7 +2,7 @@
 
 class RoomCtrl {
 
-    constructor(Notification, TasksService) {
+    constructor(Notification, TasksService, SocketService) {
 
         this.Notification = Notification;
         this.TasksService = TasksService;
@@ -54,6 +54,6 @@ class RoomCtrl {
 
 }
 
-RoomCtrl.$inject = ['Notification', 'TasksService'];
+RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketService'];
 
 export default RoomCtrl;

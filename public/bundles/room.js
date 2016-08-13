@@ -78,7 +78,11 @@
 
 	var _servicesTasksEs6Js2 = _interopRequireDefault(_servicesTasksEs6Js);
 
-	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).directive('newTask', _directivesNewTaskEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
+	var _servicesSocketsEs6Js = __webpack_require__(12);
+
+	var _servicesSocketsEs6Js2 = _interopRequireDefault(_servicesSocketsEs6Js);
+
+	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).directive('newTask', _directivesNewTaskEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketService', _servicesSocketsEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -36156,7 +36160,7 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var RoomCtrl = (function () {
-	    function RoomCtrl(Notification, TasksService) {
+	    function RoomCtrl(Notification, TasksService, SocketService) {
 	        var _this = this;
 
 	        _classCallCheck(this, RoomCtrl);
@@ -36209,7 +36213,7 @@
 	    return RoomCtrl;
 	})();
 
-	RoomCtrl.$inject = ['Notification', 'TasksService'];
+	RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketService'];
 
 	exports['default'] = RoomCtrl;
 	module.exports = exports['default'];
@@ -36553,6 +36557,55 @@
 	TasksService.$inject = ['$http'];
 
 	module.exports = TasksService;
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var SocketsService = (function () {
+	  function SocketsService($window, $rootScope) {
+	    _classCallCheck(this, SocketsService);
+
+	    this.socket = $window.io.connect();
+	    this.rootScope = $rootScope;
+	  }
+
+	  _createClass(SocketsService, [{
+	    key: 'on',
+	    value: function on(eventName, callback) {
+	      this.socket.on(eventName, function () {
+	        var args = arguments;
+	        this.rootScope.$apply(function () {
+	          callback.apply(this.socket, args);
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'emit',
+	    value: function emit(eventName, data, callback) {
+	      this.socket.emit(eventName, data, function () {
+	        var args = arguments;
+	        this.rootScope.$apply(function () {
+	          if (callback) {
+	            callback.apply(this.socket, args);
+	          }
+	        });
+	      });
+	    }
+	  }]);
+
+	  return SocketsService;
+	})();
+
+	SocketsService.$inject = ['$window', '$rootScope'];
+
+	module.exports = SocketsService;
 
 /***/ }
 /******/ ]);
