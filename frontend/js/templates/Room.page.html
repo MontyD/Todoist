@@ -1,12 +1,21 @@
-<h1>Hi {{home.username}}</h1>
+<nav class="top dark">
+    <div class="container">
+        <h1><a href="/" title="Home">Todoist - {{home.roomName}}</a></h1>
+        <ul>
+            <li>Tasks</li>
+            <li>Settings</li>
+            <li>Overview</li>
+            <li>Logout</li>
+        </ul>
+    </div>
+</nav>
+<main class="container">
+    <h2>Hi {{home.username}}</h2> {{ home.tasks | json }}
 
-<h2>{{home.roomName}}</h2>
+    <button ng-click="home.getTasks()">Get tasks</button>
+    <section class="modal light">
 
-{{ home.tasks | json }}
+        <new-task create-task="home.createTask(newTask)" task="home.newTask"></new-task>
 
-<button ng-click="home.getTasks()">Get tasks</button>
-<section class="modal">
-
-<new-task create-task="home.createTask(newTask)" task="home.newTask"></new-task>
-
-</section>
+    </section>
+</main>

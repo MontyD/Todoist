@@ -2,13 +2,12 @@
 
 class RoomCtrl {
 
-    constructor(Notification, TasksService, SocketsService, $scope) {
+    constructor(Notification, TasksService, SocketsService) {
 
         // Dependencies
         this.Notification = Notification;
         this.TasksService = TasksService;
         this.SocketsService = SocketsService;
-        this.scope = $scope;
 
         // initial variables
         this.roomName = '';
@@ -55,7 +54,7 @@ class RoomCtrl {
         this.SocketsService.on('NewTask', (function(data) {
             this.addTaskLocally(data.task, data.username);
             // force view to update;
-            this.scope.$apply();
+            this.$apply();
         }).bind(this));
     }
 
@@ -118,6 +117,6 @@ class RoomCtrl {
 
 }
 
-RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope'];
+RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService'];
 
 export default RoomCtrl;

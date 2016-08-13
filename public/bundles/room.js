@@ -43762,7 +43762,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>Hi {{home.username}}</h1>\n\n<h2>{{home.roomName}}</h2>\n\n{{ home.tasks | json }}\n\n<button ng-click=\"home.getTasks()\">Get tasks</button>\n<section class=\"modal\">\n\n<new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\"></new-task>\n\n</section>\n";
+	module.exports = "<nav class=\"top dark\">\n    <div class=\"container\">\n        <h1><a href=\"/\" title=\"Home\">Todoist - {{home.roomName}}</a></h1>\n        <ul>\n            <li>Tasks</li>\n            <li>Settings</li>\n            <li>Overview</li>\n            <li>Logout</li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n    <h2>Hi {{home.username}}</h2> {{ home.tasks | json }}\n\n    <button ng-click=\"home.getTasks()\">Get tasks</button>\n    <section class=\"modal light\">\n\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\"></new-task>\n\n    </section>\n</main>\n";
 
 /***/ },
 /* 56 */
@@ -43779,7 +43779,7 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var RoomCtrl = (function () {
-	    function RoomCtrl(Notification, TasksService, SocketsService, $scope) {
+	    function RoomCtrl(Notification, TasksService, SocketsService) {
 	        var _this = this;
 
 	        _classCallCheck(this, RoomCtrl);
@@ -43788,7 +43788,6 @@
 	        this.Notification = Notification;
 	        this.TasksService = TasksService;
 	        this.SocketsService = SocketsService;
-	        this.scope = $scope;
 
 	        // initial variables
 	        this.roomName = '';
@@ -43834,7 +43833,7 @@
 	            this.SocketsService.on('NewTask', (function (data) {
 	                this.addTaskLocally(data.task, data.username);
 	                // force view to update;
-	                this.scope.$apply();
+	                this.$apply();
 	            }).bind(this));
 	        }
 	    }, {
@@ -43902,7 +43901,7 @@
 	    return RoomCtrl;
 	})();
 
-	RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope'];
+	RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService'];
 
 	exports['default'] = RoomCtrl;
 	module.exports = exports['default'];

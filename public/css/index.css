@@ -577,8 +577,18 @@ input[type="submit"] {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
   .modal.main {
     margin: 5% auto; }
-  .modal h1, .modal h2, .modal h3 {
+  .modal h1,
+  .modal h2,
+  .modal h3 {
     margin-top: 0; }
+
+nav.top h1 {
+  margin: 0;
+  font-size: 2em; }
+  nav.top h1 a {
+    padding: 0.2em 0.6em; }
+    nav.top h1 a:hover {
+      background: transparent; }
 
 .innerModal {
   position: relative;
@@ -1501,8 +1511,18 @@ input[type="submit"] {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
   .modal.main {
     margin: 5% auto; }
-  .modal h1, .modal h2, .modal h3 {
+  .modal h1,
+  .modal h2,
+  .modal h3 {
     margin-top: 0; }
+
+nav.top h1 {
+  margin: 0;
+  font-size: 2em; }
+  nav.top h1 a {
+    padding: 0.2em 0.6em; }
+    nav.top h1 a:hover {
+      background: transparent; }
 
 .innerModal {
   position: relative;
