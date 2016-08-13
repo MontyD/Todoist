@@ -43812,7 +43812,7 @@
 	            _this.initSockets();
 	        }, function (error) {
 	            console.log(error);
-	            _this.Notification.error('Error getting tasks');
+	            _this.Nofity('Error getting tasks', 'Error');
 	        });
 	    }
 
@@ -43828,13 +43828,13 @@
 
 	            // Socket events config
 	            this.SocketsService.on('UserConnected', (function (data) {
-	                this.Notification.success(data);
+	                this.Notify(data, 'Success');
 	            }).bind(this));
 
 	            this.SocketsService.on('NewTask', (function (data) {
-	                this.addTaskLocally(data);
+	                this.addTaskLocally(data.task, data.username);
 	                // force view to update;
-	                this.scope.apply();
+	                this.scope.$apply();
 	            }).bind(this));
 	        }
 	    }, {
@@ -43845,7 +43845,7 @@
 	            this.TasksService.read(start, limit).then(function (result) {
 	                _this2.tasks = result.data.tasks;
 	            }, function (error) {
-	                _this2.Notification.error('Error getting tasks');
+	                _this2.Notify('Error getting tasks', 'Error');
 	            });
 	        }
 
@@ -43862,19 +43862,39 @@
 	                _this3.addTaskLocally(result.data);
 	            }, function (error) {
 	                console.log(error);
-	                _this3.Notification.error('Error saving tasks');
+	                _this3.Notify('Error saving tasks', 'Error');
 	            });
 	        }
 
 	        // add task locally within js array.
 	    }, {
 	        key: 'addTaskLocally',
-	        value: function addTaskLocally(newTask) {
+	        value: function addTaskLocally(newTask, username) {
 	            var alreadyAdded = this.tasks.find(function (task) {
 	                return task.id === newTask.id;
 	            });
 	            if (!alreadyAdded) {
 	                this.tasks.push(newTask);
+	                if (username) {
+	                    this.Notify(username + ' added a new task');
+	                }
+	            }
+	        }
+	    }, {
+	        key: 'Notify',
+	        value: function Notify(text, type) {
+	            if (this.doNotNotify) {
+	                return false;
+	            }
+	            switch (type) {
+	                case 'Success':
+	                    this.Notification.success(text);
+	                    break;
+	                case 'Error':
+	                    this.Notification.error(text);
+	                    break;
+	                default:
+	                    this.Notification.info(text);
 	            }
 	        }
 	    }]);

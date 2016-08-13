@@ -34,7 +34,7 @@ class RoomCtrl {
             },
             error => {
                 console.log(error);
-                this.Notification.error('Error getting tasks');
+                this.Nofity('Error getting tasks', 'Error');
             }
         );
 
@@ -49,13 +49,13 @@ class RoomCtrl {
 
         // Socket events config
         this.SocketsService.on('UserConnected', (function(data) {
-            this.Notification.success(data);
+            this.Notify(data, 'Success');
         }).bind(this));
 
         this.SocketsService.on('NewTask', (function(data) {
-            this.addTaskLocally(data);
+            this.addTaskLocally(data.task, data.username);
             // force view to update;
-            this.scope.apply();
+            this.scope.$apply();
         }).bind(this));
     }
 
@@ -65,7 +65,7 @@ class RoomCtrl {
                 this.tasks = result.data.tasks;
             },
             error => {
-                this.Notification.error('Error getting tasks');
+                this.Notify('Error getting tasks', 'Error');
             }
         );
     }
@@ -81,18 +81,39 @@ class RoomCtrl {
             },
             error => {
                 console.log(error);
-                this.Notification.error('Error saving tasks');
+                this.Notify('Error saving tasks', 'Error');
             }
         );
 
     }
 
     // add task locally within js array.
-    addTaskLocally(newTask) {
+    addTaskLocally(newTask, username) {
         let alreadyAdded = this.tasks.find(task => task.id === newTask.id);
         if (!alreadyAdded) {
             this.tasks.push(newTask);
+            if (username) {
+                this.Notify(username + ' added a new task');
+            }
         }
+    }
+
+    Notify(text, type) {
+        if (this.doNotNotify) {
+            return false;
+        }
+        switch (type) {
+            case 'Success':
+                this.Notification.success(text);
+                break;
+            case 'Error':
+                this.Notification.error(text);
+                break;
+            default:
+                this.Notification.info(text);
+        }
+
+
     }
 
 }
