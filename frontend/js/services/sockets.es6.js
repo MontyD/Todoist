@@ -3,7 +3,7 @@
 class SocketsService {
 
     constructor($window, $rootScope) {
-        this.socket = $window.io.connect();
+        this.socket = $window.io.connect($window.location.origin);
         this.rootScope = $rootScope;
     }
 

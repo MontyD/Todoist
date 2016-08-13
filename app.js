@@ -133,7 +133,7 @@ app.use(function(err, req, res, next) {
 
 // Init - sync database
 models.sequelize.sync().then(function() {
-    app.listen(port, function() {
+    server.listen(port, function() {
         console.log('Listening on port ' + port);
     });
 }).catch(function(err) {

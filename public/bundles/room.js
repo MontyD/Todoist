@@ -44197,7 +44197,7 @@
 	  function SocketsService($window, $rootScope) {
 	    _classCallCheck(this, SocketsService);
 
-	    this.socket = $window.io.connect();
+	    this.socket = $window.io.connect($window.location.origin);
 	    this.rootScope = $rootScope;
 	  }
 
