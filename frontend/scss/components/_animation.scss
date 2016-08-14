@@ -1,21 +1,37 @@
 .bounce {
-  animation-name: bounce;
-  animation-iteration-count: infinite;
-  animation-duration: 1.2s;
-  animation-timing-function: linear;
+    animation-name           : bounce;
+    animation-iteration-count: infinite;
+    animation-duration       : 1.2s;
+    animation-timing-function: linear;
 }
-
 @keyframes bounce {
-   0% {
-       transform: translateY(0);
-   }
-   33% {
-       transform: translateY(-3px);
-   }
-   66% {
-       transform: translateY(3px);
-   }
-   100% {
-       transform: translateY(0);
-   }
+    0% {
+        transform: translateY(0);
+    }
+    33% {
+        transform: translateY(-3px);
+    }
+    66% {
+        transform: translateY(3px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+.task-item.ng-leave {
+    animation: task-out 0.5s ease-out;
+}
+@keyframes task-out {
+    0% {
+        transform: translateX(0) scale(1);
+        opacity  : 1;
+    }
+    20% {
+        transform: translateX(0) scale(0.8);
+        opacity  : 1;
+    }
+    100% {
+        transform: translateX(-200px) scale(0.8);
+        opacity  : 0;
+    }
 }

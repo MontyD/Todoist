@@ -243,7 +243,7 @@ input[type="submit"] {
         color     : $colorDark;
     }
     &:hover {
-        @include shadow(2);
+        @include shadow(1);
     }
     &:active,
     &:focus {
@@ -347,13 +347,16 @@ input[type="submit"] {
         }
     }
 }
+.tasks-container {
+  overflow: hidden;
+}
 .task-item {
     display   : block;
     clear     : both;
     border-top: 2px solid $colorGrey;
     .task-description {
         display       : inline-block;
-        width         : 90%;
+        width         : 80%;
         vertical-align: middle;
         color         : $colorDarkGrey;
     }
@@ -365,7 +368,7 @@ input[type="submit"] {
     }
     .checkbox-container {
         display       : inline-block;
-        width         : 8%;
+        width         : 15%;
         vertical-align: middle;
         * {
             vertical-align: middle;

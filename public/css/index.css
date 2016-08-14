@@ -554,7 +554,7 @@ input[type="submit"] {
   button:hover,
   input[type="button"]:hover,
   input[type="submit"]:hover {
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16); }
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
   .fakeButton:active, .fakeButton:focus,
   button:active,
   button:focus,
@@ -655,13 +655,16 @@ input[type="submit"] {
   .innerModal.primary.active button.trigger {
     color: #FFCA28; }
 
+.tasks-container {
+  overflow: hidden; }
+
 .task-item {
   display: block;
   clear: both;
   border-top: 2px solid #E0E0E0; }
   .task-item .task-description {
     display: inline-block;
-    width: 90%;
+    width: 80%;
     vertical-align: middle;
     color: #6f6f6f; }
   .task-item .task-title {
@@ -671,7 +674,7 @@ input[type="submit"] {
     margin-bottom: 0; }
   .task-item .checkbox-container {
     display: inline-block;
-    width: 8%;
+    width: 15%;
     vertical-align: middle; }
     .task-item .checkbox-container * {
       vertical-align: middle; }
@@ -1577,7 +1580,7 @@ input[type="submit"] {
   button:hover,
   input[type="button"]:hover,
   input[type="submit"]:hover {
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16); }
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
   .fakeButton:active, .fakeButton:focus,
   button:active,
   button:focus,
@@ -1678,13 +1681,16 @@ input[type="submit"] {
   .innerModal.primary.active button.trigger {
     color: #FFCA28; }
 
+.tasks-container {
+  overflow: hidden; }
+
 .task-item {
   display: block;
   clear: both;
   border-top: 2px solid #E0E0E0; }
   .task-item .task-description {
     display: inline-block;
-    width: 90%;
+    width: 80%;
     vertical-align: middle;
     color: #6f6f6f; }
   .task-item .task-title {
@@ -1694,7 +1700,7 @@ input[type="submit"] {
     margin-bottom: 0; }
   .task-item .checkbox-container {
     display: inline-block;
-    width: 8%;
+    width: 15%;
     vertical-align: middle; }
     .task-item .checkbox-container * {
       vertical-align: middle; }
@@ -1903,6 +1909,74 @@ footer {
   color: #fff;
   background: #5bc0de; }
 
+.bounce {
+  -webkit-animation-name: bounce;
+          animation-name: bounce;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-duration: 1.2s;
+          animation-duration: 1.2s;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear; }
+
+@-webkit-keyframes bounce {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); }
+  33% {
+    -webkit-transform: translateY(-3px);
+            transform: translateY(-3px); }
+  66% {
+    -webkit-transform: translateY(3px);
+            transform: translateY(3px); }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); } }
+
+@keyframes bounce {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); }
+  33% {
+    -webkit-transform: translateY(-3px);
+            transform: translateY(-3px); }
+  66% {
+    -webkit-transform: translateY(3px);
+            transform: translateY(3px); }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); } }
+.task-item.ng-leave {
+  -webkit-animation: task-out 0.5s ease-out;
+          animation: task-out 0.5s ease-out; }
+
+@-webkit-keyframes task-out {
+  0% {
+    -webkit-transform: translateX(0) scale(1);
+            transform: translateX(0) scale(1);
+    opacity: 1; }
+  20% {
+    -webkit-transform: translateX(0) scale(0.8);
+            transform: translateX(0) scale(0.8);
+    opacity: 1; }
+  100% {
+    -webkit-transform: translateX(-200px) scale(0.8);
+            transform: translateX(-200px) scale(0.8);
+    opacity: 0; } }
+
+@keyframes task-out {
+  0% {
+    -webkit-transform: translateX(0) scale(1);
+            transform: translateX(0) scale(1);
+    opacity: 1; }
+  20% {
+    -webkit-transform: translateX(0) scale(0.8);
+            transform: translateX(0) scale(0.8);
+    opacity: 1; }
+  100% {
+    -webkit-transform: translateX(-200px) scale(0.8);
+            transform: translateX(-200px) scale(0.8);
+    opacity: 0; } }
 header {
   margin: 0 auto 2em 0;
   padding: 7em 0;

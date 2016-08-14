@@ -3,7 +3,6 @@
 class RoomCtrl {
 
     constructor(Notification, TasksService, SocketsService, $scope) {
-
         // Dependencies
         this.Notification = Notification;
         this.TasksService = TasksService;
@@ -34,7 +33,7 @@ class RoomCtrl {
             },
             error => {
                 console.log(error);
-                this.Nofity('Error getting tasks', 'Error');
+                this.Nofity('Error getting todos', 'Error');
             }
         );
 
@@ -76,7 +75,7 @@ class RoomCtrl {
                 this.tasks = result.data.tasks;
             },
             error => {
-                this.Notify('Error getting tasks', 'Error');
+                this.Notify('Error getting todos', 'Error');
             }
         );
     }
@@ -92,7 +91,7 @@ class RoomCtrl {
             },
             error => {
                 console.log(error);
-                this.Notify('Error saving tasks', 'Error');
+                this.Notify('Error saving todos', 'Error');
             }
         );
 
@@ -104,7 +103,7 @@ class RoomCtrl {
         if (!alreadyAdded) {
             this.tasks.push(newTask);
             if (username) {
-                this.Notify(username + ' added a new task');
+                this.Notify(username + ' added a new todo');
             }
         }
     }
@@ -119,7 +118,7 @@ class RoomCtrl {
             result => this.updateTaskLocally(result.data),
             error => {
                 console.log(error);
-                this.Notify('Error updating task', 'Error');
+                this.Notify('Error updating todo', 'Error');
             }
         );
     }
