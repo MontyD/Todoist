@@ -9,19 +9,19 @@
         </ul>
     </div>
 </nav>
-<main class="container">
+<main class="container no-pad">
     <section class="thirds two">
       <article class="modal full-width task-list">
         <h2>Todos</h2>
         <div class="task-item" ng-repeat="task in home.tasks">
-          <h3>{{task.title}}</h3>
-          <p>{{task.desciption}}</p>
-          <p>{{task.createdAt | date : longDate}}
+          <p class="task-title">{{task.title}}</h3>
+          <p class="task-description">{{task.description}}</p>
+          <p class="task-date">{{task.createdAt | date : longDate}}
         </div>
       </article>
     </section>
-    <section class="thirds one">
-      <h2 class="subtle-subtitle">Hi {{home.username}}</h2> {{ home.tasks | json }}
+    <section class="thirds one center">
+      <h2 class="subtle-subtitle">Hi {{home.username}}</h2>
     </section>
 
 

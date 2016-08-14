@@ -147,7 +147,6 @@ h5 {
 }
 .subtle-subtitle {
     color      : $colorDarkGrey;
-    text-align : right;
     font-size  : 3em;
     margin-top : 0;
     font-family: $serif;
@@ -203,6 +202,10 @@ p.slight {
     padding   : 1em;
     width     : 100%;
     max-width : $containerWidth;
+    &.no-pad {
+        padding-left : 0;
+        padding-right: 0;
+    }
 }
 .left-aligned {
     text-align: left;
@@ -273,7 +276,7 @@ input[type="submit"] {
         margin: 5% auto;
     }
     &.full-width {
-      max-width: none;
+        max-width: none;
     }
     h1,
     h2,
@@ -381,34 +384,34 @@ input[type="submit"] {
     user-select: text;
 }
 .thirds {
-	display     : inline-block;
-	width       : 32%;
-	padding     : 0 1em;
-	box-sizing  : border-box;
-	margin-left : 0;
-	margin-right: 0;
-	text-align  : center;
-  vertical-align: top;
-	&.two {
-		width: 65%;
-	}
-	p {
-		padding       : 0;
-		margin        : 1em auto;
-		vertical-align: top;
-		width         : 100%;
-		text-align    : center;
-	}
-	h3 {
-		margin   : 0 auto;
-		font-size: 2.2em;
-	}
-	@media(max-width: $mediumBP) {
-		&.two {
-			width: 90%;
-		}
-		display: block;
-		width  : 90%;
-		margin : 0.5em auto 1em;
-	}
+    display       : inline-block;
+    width         : 32%;
+    padding       : 0 1em;
+    box-sizing    : border-box;
+    margin-left   : 0;
+    margin-right  : 0;
+    text-align    : center;
+    vertical-align: top;
+    &.two {
+        width: 65%;
+    }
+    p {
+        padding       : 0;
+        margin        : 1em auto;
+        vertical-align: top;
+        width         : 100%;
+        text-align    : center;
+    }
+    h3 {
+        margin   : 0 auto;
+        font-size: 2.2em;
+    }
+    @media(max-width: $mediumBP) {
+        &.two {
+            width: 90%;
+        }
+        display: block;
+        width  : 90%;
+        margin : 0.5em auto 1em;
+    }
 }
