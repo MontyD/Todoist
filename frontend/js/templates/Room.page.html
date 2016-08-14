@@ -1,18 +1,30 @@
 <nav class="top dark">
     <div class="container">
-        <h1><a href="/" title="Home">Todoist - {{home.roomName}}</a></h1>
+        <a class="home-link" href="/" title="Home">Todoist | {{home.roomName}}</a>
         <ul>
-            <li>Tasks</li>
-            <li>Settings</li>
-            <li>Overview</li>
-            <li>Logout</li>
+            <li><a href="#" title="">Tasks</a></li>
+            <li><a href="#" title="">Settings</a></li>
+            <li><a href="#" title="">Overview</a></li>
+            <li><a href="#" title="">Logout</a></li>
         </ul>
     </div>
 </nav>
 <main class="container">
-    <h2>Hi {{home.username}}</h2> {{ home.tasks | json }}
+    <section class="thirds two">
+      <article class="modal full-width task-list">
+        <h2>Todos</h2>
+        <div class="task-item" ng-repeat="task in home.tasks">
+          <h3>{{task.title}}</h3>
+          <p>{{task.desciption}}</p>
+          <p>{{task.createdAt | date : longDate}}
+        </div>
+      </article>
+    </section>
+    <section class="thirds one">
+      <h2 class="subtle-subtitle">Hi {{home.username}}</h2> {{ home.tasks | json }}
+    </section>
 
-    <button ng-click="home.getTasks()">Get tasks</button>
+
     <section class="modal light">
 
         <new-task create-task="home.createTask(newTask)" task="home.newTask"></new-task>

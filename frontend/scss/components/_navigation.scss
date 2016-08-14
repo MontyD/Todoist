@@ -15,20 +15,23 @@ nav.top {
         top       : 0;
         left      : 0;
         background: transparent;
-        z-index: 10;
+        z-index   : 10;
     }
     .container {
         margin : 0 auto;
         padding: 0;
     }
-    .homeLink {
+    .home-link {
         display       : inline-block;
         vertical-align: middle;
-        color         : rgba(255,255,255, 0.8);
-        font-size     : 1.6em;
+        color         : $colorWhite;
+        font-size     : 2em;
         font-weight   : bold;
-        text-shadow   : 2px 2px 0 $colorDark;
-        padding       : 0.2em 0.4em;
+        padding       : 0;
+        font-family   : $serif;
+        &:hover {
+            background: transparent;
+        }
     }
     ul {
         position: absolute;

@@ -409,7 +409,7 @@ ui-view {
   .halves h3 {
     margin-top: 0;
     font-size: 2.2em; }
-  @media (max-width: 1000px) {
+  @media (max-width: 900px) {
     .halves {
       display: block;
       width: 90%;
@@ -435,6 +435,9 @@ h2 {
   font-size: 2em; }
   h2.shadow {
     text-shadow: 5px 5px 0 #004D40; }
+  h2.serif {
+    font-size: 3em;
+    font-family: "butlerbold", serif; }
 
 h3 {
   font-family: "Droid Sans", sans-serif;
@@ -449,9 +452,17 @@ h5 {
   h5.shadow {
     text-shadow: 5px 5px 0 #004D40; }
 
+.subtle-subtitle {
+  color: #9e9e9e;
+  text-align: right;
+  font-size: 3em;
+  margin-top: 0;
+  font-family: "butlerbold", serif; }
+
 a {
   color: inherit;
-  text-decoration: none; }
+  text-decoration: none;
+  cursor: pointer; }
 
 .hidden {
   display: none !important; }
@@ -498,13 +509,16 @@ p.slight {
   width: 100%;
   max-width: 1000px; }
 
-.leftAligned {
+.left-aligned {
   text-align: left; }
+
+.right-aligned {
+  text-align: right; }
 
 .center {
   text-align: center; }
 
-.vCenter {
+.vertically-center {
   vertical-align: middle; }
 
 .fakeButton,
@@ -526,8 +540,8 @@ input[type="submit"] {
   button.primary,
   input[type="button"].primary,
   input[type="submit"].primary {
-    border: 1px solid #FFCA28;
-    background: #FFCA28; }
+    border: 1px solid #004D40;
+    background: #004D40; }
   .fakeButton.secondary,
   button.secondary,
   input[type="button"].secondary,
@@ -577,18 +591,12 @@ input[type="submit"] {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
   .modal.main {
     margin: 5% auto; }
+  .modal.full-width {
+    max-width: none; }
   .modal h1,
   .modal h2,
   .modal h3 {
     margin-top: 0; }
-
-nav.top h1 {
-  margin: 0;
-  font-size: 2em; }
-  nav.top h1 a {
-    padding: 0.2em 0.6em; }
-    nav.top h1 a:hover {
-      background: transparent; }
 
 .innerModal {
   position: relative;
@@ -682,6 +690,34 @@ nav.top h1 {
      -moz-user-select: text;
       -ms-user-select: text;
           user-select: text; }
+
+.thirds {
+  display: inline-block;
+  width: 32%;
+  padding: 0 1em;
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: center;
+  vertical-align: top; }
+  .thirds.two {
+    width: 65%; }
+  .thirds p {
+    padding: 0;
+    margin: 1em auto;
+    vertical-align: top;
+    width: 100%;
+    text-align: center; }
+  .thirds h3 {
+    margin: 0 auto;
+    font-size: 2.2em; }
+  @media (max-width: 900px) {
+    .thirds {
+      display: block;
+      width: 90%;
+      margin: 0.5em auto 1em; }
+      .thirds.two {
+        width: 90%; } }
 
 form {
   padding: 0 0 1em; }
@@ -1343,7 +1379,7 @@ ui-view {
   .halves h3 {
     margin-top: 0;
     font-size: 2.2em; }
-  @media (max-width: 1000px) {
+  @media (max-width: 900px) {
     .halves {
       display: block;
       width: 90%;
@@ -1369,6 +1405,9 @@ h2 {
   font-size: 2em; }
   h2.shadow {
     text-shadow: 5px 5px 0 #004D40; }
+  h2.serif {
+    font-size: 3em;
+    font-family: "butlerbold", serif; }
 
 h3 {
   font-family: "Droid Sans", sans-serif;
@@ -1383,9 +1422,17 @@ h5 {
   h5.shadow {
     text-shadow: 5px 5px 0 #004D40; }
 
+.subtle-subtitle {
+  color: #9e9e9e;
+  text-align: right;
+  font-size: 3em;
+  margin-top: 0;
+  font-family: "butlerbold", serif; }
+
 a {
   color: inherit;
-  text-decoration: none; }
+  text-decoration: none;
+  cursor: pointer; }
 
 .hidden {
   display: none !important; }
@@ -1432,13 +1479,16 @@ p.slight {
   width: 100%;
   max-width: 1000px; }
 
-.leftAligned {
+.left-aligned {
   text-align: left; }
+
+.right-aligned {
+  text-align: right; }
 
 .center {
   text-align: center; }
 
-.vCenter {
+.vertically-center {
   vertical-align: middle; }
 
 .fakeButton,
@@ -1460,8 +1510,8 @@ input[type="submit"] {
   button.primary,
   input[type="button"].primary,
   input[type="submit"].primary {
-    border: 1px solid #FFCA28;
-    background: #FFCA28; }
+    border: 1px solid #004D40;
+    background: #004D40; }
   .fakeButton.secondary,
   button.secondary,
   input[type="button"].secondary,
@@ -1511,18 +1561,12 @@ input[type="submit"] {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
   .modal.main {
     margin: 5% auto; }
+  .modal.full-width {
+    max-width: none; }
   .modal h1,
   .modal h2,
   .modal h3 {
     margin-top: 0; }
-
-nav.top h1 {
-  margin: 0;
-  font-size: 2em; }
-  nav.top h1 a {
-    padding: 0.2em 0.6em; }
-    nav.top h1 a:hover {
-      background: transparent; }
 
 .innerModal {
   position: relative;
@@ -1617,6 +1661,34 @@ nav.top h1 {
       -ms-user-select: text;
           user-select: text; }
 
+.thirds {
+  display: inline-block;
+  width: 32%;
+  padding: 0 1em;
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: center;
+  vertical-align: top; }
+  .thirds.two {
+    width: 65%; }
+  .thirds p {
+    padding: 0;
+    margin: 1em auto;
+    vertical-align: top;
+    width: 100%;
+    text-align: center; }
+  .thirds h3 {
+    margin: 0 auto;
+    font-size: 2.2em; }
+  @media (max-width: 900px) {
+    .thirds {
+      display: block;
+      width: 90%;
+      margin: 0.5em auto 1em; }
+      .thirds.two {
+        width: 90%; } }
+
 body {
   margin: 0 0 130px; }
 
@@ -1637,14 +1709,16 @@ nav.top {
   nav.top .container {
     margin: 0 auto;
     padding: 0; }
-  nav.top .homeLink {
+  nav.top .home-link {
     display: inline-block;
     vertical-align: middle;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 1.6em;
+    color: #FAFAFA;
+    font-size: 2em;
     font-weight: bold;
-    text-shadow: 2px 2px 0 #004D40;
-    padding: 0.2em 0.4em; }
+    padding: 0;
+    font-family: "butlerbold", serif; }
+    nav.top .home-link:hover {
+      background: transparent; }
   nav.top ul {
     position: absolute;
     right: 0;
