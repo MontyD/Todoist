@@ -12,8 +12,6 @@ form {
 }
 label {
     user-select: none;
-    margin     : 1em auto 0.4em;
-    display    : block;
     &.checkbox {
         display     : inline-block;
         margin-right: 0.2em;
@@ -31,8 +29,8 @@ input[type="currency"],
 input[type="date"],
 input[type="email"],
 input[type="number"],
-input[type="text"],
 input[type="password"],
+input[type="text"],
 textarea {
     display      : block;
     padding      : 0.6em 0.4em;
@@ -41,8 +39,8 @@ textarea {
     border       : 1px solid $colorMain;
     box-sizing   : border-box;
     resize       : none;
-    width: 90%;
-    font-size: 0.8em;
+    width        : 90%;
+    font-size    : 0.8em;
     &:active,
     &:focus {
         outline: none;
@@ -153,17 +151,18 @@ input[type="checkbox"] {
         cursor: pointer;
     }
     & + label:before {
-        display      : inline-block;
-        content      : ' ';
-        width        : 1em;
-        height       : 1em;
-        margin       : 0 0.3em -0.15em;
-        border-radius: 0.2em;
-        border       : 1px solid $colorDark;
-        color        : $colorWhite;
-        cursor       : pointer;
-        transition   : all 0.2s ease-out;
-        cursor       : pointer;
+        display       : inline-block;
+        content       : ' ';
+        width         : 1em;
+        height        : 1em;
+        margin        : 0 0.3em;
+        vertical-align: middle;
+        border-radius : 0.2em;
+        border        : 1px solid $colorDark;
+        color         : $colorWhite;
+        cursor        : pointer;
+        transition    : all 0.2s ease-out;
+        cursor        : pointer;
     }
     &:checked + label {
         color: $colorDark;
@@ -183,8 +182,18 @@ input[type="checkbox"] {
             border-color: $colorWhite;
         }
         &:checked + label:before {
-          border-top-color: transparent;
-          border-right-color: transparent;
+            border-top-color  : transparent;
+            border-right-color: transparent;
+        }
+    }
+    &.large {
+        & + label:before {
+            width : 1.5em;
+            height: 1.5em;
+        }
+        &:checked + label:before {
+            height            : 0.9em;
+            width             : 2.5em;
         }
     }
 }

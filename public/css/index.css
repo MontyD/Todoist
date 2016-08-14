@@ -453,7 +453,6 @@ h5 {
     text-shadow: 5px 5px 0 #004D40; }
 
 .subtle-subtitle {
-  color: #9e9e9e;
   font-size: 3em;
   margin-top: 0;
   font-family: "butlerbold", serif; }
@@ -656,6 +655,28 @@ input[type="submit"] {
   .innerModal.primary.active button.trigger {
     color: #FFCA28; }
 
+.task-item {
+  display: block;
+  clear: both;
+  border-top: 2px solid #E0E0E0; }
+  .task-item .task-description {
+    display: inline-block;
+    width: 90%;
+    vertical-align: middle;
+    color: #9e9e9e; }
+  .task-item .task-title {
+    color: #004D40;
+    font-weight: bold;
+    font-size: 1.5em; }
+  .task-item .checkbox-container {
+    display: inline-block;
+    width: 8%;
+    vertical-align: middle; }
+    .task-item .checkbox-container * {
+      vertical-align: middle; }
+  .task-item:first-child {
+    border-top: none; }
+
 .dark {
   background: #004D40;
   color: #FAFAFA; }
@@ -684,6 +705,9 @@ input[type="submit"] {
   color: #FAFAFA;
   border-color: #FAFAFA; }
 
+.transparent {
+  color: #9e9e9e; }
+
 .slightGradient {
   background: radial-gradient(#009688, #004D40); }
 
@@ -704,12 +728,8 @@ input[type="submit"] {
   vertical-align: top; }
   .thirds.two {
     width: 65%; }
-  .thirds p {
-    padding: 0;
-    margin: 1em auto;
-    vertical-align: top;
-    width: 100%;
-    text-align: center; }
+  .thirds.vertically-center {
+    vertical-align: middle; }
   .thirds h3 {
     margin: 0 auto;
     font-size: 2.2em; }
@@ -735,9 +755,7 @@ label {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
-          user-select: none;
-  margin: 1em auto 0.4em;
-  display: block; }
+          user-select: none; }
   label.checkbox {
     display: inline-block;
     margin-right: 0.2em; }
@@ -753,8 +771,8 @@ input[type="currency"],
 input[type="date"],
 input[type="email"],
 input[type="number"],
-input[type="text"],
 input[type="password"],
+input[type="text"],
 textarea {
   display: block;
   padding: 0.6em 0.4em;
@@ -772,10 +790,10 @@ textarea {
   input[type="email"]:focus,
   input[type="number"]:active,
   input[type="number"]:focus,
-  input[type="text"]:active,
-  input[type="text"]:focus,
   input[type="password"]:active,
   input[type="password"]:focus,
+  input[type="text"]:active,
+  input[type="text"]:focus,
   textarea:active,
   textarea:focus {
     outline: none;
@@ -784,8 +802,8 @@ textarea {
   input[type="date"].outline,
   input[type="email"].outline,
   input[type="number"].outline,
-  input[type="text"].outline,
   input[type="password"].outline,
+  input[type="text"].outline,
   textarea.outline {
     border-radius: 0;
     border: none;
@@ -799,10 +817,10 @@ textarea {
     input[type="email"].outline:focus,
     input[type="number"].outline:active,
     input[type="number"].outline:focus,
-    input[type="text"].outline:active,
-    input[type="text"].outline:focus,
     input[type="password"].outline:active,
     input[type="password"].outline:focus,
+    input[type="text"].outline:active,
+    input[type="text"].outline:focus,
     textarea.outline:active,
     textarea.outline:focus {
       outline: none;
@@ -811,8 +829,8 @@ textarea {
     input[type="date"].outline.editable,
     input[type="email"].outline.editable,
     input[type="number"].outline.editable,
-    input[type="text"].outline.editable,
     input[type="password"].outline.editable,
+    input[type="text"].outline.editable,
     textarea.outline.editable {
       padding: 0.2em 0.5em;
       font-size: 90%; }
@@ -820,8 +838,8 @@ textarea {
   input[type="date"].error,
   input[type="email"].error,
   input[type="number"].error,
-  input[type="text"].error,
   input[type="password"].error,
+  input[type="text"].error,
   textarea.error {
     border-color: #F44336;
     -webkit-animation-name: bounce;
@@ -834,8 +852,8 @@ textarea {
   input[type="date"][disabled="disabled"],
   input[type="email"][disabled="disabled"],
   input[type="number"][disabled="disabled"],
-  input[type="text"][disabled="disabled"],
   input[type="password"][disabled="disabled"],
+  input[type="text"][disabled="disabled"],
   textarea[disabled="disabled"] {
     background: rgba(0, 0, 0, 0.1); }
 
@@ -917,7 +935,8 @@ input[type="checkbox"] {
     content: ' ';
     width: 1em;
     height: 1em;
-    margin: 0 0.3em -0.15em;
+    margin: 0 0.3em;
+    vertical-align: middle;
     border-radius: 0.2em;
     border: 1px solid #004D40;
     color: #FAFAFA;
@@ -941,6 +960,12 @@ input[type="checkbox"] {
   input[type="checkbox"].light:checked + label:before {
     border-top-color: transparent;
     border-right-color: transparent; }
+  input[type="checkbox"].large + label:before {
+    width: 1.5em;
+    height: 1.5em; }
+  input[type="checkbox"].large:checked + label:before {
+    height: 0.9em;
+    width: 2.5em; }
 
 input[type="radio"] {
   display: none; }
@@ -1425,7 +1450,6 @@ h5 {
     text-shadow: 5px 5px 0 #004D40; }
 
 .subtle-subtitle {
-  color: #9e9e9e;
   font-size: 3em;
   margin-top: 0;
   font-family: "butlerbold", serif; }
@@ -1628,6 +1652,28 @@ input[type="submit"] {
   .innerModal.primary.active button.trigger {
     color: #FFCA28; }
 
+.task-item {
+  display: block;
+  clear: both;
+  border-top: 2px solid #E0E0E0; }
+  .task-item .task-description {
+    display: inline-block;
+    width: 90%;
+    vertical-align: middle;
+    color: #9e9e9e; }
+  .task-item .task-title {
+    color: #004D40;
+    font-weight: bold;
+    font-size: 1.5em; }
+  .task-item .checkbox-container {
+    display: inline-block;
+    width: 8%;
+    vertical-align: middle; }
+    .task-item .checkbox-container * {
+      vertical-align: middle; }
+  .task-item:first-child {
+    border-top: none; }
+
 .dark {
   background: #004D40;
   color: #FAFAFA; }
@@ -1656,6 +1702,9 @@ input[type="submit"] {
   color: #FAFAFA;
   border-color: #FAFAFA; }
 
+.transparent {
+  color: #9e9e9e; }
+
 .slightGradient {
   background: radial-gradient(#009688, #004D40); }
 
@@ -1676,12 +1725,8 @@ input[type="submit"] {
   vertical-align: top; }
   .thirds.two {
     width: 65%; }
-  .thirds p {
-    padding: 0;
-    margin: 1em auto;
-    vertical-align: top;
-    width: 100%;
-    text-align: center; }
+  .thirds.vertically-center {
+    vertical-align: middle; }
   .thirds h3 {
     margin: 0 auto;
     font-size: 2.2em; }

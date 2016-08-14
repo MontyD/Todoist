@@ -1,4 +1,4 @@
-<nav class="top dark">
+<nav class="top">
     <div class="container">
         <a class="home-link" href="/" title="Home">Todoist | {{home.roomName}}</a>
         <ul>
@@ -10,18 +10,22 @@
     </div>
 </nav>
 <main class="container no-pad">
-    <section class="thirds two">
-      <article class="modal full-width task-list">
-        <h2>Todos</h2>
-        <div class="task-item" ng-repeat="task in home.tasks">
-          <p class="task-title">{{task.title}}</h3>
-          <p class="task-description">{{task.description}}</p>
-          <p class="task-date">{{task.createdAt | date : longDate}}
-        </div>
-      </article>
+    <section class="thirds two modal full-width light">
+        <article class="task-item" ng-repeat="task in home.tasks">
+            <div class="task-description left-aligned">
+                <p class="task-title">{{task.title}}</p>
+                <p>{{task.description}}</p>
+                <p class="task-details">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" class="vertically-center large" id="{{$index}}-completed" />
+                <label for="{{$index}}-completed"></label>
+            </div>
+        </article>
+
     </section>
-    <section class="thirds one center">
-      <h2 class="subtle-subtitle">Hi {{home.username}}</h2>
+    <section class="thirds one center transparent">
+        <h2 class="subtle-subtitle">Hi {{home.username}}</h2>
     </section>
 
 

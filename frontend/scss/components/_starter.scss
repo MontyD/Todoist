@@ -146,7 +146,6 @@ h5 {
     }
 }
 .subtle-subtitle {
-    color      : $colorDarkGrey;
     font-size  : 3em;
     margin-top : 0;
     font-family: $serif;
@@ -348,6 +347,33 @@ input[type="submit"] {
         }
     }
 }
+.task-item {
+    display   : block;
+    clear     : both;
+    border-top: 2px solid $colorGrey;
+    .task-description {
+        display       : inline-block;
+        width         : 90%;
+        vertical-align: middle;
+        color         : $colorDarkGrey;
+    }
+    .task-title {
+        color      : $colorDark;
+        font-weight: bold;
+        font-size  : 1.5em;
+    }
+    .checkbox-container {
+        display       : inline-block;
+        width         : 8%;
+        vertical-align: middle;
+        * {
+            vertical-align: middle;
+        }
+    }
+    &:first-child {
+        border-top: none;
+    }
+}
 //** Color styles **//
 .dark {
     background: $colorDark;
@@ -377,6 +403,9 @@ input[type="submit"] {
     color       : $colorWhite;
     border-color: $colorWhite;
 }
+.transparent {
+    color: $colorDarkGrey;
+}
 .slightGradient {
     background: radial-gradient($colorMain, $colorDark);
 }
@@ -395,12 +424,8 @@ input[type="submit"] {
     &.two {
         width: 65%;
     }
-    p {
-        padding       : 0;
-        margin        : 1em auto;
-        vertical-align: top;
-        width         : 100%;
-        text-align    : center;
+    &.vertically-center {
+        vertical-align: middle;
     }
     h3 {
         margin   : 0 auto;
