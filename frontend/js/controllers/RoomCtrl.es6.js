@@ -56,6 +56,13 @@ class RoomCtrl {
             // force view to update;
             this.$apply();
         }).bind(this));
+
+        this.SocketsService.on('UpdatedTask', (function(data) {
+            this.updateTaskLocally(data.task);
+            // force view to update;
+            this.$apply();
+        }).bind(this));
+
     }
 
     getTasks(start, limit) {
@@ -94,6 +101,28 @@ class RoomCtrl {
             if (username) {
                 this.Notify(username + ' added a new task');
             }
+        }
+    }
+
+    updateTaskComplete(id) {
+        if (!id) {
+            return;
+        }
+        this.TasksService.update(id, {
+            status: 'Complete'
+        }).then(
+            result => this.updateTaskLocally(result.data),
+            error => {
+                console.log(error);
+                this.Notify('Error updating task', 'Error');
+            }
+        );
+    }
+
+    updateTaskLocally(reqTask) {
+        let completedTask = this.tasks.find(task => task.id === reqTask.id);
+        if (completedTask) {
+            completedTask = reqTask;
         }
     }
 

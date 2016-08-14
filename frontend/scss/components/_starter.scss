@@ -358,9 +358,10 @@ input[type="submit"] {
         color         : $colorDarkGrey;
     }
     .task-title {
-        color      : $colorDark;
-        font-weight: bold;
-        font-size  : 1.5em;
+        color        : $colorDark;
+        font-weight  : bold;
+        font-size    : 1.5em;
+        margin-bottom: 0;
     }
     .checkbox-container {
         display       : inline-block;

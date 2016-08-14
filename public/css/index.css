@@ -667,7 +667,8 @@ input[type="submit"] {
   .task-item .task-title {
     color: #004D40;
     font-weight: bold;
-    font-size: 1.5em; }
+    font-size: 1.5em;
+    margin-bottom: 0; }
   .task-item .checkbox-container {
     display: inline-block;
     width: 8%;
@@ -1664,7 +1665,8 @@ input[type="submit"] {
   .task-item .task-title {
     color: #004D40;
     font-weight: bold;
-    font-size: 1.5em; }
+    font-size: 1.5em;
+    margin-bottom: 0; }
   .task-item .checkbox-container {
     display: inline-block;
     width: 8%;

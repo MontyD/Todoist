@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        status: DataTypes.ENUM('Todo', 'In progress', 'Done', 'Later'),
+        status: DataTypes.ENUM('Todo', 'In progress', 'Complete', 'Later'),
         username: DataTypes.TEXT
     });
     return task;

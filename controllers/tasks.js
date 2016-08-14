@@ -110,9 +110,12 @@ router.put('/:taskID', respondsToJSON, checkRoom, function(req, res, next) {
         if (!task) {
             return next();
         } else {
-            if (task.roomId === req.room.id) {
+            if (task.roomId === req.user.id) {
                 task.update(req.body.task).then(function(updatedTask) {
-                    res.sendStatus(200);
+                    res.io.to(req.user.name).emit('UpdatedTask', {
+                      task: updatedTask
+                    });
+                    res.json(updatedTask);
                 }).catch(function(err) {
                     return handleError(err, next);
                 });
@@ -142,7 +145,7 @@ router.delete('/:taskID', function(req, res, next) {
         if (!task) {
             return next();
         } else {
-            if (task.roomId === req.room.id) {
+            if (task.roomId === req.user.id) {
                 task.destroy().then(function(confirm) {
                     res.sendStatus(200);
                 }).catch(function(err) {

@@ -37,7 +37,7 @@ class TasksService {
         return this.$http.get(requestURL);
     }
 
-    update(reqTaskId, reqTask, reqUserInitiated) {
+    update(reqTaskId, reqTask) {
         return this.$http.put(this.urlBase + reqTaskId, {
             task: reqTask
         });
