@@ -38,12 +38,12 @@ module.exports = function(grunt) {
                     ]
                 },
                 plugins: [
-                    new Webpack.optimize.UglifyJsPlugin({
-                        minimize: true
-                    }),
-                    new StatsPlugin(path.join(__dirname, 'stats.json'), {
-                        chunkModules: true
-                    })
+                    // new Webpack.optimize.UglifyJsPlugin({
+                    //     minimize: true
+                    // }),
+                    // new StatsPlugin(path.join(__dirname, 'stats.json'), {
+                    //     chunkModules: true
+                    // })
                 ]
             }
         },
