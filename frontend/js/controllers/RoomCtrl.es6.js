@@ -66,6 +66,10 @@ class RoomCtrl {
 
     }
 
+    hasTodos() {
+        return this.tasks.some(element => element.status === 'Todo');
+    }
+
     getTasks(start, limit) {
         this.TasksService.read(start, limit).then(
             result => {
@@ -121,11 +125,11 @@ class RoomCtrl {
     }
 
     updateTaskLocally(reqTask) {
-        for(var i = 0; i < this.tasks.length; i++) {
-          if (this.tasks[i].id === reqTask.id) {
-            this.tasks[i] = reqTask;
-            break;
-          }
+        for (var i = 0; i < this.tasks.length; i++) {
+            if (this.tasks[i].id === reqTask.id) {
+                this.tasks[i] = reqTask;
+                break;
+            }
         }
     }
 

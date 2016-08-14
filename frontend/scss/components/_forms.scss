@@ -80,6 +80,32 @@ select {
     margin-right : auto;
     margin-bottom: 0.8em;
 }
+.transparent {
+    input,
+    textarea {
+        border-color: $colorDarkGrey;
+        background  : rgba(255,255,255, 0.5);
+    }
+}
+.left-aligned {
+    input,
+    select,
+    textarea {
+        margin-left : 0;
+        margin-right: 0;
+        width: 100%;
+    }
+    input[type="submit"] {
+        display     : block;
+        background  : rgba(255,255,255, 0.8);
+        border-color: $colorDarkGrey;
+        color       : $colorDarkGrey;
+        margin      : 0.4em auto;
+        &:hover {
+            @include shadow(1);
+        }
+    }
+}
 //** custom-select styling **//
 .customSelect {
     display : block;
@@ -192,8 +218,8 @@ input[type="checkbox"] {
             height: 1.5em;
         }
         &:checked + label:before {
-            height            : 0.9em;
-            width             : 2.5em;
+            height: 0.9em;
+            width : 2.5em;
         }
     }
 }

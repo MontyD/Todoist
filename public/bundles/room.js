@@ -43762,7 +43762,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a href=\"#\" title=\"\">Tasks</a></li>\n            <li><a href=\"#\" title=\"\">Settings</a></li>\n            <li><a href=\"#\" title=\"\">Overview</a></li>\n            <li><a href=\"#\" title=\"\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n    <section class=\"thirds two modal full-width light\">\n        <article class=\"task-item\" ng-repeat=\"task in home.tasks\" ng-if=\"task.status === 'Todo'\">\n            <div class=\"task-description left-aligned\">\n                <p class=\"task-title\">{{task.title}}</p>\n                <p>{{task.description}}</p>\n                <p class=\"task-details\">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>\n            </div>\n            <div class=\"checkbox-container\">\n                <input type=\"checkbox\" class=\"vertically-center large\" ng-checked=\"task.status === 'Complete'\" />\n                <label ng-click=\"home.updateTaskComplete(task.id)\"></label>\n            </div>\n        </article>\n\n    </section>\n    <section class=\"thirds one center transparent\">\n        <h2 class=\"subtle-subtitle\">Hi {{home.username}}</h2>\n    </section>\n\n\n    <section class=\"modal light\">\n\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\"></new-task>\n\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a href=\"#\" title=\"\">Tasks</a></li>\n            <li><a href=\"#\" title=\"\">Settings</a></li>\n            <li><a href=\"#\" title=\"\">Overview</a></li>\n            <li><a href=\"#\" title=\"\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n  <section class=\"thirds one  transparent\">\n      <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n      <h4 class=\"left-aligned\">New todo</h4>\n      <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n  </section>\n    <section class=\"thirds two modal full-width light\">\n        <article class=\"task-item\" ng-repeat=\"task in home.tasks\" ng-if=\"task.status === 'Todo'\">\n            <div class=\"task-description left-aligned\">\n                <p class=\"task-title\">{{task.title}}</p>\n                <p>{{task.description}}</p>\n                <p class=\"task-details\">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>\n            </div>\n            <div class=\"checkbox-container\">\n                <input type=\"checkbox\" class=\"vertically-center large\" ng-checked=\"task.status === 'Complete'\" />\n                <label ng-click=\"home.updateTaskComplete(task.id)\"></label>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"!home.hasTodos()\">No todos to be done</p>\n    </section>\n</main>\n";
 
 /***/ },
 /* 56 */
@@ -43842,6 +43842,13 @@
 	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
+	        }
+	    }, {
+	        key: 'hasTodos',
+	        value: function hasTodos() {
+	            return this.tasks.some(function (element) {
+	                return element.status === 'Todo';
+	            });
 	        }
 	    }, {
 	        key: 'getTasks',
@@ -43970,7 +43977,7 @@
 /* 58 */
 /***/ function(module, exports) {
 
-	module.exports = "<form ng-submit=\"createTask()\" novalidate=\"novalidate\">\n\n    <label for=\"newTaskTitle\">Title</label>\n    <input type=\"text\" id=\"newTaskTitle\" name=\"title\" ng-model=\"task.title\" required=\"required\">\n\n\n    <label for=\"newTaskDescription\">Description</label>\n    <textarea id=\"newTaskDescription\" ng-model=\"task.description\" required=\"required\" name=\"description\"></textarea>\n\n    <label for=\"newTaskStatus\">Status</label>\n    <select ng-model=\"task.status\" required=\"required\" id=\"newTaskStatus\" name=\"status\">\n        <option value=\"Todo\">Todo</option>\n        <option value=\"In progress\">In progress</option>\n        <option value=\"Done\">Done</option>\n        <option value=\"Later\">Later</option>\n    </select>\n\n    <input type=\"submit\" value=\"Create\">\n\n</form>\n";
+	module.exports = "<form ng-submit=\"createTask()\" novalidate=\"novalidate\">\n\n    <label for=\"newTaskTitle\">Title</label>\n    <input type=\"text\" id=\"newTaskTitle\" name=\"title\" ng-model=\"task.title\" required=\"required\">\n\n\n    <label for=\"newTaskDescription\">Description</label>\n    <textarea id=\"newTaskDescription\" ng-model=\"task.description\" required=\"required\" name=\"description\"></textarea>\n    <input type=\"submit\" value=\"Create\">\n\n</form>\n";
 
 /***/ },
 /* 59 */

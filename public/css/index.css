@@ -663,7 +663,7 @@ input[type="submit"] {
     display: inline-block;
     width: 90%;
     vertical-align: middle;
-    color: #9e9e9e; }
+    color: #6f6f6f; }
   .task-item .task-title {
     color: #004D40;
     font-weight: bold;
@@ -677,6 +677,11 @@ input[type="submit"] {
       vertical-align: middle; }
   .task-item:first-child {
     border-top: none; }
+
+.empty-notification {
+  margin: 4em;
+  font-size: 1.2em;
+  color: #6f6f6f; }
 
 .dark {
   background: #004D40;
@@ -707,7 +712,7 @@ input[type="submit"] {
   border-color: #FAFAFA; }
 
 .transparent {
-  color: #9e9e9e; }
+  color: #6f6f6f; }
 
 .slightGradient {
   background: radial-gradient(#009688, #004D40); }
@@ -865,6 +870,26 @@ select {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 0.8em; }
+
+.transparent input,
+.transparent textarea {
+  border-color: #6f6f6f;
+  background: rgba(255, 255, 255, 0.5); }
+
+.left-aligned input,
+.left-aligned select,
+.left-aligned textarea {
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%; }
+.left-aligned input[type="submit"] {
+  display: block;
+  background: rgba(255, 255, 255, 0.8);
+  border-color: #6f6f6f;
+  color: #6f6f6f;
+  margin: 0.4em auto; }
+  .left-aligned input[type="submit"]:hover {
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
 
 .customSelect {
   display: block;
@@ -1661,7 +1686,7 @@ input[type="submit"] {
     display: inline-block;
     width: 90%;
     vertical-align: middle;
-    color: #9e9e9e; }
+    color: #6f6f6f; }
   .task-item .task-title {
     color: #004D40;
     font-weight: bold;
@@ -1675,6 +1700,11 @@ input[type="submit"] {
       vertical-align: middle; }
   .task-item:first-child {
     border-top: none; }
+
+.empty-notification {
+  margin: 4em;
+  font-size: 1.2em;
+  color: #6f6f6f; }
 
 .dark {
   background: #004D40;
@@ -1705,7 +1735,7 @@ input[type="submit"] {
   border-color: #FAFAFA; }
 
 .transparent {
-  color: #9e9e9e; }
+  color: #6f6f6f; }
 
 .slightGradient {
   background: radial-gradient(#009688, #004D40); }
@@ -1765,9 +1795,8 @@ nav.top {
     vertical-align: middle;
     color: #FAFAFA;
     font-size: 2em;
-    font-weight: bold;
-    padding: 0;
-    font-family: "butlerbold", serif; }
+    font-weight: normal;
+    padding: 0; }
     nav.top .home-link:hover {
       background: transparent; }
   nav.top ul {

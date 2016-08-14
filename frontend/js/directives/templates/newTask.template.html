@@ -6,15 +6,6 @@
 
     <label for="newTaskDescription">Description</label>
     <textarea id="newTaskDescription" ng-model="task.description" required="required" name="description"></textarea>
-
-    <label for="newTaskStatus">Status</label>
-    <select ng-model="task.status" required="required" id="newTaskStatus" name="status">
-        <option value="Todo">Todo</option>
-        <option value="In progress">In progress</option>
-        <option value="Done">Done</option>
-        <option value="Later">Later</option>
-    </select>
-
     <input type="submit" value="Create">
 
 </form>

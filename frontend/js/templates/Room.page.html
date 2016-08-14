@@ -10,6 +10,11 @@
     </div>
 </nav>
 <main class="container no-pad">
+  <section class="thirds one  transparent">
+      <h2 class="subtle-subtitle left-aligned">Hi {{home.username}}</h2>
+      <h4 class="left-aligned">New todo</h4>
+      <new-task create-task="home.createTask(newTask)" task="home.newTask" class="transparent left-aligned"></new-task>
+  </section>
     <section class="thirds two modal full-width light">
         <article class="task-item" ng-repeat="task in home.tasks" ng-if="task.status === 'Todo'">
             <div class="task-description left-aligned">
@@ -22,16 +27,6 @@
                 <label ng-click="home.updateTaskComplete(task.id)"></label>
             </div>
         </article>
-
-    </section>
-    <section class="thirds one center transparent">
-        <h2 class="subtle-subtitle">Hi {{home.username}}</h2>
-    </section>
-
-
-    <section class="modal light">
-
-        <new-task create-task="home.createTask(newTask)" task="home.newTask"></new-task>
-
+        <p class="empty-notification" ng-if="!home.hasTodos()">No todos to be done</p>
     </section>
 </main>
