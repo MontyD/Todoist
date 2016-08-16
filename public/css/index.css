@@ -1947,21 +1947,17 @@ footer {
     -webkit-transform: translateY(0);
             transform: translateY(0); } }
 .task-item.ng-leave {
-  -webkit-animation: task-out 0.5s ease-out;
-          animation: task-out 0.5s ease-out; }
+  -webkit-animation: task-out 0.3s ease-out;
+          animation: task-out 0.3s ease-out; }
 
 @-webkit-keyframes task-out {
   0% {
     -webkit-transform: translateX(0) scale(1);
             transform: translateX(0) scale(1);
     opacity: 1; }
-  20% {
-    -webkit-transform: translateX(0) scale(0.8);
-            transform: translateX(0) scale(0.8);
-    opacity: 1; }
   100% {
-    -webkit-transform: translateX(-200px) scale(0.8);
-            transform: translateX(-200px) scale(0.8);
+    -webkit-transform: translateX(-200px) scale(0.9);
+            transform: translateX(-200px) scale(0.9);
     opacity: 0; } }
 
 @keyframes task-out {
@@ -1969,13 +1965,9 @@ footer {
     -webkit-transform: translateX(0) scale(1);
             transform: translateX(0) scale(1);
     opacity: 1; }
-  20% {
-    -webkit-transform: translateX(0) scale(0.8);
-            transform: translateX(0) scale(0.8);
-    opacity: 1; }
   100% {
-    -webkit-transform: translateX(-200px) scale(0.8);
-            transform: translateX(-200px) scale(0.8);
+    -webkit-transform: translateX(-200px) scale(0.9);
+            transform: translateX(-200px) scale(0.9);
     opacity: 0; } }
 header {
   margin: 0 auto 2em 0;

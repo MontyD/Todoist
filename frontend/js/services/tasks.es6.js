@@ -13,7 +13,7 @@ class TasksService {
         });
     }
 
-    read(id, start, limit, initial) {
+    read(id, start, limit, status, initial) {
         let requestURL = this.urlBase;
         // ID is not part of query sting
         if (typeof id === 'number') {
@@ -29,6 +29,9 @@ class TasksService {
         }
         if (limit) {
             requestURL += 'limit=' + limit;
+        }
+        if (status) {
+          requestURL += 'status=' + status;
         }
         if (requestURL.substr(requestURL.length - 1) === '&' || requestURL.substr(requestURL.length - 1) === '?') {
             requestURL = requestURL.substr(0, requestURL.length - 1);

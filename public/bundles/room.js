@@ -47960,7 +47960,7 @@
 
 	        // read tasks from server, and also get username
 	        // and room name. Set initial to true (last arg);
-	        this.TasksService.read(undefined, undefined, undefined, true).then(function (result) {
+	        this.TasksService.read(undefined, undefined, undefined, 'Todo', true).then(function (result) {
 	            _this.tasks = result.data.tasks;
 	            _this.username = result.data.username;
 	            _this.roomName = result.data.roomName;
@@ -48007,32 +48007,21 @@
 	                return element.status === 'Todo';
 	            });
 	        }
-	    }, {
-	        key: 'getTasks',
-	        value: function getTasks(start, limit) {
-	            var _this2 = this;
-
-	            this.TasksService.read(start, limit).then(function (result) {
-	                _this2.tasks = result.data.tasks;
-	            }, function (error) {
-	                _this2.Notify('Error getting todos', 'Error');
-	            });
-	        }
 
 	        // create task on server
 	    }, {
 	        key: 'createTask',
 	        value: function createTask() {
-	            var _this3 = this;
+	            var _this2 = this;
 
 	            this.TasksService.create(this.newTask).then(function (result) {
-	                _this3.newTask = {
+	                _this2.newTask = {
 	                    status: 'Todo'
 	                };
-	                _this3.addTaskLocally(result.data);
+	                _this2.addTaskLocally(result.data);
 	            }, function (error) {
 	                console.log(error);
-	                _this3.Notify('Error saving todos', 'Error');
+	                _this2.Notify('Error saving todos', 'Error');
 	            });
 	        }
 
@@ -48053,7 +48042,7 @@
 	    }, {
 	        key: 'updateTaskComplete',
 	        value: function updateTaskComplete(id) {
-	            var _this4 = this;
+	            var _this3 = this;
 
 	            if (!id) {
 	                return;
@@ -48061,10 +48050,10 @@
 	            this.TasksService.update(id, {
 	                status: 'Complete'
 	            }).then(function (result) {
-	                return _this4.updateTaskLocally(result.data);
+	                return _this3.updateTaskLocally(result.data);
 	            }, function (error) {
 	                console.log(error);
-	                _this4.Notify('Error updating todo', 'Error');
+	                _this3.Notify('Error updating todo', 'Error');
 	            });
 	        }
 	    }, {
@@ -48405,7 +48394,7 @@
 	        }
 	    }, {
 	        key: 'read',
-	        value: function read(id, start, limit, initial) {
+	        value: function read(id, start, limit, status, initial) {
 	            var requestURL = this.urlBase;
 	            // ID is not part of query sting
 	            if (typeof id === 'number') {
@@ -48421,6 +48410,9 @@
 	            }
 	            if (limit) {
 	                requestURL += 'limit=' + limit;
+	            }
+	            if (status) {
+	                requestURL += 'status=' + status;
 	            }
 	            if (requestURL.substr(requestURL.length - 1) === '&' || requestURL.substr(requestURL.length - 1) === '?') {
 	                requestURL = requestURL.substr(0, requestURL.length - 1);

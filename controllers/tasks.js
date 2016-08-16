@@ -14,12 +14,16 @@ router.get('/', respondsToJSON, checkRoom, function(req, res, next) {
     var start = req.query.start || 0;
     var limit = req.query.limit || 10;
     var initial = !!req.query.initial;
+    var query = {
+      roomId: req.user.id
+    };
+    if (req.query.status) {
+      query.status = req.query.status;
+    }
 
     // FETCH ALL
     models.tasks.findAll({
-        where: {
-            roomId: req.user.id
-        },
+        where: query,
         order: [
             ['updatedAt'],
         ],

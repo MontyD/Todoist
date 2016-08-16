@@ -22,7 +22,7 @@ class RoomCtrl {
 
         // read tasks from server, and also get username
         // and room name. Set initial to true (last arg);
-        this.TasksService.read(undefined, undefined, undefined, true).then(
+        this.TasksService.read(undefined, undefined, undefined, 'Todo', true).then(
             result => {
                 this.tasks = result.data.tasks;
                 this.username = result.data.username;
@@ -67,17 +67,6 @@ class RoomCtrl {
 
     hasTodos() {
         return this.tasks.some(element => element.status === 'Todo');
-    }
-
-    getTasks(start, limit) {
-        this.TasksService.read(start, limit).then(
-            result => {
-                this.tasks = result.data.tasks;
-            },
-            error => {
-                this.Notify('Error getting todos', 'Error');
-            }
-        );
     }
 
     // create task on server
