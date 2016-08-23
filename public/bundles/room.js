@@ -76,23 +76,27 @@
 
 	var _directivesNewTaskEs6Js2 = _interopRequireDefault(_directivesNewTaskEs6Js);
 
+	var _directivesTaskViewEs6Js = __webpack_require__(61);
+
+	var _directivesTaskViewEs6Js2 = _interopRequireDefault(_directivesTaskViewEs6Js);
+
 	//Vendor imports
 
-	var _angularUiNotification = __webpack_require__(61);
+	var _angularUiNotification = __webpack_require__(63);
 
 	var _angularUiNotification2 = _interopRequireDefault(_angularUiNotification);
 
-	var _servicesTasksEs6Js = __webpack_require__(63);
+	var _servicesTasksEs6Js = __webpack_require__(65);
 
 	var _servicesTasksEs6Js2 = _interopRequireDefault(_servicesTasksEs6Js);
 
-	var _servicesSocketsEs6Js = __webpack_require__(64);
+	var _servicesSocketsEs6Js = __webpack_require__(66);
 
 	var _servicesSocketsEs6Js2 = _interopRequireDefault(_servicesSocketsEs6Js);
 
 	window.io = _socketIoClient2['default'];
 
-	_angular2['default'].module('app', [_angularUiRouter2['default'], _angularAnimate2['default'], 'ui-notification']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).directive('newTask', _directivesNewTaskEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketsService', _servicesSocketsEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
+	_angular2['default'].module('app', [_angularUiRouter2['default'], _angularAnimate2['default'], 'ui-notification']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).directive('newTask', _directivesNewTaskEs6Js2['default']).directive('taskView', _directivesTaskViewEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketsService', _servicesSocketsEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -47919,7 +47923,7 @@
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a href=\"#\" title=\"\">Tasks</a></li>\n            <li><a href=\"#\" title=\"\">Settings</a></li>\n            <li><a href=\"#\" title=\"\">Overview</a></li>\n            <li><a href=\"#\" title=\"\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n  <section class=\"thirds one  transparent\">\n      <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n      <h4 class=\"left-aligned\">New todo</h4>\n      <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n  </section>\n    <section class=\"thirds two modal full-width light tasks-container\">\n        <article class=\"task-item\" ng-repeat=\"task in home.tasks\" ng-if=\"task.status === 'Todo'\">\n            <div class=\"task-description left-aligned\">\n                <p class=\"task-title\">{{task.title}}</p>\n                <p>{{task.description}}</p>\n                <p class=\"task-details\">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>\n            </div>\n            <div class=\"checkbox-container\">\n              <button ng-click=\"home.updateTaskComplete(task.id)\">Done</button>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"!home.hasTodos()\">No todos to be done</p>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a href=\"#\" title=\"\">Tasks</a></li>\n            <li><a href=\"#\" title=\"\">Settings</a></li>\n            <li><a href=\"#\" title=\"\">Overview</a></li>\n            <li><a href=\"#\" title=\"\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n  <section class=\"thirds one  transparent\">\n      <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n      <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n  </section>\n    <section class=\"thirds two modal full-width light tasks-container\">\n        <article class=\"task-item\" ng-repeat=\"task in home.tasks\">\n            <task-view task=\"task\" completed=\"home.updateTaskComplete\"></task-view>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"!home.hasTodos()\">No todos to be done</p>\n    </section>\n</main>\n";
 
 /***/ },
 /* 58 */
@@ -48123,20 +48127,59 @@
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = "<form ng-submit=\"createTask()\" novalidate=\"novalidate\">\n\n    <label for=\"newTaskTitle\">Title</label>\n    <input type=\"text\" id=\"newTaskTitle\" name=\"title\" ng-model=\"task.title\" required=\"required\">\n\n\n    <label for=\"newTaskDescription\">Description</label>\n    <textarea id=\"newTaskDescription\" ng-model=\"task.description\" required=\"required\" name=\"description\"></textarea>\n    <input type=\"submit\" value=\"Create\">\n\n</form>\n";
+	module.exports = "<form ng-submit=\"createTask()\" novalidate=\"novalidate\">\n    <h4 class=\"left-aligned\">New todo</h4>\n\n    <label for=\"newTaskTitle\">Title</label>\n    <input type=\"text\" id=\"newTaskTitle\" name=\"title\" ng-model=\"task.title\" required=\"required\">\n\n\n    <label for=\"newTaskDescription\">Description</label>\n    <textarea id=\"newTaskDescription\" ng-model=\"task.description\" required=\"required\" name=\"description\"></textarea>\n    <input type=\"submit\" value=\"Create\">\n\n</form>\n";
 
 /***/ },
 /* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Created by alex_crack on 20.11.15.
-	 */
-	__webpack_require__(62);
-	module.exports = 'ui-notification';
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+	function task() {
+	    'use strict';
+	    return {
+	        restrict: 'E',
+	        scope: {
+	            task: '=',
+	            edited: '&',
+	            deleted: '&',
+	            completed: '&'
+	        },
+	        template: __webpack_require__(62),
+
+	        link: function link(scope, element, attrs) {
+
+	            scope.taskComplete = function () {
+	                return scope.completed(scope.task.id);
+	            };
+	        }
+	    };
+	}
+
+	exports['default'] = task;
+	module.exports = exports['default'];
 
 /***/ },
 /* 62 */
+/***/ function(module, exports) {
+
+	module.exports = "<article class=\"task-item\" ng-repeat=\"task in home.tasks\" ng-if=\"task.status === 'Todo'\">\n    <div class=\"task-description left-aligned\">\n        <p class=\"task-title\">{{task.title}}</p>\n        <p>{{task.description}}</p>\n        <p class=\"task-details\">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>\n    </div>\n    <div class=\"checkbox-container\">\n      <button ng-click=\"taskComplete\">Done</button>\n    </div>\n</article>\n";
+
+/***/ },
+/* 63 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by alex_crack on 20.11.15.
+	 */
+	__webpack_require__(64);
+	module.exports = 'ui-notification';
+
+/***/ },
+/* 64 */
 /***/ function(module, exports) {
 
 	/**
@@ -48368,7 +48411,7 @@
 	angular.module("ui-notification").run(["$templateCache", function($templateCache) {$templateCache.put("angular-ui-notification.html","<div class=\"ui-notification\"><h3 ng-show=\"title\" ng-bind-html=\"title\"></h3><div class=\"message\" ng-bind-html=\"message\"></div></div>");}]);
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -48442,7 +48485,7 @@
 	module.exports = TasksService;
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports) {
 
 	'use strict';
