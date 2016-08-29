@@ -101,7 +101,10 @@ class RoomCtrl {
         this.TasksService.update(id, {
             status: 'Complete'
         }).then(
-            result => this.updateTaskLocally(result.data),
+            result => {
+                console.log(result.data);
+                this.updateTaskLocally(result.data);
+            },
             error => {
                 console.error(error);
                 this.Notify('Error updating todo', 'Error');
@@ -110,14 +113,18 @@ class RoomCtrl {
     }
 
     updateTaskLocally(reqTask) {
-      console.log(reqTask);
-        for (var i = 0; i < this.tasks.length; i++) {
-            if (this.tasks[i].id === reqTask.id) {
-                this.tasks[i] = reqTask;
-                break;
+        if (reqTask.status !== 'Todo') {
+            for (var i = 0; i < this.tasks.length; i++) {
+                if (this.tasks[i].id === reqTask.id) {
+                    if (reqTask.status !== 'Todo') {
+                        this.tasks.splice(i, 1);
+                        return;
+                    }
+                    this.tasks[i] = reqTask;
+                    return;
+                }
             }
         }
-        console.log(this.tasks);
     }
 
     Notify(text, type) {
