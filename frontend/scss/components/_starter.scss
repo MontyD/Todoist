@@ -356,7 +356,7 @@ input[type="submit"] {
     border-top: 2px solid $colorGrey;
     .task-description {
         display       : inline-block;
-        width         : 80%;
+        width         : 55%;
         vertical-align: middle;
         color         : $colorDarkGrey;
     }
@@ -368,7 +368,7 @@ input[type="submit"] {
     }
     .checkbox-container {
         display       : inline-block;
-        width         : 15%;
+        width         : 40%;
         vertical-align: middle;
         * {
             vertical-align: middle;

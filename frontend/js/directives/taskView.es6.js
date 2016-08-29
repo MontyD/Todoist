@@ -12,8 +12,6 @@ function task() {
 
         link: function(scope, element, attrs) {
 
-            scope.taskComplete = () => scope.completed(scope.task.id);
-
         }
     };
 }

@@ -32,7 +32,7 @@ class RoomCtrl {
                 this.initSockets();
             },
             error => {
-                console.log(error);
+                console.error(error);
                 this.Nofity('Error getting todos', 'Error');
             }
         );
@@ -79,7 +79,7 @@ class RoomCtrl {
                 this.addTaskLocally(result.data);
             },
             error => {
-                console.log(error);
+                console.error(error);
                 this.Notify('Error saving todos', 'Error');
             }
         );
@@ -91,9 +91,6 @@ class RoomCtrl {
         let alreadyAdded = this.tasks.find(task => task.id === newTask.id);
         if (!alreadyAdded) {
             this.tasks.push(newTask);
-            if (username) {
-                this.Notify(username + ' added a new todo');
-            }
         }
     }
 
@@ -106,19 +103,21 @@ class RoomCtrl {
         }).then(
             result => this.updateTaskLocally(result.data),
             error => {
-                console.log(error);
+                console.error(error);
                 this.Notify('Error updating todo', 'Error');
             }
         );
     }
 
     updateTaskLocally(reqTask) {
+      console.log(reqTask);
         for (var i = 0; i < this.tasks.length; i++) {
             if (this.tasks[i].id === reqTask.id) {
                 this.tasks[i] = reqTask;
                 break;
             }
         }
+        console.log(this.tasks);
     }
 
     Notify(text, type) {

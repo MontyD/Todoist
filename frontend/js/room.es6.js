@@ -1,6 +1,5 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import ngAnimate from 'angular-animate';
 
 import io from 'socket.io-client';
 
@@ -19,7 +18,7 @@ import SocketsService from './services/sockets.es6.js';
 
 window.io = io;
 
-angular.module('app', [uiRouter, ngAnimate, 'ui-notification'])
+angular.module('app', [uiRouter, 'ui-notification'])
     .controller('RoomCtrl', RoomCtrl)
     .directive('newTask', newTask)
     .directive('taskView', taskView)
