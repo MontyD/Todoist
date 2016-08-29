@@ -16,7 +16,11 @@
   </section>
     <section class="thirds two modal full-width light tasks-container">
         <article class="task-item" ng-repeat="task in home.tasks">
-            <task-view task="task" completed="home.updateTaskComplete(task.id)"></task-view>
+            <task-view
+              task="task"
+              editied="home.updateTask(task)"
+              deleted="home.deleteTask(task)">
+            </task-view>
         </article>
         <p class="empty-notification" ng-if="!home.hasTodos()">No todos to be done</p>
     </section>

@@ -64,7 +64,7 @@
 
 	var _configRoomConfigEs6Js2 = _interopRequireDefault(_configRoomConfigEs6Js);
 
-	var _controllersRoomCtrlEs6Js = __webpack_require__(56);
+	var _controllersRoomCtrlEs6Js = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./controllers/RoomCtrl.es6.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var _controllersRoomCtrlEs6Js2 = _interopRequireDefault(_controllersRoomCtrlEs6Js);
 
@@ -43766,185 +43766,10 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a href=\"#\" title=\"\">Tasks</a></li>\n            <li><a href=\"#\" title=\"\">Settings</a></li>\n            <li><a href=\"#\" title=\"\">Overview</a></li>\n            <li><a href=\"#\" title=\"\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n  <section class=\"thirds one  transparent\">\n      <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n      <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n  </section>\n    <section class=\"thirds two modal full-width light tasks-container\">\n        <article class=\"task-item\" ng-repeat=\"task in home.tasks\">\n            <task-view task=\"task\" completed=\"home.updateTaskComplete(task.id)\"></task-view>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"!home.hasTodos()\">No todos to be done</p>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a href=\"#\" title=\"\">Tasks</a></li>\n            <li><a href=\"#\" title=\"\">Settings</a></li>\n            <li><a href=\"#\" title=\"\">Overview</a></li>\n            <li><a href=\"#\" title=\"\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n  <section class=\"thirds one  transparent\">\n      <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n      <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n  </section>\n    <section class=\"thirds two modal full-width light tasks-container\">\n        <article class=\"task-item\" ng-repeat=\"task in home.tasks\">\n            <task-view\n              task=\"task\"\n              editied=\"home.updateTask(task)\"\n              deleted=\"home.deleteTask(task)\">\n            </task-view>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"!home.hasTodos()\">No todos to be done</p>\n    </section>\n</main>\n";
 
 /***/ },
-/* 56 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var RoomCtrl = (function () {
-	    function RoomCtrl(Notification, TasksService, SocketsService, $scope) {
-	        var _this = this;
-
-	        _classCallCheck(this, RoomCtrl);
-
-	        // Dependencies
-	        this.Notification = Notification;
-	        this.TasksService = TasksService;
-	        this.SocketsService = SocketsService;
-	        this.$scope = $scope;
-
-	        // initial variables
-	        this.roomName = '';
-
-	        this.username = '';
-
-	        this.tasks = [];
-
-	        this.newTask = {
-	            status: 'Todo'
-	        };
-
-	        // read tasks from server, and also get username
-	        // and room name. Set initial to true (last arg);
-	        this.TasksService.read(undefined, undefined, undefined, 'Todo', true).then(function (result) {
-	            _this.tasks = result.data.tasks;
-	            _this.username = result.data.username;
-	            _this.roomName = result.data.roomName;
-
-	            // connect to socket by room name
-	            _this.initSockets();
-	        }, function (error) {
-	            console.error(error);
-	            _this.Nofity('Error getting todos', 'Error');
-	        });
-	    }
-
-	    // have to create temporary room var,
-	    // as socket functions have to be called
-	    // with this as socket.
-
-	    _createClass(RoomCtrl, [{
-	        key: 'initSockets',
-	        value: function initSockets() {
-	            var room = this.roomName;
-	            this.SocketsService.emit('room', room);
-
-	            // Socket events config
-	            this.SocketsService.on('UserConnected', (function (data) {
-	                this.Notify(data, 'Success');
-	            }).bind(this));
-
-	            this.SocketsService.on('NewTask', (function (data) {
-	                this.addTaskLocally(data.task, data.username);
-	                // force view to update;
-	                this.$scope.$apply();
-	            }).bind(this));
-
-	            this.SocketsService.on('UpdatedTask', (function (data) {
-	                this.updateTaskLocally(data.task);
-	                // force view to update;
-	                this.$scope.$apply();
-	            }).bind(this));
-	        }
-	    }, {
-	        key: 'hasTodos',
-	        value: function hasTodos() {
-	            return this.tasks.some(function (element) {
-	                return element.status === 'Todo';
-	            });
-	        }
-
-	        // create task on server
-	    }, {
-	        key: 'createTask',
-	        value: function createTask() {
-	            var _this2 = this;
-
-	            this.TasksService.create(this.newTask).then(function (result) {
-	                _this2.newTask = {
-	                    status: 'Todo'
-	                };
-	                _this2.addTaskLocally(result.data);
-	            }, function (error) {
-	                console.error(error);
-	                _this2.Notify('Error saving todos', 'Error');
-	            });
-	        }
-
-	        // add task locally within js array.
-	    }, {
-	        key: 'addTaskLocally',
-	        value: function addTaskLocally(newTask, username) {
-	            var alreadyAdded = this.tasks.find(function (task) {
-	                return task.id === newTask.id;
-	            });
-	            if (!alreadyAdded) {
-	                this.tasks.push(newTask);
-	            }
-	        }
-	    }, {
-	        key: 'updateTaskComplete',
-	        value: function updateTaskComplete(id) {
-	            var _this3 = this;
-
-	            if (!id) {
-	                return;
-	            }
-	            this.TasksService.update(id, {
-	                status: 'Complete'
-	            }).then(function (result) {
-	                console.log(result.data);
-	                _this3.updateTaskLocally(result.data);
-	            }, function (error) {
-	                console.error(error);
-	                _this3.Notify('Error updating todo', 'Error');
-	            });
-	        }
-	    }, {
-	        key: 'updateTaskLocally',
-	        value: function updateTaskLocally(reqTask) {
-	            if (reqTask.status !== 'Todo') {
-	                for (var i = 0; i < this.tasks.length; i++) {
-	                    if (this.tasks[i].id === reqTask.id) {
-	                        if (reqTask.status !== 'Todo') {
-	                            this.tasks.splice(i, 1);
-	                            return;
-	                        }
-	                        this.tasks[i] = reqTask;
-	                        return;
-	                    }
-	                }
-	            }
-	        }
-	    }, {
-	        key: 'Notify',
-	        value: function Notify(text, type) {
-	            if (this.doNotNotify) {
-	                return false;
-	            }
-	            switch (type) {
-	                case 'Success':
-	                    this.Notification.success(text);
-	                    break;
-	                case 'Error':
-	                    this.Notification.error(text);
-	                    break;
-	                default:
-	                    this.Notification.info(text);
-	            }
-	        }
-	    }]);
-
-	    return RoomCtrl;
-	})();
-
-	RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope'];
-
-	exports['default'] = RoomCtrl;
-	module.exports = exports['default'];
-
-/***/ },
+/* 56 */,
 /* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -43983,22 +43808,54 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	    value: true
+	  value: true
 	});
 	function task() {
-	    'use strict';
-	    return {
-	        restrict: 'E',
-	        scope: {
-	            task: '=',
-	            edited: '&',
-	            deleted: '&',
-	            completed: '&'
-	        },
-	        template: __webpack_require__(60),
+	  'use strict';
+	  return {
+	    restrict: 'E',
+	    scope: {
+	      task: '=',
+	      edited: '&',
+	      deleted: '&'
+	    },
+	    template: __webpack_require__(60),
 
-	        link: function link(scope, element, attrs) {}
-	    };
+	    link: function link(scope, element, attrs) {
+
+	      scope.cachedTask = {};
+
+	      scope.editing = false;
+
+	      scope.edit = function () {
+
+	        scope.cachedTask = scope.task;
+
+	        scope.editing = true;
+	      };
+
+	      scope.cancelEdit = function () {
+
+	        scope.task = scope.cachedTask;
+
+	        scope.editing = false;
+	      };
+
+	      scope.save = function () {
+
+	        scope.editing = false;
+
+	        scope.edited();
+	      };
+
+	      scope.completed = function () {
+
+	        task.status = "Complete";
+
+	        scope.edited();
+	      };
+	    }
+	  };
 	}
 
 	exports['default'] = task;
@@ -44008,7 +43865,7 @@
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"task-description left-aligned\">\n    <p class=\"task-title\">{{task.title}}</p>\n    <p>{{task.description}}</p>\n    <p class=\"task-details\">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>\n</div>\n<div class=\"checkbox-container\">\n    <button ng-click=\"delete\">Delete</button>\n    <button ng-click=\"edit\">Edit</button>\n    <button ng-click=\"completed()\">Done</button>\n</div>\n";
+	module.exports = "<div class=\"task-description left-aligned\">\n    <p class=\"task-title\">{{task.title}}</p>\n    <p>{{task.description}}</p>\n    <p class=\"task-details\">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>\n</div>\n<div ng-if=\"!editing\" class=\"checkbox-container\">\n    <button ng-click=\"delete()\">Delete</button>\n    <button ng-click=\"edit()\">Edit</button>\n    <button ng-click=\"completed()\">Done</button>\n</div>\n<div ng-if=\"editing\" class=\"checkbox-container\">\n  <button ng-click=\"cancelEdit()\">Cancel</button>\n  <button ng-click=\"save()\">Save</button>\n</div>\n";
 
 /***/ },
 /* 61 */

@@ -43,8 +43,7 @@ class RoomCtrl {
     // as socket functions have to be called
     // with this as socket.
     initSockets() {
-        let room = this.roomName;
-        this.SocketsService.emit('room', room);
+        this.SocketsService.emit('room', this.roomName);
 
         // Socket events config
         this.SocketsService.on('UserConnected', (function(data) {
@@ -94,17 +93,12 @@ class RoomCtrl {
         }
     }
 
-    updateTaskComplete(id) {
-        if (!id) {
+    updateTask(task) {
+        if (!task) {
             return;
         }
-        this.TasksService.update(id, {
-            status: 'Complete'
-        }).then(
-            result => {
-                console.log(result.data);
-                this.updateTaskLocally(result.data);
-            },
+        this.TasksService.update(task.id, task).then(
+            result => this.updateTaskLocally(result.data),
             error => {
                 console.error(error);
                 this.Notify('Error updating todo', 'Error');
@@ -112,18 +106,31 @@ class RoomCtrl {
         );
     }
 
-    updateTaskLocally(reqTask) {
+    deleteTask(task) {
+      if (!task) {
+        return;
+      }
+      this.TasksService.destory(task.id).then(
+        result => this.updateTaskLocally(task, true),
+        error => {
+          console.error(error);
+          this.Notify('Error removing todo', 'Error');
+        }
+      );
+    }
+
+    updateTaskLocally(reqTask, remove) {
         if (reqTask.status !== 'Todo') {
-            for (var i = 0; i < this.tasks.length; i++) {
-                if (this.tasks[i].id === reqTask.id) {
-                    if (reqTask.status !== 'Todo') {
+            this.tasks.forEach(function(task, i) {
+                if (task.id === reqTask.id) {
+                    if (reqTask.status !== 'Todo' || remove) {
                         this.tasks.splice(i, 1);
                         return;
                     }
                     this.tasks[i] = reqTask;
                     return;
                 }
-            }
+            });
         }
     }
 

@@ -3,8 +3,12 @@
     <p>{{task.description}}</p>
     <p class="task-details">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>
 </div>
-<div class="checkbox-container">
-    <button ng-click="delete">Delete</button>
-    <button ng-click="edit">Edit</button>
+<div ng-if="!editing" class="checkbox-container">
+    <button ng-click="delete()">Delete</button>
+    <button ng-click="edit()">Edit</button>
     <button ng-click="completed()">Done</button>
+</div>
+<div ng-if="editing" class="checkbox-container">
+  <button ng-click="cancelEdit()">Cancel</button>
+  <button ng-click="save()">Save</button>
 </div>
