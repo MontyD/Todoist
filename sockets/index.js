@@ -4,7 +4,6 @@ var socketsRouting = function(socket) {
     socket.on('room', function(room) {
         // on connection socket echos room name,
         // add socket to that name
-        console.log(room + ' being joined');
         socket.join(room);
     });
 };
