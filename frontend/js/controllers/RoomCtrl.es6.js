@@ -64,10 +64,6 @@ class RoomCtrl {
 
     }
 
-    hasTodos() {
-        return this.tasks.some(element => element.status === 'Todo');
-    }
-
     // create task on server
     createTask() {
         this.TasksService.create(this.newTask).then(
@@ -107,31 +103,29 @@ class RoomCtrl {
     }
 
     deleteTask(task) {
-      if (!task) {
-        return;
-      }
-      this.TasksService.destory(task.id).then(
-        result => this.updateTaskLocally(task, true),
-        error => {
-          console.error(error);
-          this.Notify('Error removing todo', 'Error');
+        if (!task) {
+            return;
         }
-      );
+        this.TasksService.destroy(task.id).then(
+            result => this.updateTaskLocally(task, true),
+            error => {
+                console.error(error);
+                this.Notify('Error removing todo', 'Error');
+            }
+        );
     }
 
     updateTaskLocally(reqTask, remove) {
-        if (reqTask.status !== 'Todo') {
-            this.tasks.forEach(function(task, i) {
-                if (task.id === reqTask.id) {
-                    if (reqTask.status !== 'Todo' || remove) {
-                        this.tasks.splice(i, 1);
-                        return;
-                    }
-                    this.tasks[i] = reqTask;
+        this.tasks.forEach(function(task, i) {
+            if (task.id === reqTask.id) {
+                if (reqTask.status !== 'Todo' || remove) {
+                    this.tasks.splice(i, 1);
                     return;
                 }
-            });
-        }
+                this.tasks[i] = reqTask;
+                return;
+            }
+        }, this);
     }
 
     Notify(text, type) {

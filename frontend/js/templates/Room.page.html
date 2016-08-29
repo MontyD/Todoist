@@ -18,10 +18,10 @@
         <article class="task-item" ng-repeat="task in home.tasks">
             <task-view
               task="task"
-              editied="home.updateTask(task)"
+              edited="home.updateTask(task)"
               deleted="home.deleteTask(task)">
             </task-view>
         </article>
-        <p class="empty-notification" ng-if="!home.hasTodos()">No todos to be done</p>
+        <p class="empty-notification" ng-if="home.tasks.length === 0">No todos to be done</p>
     </section>
 </main>

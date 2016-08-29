@@ -15,9 +15,9 @@ function task() {
 
           scope.editing = false;
 
-          scope.edit = () => {
+          scope.edit = reqTask => {
 
-            scope.cachedTask = scope.task;
+            scope.cachedTask = angular.copy(scope.task);
 
             scope.editing = true;
 
@@ -41,11 +41,11 @@ function task() {
 
           scope.completed = () => {
 
-            task.status = "Complete";
+            scope.task.status = 'Complete';
 
             scope.edited();
 
-          }
+          };
 
         }
     };
