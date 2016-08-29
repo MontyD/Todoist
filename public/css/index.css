@@ -680,6 +680,11 @@ input[type="submit"] {
       vertical-align: middle; }
   .task-item:first-child {
     border-top: none; }
+  .task-item label.first {
+    display: block;
+    margin-top: 0.8em; }
+  .task-item textarea.last {
+    margin-bottom: 0.8em; }
 
 .empty-notification {
   margin: 4em;
@@ -1706,6 +1711,11 @@ input[type="submit"] {
       vertical-align: middle; }
   .task-item:first-child {
     border-top: none; }
+  .task-item label.first {
+    display: block;
+    margin-top: 0.8em; }
+  .task-item textarea.last {
+    margin-bottom: 0.8em; }
 
 .empty-notification {
   margin: 4em;

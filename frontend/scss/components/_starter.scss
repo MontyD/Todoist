@@ -377,6 +377,13 @@ input[type="submit"] {
     &:first-child {
         border-top: none;
     }
+    label.first {
+      display: block;
+      margin-top: 0.8em;
+    }
+    textarea.last {
+      margin-bottom: 0.8em;
+    }
 }
 .empty-notification {
     margin   : 4em;

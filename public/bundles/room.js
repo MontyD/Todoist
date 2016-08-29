@@ -43845,6 +43845,13 @@
 	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
+
+	            this.SocketsService.on('DeletedTask', (function (data) {
+	                this.updateTaskLocally(data.task, true);
+	                console.log(data);
+	                // force view to update;
+	                this.$scope.$apply();
+	            }).bind(this));
 	        }
 
 	        // create task on server
@@ -44042,7 +44049,7 @@
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"task-description left-aligned\">\n    <p ng-if=\"!editing\" class=\"task-title\">{{task.title}}</p>\n    <p ng-if=\"!editing\">{{task.description}}</p>\n    <p ng-if=\"!editing\" class=\"task-details\">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>\n    <input ng-if=\"editing\" type=\"text\" ng-model=\"task.title\" placeholder=\"Title\" />\n    <textarea ng-if=\"editing\" ng-model=\"task.description\" placeholder=\"Description\"></textarea>\n</div>\n<div ng-if=\"!editing\" class=\"checkbox-container\">\n    <button ng-click=\"deleted()\">Delete</button>\n    <button ng-click=\"edit(task)\">Edit</button>\n    <button ng-click=\"completed()\">Done</button>\n</div>\n<div ng-if=\"editing\" class=\"checkbox-container\">\n    <button ng-click=\"cancelEdit()\">Cancel</button>\n    <button ng-click=\"save()\">Save</button>\n</div>\n";
+	module.exports = "<div class=\"task-description left-aligned\">\n    <p ng-if=\"!editing\" class=\"task-title\">{{task.title}}</p>\n    <p ng-if=\"!editing\">{{task.description}}</p>\n    <p ng-if=\"!editing\" class=\"task-details\">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>\n    <label ng-if=\"editing\" class=\"first\">Title</label>\n    <input ng-if=\"editing\" type=\"text\" ng-model=\"task.title\" placeholder=\"Title\" />\n    <label ng-if=\"editing\">Description</label>\n    <textarea ng-if=\"editing\" class=\"last\" ng-model=\"task.description\" placeholder=\"Description\"></textarea>\n</div>\n<div ng-if=\"!editing\" class=\"checkbox-container\">\n    <button ng-click=\"deleted()\">Delete</button>\n    <button ng-click=\"edit()\">Edit</button>\n    <button ng-click=\"completed()\">Done</button>\n</div>\n<div ng-if=\"editing\" class=\"checkbox-container\">\n    <button ng-click=\"cancelEdit()\">Cancel</button>\n    <button ng-click=\"save()\">Save</button>\n</div>\n";
 
 /***/ },
 /* 61 */

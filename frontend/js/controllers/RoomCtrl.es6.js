@@ -62,6 +62,12 @@ class RoomCtrl {
             this.$scope.$apply();
         }).bind(this));
 
+        this.SocketsService.on('DeletedTask', (function(data) {
+            this.updateTaskLocally(data.task, true);
+            // force view to update;
+            this.$scope.$apply();
+        }).bind(this));
+
     }
 
     // create task on server

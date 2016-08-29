@@ -2,12 +2,14 @@
     <p ng-if="!editing" class="task-title">{{task.title}}</p>
     <p ng-if="!editing">{{task.description}}</p>
     <p ng-if="!editing" class="task-details">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>
+    <label ng-if="editing" class="first">Title</label>
     <input ng-if="editing" type="text" ng-model="task.title" placeholder="Title" />
-    <textarea ng-if="editing" ng-model="task.description" placeholder="Description"></textarea>
+    <label ng-if="editing">Description</label>
+    <textarea ng-if="editing" class="last" ng-model="task.description" placeholder="Description"></textarea>
 </div>
 <div ng-if="!editing" class="checkbox-container">
     <button ng-click="deleted()">Delete</button>
-    <button ng-click="edit(task)">Edit</button>
+    <button ng-click="edit()">Edit</button>
     <button ng-click="completed()">Done</button>
 </div>
 <div ng-if="editing" class="checkbox-container">

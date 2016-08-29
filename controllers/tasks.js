@@ -15,10 +15,10 @@ router.get('/', respondsToJSON, checkRoom, function(req, res, next) {
     var limit = req.query.limit || 10;
     var initial = !!req.query.initial;
     var query = {
-      roomId: req.user.id
+        roomId: req.user.id
     };
     if (req.query.status) {
-      query.status = req.query.status;
+        query.status = req.query.status;
     }
 
     // FETCH ALL
@@ -117,7 +117,7 @@ router.put('/:taskID', respondsToJSON, checkRoom, function(req, res, next) {
             if (task.roomId === req.user.id) {
                 task.update(req.body.task).then(function(updatedTask) {
                     res.io.to(req.user.name).emit('UpdatedTask', {
-                      task: updatedTask
+                        task: updatedTask
                     });
                     res.json(updatedTask);
                 }).catch(function(err) {
@@ -151,6 +151,9 @@ router.delete('/:taskID', function(req, res, next) {
         } else {
             if (task.roomId === req.user.id) {
                 task.destroy().then(function(confirm) {
+                    res.io.to(req.user.name).emit('DeletedTask', {
+                        task: task
+                    });
                     res.sendStatus(200);
                 }).catch(function(err) {
                     return handleError(err, next);
