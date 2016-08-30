@@ -43775,13 +43775,13 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-serf=\"/\" title=\"Todo\">Todos</a></li>\n            <li><a href=\"/settings\" title=\"\">Settings</a></li>\n            <li><a href=\"/overview\" title=\"\">Overview</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n    <section class=\"thirds one  transparent\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n        <article class=\"stats-container first\">\n          <div class=\"large-number\">{{home.tasksTotal}}</div>\n          Todos to do\n        </article>\n        <article class=\"stats-container\">\n          <div class=\"large-number\">{{home.completedLastDay}}</div>\n          Todos done today\n        </article>\n    </section>\n    <section class=\"thirds two tasks-container\">\n        <article ng-if=\"home.tasks.length !== 0\">\n            <div class=\"task-item\" ng-repeat=\"task in home.tasks\">\n                <task-view task=\"task\" edited=\"home.updateTask(task)\" deleted=\"home.deleteTask(task)\">\n                </task-view>\n            </div>\n            <div class=\"pagination-controls\" ng-if=\"home.availablePages() > 1\">\n                <button class=\"icon back\" ng-if=\"home.taskPage > 0\" ng-click=\"home.pageBack()\"><span class=\"lnr lnr-arrow-left\"></span></button>\n                <span class=\"page-number transparent\">Page {{home.taskPage + 1}} of {{home.availablePages()}}</span>\n                <button class=\"icon forward\" ng-if=\"home.availablePages() !== (home.taskPage + 1)\" ng-click=\"home.pageForward()\"><span class=\"lnr lnr-arrow-right\"></span></button>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n    <section class=\"thirds one  transparent\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n        <article class=\"stats-container first\">\n          <div class=\"large-number\">{{home.tasksTotal}}</div>\n          Todos to do\n        </article>\n        <article class=\"stats-container\">\n          <div class=\"large-number\">{{home.completedLastDay}}</div>\n          Todos done today\n        </article>\n    </section>\n    <section class=\"thirds two tasks-container\">\n        <article ng-if=\"home.tasks.length !== 0\">\n            <div class=\"task-item\" ng-repeat=\"task in home.tasks\">\n                <task-view task=\"task\" edited=\"home.updateTask(task)\" deleted=\"home.deleteTask(task)\">\n                </task-view>\n            </div>\n            <div class=\"pagination-controls\" ng-if=\"home.availablePages() > 1\">\n                <button class=\"icon back\" ng-if=\"home.taskPage > 0\" ng-click=\"home.pageBack()\"><span class=\"lnr lnr-arrow-left\"></span></button>\n                <span class=\"page-number transparent\">Page {{home.taskPage + 1}} of {{home.availablePages()}}</span>\n                <button class=\"icon forward\" ng-if=\"home.availablePages() !== (home.taskPage + 1)\" ng-click=\"home.pageForward()\"><span class=\"lnr lnr-arrow-right\"></span></button>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
 
 /***/ },
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>Overview</h1>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\" >Overview</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n\n</main>\n";
 
 /***/ },
 /* 57 */
@@ -43879,9 +43879,7 @@
 	            this.SocketsService.emit('room', this.roomName);
 
 	            // Socket events config
-	            this.SocketsService.on('UserConnected', (function (data) {
-	                this.Notify(data, 'Success');
-	            }).bind(this));
+	            this.SocketsService.on('UserConnected', (function (data) {}).bind(this));
 
 	            this.SocketsService.on('NewTask', (function (data) {
 	                if (data.task.title === this.cacheActedTask.title && this.cacheActedTask.action === 'create') {
@@ -44099,7 +44097,125 @@
 /* 58 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var OverviewCtrl = (function () {
+	    function OverviewCtrl(Notification, TasksService, SocketsService, $scope) {
+	        var _this = this;
+
+	        _classCallCheck(this, OverviewCtrl);
+
+	        // Dependencies
+	        this.Notification = Notification;
+	        this.TasksService = TasksService;
+	        this.SocketsService = SocketsService;
+	        this.$scope = $scope;
+
+	        // initial variables
+	        this.roomName = '';
+
+	        this.username = '';
+
+	        this.tasks = [];
+
+	        this.newTask = {
+	            status: 'Todo'
+	        };
+
+	        this.taskPageAmount = 10;
+
+	        this.taskPage = 0;
+
+	        this.tasksTotal = 0;
+
+	        this.completedLastDay = 0;
+
+	        this.cacheActedTask = {};
+
+	        this.moving = false;
+
+	        // read todos count
+	        this.TasksService.countTodos().then(function (result) {
+	            return _this.tasksTotal = result.data.count;
+	        }, function (error) {
+	            return console.error(error);
+	        });
+
+	        // read completed count for last day
+	        this.TasksService.countCompletedLastDay().then(function (result) {
+	            return _this.completedLastDay = result.data.count;
+	        }, this.handleError.bind(this));
+	    }
+
+	    _createClass(OverviewCtrl, [{
+	        key: 'Notify',
+	        value: function Notify(text, type) {
+	            if (this.doNotNotify) {
+	                return false;
+	            }
+	            switch (type) {
+	                case 'Success':
+	                    this.Notification.success(text);
+	                    break;
+	                case 'Error':
+	                    this.Notification.error(text);
+	                    break;
+	                default:
+	                    this.Notification.info(text);
+	            }
+	        }
+	    }, {
+	        key: 'initSockets',
+	        value: function initSockets() {
+	            this.SocketsService.emit('room', this.roomName);
+
+	            this.SocketsService.on('NewTask', (function (data) {
+	                this.addTaskLocally(data.task, data.username);
+	                this.Notify(data.username + ' added a todo', 'Success');
+	                // force view to update;
+	                this.$scope.$apply();
+	            }).bind(this));
+	            this.SocketsService.on('UpdatedTask', (function (data) {
+	                if (data.task.status === 'Complete') {
+	                    this.Notify(data.username + ' completed a todo', 'Success');
+	                }
+	                // force view to update;
+	                this.$scope.$apply();
+	            }).bind(this));
+
+	            this.SocketsService.on('DeletedTask', (function (data) {
+	                this.Notify(data.username + ' removed a new todo');
+	                // force view to update;
+	                this.$scope.$apply();
+	            }).bind(this));
+	        }
+	    }, {
+	        key: 'handleError',
+	        value: function handleError(error) {
+	            if (error.status === 401 || error.status === 403) {
+	                window.location = '/rooms/login?timeout=true';
+	            }
+	            console.error(error);
+	            this.Notify('Error communicating with server', 'Error');
+	            this.cacheActedTask = {};
+	        }
+	    }]);
+
+	    return OverviewCtrl;
+	})();
+
+	OverviewCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope'];
+
+	exports['default'] = OverviewCtrl;
+	module.exports = exports['default'];
 
 /***/ },
 /* 59 */

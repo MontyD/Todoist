@@ -81,7 +81,7 @@ class RoomCtrl {
 
         // Socket events config
         this.SocketsService.on('UserConnected', (function(data) {
-            this.Notify(data, 'Success');
+          
         }).bind(this));
 
         this.SocketsService.on('NewTask', (function(data) {
