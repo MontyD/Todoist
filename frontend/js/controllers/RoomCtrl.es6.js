@@ -78,9 +78,12 @@ class RoomCtrl {
     }
 
     initSockets() {
+        // Check if already set up, if so return.
         if (this.$rootScope.initCompleteRoom) {
             return;
         }
+
+        // echo room name
         this.SocketsService.emit('room', this.roomName);
 
         // Socket events config
@@ -121,6 +124,8 @@ class RoomCtrl {
             this.$scope.$apply();
         }).bind(this));
 
+
+        // create hash and make sockets as initialised.
         this.$rootScope.hash = Math.random().toString(36).substring(7);
         this.$rootScope.initCompleteRoom = true;
 
@@ -227,7 +232,7 @@ class RoomCtrl {
         );
     }
 
-    // create task on server
+    // <---- SERVER SIDE INTERACTIONS:
     createTask() {
         this.TasksService.create(this.newTask, this.$rootScope.hash).then(
             result => {
@@ -240,7 +245,6 @@ class RoomCtrl {
         );
 
     }
-
 
     updateTask(task) {
         if (!task) {
@@ -261,6 +265,7 @@ class RoomCtrl {
             this.handleError.bind(this)
         );
     }
+    // ---->
 
 
     handleError(error) {
