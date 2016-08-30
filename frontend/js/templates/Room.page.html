@@ -21,9 +21,11 @@
                 <task-view task="task" edited="home.updateTask(task)" deleted="home.deleteTask(task)">
                 </task-view>
             </div>
-            <button class="secondary" ng-click="home.pageBack()"><span class="lnr lnr-arrow-left"></span></button>
-            Page {{home.taskPage + 1}}
-            <button class="secondary" ng-click="home.pageForward()"><span class="lnr lnr-arrow-right"></span></button>
+            <div class="pagination-controls">
+                <button class="icon" ng-click="home.pageBack()"><span class="lnr lnr-arrow-left"></span></button>
+                <span>Page {{home.taskPage + 1}}</span>
+                <button class="icon" ng-click="home.pageForward()"><span class="lnr lnr-arrow-right"></span></button>
+            </div>
         </article>
         <p class="empty-notification" ng-if="home.tasks.length === 0">No todos to be done</p>
     </section>

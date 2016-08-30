@@ -106,8 +106,8 @@ p.slight {
     padding-bottom: 1em;
 }
 
-.fakeButton,
-.button {
+.button,
+.fakeButton {
     display        : inline-block;
     padding        : 0.6em 0.8em;
     margin         : 0.4em;
@@ -127,8 +127,17 @@ p.slight {
 
     &.secondary {
         background: $colorWhite;
-        border    : 1px solid $colorDark;
-        color     : $colorDark;
+        border    : 1px solid $colorDarkGrey;
+        color     : $colorDarkGrey;
+    }
+    &.danger {
+      background: $colorWhite;
+      border    : 1px solid $colorError;
+      color     : $colorError;
+      &:hover {
+        color: $colorWhite;
+        background: $colorError;
+      }
     }
 
     &:hover {
@@ -146,14 +155,25 @@ p.slight {
         margin-right: auto;
     }
 
-    &.fullwidth
-
-    &:disabled {
+    &.fullwidth &:disabled {
         opacity: 0.8;
 
         &:hover {
             box-shadow: none;
         }
+    }
+}
+
+button.icon {
+    padding   : 0.2em 0.2em 0.3em 0.3em;
+    font-size : 1.8em;
+    cursor    : pointer;
+    background: transparent;
+    border    : none;
+    color     : $colorDarkGrey;
+
+    &:hover {
+        color: $colorDark;
     }
 }
 //** Color styles **//

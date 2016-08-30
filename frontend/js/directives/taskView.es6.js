@@ -15,6 +15,8 @@ function task() {
 
           scope.editing = false;
 
+          scope.deleting = false;
+
           scope.edit = reqTask => {
 
             scope.cachedTask = angular.copy(scope.task);
@@ -30,6 +32,11 @@ function task() {
             scope.editing = false;
 
           };
+
+          scope.startDelete = () => scope.deleting = true;
+
+          scope.cancelDelete = () => scope.deleting = false;
+
 
           scope.save = () => {
 

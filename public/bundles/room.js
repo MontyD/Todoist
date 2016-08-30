@@ -43766,7 +43766,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-serf=\"home\" title=\"\">Tasks</a></li>\n            <li><a href=\"#\" title=\"\">Settings</a></li>\n            <li><a href=\"#\" title=\"\">Overview</a></li>\n            <li><a href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n    <section class=\"thirds one  transparent\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n        {{home.tasksTotal}}\n    </section>\n    <section class=\"thirds two tasks-container\">\n        <article ng-if=\"home.tasks.length !== 0\">\n            <div class=\"task-item\" ng-repeat=\"task in home.tasks\">\n                <task-view task=\"task\" edited=\"home.updateTask(task)\" deleted=\"home.deleteTask(task)\">\n                </task-view>\n            </div>\n            <button class=\"secondary\" ng-click=\"home.pageBack()\"><span class=\"lnr lnr-arrow-left\"></span></button>\n            Page {{home.taskPage + 1}}\n            <button class=\"secondary\" ng-click=\"home.pageForward()\"><span class=\"lnr lnr-arrow-right\"></span></button>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-serf=\"home\" title=\"\">Tasks</a></li>\n            <li><a href=\"#\" title=\"\">Settings</a></li>\n            <li><a href=\"#\" title=\"\">Overview</a></li>\n            <li><a href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n    <section class=\"thirds one  transparent\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n        {{home.tasksTotal}}\n    </section>\n    <section class=\"thirds two tasks-container\">\n        <article ng-if=\"home.tasks.length !== 0\">\n            <div class=\"task-item\" ng-repeat=\"task in home.tasks\">\n                <task-view task=\"task\" edited=\"home.updateTask(task)\" deleted=\"home.deleteTask(task)\">\n                </task-view>\n            </div>\n            <div class=\"pagination-controls\">\n                <button class=\"icon\" ng-click=\"home.pageBack()\"><span class=\"lnr lnr-arrow-left\"></span></button>\n                <span>Page {{home.taskPage + 1}}</span>\n                <button class=\"icon\" ng-click=\"home.pageForward()\"><span class=\"lnr lnr-arrow-right\"></span></button>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
 
 /***/ },
 /* 56 */
@@ -44136,6 +44136,8 @@
 
 	      scope.editing = false;
 
+	      scope.deleting = false;
+
 	      scope.edit = function (reqTask) {
 
 	        scope.cachedTask = angular.copy(scope.task);
@@ -44148,6 +44150,14 @@
 	        scope.task = scope.cachedTask;
 
 	        scope.editing = false;
+	      };
+
+	      scope.startDelete = function () {
+	        return scope.deleting = true;
+	      };
+
+	      scope.cancelDelete = function () {
+	        return scope.deleting = false;
 	      };
 
 	      scope.save = function () {
@@ -44174,7 +44184,7 @@
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"task-description left-aligned\">\n    <p ng-if=\"!editing\" class=\"task-title\">{{task.title}}</p>\n    <p ng-if=\"!editing\">{{task.description}}</p>\n    <p ng-if=\"!editing\" class=\"task-details\">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>\n    <form ng-if=\"editing\" ng-submit=\"save()\">\n      <label class=\"first\">Title</label>\n      <input type=\"text\" ng-model=\"task.title\" placeholder=\"Title\" />\n      <label>Description</label>\n      <textarea class=\"last\" ng-model=\"task.description\" placeholder=\"Description\"></textarea>\n    </form>\n</div>\n<div ng-if=\"!editing\" class=\"control-container\">\n    <button ng-click=\"deleted()\" class=\"slide-out delete\"><span class=\"lnr lnr-cross\"></span></button>\n    <button ng-click=\"edit()\" class=\"slide-out edit\"><span class=\"lnr lnr-pencil\"></span></button>\n    <button ng-click=\"completed()\" class=\"done\"><span class=\"lnr lnr-checkmark-circle\"></span></button>\n</div>\n<div ng-if=\"editing\" class=\"checkbox-container\">\n    <button ng-click=\"cancelEdit()\" class=\"cancel\">Cancel</button>\n    <button ng-click=\"save()\" class=\"save\">Save</button>\n</div>\n";
+	module.exports = "<div class=\"task-description\">\n    <p ng-if=\"!editing\" class=\"task-title\">{{task.title}}</p>\n    <p ng-if=\"!editing\">{{task.description}}</p>\n    <p ng-if=\"!editing\" class=\"task-details\">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>\n    <form ng-if=\"editing\" ng-submit=\"save()\">\n        <label class=\"first\">Title</label>\n        <input type=\"text\" ng-model=\"task.title\" />\n        <label>Description</label>\n        <textarea class=\"last\" ng-model=\"task.description\"></textarea>\n    </form>\n    <div class=\"button-group\" ng-if=\"editing && !deleting\">\n        <button ng-click=\"cancelEdit()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"save()\" class=\"button primary\">Save</button>\n    </div>\n</div>\n<div ng-if=\"!editing && !deleting\" class=\"control-container\">\n    <button ng-click=\"startDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n    <button ng-click=\"edit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n    <button ng-click=\"completed()\" class=\"done icon\"><span class=\"lnr lnr-checkmark-circle\"></span></button>\n</div>\n<div class=\"control-container\" ng-if=\"deleting\">\n    <div class=\"button-group\">\n        <button ng-click=\"cancelDelete()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"deleted()\" class=\"button danger\">Delete</button>\n    </div>\n</div>\n";
 
 /***/ },
 /* 61 */
