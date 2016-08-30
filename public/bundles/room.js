@@ -44099,7 +44099,19 @@
 	    },
 	    template: __webpack_require__(58),
 
-	    link: function link(scope, element, attrs) {}
+	    link: function link(scope, element, attrs) {
+
+	      scope.attemptedSubmit = false;
+
+	      scope.submitForm = function (valid) {
+	        if (!valid) {
+	          scope.attemptedSubmit = true;
+	          return;
+	        }
+	        scope.attemptedSubmit = false;
+	        scope.createTask();
+	      };
+	    }
 	  };
 	}
 
@@ -44110,7 +44122,7 @@
 /* 58 */
 /***/ function(module, exports) {
 
-	module.exports = "<form ng-submit=\"createTask()\" novalidate=\"novalidate\">\n    <h4 class=\"left-aligned\">Create a todo</h4>\n\n    <label for=\"newTaskTitle\">Title</label>\n    <input type=\"text\" id=\"newTaskTitle\" name=\"title\" ng-model=\"task.title\" required=\"required\">\n\n\n    <label for=\"newTaskDescription\">Description</label>\n    <textarea id=\"newTaskDescription\" ng-model=\"task.description\" required=\"required\" name=\"description\"></textarea>\n    <input type=\"submit\" class=\"button\" value=\"Create\">\n\n</form>\n";
+	module.exports = "<form name=\"newTaskForm\" ng-submit=\"submitForm(newTaskForm.$valid)\" ng-class=\"{'attempted-submit': attemptedSubmit}\" novalidate=\"novalidate\">\n    <h4 class=\"left-aligned\">Create a todo</h4>\n\n    <label for=\"newTaskTitle\" class=\"required\">Title</label>\n    <input type=\"text\" id=\"newTaskTitle\" name=\"title\" ng-model=\"task.title\" required=\"required\">\n\n\n    <label for=\"newTaskDescription\">Description</label>\n    <textarea id=\"newTaskDescription\" ng-model=\"task.description\" name=\"description\"></textarea>\n    <input type=\"submit\" class=\"button\" value=\"Create\">\n</form>\n";
 
 /***/ },
 /* 59 */
@@ -44186,7 +44198,7 @@
 /* 60 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"task-description\">\n    <p ng-if=\"!editing\" class=\"task-title\">{{task.title}}</p>\n    <p ng-if=\"!editing\">{{task.description}}</p>\n    <p ng-if=\"!editing\" class=\"task-details\">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>\n    <form ng-if=\"editing\" ng-submit=\"save()\">\n        <label class=\"first\">Title</label>\n        <input type=\"text\" ng-model=\"task.title\" />\n        <label>Description</label>\n        <textarea class=\"last\" ng-model=\"task.description\"></textarea>\n    </form>\n    <div class=\"button-group\" ng-if=\"editing && !deleting\">\n        <button ng-click=\"cancelEdit()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"save()\" class=\"button primary\">Save</button>\n    </div>\n</div>\n<div ng-if=\"!editing && !deleting\" class=\"control-container\">\n    <button ng-click=\"startDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n    <button ng-click=\"edit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n    <button ng-click=\"completed()\" class=\"done icon\"><span class=\"lnr lnr-checkmark-circle\"></span></button>\n</div>\n<div class=\"control-container\" ng-if=\"deleting\">\n    <div class=\"button-group\">\n        <button ng-click=\"cancelDelete()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"deleted()\" class=\"button danger\">Delete</button>\n    </div>\n</div>\n";
+	module.exports = "<div class=\"task-description\">\n    <p ng-if=\"!editing\" class=\"task-title\">{{task.title}}</p>\n    <p ng-if=\"!editing\">{{task.description}}</p>\n    <p ng-if=\"!editing\" class=\"task-details\">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>\n    <form ng-if=\"editing\" ng-submit=\"save()\">\n        <label class=\"first\">Title</label>\n        <input type=\"text\" ng-model=\"task.title\" />\n        <label>Description</label>\n        <textarea class=\"last\" ng-model=\"task.description\"></textarea>\n    </form>\n    <div class=\"button-group\" ng-if=\"editing && !deleting\">\n        <button ng-click=\"cancelEdit()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"save()\" class=\"button primary\">Save</button>\n    </div>\n</div>\n<div ng-if=\"!editing && !deleting\" class=\"control-container\">\n    <button ng-click=\"startDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n    <button ng-click=\"edit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n    <button ng-click=\"completed()\" class=\"done icon\" title=\"Mark as complete\"><span class=\"lnr lnr-checkmark-circle\"></span></button>\n</div>\n<div class=\"control-container\" ng-if=\"deleting\">\n    <div class=\"button-group\">\n        <button ng-click=\"cancelDelete()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"deleted()\" class=\"button danger\">Delete</button>\n    </div>\n</div>\n";
 
 /***/ },
 /* 61 */

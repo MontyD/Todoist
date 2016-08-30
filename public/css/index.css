@@ -703,6 +703,8 @@ form {
     font-size: 1.8em;
     font-weight: normal;
     font-family: "Droid Sans", sans-serif; }
+  form.attempted-submit input.ng-invalid {
+    border-color: #E64A19; }
 
 label {
   -webkit-user-select: none;
@@ -717,7 +719,7 @@ label {
     font-weight: normal;
     font-size: 0.8em;
     margin: 0 0.1em;
-    color: #E64A19;
+    color: #004D40;
     vertical-align: top; }
 
 input[type="currency"],
@@ -801,14 +803,22 @@ textarea {
             animation-iteration-count: 2;
     -webkit-animation-duration: 0.2s;
             animation-duration: 0.2s; }
-  input[type="currency"][disabled="disabled"],
-  input[type="date"][disabled="disabled"],
-  input[type="email"][disabled="disabled"],
-  input[type="number"][disabled="disabled"],
-  input[type="password"][disabled="disabled"],
-  input[type="text"][disabled="disabled"],
-  textarea[disabled="disabled"] {
+  input[type="currency"]:disabled,
+  input[type="date"]:disabled,
+  input[type="email"]:disabled,
+  input[type="number"]:disabled,
+  input[type="password"]:disabled,
+  input[type="text"]:disabled,
+  textarea:disabled {
     background: rgba(0, 0, 0, 0.1); }
+    input[type="currency"]:disabled:hover,
+    input[type="date"]:disabled:hover,
+    input[type="email"]:disabled:hover,
+    input[type="number"]:disabled:hover,
+    input[type="password"]:disabled:hover,
+    input[type="text"]:disabled:hover,
+    textarea:disabled:hover {
+      box-shadow: none; }
 
 textarea {
   min-height: 80px; }

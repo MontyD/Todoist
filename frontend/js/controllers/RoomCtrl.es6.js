@@ -274,12 +274,12 @@ class RoomCtrl {
     }
 
     handleError(error) {
-      if (error.status === 401 || error.status === 403) {
-        window.location = '/rooms/login?timeout=true';
-      }
-      console.error(error);
-      this.Notify('Error communicating with server', 'Error');
-      this.cacheActedTask = {};
+        if (error.status === 401 || error.status === 403) {
+            window.location = '/rooms/login?timeout=true';
+        }
+        console.error(error);
+        this.Notify('Error communicating with server', 'Error');
+        this.cacheActedTask = {};
     }
 
 }

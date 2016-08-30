@@ -16,7 +16,7 @@
 <div ng-if="!editing && !deleting" class="control-container">
     <button ng-click="startDelete()" class="slide-out delete icon"><span class="lnr lnr-cross"></span></button>
     <button ng-click="edit()" class="slide-out icon"><span class="lnr lnr-pencil"></span></button>
-    <button ng-click="completed()" class="done icon"><span class="lnr lnr-checkmark-circle"></span></button>
+    <button ng-click="completed()" class="done icon" title="Mark as complete"><span class="lnr lnr-checkmark-circle"></span></button>
 </div>
 <div class="control-container" ng-if="deleting">
     <div class="button-group">
