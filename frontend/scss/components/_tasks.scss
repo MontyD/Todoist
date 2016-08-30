@@ -6,6 +6,9 @@
     @extend .light;
     max-width: none;
     display  : inline-block;
+    @media(max-width: $mediumBP) {
+      display: block;
+    }
 }
 
 .task-item {

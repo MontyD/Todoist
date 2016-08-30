@@ -399,7 +399,8 @@ ui-view {
     font-size: initial;
     margin: 0;
     border-radius: 0;
-    margin-left: -1px; }
+    margin-left: -1px;
+    min-width: 75px; }
     .button-group button:first-child {
       border-top-left-radius: 0.3em;
       border-bottom-left-radius: 0.3em; }
@@ -706,21 +707,16 @@ form {
   form.attempted-submit input.ng-invalid {
     border-color: #E64A19; }
 
-label {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none; }
-  label.checkbox {
-    display: inline-block;
-    margin-right: 0.2em; }
-  label.required span::after {
-    content: '*';
-    font-weight: normal;
-    font-size: 0.8em;
-    margin: 0 0.1em;
-    color: #004D40;
-    vertical-align: top; }
+label.checkbox {
+  display: inline-block;
+  margin-right: 0.2em; }
+label.required::after {
+  content: '*';
+  font-weight: normal;
+  font-size: 0.8em;
+  margin: 0 0.1em;
+  color: #004D40;
+  vertical-align: top; }
 
 input[type="currency"],
 input[type="date"],
@@ -847,67 +843,6 @@ select {
   margin: 0.4em auto; }
   .left-aligned input[type="submit"]:hover {
     box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
-
-.customSelect {
-  display: block;
-  position: relative; }
-  .customSelect button {
-    display: block;
-    margin: 0.5em auto 0.8em;
-    border-radius: 0;
-    background: #E0E0E0;
-    color: transparent;
-    border: none;
-    padding: 0.4em 0.6em;
-    border-bottom: 1px solid #212121;
-    transition: color 0.3s ease-out; }
-    .customSelect button span.lnr {
-      vertical-align: middle;
-      font-size: 1.2em;
-      margin-left: 0.2em; }
-    .customSelect button:hover {
-      box-shadow: none; }
-    .customSelect button.active {
-      color: #212121; }
-  .customSelect ul.customSelect {
-    display: inline-block;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    padding: 0;
-    width: 100%;
-    max-width: 300px;
-    -webkit-transform: translateY(-50%) scale(0);
-        -ms-transform: translateY(-50%) scale(0);
-            transform: translateY(-50%) scale(0);
-    transition: opacity 0.1s ease-out, -webkit-transform 0.2s ease-out;
-    transition: transform 0.2s ease-out, opacity 0.1s ease-out;
-    transition: transform 0.2s ease-out, opacity 0.1s ease-out, -webkit-transform 0.2s ease-out;
-    background: #E0E0E0;
-    opacity: 0;
-    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
-    z-index: 9000;
-    color: transparent; }
-    .customSelect ul.customSelect.active {
-      color: #212121; }
-    .customSelect ul.customSelect li.customSelect {
-      list-style: none;
-      cursor: pointer;
-      color: #212121;
-      background: #E0E0E0;
-      transition: background 0.2s, opacity 0.4s;
-      padding: 0.4em 0.8em;
-      display: block;
-      border: none; }
-      .customSelect ul.customSelect li.customSelect:hover {
-        background: #FAFAFA; }
-    .customSelect ul.customSelect.active {
-      -webkit-transform: translateY(-50%) scale(1);
-          -ms-transform: translateY(-50%) scale(1);
-              transform: translateY(-50%) scale(1);
-      opacity: 1; }
 
 input[type="checkbox"] {
   display: none; }
@@ -1379,7 +1314,8 @@ ui-view {
     font-size: initial;
     margin: 0;
     border-radius: 0;
-    margin-left: -1px; }
+    margin-left: -1px;
+    min-width: 75px; }
     .button-group button:first-child {
       border-top-left-radius: 0.3em;
       border-bottom-left-radius: 0.3em; }
@@ -2208,7 +2144,8 @@ ui-view {
     font-size: initial;
     margin: 0;
     border-radius: 0;
-    margin-left: -1px; }
+    margin-left: -1px;
+    min-width: 75px; }
     .button-group button:first-child {
       border-top-left-radius: 0.3em;
       border-bottom-left-radius: 0.3em; }
@@ -2558,6 +2495,9 @@ button.icon {
 .tasks-container {
   max-width: none;
   display: inline-block; }
+  @media (max-width: 900px) {
+    .tasks-container {
+      display: block; } }
 
 .task-item {
   display: block;

@@ -16,12 +16,11 @@ form {
     }
 }
 label {
-    user-select: none;
     &.checkbox {
         display     : inline-block;
         margin-right: 0.2em;
     }
-    &.required span::after {
+    &.required::after {
         content       : '*';
         font-weight   : normal;
         font-size     : 0.8em;
@@ -111,71 +110,6 @@ select {
         margin      : 0.4em auto;
         &:hover {
             @include shadow(1);
-        }
-    }
-}
-//** custom-select styling **//
-.customSelect {
-    display : block;
-    position: relative;
-    button {
-        display      : block;
-        margin       : 0.5em auto 0.8em;
-        border-radius: 0;
-        background   : $colorSubtle;
-        color        : transparent;
-        border       : none;
-        padding      : 0.4em 0.6em;
-        border-bottom: 1px solid $colorBlack;
-        transition   : color 0.3s ease-out;
-        span.lnr {
-            vertical-align: middle;
-            font-size     : 1.2em;
-            margin-left   : 0.2em;
-        }
-        &:hover {
-            box-shadow: none;
-        }
-        &.active {
-            color: $colorBlack;
-        }
-    }
-    ul.customSelect {
-        display   : inline-block;
-        position  : absolute;
-        top       : 50%;
-        left      : 0;
-        right     : 0;
-        margin    : 0 auto;
-        padding   : 0;
-        width     : 100%;
-        max-width : 300px;
-        transform : translateY(-50%) scale(0);
-        transition: transform 0.2s ease-out, opacity 0.1s ease-out;
-        background: $colorSubtle;
-        opacity   : 0;
-        @include shadow(1);
-        z-index   : 9000;
-        color     : transparent;
-        &.active {
-            color: $colorBlack;
-        }
-        li.customSelect {
-            list-style: none;
-            cursor    : pointer;
-            color     : $colorBlack;
-            background: $colorSubtle;
-            transition: background 0.2s, opacity 0.4s;
-            padding   : 0.4em 0.8em;
-            display   : block;
-            border    : none;
-            &:hover {
-                background: $colorWhite;
-            }
-        }
-        &.active {
-            transform: translateY(-50%) scale(1);
-            opacity  : 1;
         }
     }
 }
