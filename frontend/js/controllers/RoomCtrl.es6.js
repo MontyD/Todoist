@@ -2,7 +2,7 @@
 
 class RoomCtrl {
 
-    constructor(Notification, TasksService, SocketsService, $scope) {
+    constructor(Notification, TasksService, SocketsService, $scope, $rootScope) {
         // Dependencies
         this.Notification = Notification;
         this.TasksService = TasksService;
@@ -77,11 +77,14 @@ class RoomCtrl {
     }
 
     initSockets() {
+      if (this.$rootScope.socketsJoinedRoom) {
+        return;
+      }
         this.SocketsService.emit('room', this.roomName);
 
         // Socket events config
         this.SocketsService.on('UserConnected', (function(data) {
-          
+
         }).bind(this));
 
         this.SocketsService.on('NewTask', (function(data) {
@@ -117,8 +120,11 @@ class RoomCtrl {
             this.Notify(data.username + ' removed a new todo');
             // force view to update;
             this.$scope.$apply();
+
+
         }).bind(this));
 
+        this.$rootScope.socketsJoinedRoom = true;
     }
 
     availablePages() {
@@ -284,6 +290,6 @@ class RoomCtrl {
 
 }
 
-RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope'];
+RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope', '$rootScope'];
 
 export default RoomCtrl;

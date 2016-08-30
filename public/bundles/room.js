@@ -43798,7 +43798,7 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var RoomCtrl = (function () {
-	    function RoomCtrl(Notification, TasksService, SocketsService, $scope) {
+	    function RoomCtrl(Notification, TasksService, SocketsService, $scope, $rootScope) {
 	        var _this = this;
 
 	        _classCallCheck(this, RoomCtrl);
@@ -43876,6 +43876,9 @@
 	    }, {
 	        key: 'initSockets',
 	        value: function initSockets() {
+	            if (this.$rootScope.socketsJoinedRoom) {
+	                return;
+	            }
 	            this.SocketsService.emit('room', this.roomName);
 
 	            // Socket events config
@@ -43915,6 +43918,8 @@
 	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
+
+	            this.$rootScope.socketsJoinedRoom = true;
 	        }
 	    }, {
 	        key: 'availablePages',
@@ -44088,7 +44093,7 @@
 	    return RoomCtrl;
 	})();
 
-	RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope'];
+	RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope', '$rootScope'];
 
 	exports['default'] = RoomCtrl;
 	module.exports = exports['default'];
@@ -44108,7 +44113,7 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var OverviewCtrl = (function () {
-	    function OverviewCtrl(Notification, TasksService, SocketsService, $scope) {
+	    function OverviewCtrl(Notification, TasksService, SocketsService, $scope, $rootScope) {
 	        var _this = this;
 
 	        _classCallCheck(this, OverviewCtrl);
@@ -44118,6 +44123,7 @@
 	        this.TasksService = TasksService;
 	        this.SocketsService = SocketsService;
 	        this.$scope = $scope;
+	        this.$rootScope = $rootScope;
 
 	        // initial variables
 	        this.roomName = '';
@@ -44135,6 +44141,7 @@
 	        this.TasksService.countCompleted().then(function (result) {
 	            _this.completed = result.data.count;
 	            _this.roomName = result.data.roomName;
+	            _this.initSockets();
 	        }, this.handleError.bind(this));
 	    }
 
@@ -44158,27 +44165,26 @@
 	    }, {
 	        key: 'initSockets',
 	        value: function initSockets() {
+	            if (this.$rootScope.socketsJoinedOverview) {
+	                return;
+	            }
 	            this.SocketsService.emit('room', this.roomName);
 
 	            this.SocketsService.on('NewTask', (function (data) {
-	                this.addTaskLocally(data.task, data.username);
-	                this.Notify(data.username + ' added a todo', 'Success');
-	                // force view to update;
+
 	                this.$scope.$apply();
 	            }).bind(this));
 	            this.SocketsService.on('UpdatedTask', (function (data) {
-	                if (data.task.status === 'Complete') {
-	                    this.Notify(data.username + ' completed a todo', 'Success');
-	                }
 	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
 
 	            this.SocketsService.on('DeletedTask', (function (data) {
-	                this.Notify(data.username + ' removed a new todo');
 	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
+
+	            this.$rootScope.socketsJoinedOverview = true;
 	        }
 	    }, {
 	        key: 'percentageDone',
@@ -44200,7 +44206,7 @@
 	    return OverviewCtrl;
 	})();
 
-	OverviewCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope'];
+	OverviewCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope', '$rootScope'];
 
 	exports['default'] = OverviewCtrl;
 	module.exports = exports['default'];

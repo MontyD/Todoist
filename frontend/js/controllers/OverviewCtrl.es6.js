@@ -2,12 +2,13 @@
 
 class OverviewCtrl {
 
-    constructor(Notification, TasksService, SocketsService, $scope) {
+    constructor(Notification, TasksService, SocketsService, $scope, $rootScope) {
         // Dependencies
         this.Notification = Notification;
         this.TasksService = TasksService;
         this.SocketsService = SocketsService;
         this.$scope = $scope;
+        this.$rootScope = $rootScope;
 
         // initial variables
         this.roomName = '';
@@ -25,6 +26,7 @@ class OverviewCtrl {
             result => {
                 this.completed = result.data.count;
                 this.roomName = result.data.roomName;
+                this.initSockets();
             },
             this.handleError.bind(this)
         );
@@ -48,28 +50,26 @@ class OverviewCtrl {
     }
 
     initSockets() {
+      if (this.$rootScope.socketsJoinedOverview) {
+        return;
+      }
         this.SocketsService.emit('room', this.roomName);
 
         this.SocketsService.on('NewTask', (function(data) {
-            this.addTaskLocally(data.task, data.username);
-            this.Notify(data.username + ' added a todo', 'Success');
-            // force view to update;
+
             this.$scope.$apply();
         }).bind(this));
         this.SocketsService.on('UpdatedTask', (function(data) {
-            if (data.task.status === 'Complete') {
-                this.Notify(data.username + ' completed a todo', 'Success');
-            }
             // force view to update;
             this.$scope.$apply();
         }).bind(this));
 
         this.SocketsService.on('DeletedTask', (function(data) {
-            this.Notify(data.username + ' removed a new todo');
             // force view to update;
             this.$scope.$apply();
         }).bind(this));
 
+        this.$rootScope.socketsJoinedOverview = true;
     }
 
     percentageDone() {
@@ -87,6 +87,6 @@ class OverviewCtrl {
 
 }
 
-OverviewCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope'];
+OverviewCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope', '$rootScope'];
 
 export default OverviewCtrl;
