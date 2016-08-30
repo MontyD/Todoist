@@ -29,7 +29,7 @@ class RoomCtrl {
 
         this.completedLastDay = 0;
 
-        this.cacheActedTask = {};
+        this.cache = {};
 
         this.moving = false;
 
@@ -78,7 +78,7 @@ class RoomCtrl {
     }
 
     initSockets() {
-        if (this.$rootScope.socketsJoinedRoom) {
+        if (this.$rootScope.initCompleteRoom) {
             return;
         }
         this.SocketsService.emit('room', this.roomName);
@@ -89,8 +89,8 @@ class RoomCtrl {
         }).bind(this));
 
         this.SocketsService.on('NewTask', (function(data) {
-            if (data.task.title === this.cacheActedTask.title && this.cacheActedTask.action === 'create') {
-                this.cacheActedTask = {};
+
+            if (this.$rootScope.hash === data.hash) {
                 return;
             }
             this.addTaskLocally(data.task, data.username);
@@ -100,8 +100,7 @@ class RoomCtrl {
         }).bind(this));
 
         this.SocketsService.on('UpdatedTask', (function(data) {
-            if (data.task.id === this.cacheActedTask.id && this.cacheActedTask.action === 'update') {
-                this.cacheActedTask = {};
+            if (this.$rootScope.hash === data.hash) {
                 return;
             }
             this.updateTaskLocally(data.task);
@@ -113,18 +112,18 @@ class RoomCtrl {
         }).bind(this));
 
         this.SocketsService.on('DeletedTask', (function(data) {
-            if (data.task.id === this.cacheActedTask.id && this.cacheActedTask.action === 'delete') {
-                this.cacheActedTask = {};
+            if (this.$rootScope.hash === data.hash) {
                 return;
             }
             this.updateTaskLocally(data.task, true);
             this.Notify(data.username + ' removed a new todo');
             // force view to update;
             this.$scope.$apply();
-
-
         }).bind(this));
-        this.$rootScope.socketsJoinedRoom = true;
+
+        this.$rootScope.hash = Math.random().toString(36).substring(7);
+        this.$rootScope.initCompleteRoom = true;
+
     }
 
     availablePages() {
@@ -230,9 +229,7 @@ class RoomCtrl {
 
     // create task on server
     createTask() {
-        this.cacheActedTask.title = this.newTask.title;
-        this.cacheActedTask.action = 'create';
-        this.TasksService.create(this.newTask).then(
+        this.TasksService.create(this.newTask, this.$rootScope.hash).then(
             result => {
                 this.newTask = {
                     status: 'Todo'
@@ -249,9 +246,7 @@ class RoomCtrl {
         if (!task) {
             return;
         }
-        this.cacheActedTask.id = task.id;
-        this.cacheActedTask.action = 'update';
-        this.TasksService.update(task.id, task).then(
+        this.TasksService.update(task.id, task, this.$rootScope.hash).then(
             result => this.updateTaskLocally(result.data),
             this.handleError.bind(this)
         );
@@ -261,13 +256,12 @@ class RoomCtrl {
         if (!task) {
             return;
         }
-        this.cacheActedTask.id = task.id;
-        this.cacheActedTask.action = 'delete';
-        this.TasksService.destroy(task.id).then(
+        this.TasksService.destroy(task.id, this.$rootScope.hash).then(
             result => this.updateTaskLocally(task, true),
             this.handleError.bind(this)
         );
     }
+
 
     handleError(error) {
         if (error.status === 401 || error.status === 403) {
@@ -275,7 +269,7 @@ class RoomCtrl {
         }
         console.error(error);
         this.Notify('Error communicating with server', 'Error');
-        this.cacheActedTask = {};
+        this.clearCache();
     }
 
 }

@@ -170,7 +170,8 @@ router.post('/', function(req, res, next) {
     models.tasks.create(task).then(function(newTask) {
         res.io.to(req.user.name).emit('NewTask', {
             task: newTask,
-            username: req.session.username
+            username: req.session.username,
+            hash: req.body.hash
         });
         res.send(newTask);
     }).catch(function(err) {
@@ -197,7 +198,8 @@ router.put('/:taskID', function(req, res, next) {
                 task.update(req.body.task).then(function(updatedTask) {
                     res.io.to(req.user.name).emit('UpdatedTask', {
                         task: updatedTask,
-                        username: req.session.username
+                        username: req.session.username,
+                        hash: req.body.hash
                     });
                     res.json(updatedTask);
                 }).catch(function(err) {
@@ -233,7 +235,8 @@ router.delete('/:taskID', function(req, res, next) {
                 task.destroy().then(function(confirm) {
                     res.io.to(req.user.name).emit('DeletedTask', {
                         task: task,
-                        username: req.session.username
+                        username: req.session.username,
+                        hash: req.query.hash
                     });
                     res.sendStatus(200);
                 }).catch(function(err) {

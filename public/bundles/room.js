@@ -43829,7 +43829,7 @@
 
 	        this.completedLastDay = 0;
 
-	        this.cacheActedTask = {};
+	        this.cache = {};
 
 	        this.moving = false;
 
@@ -43877,7 +43877,7 @@
 	    }, {
 	        key: 'initSockets',
 	        value: function initSockets() {
-	            if (this.$rootScope.socketsJoinedRoom) {
+	            if (this.$rootScope.initCompleteRoom) {
 	                return;
 	            }
 	            this.SocketsService.emit('room', this.roomName);
@@ -43886,8 +43886,8 @@
 	            this.SocketsService.on('UserConnected', (function (data) {}).bind(this));
 
 	            this.SocketsService.on('NewTask', (function (data) {
-	                if (data.task.title === this.cacheActedTask.title && this.cacheActedTask.action === 'create') {
-	                    this.cacheActedTask = {};
+
+	                if (this.$rootScope.hash === data.hash) {
 	                    return;
 	                }
 	                this.addTaskLocally(data.task, data.username);
@@ -43897,8 +43897,7 @@
 	            }).bind(this));
 
 	            this.SocketsService.on('UpdatedTask', (function (data) {
-	                if (data.task.id === this.cacheActedTask.id && this.cacheActedTask.action === 'update') {
-	                    this.cacheActedTask = {};
+	                if (this.$rootScope.hash === data.hash) {
 	                    return;
 	                }
 	                this.updateTaskLocally(data.task);
@@ -43910,8 +43909,7 @@
 	            }).bind(this));
 
 	            this.SocketsService.on('DeletedTask', (function (data) {
-	                if (data.task.id === this.cacheActedTask.id && this.cacheActedTask.action === 'delete') {
-	                    this.cacheActedTask = {};
+	                if (this.$rootScope.hash === data.hash) {
 	                    return;
 	                }
 	                this.updateTaskLocally(data.task, true);
@@ -43919,7 +43917,9 @@
 	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
-	            this.$rootScope.socketsJoinedRoom = true;
+
+	            this.$rootScope.hash = Math.random().toString(36).substring(7);
+	            this.$rootScope.initCompleteRoom = true;
 	        }
 	    }, {
 	        key: 'availablePages',
@@ -44036,9 +44036,7 @@
 	        value: function createTask() {
 	            var _this4 = this;
 
-	            this.cacheActedTask.title = this.newTask.title;
-	            this.cacheActedTask.action = 'create';
-	            this.TasksService.create(this.newTask).then(function (result) {
+	            this.TasksService.create(this.newTask, this.$rootScope.hash).then(function (result) {
 	                _this4.newTask = {
 	                    status: 'Todo'
 	                };
@@ -44053,9 +44051,7 @@
 	            if (!task) {
 	                return;
 	            }
-	            this.cacheActedTask.id = task.id;
-	            this.cacheActedTask.action = 'update';
-	            this.TasksService.update(task.id, task).then(function (result) {
+	            this.TasksService.update(task.id, task, this.$rootScope.hash).then(function (result) {
 	                return _this5.updateTaskLocally(result.data);
 	            }, this.handleError.bind(this));
 	        }
@@ -44067,9 +44063,7 @@
 	            if (!task) {
 	                return;
 	            }
-	            this.cacheActedTask.id = task.id;
-	            this.cacheActedTask.action = 'delete';
-	            this.TasksService.destroy(task.id).then(function (result) {
+	            this.TasksService.destroy(task.id, this.$rootScope.hash).then(function (result) {
 	                return _this6.updateTaskLocally(task, true);
 	            }, this.handleError.bind(this));
 	        }
@@ -44081,7 +44075,7 @@
 	            }
 	            console.error(error);
 	            this.Notify('Error communicating with server', 'Error');
-	            this.cacheActedTask = {};
+	            this.clearCache();
 	        }
 	    }]);
 
@@ -44136,7 +44130,6 @@
 	        this.TasksService.countCompleted().then(function (result) {
 	            _this.completed = result.data.count;
 	            _this.roomName = result.data.roomName;
-	            _this.initSockets();
 	        }, this.handleError.bind(this));
 	    }
 
@@ -44158,16 +44151,6 @@
 	            }
 	        }
 	    }, {
-	        key: 'initSockets',
-	        value: function initSockets() {
-	            if (this.$rootScope.socketsJoinedOverview) {
-	                return;
-	            }
-	            //this.SocketsService.emit('room', this.roomName);
-
-	            this.$rootScope.socketsJoinedOverview = true;
-	        }
-	    }, {
 	        key: 'percentageDone',
 	        value: function percentageDone() {
 	            return (this.completed / (this.todo + this.completed) * 100).toFixed(2) + '%';
@@ -44180,7 +44163,6 @@
 	            }
 	            console.error(error);
 	            this.Notify('Error communicating with server', 'Error');
-	            this.cacheActedTask = {};
 	        }
 	    }]);
 
@@ -44574,9 +44556,10 @@
 
 	    _createClass(TasksService, [{
 	        key: 'create',
-	        value: function create(reqTask) {
+	        value: function create(reqTask, hash) {
 	            return this.$http.post(this.urlBase, {
-	                task: reqTask
+	                task: reqTask,
+	                hash: hash
 	            });
 	        }
 	    }, {
@@ -44609,15 +44592,16 @@
 	        }
 	    }, {
 	        key: 'update',
-	        value: function update(reqTaskId, reqTask) {
+	        value: function update(reqTaskId, reqTask, hash) {
 	            return this.$http.put(this.urlBase + reqTaskId, {
-	                task: reqTask
+	                task: reqTask,
+	                hash: hash
 	            });
 	        }
 	    }, {
 	        key: 'destroy',
-	        value: function destroy(reqTaskId) {
-	            return this.$http['delete'](this.urlBase + reqTaskId);
+	        value: function destroy(reqTaskId, hash) {
+	            return this.$http['delete'](this.urlBase + reqTaskId + '?hash=' + hash);
 	        }
 	    }, {
 	        key: 'countTodos',

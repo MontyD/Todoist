@@ -7,9 +7,10 @@ class TasksService {
         this.urlBase = '/tasks/';
     }
 
-    create(reqTask) {
+    create(reqTask, hash) {
         return this.$http.post(this.urlBase, {
-            task: reqTask
+            task: reqTask,
+            hash: hash
         });
     }
 
@@ -40,14 +41,15 @@ class TasksService {
         return this.$http.get(requestURL);
     }
 
-    update(reqTaskId, reqTask) {
+    update(reqTaskId, reqTask, hash) {
         return this.$http.put(this.urlBase + reqTaskId, {
-            task: reqTask
+            task: reqTask,
+            hash: hash
         });
     }
 
-    destroy(reqTaskId) {
-        return this.$http.delete(this.urlBase + reqTaskId);
+    destroy(reqTaskId, hash) {
+        return this.$http.delete(this.urlBase + reqTaskId + '?hash=' + hash);
     }
 
     countTodos() {

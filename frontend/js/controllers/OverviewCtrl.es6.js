@@ -26,7 +26,6 @@ class OverviewCtrl {
             result => {
                 this.completed = result.data.count;
                 this.roomName = result.data.roomName;
-                this.initSockets();
             },
             this.handleError.bind(this)
         );
@@ -49,16 +48,6 @@ class OverviewCtrl {
         }
     }
 
-    initSockets() {
-      if (this.$rootScope.socketsJoinedOverview) {
-        return;
-      }
-        //this.SocketsService.emit('room', this.roomName);
-
-
-        this.$rootScope.socketsJoinedOverview = true;
-    }
-
     percentageDone() {
       return ((this.completed / (this.todo + this.completed)) * 100).toFixed(2) + '%';
     }
@@ -69,7 +58,6 @@ class OverviewCtrl {
         }
         console.error(error);
         this.Notify('Error communicating with server', 'Error');
-        this.cacheActedTask = {};
     }
 
 }
