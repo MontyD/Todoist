@@ -10,18 +10,20 @@
     </div>
 </nav>
 <main class="container no-pad">
-  <section class="thirds one  transparent">
-      <h2 class="subtle-subtitle left-aligned">Hi {{home.username}}</h2>
-      <new-task create-task="home.createTask(newTask)" task="home.newTask" class="transparent left-aligned"></new-task>
-      {{home.tasksTotal}}
-  </section>
+    <section class="thirds one  transparent">
+        <h2 class="subtle-subtitle left-aligned">Hi {{home.username}}</h2>
+        <new-task create-task="home.createTask(newTask)" task="home.newTask" class="transparent left-aligned"></new-task>
+        {{home.tasksTotal}}
+    </section>
     <section class="thirds two modal full-width light tasks-container">
-        <article class="task-item" ng-repeat="task in home.tasks">
-            <task-view
-              task="task"
-              edited="home.updateTask(task)"
-              deleted="home.deleteTask(task)">
-            </task-view>
+        <article ng-if="home.tasks.length !== 0">
+            <div class="task-item" ng-repeat="task in home.tasks">
+                <task-view task="task" edited="home.updateTask(task)" deleted="home.deleteTask(task)">
+                </task-view>
+            </div>
+            <button class="secondary" ng-click="home.pageBack()">Previous</button>
+            Page: {{home.taskPage + 1}}
+            <button class="secondary" ng-click="home.pageForward()">Next</button>
         </article>
         <p class="empty-notification" ng-if="home.tasks.length === 0">No todos to be done</p>
     </section>

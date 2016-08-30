@@ -20,11 +20,15 @@ class RoomCtrl {
             status: 'Todo'
         };
 
-        this.taskAmount = 10;
+        this.taskPageAmount = 10;
 
         this.taskPage = 0;
 
         this.tasksTotal = 0;
+
+        this.cacheActedTask = {};
+
+        this.moving = false;
 
         // read tasks from server, and also get username
         // and room name. Set initial to true (last arg);
@@ -43,9 +47,10 @@ class RoomCtrl {
             }
         );
 
+        // read todos count
         this.TasksService.countTodos().then(
-          result => this.tasksTotal = result.data.count,
-          error => console.error(error)
+            result => this.tasksTotal = result.data.count,
+            error => console.error(error)
         );
 
     }
@@ -59,27 +64,145 @@ class RoomCtrl {
         }).bind(this));
 
         this.SocketsService.on('NewTask', (function(data) {
+            if (data.task.title === this.cacheActedTask.title && this.cacheActedTask.action === 'create') {
+                this.cacheActedTask = {};
+                return;
+            }
             this.addTaskLocally(data.task, data.username);
+            this.Notify(data.username + ' added a todo', 'Success');
             // force view to update;
             this.$scope.$apply();
         }).bind(this));
 
         this.SocketsService.on('UpdatedTask', (function(data) {
+            if (data.task.id === this.cacheActedTask.id && this.cacheActedTask.action === 'update') {
+                this.cacheActedTask = {};
+                return;
+            }
             this.updateTaskLocally(data.task);
+            if (data.task.status === 'Complete') {
+                this.Notify(data.username + ' completed a todo', 'Success');
+            }
             // force view to update;
             this.$scope.$apply();
         }).bind(this));
 
         this.SocketsService.on('DeletedTask', (function(data) {
+            if (data.task.id === this.cacheActedTask.id && this.cacheActedTask.action === 'delete') {
+                this.cacheActedTask = {};
+                return;
+            }
             this.updateTaskLocally(data.task, true);
+            this.Notify(data.username + ' removed a new todo');
             // force view to update;
             this.$scope.$apply();
         }).bind(this));
 
     }
 
+    movePage(pageNumber) {
+        if (this.moving) {
+            return false;
+        }
+        this.moving = true;
+        let offset = pageNumber * this.taskPageAmount;
+        this.TasksService.read(undefined, offset, this.taskAmount, 'Todo').then(
+            result => {
+                this.moving = false;
+                if (result.data.tasks.length === 0) {
+                    return;
+                }
+                this.taskPage = pageNumber;
+                this.tasks = result.data.tasks;
+                this.username = result.data.username;
+                this.roomName = result.data.roomName;
+            },
+            error => {
+                console.error(error);
+                this.Notify('Error getting todos', 'Error');
+            }
+        );
+    }
+
+    pageBack() {
+        if (this.taskPage === 0) {
+            return;
+        }
+        return this.movePage(this.taskPage - 1);
+    }
+
+    pageForward() {
+        return this.movePage(this.taskPage + 1);
+    }
+
+    // add task locally within js array.
+    addTaskLocally(newTask, username) {
+        let topTask = {};
+        if (this.taskPage === 0) {
+            topTask = newTask;
+        } else {
+            let offset = (this.taskPage * this.taskPageAmount) + 1;
+            this.TasksService.read(undefined, offset, 1, 'Todo').then(
+                data => topTask = data.task,
+                error => {
+                    console.error(error);
+                    this.Notify('Error getting todos', 'Error');
+                    this.cacheActedTask = {};
+                }
+            );
+        }
+
+        this.tasks.unshift(topTask);
+        this.tasksTotal++;
+        // resize array if necessary
+        if (this.tasks.length > this.taskPageAmount) {
+            this.tasks.length = this.taskPageAmount;
+        }
+    }
+
+    // update task locally within js array.
+    // includes remove
+    updateTaskLocally(reqTask, remove) {
+        let found = false;
+        this.tasks.forEach(function(task, i) {
+            if (task.id === reqTask.id) {
+                if (reqTask.status !== 'Todo' || remove) {
+                    this.tasks.splice(i, 1);
+                    this.tasksTotal--;
+                    found = true;
+                    return;
+                }
+                this.tasks[i] = reqTask;
+                return;
+            }
+        }, this);
+        // remove from previous
+        if ((reqTask.status !== 'Todo' || remove) && !found) {
+            let before = this.tasks[0].id < reqTask.id;
+            if (before) {
+                // remove first task, and add one on from server.
+                this.tasks.shift();
+                let offset = (this.taskPage * this.taskPageAmount) + 9;
+                this.TasksService.read(undefined, offset, 1, 'Todo').then(
+                    data => {
+                        if (data.tasks[0]) {
+                            tasks.push(data.tasks[0]);
+                        }
+                    },
+                    error => {
+                        console.error(error);
+                        this.Notify('Error getting todos', 'Error');
+                        this.cacheActedTask = {};
+                    }
+                );
+            }
+        }
+    }
+
     // create task on server
     createTask() {
+        this.cacheActedTask.title = this.newTask.title;
+        this.cacheActedTask.action = 'create';
         this.TasksService.create(this.newTask).then(
             result => {
                 this.newTask = {
@@ -90,34 +213,10 @@ class RoomCtrl {
             error => {
                 console.error(error);
                 this.Notify('Error saving todos', 'Error');
+                this.cacheActedTask = {};
             }
         );
 
-    }
-
-    // add task locally within js array.
-    addTaskLocally(newTask, username) {
-        let alreadyAdded = this.tasks.find(task => task.id === newTask.id);
-        if (!alreadyAdded) {
-            this.tasks.unshift(newTask);
-            this.tasksTotal++;
-        }
-    }
-
-    // update task locally within js array.
-    // includes remove
-    updateTaskLocally(reqTask, remove) {
-        this.tasks.forEach(function(task, i) {
-            if (task.id === reqTask.id) {
-                if (reqTask.status !== 'Todo' || remove) {
-                    this.tasks.splice(i, 1);
-                    this.tasksTotal--;
-                    return;
-                }
-                this.tasks[i] = reqTask;
-                return;
-            }
-        }, this);
     }
 
 
@@ -125,11 +224,14 @@ class RoomCtrl {
         if (!task) {
             return;
         }
+        this.cacheActedTask.id = task.id;
+        this.cacheActedTask.action = 'update';
         this.TasksService.update(task.id, task).then(
             result => this.updateTaskLocally(result.data),
             error => {
                 console.error(error);
                 this.Notify('Error updating todo', 'Error');
+                this.cacheActedTask = {};
             }
         );
     }
@@ -138,11 +240,14 @@ class RoomCtrl {
         if (!task) {
             return;
         }
+        this.cacheActedTask.id = task.id;
+        this.cacheActedTask.action = 'delete';
         this.TasksService.destroy(task.id).then(
             result => this.updateTaskLocally(task, true),
             error => {
                 console.error(error);
                 this.Notify('Error removing todo', 'Error');
+                this.cacheActedTask = {};
             }
         );
     }

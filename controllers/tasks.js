@@ -144,7 +144,8 @@ router.put('/:taskID', function(req, res, next) {
             if (task.roomId === req.user.id) {
                 task.update(req.body.task).then(function(updatedTask) {
                     res.io.to(req.user.name).emit('UpdatedTask', {
-                        task: updatedTask
+                        task: updatedTask,
+                        username: req.session.username
                     });
                     res.json(updatedTask);
                 }).catch(function(err) {
@@ -179,7 +180,8 @@ router.delete('/:taskID', function(req, res, next) {
             if (task.roomId === req.user.id) {
                 task.destroy().then(function(confirm) {
                     res.io.to(req.user.name).emit('DeletedTask', {
-                        task: task
+                        task: task,
+                        username: req.session.username
                     });
                     res.sendStatus(200);
                 }).catch(function(err) {
