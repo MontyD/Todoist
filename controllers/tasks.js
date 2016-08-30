@@ -71,6 +71,33 @@ router.get('/todo-count', function(req, res, next) {
 
 });
 
+router.get('/completed-last-day', function(req, res, next) {
+
+  var reqRoomId = req.user.id;
+
+  models.tasks.count({
+    where: {
+      status: 'Complete',
+      roomId: reqRoomId,
+      updatedAt: {
+        $gt: new Date(new Date() - 24 * 60 * 60 * 1000)
+      }
+    }
+  }).then(function(c){
+    if (!c) {
+      return res.json({
+        count: 0
+      });
+    }
+    return req.json({
+      count: c
+    });
+  }).catch(function(err) {
+    return handleError(err, next);
+  });
+
+});
+
 
 
 // GET one task by ID
