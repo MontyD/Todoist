@@ -30,11 +30,39 @@
 
     .control-container {
         display       : inline-block;
-        width         : 40%;
+        width         : 36%;
         vertical-align: middle;
+        text-align    : right;
 
         * {
             vertical-align: middle;
+        }
+    }
+
+    button {
+        padding  : 0.2em 0.2em 0.3em 0.3em;
+        font-size: 1.8em;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        color: $colorDarkGrey;
+        &:hover {
+          color: $colorDark;
+        }
+        &.done {
+          color: $colorBlack;
+          font-size: 2.5em;
+          &:hover {
+            color: $colorMain;
+          }
+        }
+        &.delete {
+          &:hover {
+            color: $colorError;
+          }
+        }
+        &:first-child {
+          transition-delay: 0.05s;
         }
     }
 

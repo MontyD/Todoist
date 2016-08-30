@@ -107,9 +107,7 @@ p.slight {
 }
 
 .fakeButton,
-button,
-input[type="button"],
-input[type="submit"] {
+.button {
     display        : inline-block;
     padding        : 0.6em 0.8em;
     margin         : 0.4em;
