@@ -3,7 +3,13 @@ var socketsRouting = function(socket) {
 
     socket.on('room', function(room) {
         // on connection socket echos room name,
-        // add socket to that name
+        // add socket to that name - if not already
+        // a member of it
+        for (var rm in socket.rooms) {
+          if (socket.rooms[rm] === room) {
+            return;
+          }
+        }
         socket.join(room);
     });
 };
