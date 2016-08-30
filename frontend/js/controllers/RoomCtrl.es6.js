@@ -8,6 +8,7 @@ class RoomCtrl {
         this.TasksService = TasksService;
         this.SocketsService = SocketsService;
         this.$scope = $scope;
+        this.$rootScope = $rootScope;
 
         // initial variables
         this.roomName = '';
@@ -77,9 +78,9 @@ class RoomCtrl {
     }
 
     initSockets() {
-      if (this.$rootScope.socketsJoinedRoom) {
-        return;
-      }
+        if (this.$rootScope.socketsJoinedRoom) {
+            return;
+        }
         this.SocketsService.emit('room', this.roomName);
 
         // Socket events config
@@ -123,7 +124,6 @@ class RoomCtrl {
 
 
         }).bind(this));
-
         this.$rootScope.socketsJoinedRoom = true;
     }
 
@@ -173,69 +173,59 @@ class RoomCtrl {
                 this.tasks.length = this.taskPageAmount;
             }
         } else {
-            let offset = (this.taskPage * this.taskPageAmount);
-            this.TasksService.read(undefined, offset, 1, 'Todo').then(
-                result => {
-                    if (result.data.tasks.length !== 0) {
-                        this.tasks.unshift(result.data.tasks[0]);
-                        this.tasksTotal++;
-                        // resize array if necessary
-                        if (this.tasks.length > this.taskPageAmount) {
-                            this.tasks.length = this.taskPageAmount;
-                        }
-                    }
-
-                },
-                this.handleError.bind(this)
-            );
+            this.appendTaskLocally();
         }
-
-
     }
 
     // update task locally within js array.
     // includes remove
     updateTaskLocally(reqTask, remove) {
+        let destroy = reqTask.status !== 'Todo' || remove;
+        let found = false;
         if (reqTask.status === 'Complete') {
             this.completedLastDay++;
         }
-        let found = false;
+        if (destroy) {
+            this.tasksTotal--;
+        }
         this.tasks.forEach(function(task, i) {
             if (task.id === reqTask.id) {
-                if (reqTask.status !== 'Todo' || remove) {
+                found = true;
+                if (destroy) {
                     this.tasks.splice(i, 1);
-                    if (this.tasks.length === 0) {
-                        this.pageBack();
-                    }
-                    this.tasksTotal--;
-                    found = true;
-                    return;
+                    this.appendTaskLocally(true);
+                } else {
+                    this.tasks[i] = reqTask;
                 }
-                this.tasks[i] = reqTask;
                 return;
             }
         }, this);
         // remove from previous
-        if ((reqTask.status !== 'Todo' || remove) && !found) {
-            this.tasksTotal--;
+        if (!found && destroy) {
             let before = this.tasks[0].id < reqTask.id;
             if (before) {
                 // remove first task, and add one on from server.
                 this.tasks.shift();
-                let offset = (this.taskPage * this.taskPageAmount) + this.tasks.length;
-                this.TasksService.read(undefined, offset, 1, 'Todo').then(
-                    result => {
-                        if (result.data.tasks.length) {
-                            this.tasks.push(result.data.tasks[0]);
-                        }
-                        if (this.tasks.length === 0) {
-                            this.pageBack();
-                        }
-                    },
-                    this.handleError.bind(this)
-                );
+                this.appendTaskLocally(true);
             }
         }
+    }
+
+    appendTaskLocally(end) {
+        let offset = end ? (this.taskPage * this.taskPageAmount) + this.tasks.length : this.taskPage * this.taskPageAmount;
+        this.TasksService.read(undefined, offset, 1, 'Todo').then(
+            result => {
+                if (result.data.tasks.length) {
+                    this.tasks.push(result.data.tasks[0]);
+                }
+                if (this.tasks.length > this.taskPageAmount) {
+                    this.tasks.length = this.taskPageAmount;
+                } else if (this.tasks.length === 0) {
+                    this.pageBack();
+                }
+            },
+            this.handleError.bind(this)
+        );
     }
 
     // create task on server

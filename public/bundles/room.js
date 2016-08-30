@@ -43808,6 +43808,7 @@
 	        this.TasksService = TasksService;
 	        this.SocketsService = SocketsService;
 	        this.$scope = $scope;
+	        this.$rootScope = $rootScope;
 
 	        // initial variables
 	        this.roomName = '';
@@ -43918,7 +43919,6 @@
 	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
-
 	            this.$rootScope.socketsJoinedRoom = true;
 	        }
 	    }, {
@@ -43965,8 +43965,6 @@
 	    }, {
 	        key: 'addTaskLocally',
 	        value: function addTaskLocally(newTask, username) {
-	            var _this3 = this;
-
 	            if (this.taskPage === 0) {
 	                this.tasks.unshift(newTask);
 	                this.tasksTotal++;
@@ -43975,17 +43973,7 @@
 	                    this.tasks.length = this.taskPageAmount;
 	                }
 	            } else {
-	                var offset = this.taskPage * this.taskPageAmount;
-	                this.TasksService.read(undefined, offset, 1, 'Todo').then(function (result) {
-	                    if (result.data.tasks.length !== 0) {
-	                        _this3.tasks.unshift(result.data.tasks[0]);
-	                        _this3.tasksTotal++;
-	                        // resize array if necessary
-	                        if (_this3.tasks.length > _this3.taskPageAmount) {
-	                            _this3.tasks.length = _this3.taskPageAmount;
-	                        }
-	                    }
-	                }, this.handleError.bind(this));
+	                this.appendTaskLocally();
 	            }
 	        }
 
@@ -43994,66 +43982,73 @@
 	    }, {
 	        key: 'updateTaskLocally',
 	        value: function updateTaskLocally(reqTask, remove) {
-	            var _this4 = this;
-
+	            var destroy = reqTask.status !== 'Todo' || remove;
+	            var found = false;
 	            if (reqTask.status === 'Complete') {
 	                this.completedLastDay++;
 	            }
-	            var found = false;
+	            if (destroy) {
+	                this.tasksTotal--;
+	            }
 	            this.tasks.forEach(function (task, i) {
 	                if (task.id === reqTask.id) {
-	                    if (reqTask.status !== 'Todo' || remove) {
+	                    found = true;
+	                    if (destroy) {
 	                        this.tasks.splice(i, 1);
-	                        if (this.tasks.length === 0) {
-	                            this.pageBack();
-	                        }
-	                        this.tasksTotal--;
-	                        found = true;
-	                        return;
+	                        this.appendTaskLocally(true);
+	                    } else {
+	                        this.tasks[i] = reqTask;
 	                    }
-	                    this.tasks[i] = reqTask;
 	                    return;
 	                }
 	            }, this);
 	            // remove from previous
-	            if ((reqTask.status !== 'Todo' || remove) && !found) {
-	                this.tasksTotal--;
+	            if (!found && destroy) {
 	                var before = this.tasks[0].id < reqTask.id;
 	                if (before) {
 	                    // remove first task, and add one on from server.
 	                    this.tasks.shift();
-	                    var offset = this.taskPage * this.taskPageAmount + this.tasks.length;
-	                    this.TasksService.read(undefined, offset, 1, 'Todo').then(function (result) {
-	                        if (result.data.tasks.length) {
-	                            _this4.tasks.push(result.data.tasks[0]);
-	                        }
-	                        if (_this4.tasks.length === 0) {
-	                            _this4.pageBack();
-	                        }
-	                    }, this.handleError.bind(this));
+	                    this.appendTaskLocally(true);
 	                }
 	            }
+	        }
+	    }, {
+	        key: 'appendTaskLocally',
+	        value: function appendTaskLocally(end) {
+	            var _this3 = this;
+
+	            var offset = end ? this.taskPage * this.taskPageAmount + this.tasks.length : this.taskPage * this.taskPageAmount;
+	            this.TasksService.read(undefined, offset, 1, 'Todo').then(function (result) {
+	                if (result.data.tasks.length) {
+	                    _this3.tasks.push(result.data.tasks[0]);
+	                }
+	                if (_this3.tasks.length > _this3.taskPageAmount) {
+	                    _this3.tasks.length = _this3.taskPageAmount;
+	                } else if (_this3.tasks.length === 0) {
+	                    _this3.pageBack();
+	                }
+	            }, this.handleError.bind(this));
 	        }
 
 	        // create task on server
 	    }, {
 	        key: 'createTask',
 	        value: function createTask() {
-	            var _this5 = this;
+	            var _this4 = this;
 
 	            this.cacheActedTask.title = this.newTask.title;
 	            this.cacheActedTask.action = 'create';
 	            this.TasksService.create(this.newTask).then(function (result) {
-	                _this5.newTask = {
+	                _this4.newTask = {
 	                    status: 'Todo'
 	                };
-	                _this5.addTaskLocally(result.data);
+	                _this4.addTaskLocally(result.data);
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
 	        key: 'updateTask',
 	        value: function updateTask(task) {
-	            var _this6 = this;
+	            var _this5 = this;
 
 	            if (!task) {
 	                return;
@@ -44061,13 +44056,13 @@
 	            this.cacheActedTask.id = task.id;
 	            this.cacheActedTask.action = 'update';
 	            this.TasksService.update(task.id, task).then(function (result) {
-	                return _this6.updateTaskLocally(result.data);
+	                return _this5.updateTaskLocally(result.data);
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
 	        key: 'deleteTask',
 	        value: function deleteTask(task) {
-	            var _this7 = this;
+	            var _this6 = this;
 
 	            if (!task) {
 	                return;
@@ -44075,7 +44070,7 @@
 	            this.cacheActedTask.id = task.id;
 	            this.cacheActedTask.action = 'delete';
 	            this.TasksService.destroy(task.id).then(function (result) {
-	                return _this7.updateTaskLocally(task, true);
+	                return _this6.updateTaskLocally(task, true);
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
@@ -44168,21 +44163,7 @@
 	            if (this.$rootScope.socketsJoinedOverview) {
 	                return;
 	            }
-	            this.SocketsService.emit('room', this.roomName);
-
-	            this.SocketsService.on('NewTask', (function (data) {
-
-	                this.$scope.$apply();
-	            }).bind(this));
-	            this.SocketsService.on('UpdatedTask', (function (data) {
-	                // force view to update;
-	                this.$scope.$apply();
-	            }).bind(this));
-
-	            this.SocketsService.on('DeletedTask', (function (data) {
-	                // force view to update;
-	                this.$scope.$apply();
-	            }).bind(this));
+	            //this.SocketsService.emit('room', this.roomName);
 
 	            this.$rootScope.socketsJoinedOverview = true;
 	        }

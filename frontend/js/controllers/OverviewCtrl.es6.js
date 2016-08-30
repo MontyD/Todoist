@@ -53,21 +53,8 @@ class OverviewCtrl {
       if (this.$rootScope.socketsJoinedOverview) {
         return;
       }
-        this.SocketsService.emit('room', this.roomName);
+        //this.SocketsService.emit('room', this.roomName);
 
-        this.SocketsService.on('NewTask', (function(data) {
-
-            this.$scope.$apply();
-        }).bind(this));
-        this.SocketsService.on('UpdatedTask', (function(data) {
-            // force view to update;
-            this.$scope.$apply();
-        }).bind(this));
-
-        this.SocketsService.on('DeletedTask', (function(data) {
-            // force view to update;
-            this.$scope.$apply();
-        }).bind(this));
 
         this.$rootScope.socketsJoinedOverview = true;
     }
