@@ -43781,7 +43781,7 @@
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\" >Overview</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n    <h1 class=\"overview-percentage\">{{overview.percentageDone()}}</h1>\n</main>\n";
 
 /***/ },
 /* 57 */
@@ -44121,37 +44121,20 @@
 
 	        // initial variables
 	        this.roomName = '';
-
-	        this.username = '';
-
-	        this.tasks = [];
-
-	        this.newTask = {
-	            status: 'Todo'
-	        };
-
-	        this.taskPageAmount = 10;
-
-	        this.taskPage = 0;
-
-	        this.tasksTotal = 0;
-
-	        this.completedLastDay = 0;
-
-	        this.cacheActedTask = {};
-
-	        this.moving = false;
+	        this.completed = 0;
+	        this.todo = 0;
 
 	        // read todos count
 	        this.TasksService.countTodos().then(function (result) {
-	            return _this.tasksTotal = result.data.count;
+	            return _this.todo = result.data.count;
 	        }, function (error) {
 	            return console.error(error);
 	        });
 
 	        // read completed count for last day
-	        this.TasksService.countCompletedLastDay().then(function (result) {
-	            return _this.completedLastDay = result.data.count;
+	        this.TasksService.countCompleted().then(function (result) {
+	            _this.completed = result.data.count;
+	            _this.roomName = result.data.roomName;
 	        }, this.handleError.bind(this));
 	    }
 
@@ -44196,6 +44179,11 @@
 	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
+	        }
+	    }, {
+	        key: 'percentageDone',
+	        value: function percentageDone() {
+	            return (this.completed / (this.todo + this.completed) * 100).toFixed(2) + '%';
 	        }
 	    }, {
 	        key: 'handleError',
@@ -44652,7 +44640,12 @@
 	    }, {
 	        key: 'countCompletedLastDay',
 	        value: function countCompletedLastDay() {
-	            return this.$http.get(this.urlBase + '/completed-last-day');
+	            return this.$http.get(this.urlBase + 'completed-last-day');
+	        }
+	    }, {
+	        key: 'countCompleted',
+	        value: function countCompleted() {
+	            return this.$http.get(this.urlBase + 'completed-count');
 	        }
 	    }]);
 

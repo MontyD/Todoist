@@ -55,7 +55,11 @@ class TasksService {
     }
 
     countCompletedLastDay() {
-      return this.$http.get(this.urlBase + '/completed-last-day');
+      return this.$http.get(this.urlBase + 'completed-last-day');
+    }
+
+    countCompleted() {
+      return this.$http.get(this.urlBase + 'completed-count');
     }
 
 }

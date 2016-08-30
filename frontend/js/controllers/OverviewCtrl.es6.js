@@ -11,36 +11,21 @@ class OverviewCtrl {
 
         // initial variables
         this.roomName = '';
-
-        this.username = '';
-
-        this.tasks = [];
-
-        this.newTask = {
-            status: 'Todo'
-        };
-
-        this.taskPageAmount = 10;
-
-        this.taskPage = 0;
-
-        this.tasksTotal = 0;
-
-        this.completedLastDay = 0;
-
-        this.cacheActedTask = {};
-
-        this.moving = false;
+        this.completed = 0;
+        this.todo = 0;
 
         // read todos count
         this.TasksService.countTodos().then(
-            result => this.tasksTotal = result.data.count,
+            result => this.todo = result.data.count,
             error => console.error(error)
         );
 
         // read completed count for last day
-        this.TasksService.countCompletedLastDay().then(
-            result => this.completedLastDay = result.data.count,
+        this.TasksService.countCompleted().then(
+            result => {
+                this.completed = result.data.count;
+                this.roomName = result.data.roomName;
+            },
             this.handleError.bind(this)
         );
 
@@ -87,8 +72,9 @@ class OverviewCtrl {
 
     }
 
-
-
+    percentageDone() {
+      return ((this.completed / (this.todo + this.completed)) * 100).toFixed(2) + '%';
+    }
 
     handleError(error) {
         if (error.status === 401 || error.status === 403) {

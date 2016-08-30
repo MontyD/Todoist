@@ -70,6 +70,32 @@ router.get('/todo-count', function(req, res, next) {
 
 });
 
+router.get('/completed-count', function(req, res, next) {
+
+  var reqRoomId = req.user.id;
+
+  models.tasks.count({
+      where: {
+          status: 'Complete',
+          roomId: reqRoomId
+      }
+  }).then(function(c) {
+      if (!c) {
+          return res.json({
+              roomName: req.user.name,
+              count: 0
+          });
+      }
+      return res.json({
+          roomName: req.user.name,
+          count: c
+      });
+  }).catch(function(err) {
+      return handleError(err, next);
+  });
+
+});
+
 router.get('/completed-last-day', function(req, res, next) {
 
   var reqRoomId = req.user.id;
