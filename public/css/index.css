@@ -573,7 +573,7 @@ p.slight {
   color: #FAFAFA;
   cursor: pointer;
   box-shadow: none;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.2s ease, color 0.2s ease, background 0.2s ease;
   text-decoration: none; }
   .button.primary,
   .fakeButton.primary {
@@ -627,6 +627,8 @@ button.icon {
   color: #6f6f6f; }
   button.icon:hover {
     color: #004D40; }
+  button.icon:active, button.icon:focus {
+    outline: 0; }
 
 .dark {
   background: #004D40;
@@ -1507,7 +1509,7 @@ p.slight {
   color: #FAFAFA;
   cursor: pointer;
   box-shadow: none;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.2s ease, color 0.2s ease, background 0.2s ease;
   text-decoration: none; }
   .button.primary,
   .fakeButton.primary {
@@ -1561,6 +1563,8 @@ button.icon {
   color: #6f6f6f; }
   button.icon:hover {
     color: #004D40; }
+  button.icon:active, button.icon:focus {
+    outline: 0; }
 
 .dark {
   background: #004D40;
@@ -2300,7 +2304,7 @@ p.slight {
   color: #FAFAFA;
   cursor: pointer;
   box-shadow: none;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.2s ease, color 0.2s ease, background 0.2s ease;
   text-decoration: none; }
   .button.primary,
   .fakeButton.primary {
@@ -2354,6 +2358,8 @@ button.icon {
   color: #6f6f6f; }
   button.icon:hover {
     color: #004D40; }
+  button.icon:active, button.icon:focus {
+    outline: 0; }
 
 .dark {
   background: #004D40;

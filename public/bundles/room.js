@@ -43766,7 +43766,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-serf=\"home\" title=\"\">Tasks</a></li>\n            <li><a href=\"#\" title=\"\">Settings</a></li>\n            <li><a href=\"#\" title=\"\">Overview</a></li>\n            <li><a href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n    <section class=\"thirds one  transparent\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n        {{home.tasksTotal}}\n    </section>\n    <section class=\"thirds two tasks-container\">\n        <article ng-if=\"home.tasks.length !== 0\">\n            <div class=\"task-item\" ng-repeat=\"task in home.tasks\">\n                <task-view task=\"task\" edited=\"home.updateTask(task)\" deleted=\"home.deleteTask(task)\">\n                </task-view>\n            </div>\n            <div class=\"pagination-controls\">\n                <button class=\"icon\" ng-click=\"home.pageBack()\"><span class=\"lnr lnr-arrow-left\"></span></button>\n                <span>Page {{home.taskPage + 1}}</span>\n                <button class=\"icon\" ng-click=\"home.pageForward()\"><span class=\"lnr lnr-arrow-right\"></span></button>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-serf=\"home\" title=\"\">Tasks</a></li>\n            <li><a href=\"#\" title=\"\">Settings</a></li>\n            <li><a href=\"#\" title=\"\">Overview</a></li>\n            <li><a href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n    <section class=\"thirds one  transparent\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n        {{home.tasksTotal}} - {{home.availablePages()}}\n    </section>\n    <section class=\"thirds two tasks-container\">\n        <article ng-if=\"home.tasks.length !== 0\">\n            <div class=\"task-item\" ng-repeat=\"task in home.tasks\">\n                <task-view task=\"task\" edited=\"home.updateTask(task)\" deleted=\"home.deleteTask(task)\">\n                </task-view>\n            </div>\n            <div class=\"pagination-controls\" ng-if=\"home.availablePages() > 1\">\n                <button class=\"icon\" ng-if=\"home.taskPage > 0\" ng-click=\"home.pageBack()\"><span class=\"lnr lnr-arrow-left\"></span></button>\n                <span>Page {{home.taskPage + 1}} of {{home.availablePages()}}</span>\n                <button class=\"icon\" ng-if=\"home.availablePages() !== (home.taskPage + 1)\" ng-click=\"home.pageForward()\"><span class=\"lnr lnr-arrow-right\"></span></button>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
 
 /***/ },
 /* 56 */
@@ -43883,6 +43883,11 @@
 	            }).bind(this));
 	        }
 	    }, {
+	        key: 'availablePages',
+	        value: function availablePages() {
+	            return Math.ceil(this.tasksTotal / this.taskPageAmount);
+	        }
+	    }, {
 	        key: 'movePage',
 	        value: function movePage(pageNumber) {
 	            var _this2 = this;
@@ -43982,15 +43987,17 @@
 	                if (before) {
 	                    // remove first task, and add one on from server.
 	                    this.tasks.shift();
-	                    var offset = this.taskPage * this.taskPageAmount + 9;
+	                    var offset = this.taskPage * this.taskPageAmount + this.tasks.length;
 	                    this.TasksService.read(undefined, offset, 1, 'Todo').then(function (result) {
 	                        if (result.data.tasks.length) {
 	                            _this4.tasks.push(result.data.tasks[0]);
 	                        }
+	                        if (_this4.tasks.length === 0) {
+	                            _this4.pageBack();
+	                        }
 	                    }, function (error) {
 	                        console.error(error);
 	                        _this4.Notify('Error getting todos', 'Error');
-	                        _this4.cacheActedTask = {};
 	                    });
 	                }
 	            }

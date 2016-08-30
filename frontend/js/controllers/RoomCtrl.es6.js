@@ -100,6 +100,10 @@ class RoomCtrl {
 
     }
 
+    availablePages() {
+      return Math.ceil(this.tasksTotal / this.taskPageAmount);
+    }
+
     movePage(pageNumber) {
         if (this.moving) {
             return false;
@@ -195,17 +199,19 @@ class RoomCtrl {
             if (before) {
                 // remove first task, and add one on from server.
                 this.tasks.shift();
-                let offset = (this.taskPage * this.taskPageAmount) + 9;
+                let offset = (this.taskPage * this.taskPageAmount) + this.tasks.length;
                 this.TasksService.read(undefined, offset, 1, 'Todo').then(
                     result => {
                         if (result.data.tasks.length) {
                             this.tasks.push(result.data.tasks[0]);
                         }
+                        if (this.tasks.length === 0) {
+                          this.pageBack();
+                        }
                     },
                     error => {
                         console.error(error);
                         this.Notify('Error getting todos', 'Error');
-                        this.cacheActedTask = {};
                     }
                 );
             }
