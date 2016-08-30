@@ -5,12 +5,9 @@ var socketsRouting = function(socket) {
         // on connection socket echos room name,
         // add socket to that name - if not already
         // a member of it
-        for (var rm in socket.rooms) {
-          if (socket.rooms[rm] === room) {
-            return;
-          }
+        if (socket.rooms[room] !== room) {
+          socket.join(room);
         }
-        socket.join(room);
     });
 };
 

@@ -365,7 +365,7 @@ textarea {
   /* 2 */ }
 
 html {
-  min-height: 100%;
+  height: 100%;
   width: 100%;
   position: relative; }
 
@@ -378,7 +378,7 @@ ui-view {
   -webkit-font-smoothing: antialiased; }
 
 main.full-height {
-  height: 100%; }
+  height: 90%; }
 
 .halfWidth {
   display: inline-block;
@@ -1288,7 +1288,7 @@ textarea {
   /* 2 */ }
 
 html {
-  min-height: 100%;
+  height: 100%;
   width: 100%;
   position: relative; }
 
@@ -1301,7 +1301,7 @@ ui-view {
   -webkit-font-smoothing: antialiased; }
 
 main.full-height {
-  height: 100%; }
+  height: 90%; }
 
 .halfWidth {
   display: inline-block;
@@ -2126,7 +2126,7 @@ textarea {
   /* 2 */ }
 
 html {
-  min-height: 100%;
+  height: 100%;
   width: 100%;
   position: relative; }
 
@@ -2139,7 +2139,7 @@ ui-view {
   -webkit-font-smoothing: antialiased; }
 
 main.full-height {
-  height: 100%; }
+  height: 90%; }
 
 .halfWidth {
   display: inline-block;

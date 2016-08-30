@@ -43781,7 +43781,7 @@
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <section class=\"vertically-center\">\n    <h1 class=\"overview-percentage\">{{overview.percentageDone()}}</h1>\n    <p class=\"overview-description\">Of all Todos complete</p>\n  </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container full-height\">\n  <section class=\"vertically-center\">\n    <h1 class=\"overview-percentage\">{{overview.percentageDone()}}</h1>\n    <p class=\"overview-description\">Of all Todos complete</p>\n  </section>\n</main>\n";
 
 /***/ },
 /* 57 */
