@@ -64,35 +64,39 @@
 
 	var _configRoomConfigEs6Js2 = _interopRequireDefault(_configRoomConfigEs6Js);
 
-	var _controllersRoomCtrlEs6Js = __webpack_require__(56);
+	var _controllersRoomCtrlEs6Js = __webpack_require__(57);
 
 	var _controllersRoomCtrlEs6Js2 = _interopRequireDefault(_controllersRoomCtrlEs6Js);
 
-	var _directivesNewTaskEs6Js = __webpack_require__(57);
+	var _controllersOverviewCtrlEs6Js = __webpack_require__(58);
+
+	var _controllersOverviewCtrlEs6Js2 = _interopRequireDefault(_controllersOverviewCtrlEs6Js);
+
+	var _directivesNewTaskEs6Js = __webpack_require__(59);
 
 	var _directivesNewTaskEs6Js2 = _interopRequireDefault(_directivesNewTaskEs6Js);
 
-	var _directivesTaskViewEs6Js = __webpack_require__(59);
+	var _directivesTaskViewEs6Js = __webpack_require__(61);
 
 	var _directivesTaskViewEs6Js2 = _interopRequireDefault(_directivesTaskViewEs6Js);
 
 	//Vendor imports
 
-	var _angularUiNotification = __webpack_require__(61);
+	var _angularUiNotification = __webpack_require__(63);
 
 	var _angularUiNotification2 = _interopRequireDefault(_angularUiNotification);
 
-	var _servicesTasksEs6Js = __webpack_require__(63);
+	var _servicesTasksEs6Js = __webpack_require__(65);
 
 	var _servicesTasksEs6Js2 = _interopRequireDefault(_servicesTasksEs6Js);
 
-	var _servicesSocketsEs6Js = __webpack_require__(64);
+	var _servicesSocketsEs6Js = __webpack_require__(66);
 
 	var _servicesSocketsEs6Js2 = _interopRequireDefault(_servicesSocketsEs6Js);
 
 	window.io = _socketIoClient2['default'];
 
-	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).directive('newTask', _directivesNewTaskEs6Js2['default']).directive('taskView', _directivesTaskViewEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketsService', _servicesSocketsEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
+	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).controller('OverviewCtrl', _controllersOverviewCtrlEs6Js2['default']).directive('newTask', _directivesNewTaskEs6Js2['default']).directive('taskView', _directivesTaskViewEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketsService', _servicesSocketsEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -43756,6 +43760,11 @@
 	        template: __webpack_require__(55),
 	        controller: 'RoomCtrl',
 	        controllerAs: 'home'
+	    }).state('overview', {
+	        url: '/overview',
+	        template: __webpack_require__(56),
+	        controller: 'OverviewCtrl',
+	        controllerAs: 'overview'
 	    });
 	}
 
@@ -43766,10 +43775,16 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-serf=\"home\" title=\"\">Tasks</a></li>\n            <li><a href=\"#\" title=\"\">Settings</a></li>\n            <li><a href=\"#\" title=\"\">Overview</a></li>\n            <li><a href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n    <section class=\"thirds one  transparent\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n        <article class=\"stats-container first\">\n          <div class=\"large-number\">{{home.tasksTotal}}</div>\n          Todos to do\n        </article>\n        <article class=\"stats-container\">\n          <div class=\"large-number\">{{home.completedLastDay}}</div>\n          Todos done today\n        </article>\n    </section>\n    <section class=\"thirds two tasks-container\">\n        <article ng-if=\"home.tasks.length !== 0\">\n            <div class=\"task-item\" ng-repeat=\"task in home.tasks\">\n                <task-view task=\"task\" edited=\"home.updateTask(task)\" deleted=\"home.deleteTask(task)\">\n                </task-view>\n            </div>\n            <div class=\"pagination-controls\" ng-if=\"home.availablePages() > 1\">\n                <button class=\"icon back\" ng-if=\"home.taskPage > 0\" ng-click=\"home.pageBack()\"><span class=\"lnr lnr-arrow-left\"></span></button>\n                <span class=\"page-number transparent\">Page {{home.taskPage + 1}} of {{home.availablePages()}}</span>\n                <button class=\"icon forward\" ng-if=\"home.availablePages() !== (home.taskPage + 1)\" ng-click=\"home.pageForward()\"><span class=\"lnr lnr-arrow-right\"></span></button>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-serf=\"/\" title=\"Todo\">Todos</a></li>\n            <li><a href=\"/settings\" title=\"\">Settings</a></li>\n            <li><a href=\"/overview\" title=\"\">Overview</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n    <section class=\"thirds one  transparent\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n        <article class=\"stats-container first\">\n          <div class=\"large-number\">{{home.tasksTotal}}</div>\n          Todos to do\n        </article>\n        <article class=\"stats-container\">\n          <div class=\"large-number\">{{home.completedLastDay}}</div>\n          Todos done today\n        </article>\n    </section>\n    <section class=\"thirds two tasks-container\">\n        <article ng-if=\"home.tasks.length !== 0\">\n            <div class=\"task-item\" ng-repeat=\"task in home.tasks\">\n                <task-view task=\"task\" edited=\"home.updateTask(task)\" deleted=\"home.deleteTask(task)\">\n                </task-view>\n            </div>\n            <div class=\"pagination-controls\" ng-if=\"home.availablePages() > 1\">\n                <button class=\"icon back\" ng-if=\"home.taskPage > 0\" ng-click=\"home.pageBack()\"><span class=\"lnr lnr-arrow-left\"></span></button>\n                <span class=\"page-number transparent\">Page {{home.taskPage + 1}} of {{home.availablePages()}}</span>\n                <button class=\"icon forward\" ng-if=\"home.availablePages() !== (home.taskPage + 1)\" ng-click=\"home.pageForward()\"><span class=\"lnr lnr-arrow-right\"></span></button>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
 
 /***/ },
 /* 56 */
+/***/ function(module, exports) {
+
+	module.exports = "<h1>Overview</h1>\n";
+
+/***/ },
+/* 57 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -44081,7 +44096,13 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 57 */
+/* 58 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+/***/ },
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44097,7 +44118,7 @@
 	      task: '=',
 	      createTask: '&'
 	    },
-	    template: __webpack_require__(58),
+	    template: __webpack_require__(60),
 
 	    link: function link(scope, element, attrs) {
 
@@ -44119,13 +44140,13 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports) {
 
 	module.exports = "<form name=\"newTaskForm\" ng-submit=\"submitForm(newTaskForm.$valid)\" ng-class=\"{'attempted-submit': attemptedSubmit}\" novalidate=\"novalidate\">\n    <label for=\"newTaskTitle\" class=\"required\">Thing to be done</label>\n    <input type=\"text\" id=\"newTaskTitle\" name=\"title\" ng-model=\"task.title\" required=\"required\">\n    <label for=\"newTaskDescription\">Notes</label>\n    <textarea id=\"newTaskDescription\" ng-model=\"task.description\" name=\"description\"></textarea>\n    <input type=\"submit\" class=\"button\" value=\"Create\">\n</form>\n";
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44142,7 +44163,7 @@
 	      edited: '&',
 	      deleted: '&'
 	    },
-	    template: __webpack_require__(60),
+	    template: __webpack_require__(62),
 
 	    link: function link(scope, element, attrs) {
 
@@ -44195,23 +44216,23 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"task-description\">\n    <p ng-if=\"!editing\" class=\"task-title\">{{task.title}}</p>\n    <p ng-if=\"!editing\">{{task.description}}</p>\n    <p ng-if=\"!editing\" class=\"task-details\">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>\n    <form ng-if=\"editing\" ng-submit=\"save()\">\n        <label class=\"first\">Thing to be done</label>\n        <input type=\"text\" ng-model=\"task.title\" />\n        <label>Notes</label>\n        <textarea class=\"last\" ng-model=\"task.description\"></textarea>\n    </form>\n    <div class=\"button-group\" ng-if=\"editing && !deleting\">\n        <button ng-click=\"cancelEdit()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"save()\" class=\"button primary\">Save</button>\n    </div>\n</div>\n<div ng-if=\"!editing && !deleting\" class=\"control-container\">\n    <button ng-click=\"startDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n    <button ng-click=\"edit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n    <button ng-click=\"completed()\" class=\"done icon\" title=\"Mark as complete\"><span class=\"lnr lnr-checkmark-circle\"></span></button>\n</div>\n<div class=\"control-container\" ng-if=\"deleting\">\n    <div class=\"button-group\">\n        <button ng-click=\"cancelDelete()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"deleted()\" class=\"button danger\">Delete</button>\n    </div>\n</div>\n";
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by alex_crack on 20.11.15.
 	 */
-	__webpack_require__(62);
+	__webpack_require__(64);
 	module.exports = 'ui-notification';
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports) {
 
 	/**
@@ -44443,7 +44464,7 @@
 	angular.module("ui-notification").run(["$templateCache", function($templateCache) {$templateCache.put("angular-ui-notification.html","<div class=\"ui-notification\"><h3 ng-show=\"title\" ng-bind-html=\"title\"></h3><div class=\"message\" ng-bind-html=\"message\"></div></div>");}]);
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -44527,7 +44548,7 @@
 	module.exports = TasksService;
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports) {
 
 	'use strict';

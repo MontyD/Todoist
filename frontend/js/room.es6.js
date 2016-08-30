@@ -6,6 +6,7 @@ import io from 'socket.io-client';
 import RoomConfig from './config/RoomConfig.es6.js';
 
 import RoomCtrl from './controllers/RoomCtrl.es6.js';
+import OverviewCtrl from './controllers/OverviewCtrl.es6.js';
 
 import newTask from './directives/newTask.es6.js';
 import taskView from './directives/taskView.es6.js';
@@ -20,6 +21,7 @@ window.io = io;
 
 angular.module('app', [uiRouter, 'ui-notification'])
     .controller('RoomCtrl', RoomCtrl)
+    .controller('OverviewCtrl', OverviewCtrl)
     .directive('newTask', newTask)
     .directive('taskView', taskView)
     .service('TasksService', TasksService)

@@ -1,11 +1,11 @@
 <nav class="top">
     <div class="container">
-        <a class="home-link" href="/" title="Home">Todoist | {{home.roomName}}</a>
+        <a class="home-link" target="_self" href="/" title="Home">Todoist | {{home.roomName}}</a>
         <ul>
-            <li><a ui-serf="home" title="">Tasks</a></li>
-            <li><a href="#" title="">Settings</a></li>
-            <li><a href="#" title="">Overview</a></li>
-            <li><a href="/rooms/login/" title="Logout">Logout</a></li>
+            <li><a ui-serf="/" title="Todo">Todos</a></li>
+            <li><a href="/settings" title="">Settings</a></li>
+            <li><a href="/overview" title="">Overview</a></li>
+            <li><a target="_self" href="/rooms/login/" title="Logout">Logout</a></li>
         </ul>
     </div>
 </nav>
