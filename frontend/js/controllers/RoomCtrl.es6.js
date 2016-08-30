@@ -20,9 +20,15 @@ class RoomCtrl {
             status: 'Todo'
         };
 
+        this.taskAmount = 10;
+
+        this.taskPage = 0;
+
+        this.taskCount = 0;
+
         // read tasks from server, and also get username
         // and room name. Set initial to true (last arg);
-        this.TasksService.read(undefined, undefined, undefined, 'Todo', true).then(
+        this.TasksService.read(undefined, undefined, this.taskAmount, 'Todo', true).then(
             result => {
                 this.tasks = result.data.tasks;
                 this.username = result.data.username;
@@ -38,10 +44,7 @@ class RoomCtrl {
         );
 
     }
-
-    // have to create temporary room var,
-    // as socket functions have to be called
-    // with this as socket.
+    
     initSockets() {
         this.SocketsService.emit('room', this.roomName);
 

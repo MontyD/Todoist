@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         description: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         status: DataTypes.ENUM('Todo', 'In progress', 'Complete', 'Later'),
         username: DataTypes.TEXT

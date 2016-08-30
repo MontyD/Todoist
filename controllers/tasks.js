@@ -169,4 +169,25 @@ router.delete('/:taskID', function(req, res, next) {
 });
 
 
+// GET count of tasks - status Todo
+router.get('/todo-count', function(req, res, next) {
+
+    var reqRoomId = req.user.id;
+
+    models.tasks.count({
+        where: {status: 'Todo', roomId: reqRoomId}
+    }).then(function(c){
+      if (!c) {
+        return res.json({count: 0});
+      }
+      return res.json({count: c});
+    }).catch(function(err){
+      return handleError(err, next);
+    });
+
+
+});
+
+
+
 module.exports = router;

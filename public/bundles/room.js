@@ -43805,9 +43805,15 @@
 	            status: 'Todo'
 	        };
 
+	        this.taskAmount = 10;
+
+	        this.taskPage = 0;
+
+	        this.taskCount = 0;
+
 	        // read tasks from server, and also get username
 	        // and room name. Set initial to true (last arg);
-	        this.TasksService.read(undefined, undefined, undefined, 'Todo', true).then(function (result) {
+	        this.TasksService.read(undefined, undefined, this.taskAmount, 'Todo', true).then(function (result) {
 	            _this.tasks = result.data.tasks;
 	            _this.username = result.data.username;
 	            _this.roomName = result.data.roomName;
@@ -43819,10 +43825,6 @@
 	            _this.Nofity('Error getting todos', 'Error');
 	        });
 	    }
-
-	    // have to create temporary room var,
-	    // as socket functions have to be called
-	    // with this as socket.
 
 	    _createClass(RoomCtrl, [{
 	        key: 'initSockets',
