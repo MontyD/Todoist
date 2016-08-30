@@ -137,13 +137,27 @@ class RoomCtrl {
 
     // add task locally within js array.
     addTaskLocally(newTask, username) {
-        let topTask = {};
         if (this.taskPage === 0) {
-            topTask = newTask;
+            this.tasks.unshift(newTask);
+            this.tasksTotal++;
+            // resize array if necessary
+            if (this.tasks.length > this.taskPageAmount) {
+                this.tasks.length = this.taskPageAmount;
+            }
         } else {
-            let offset = (this.taskPage * this.taskPageAmount) + 1;
+            let offset = (this.taskPage * this.taskPageAmount);
             this.TasksService.read(undefined, offset, 1, 'Todo').then(
-                data => topTask = data.task,
+                result => {
+                    if (result.data.tasks.length !== 0) {
+                        this.tasks.unshift(result.data.tasks[0]);
+                        this.tasksTotal++;
+                        // resize array if necessary
+                        if (this.tasks.length > this.taskPageAmount) {
+                            this.tasks.length = this.taskPageAmount;
+                        }
+                    }
+
+                },
                 error => {
                     console.error(error);
                     this.Notify('Error getting todos', 'Error');
@@ -152,12 +166,7 @@ class RoomCtrl {
             );
         }
 
-        this.tasks.unshift(topTask);
-        this.tasksTotal++;
-        // resize array if necessary
-        if (this.tasks.length > this.taskPageAmount) {
-            this.tasks.length = this.taskPageAmount;
-        }
+
     }
 
     // update task locally within js array.
@@ -168,6 +177,9 @@ class RoomCtrl {
             if (task.id === reqTask.id) {
                 if (reqTask.status !== 'Todo' || remove) {
                     this.tasks.splice(i, 1);
+                    if (this.tasks.length === 0){
+                      this.pageBack();
+                    }
                     this.tasksTotal--;
                     found = true;
                     return;
@@ -178,15 +190,16 @@ class RoomCtrl {
         }, this);
         // remove from previous
         if ((reqTask.status !== 'Todo' || remove) && !found) {
+            this.tasksTotal--;
             let before = this.tasks[0].id < reqTask.id;
             if (before) {
                 // remove first task, and add one on from server.
                 this.tasks.shift();
                 let offset = (this.taskPage * this.taskPageAmount) + 9;
                 this.TasksService.read(undefined, offset, 1, 'Todo').then(
-                    data => {
-                        if (data.tasks[0]) {
-                            tasks.push(data.tasks[0]);
+                    result => {
+                        if (result.data.tasks.length) {
+                            this.tasks.push(result.data.tasks[0]);
                         }
                     },
                     error => {

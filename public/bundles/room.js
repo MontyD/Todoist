@@ -43926,25 +43926,29 @@
 	        value: function addTaskLocally(newTask, username) {
 	            var _this3 = this;
 
-	            var topTask = {};
 	            if (this.taskPage === 0) {
-	                topTask = newTask;
+	                this.tasks.unshift(newTask);
+	                this.tasksTotal++;
+	                // resize array if necessary
+	                if (this.tasks.length > this.taskPageAmount) {
+	                    this.tasks.length = this.taskPageAmount;
+	                }
 	            } else {
-	                var offset = this.taskPage * this.taskPageAmount + 1;
-	                this.TasksService.read(undefined, offset, 1, 'Todo').then(function (data) {
-	                    return topTask = data.task;
+	                var offset = this.taskPage * this.taskPageAmount;
+	                this.TasksService.read(undefined, offset, 1, 'Todo').then(function (result) {
+	                    if (result.data.tasks.length !== 0) {
+	                        _this3.tasks.unshift(result.data.tasks[0]);
+	                        _this3.tasksTotal++;
+	                        // resize array if necessary
+	                        if (_this3.tasks.length > _this3.taskPageAmount) {
+	                            _this3.tasks.length = _this3.taskPageAmount;
+	                        }
+	                    }
 	                }, function (error) {
 	                    console.error(error);
 	                    _this3.Notify('Error getting todos', 'Error');
 	                    _this3.cacheActedTask = {};
 	                });
-	            }
-
-	            this.tasks.unshift(topTask);
-	            this.tasksTotal++;
-	            // resize array if necessary
-	            if (this.tasks.length > this.taskPageAmount) {
-	                this.tasks.length = this.taskPageAmount;
 	            }
 	        }
 
@@ -43960,6 +43964,9 @@
 	                if (task.id === reqTask.id) {
 	                    if (reqTask.status !== 'Todo' || remove) {
 	                        this.tasks.splice(i, 1);
+	                        if (this.tasks.length === 0) {
+	                            this.pageBack();
+	                        }
 	                        this.tasksTotal--;
 	                        found = true;
 	                        return;
@@ -43970,14 +43977,15 @@
 	            }, this);
 	            // remove from previous
 	            if ((reqTask.status !== 'Todo' || remove) && !found) {
+	                this.tasksTotal--;
 	                var before = this.tasks[0].id < reqTask.id;
 	                if (before) {
 	                    // remove first task, and add one on from server.
 	                    this.tasks.shift();
 	                    var offset = this.taskPage * this.taskPageAmount + 9;
-	                    this.TasksService.read(undefined, offset, 1, 'Todo').then(function (data) {
-	                        if (data.tasks[0]) {
-	                            tasks.push(data.tasks[0]);
+	                    this.TasksService.read(undefined, offset, 1, 'Todo').then(function (result) {
+	                        if (result.data.tasks.length) {
+	                            _this4.tasks.push(result.data.tasks[0]);
 	                        }
 	                    }, function (error) {
 	                        console.error(error);
