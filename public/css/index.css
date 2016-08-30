@@ -378,7 +378,7 @@ ui-view {
   -webkit-font-smoothing: antialiased; }
 
 main.full-height {
-  height: 90%; }
+  min-height: 80%; }
 
 .halfWidth {
   display: inline-block;
@@ -521,6 +521,14 @@ main.full-height {
     font-family: "butlerbold", serif;
     font-size: 5.5em;
     line-height: 90%; }
+
+.overview-percentage {
+  margin: 0;
+  line-height: 90%;
+  font-size: 8em; }
+  @media (max-width: 900px) {
+    .overview-percentage {
+      font-size: 5em; } }
 
 .container {
   display: block;
@@ -1301,7 +1309,7 @@ ui-view {
   -webkit-font-smoothing: antialiased; }
 
 main.full-height {
-  height: 90%; }
+  min-height: 80%; }
 
 .halfWidth {
   display: inline-block;
@@ -1444,6 +1452,14 @@ main.full-height {
     font-family: "butlerbold", serif;
     font-size: 5.5em;
     line-height: 90%; }
+
+.overview-percentage {
+  margin: 0;
+  line-height: 90%;
+  font-size: 8em; }
+  @media (max-width: 900px) {
+    .overview-percentage {
+      font-size: 5em; } }
 
 .container {
   display: block;
@@ -2139,7 +2155,7 @@ ui-view {
   -webkit-font-smoothing: antialiased; }
 
 main.full-height {
-  height: 90%; }
+  min-height: 80%; }
 
 .halfWidth {
   display: inline-block;
@@ -2282,6 +2298,14 @@ main.full-height {
     font-family: "butlerbold", serif;
     font-size: 5.5em;
     line-height: 90%; }
+
+.overview-percentage {
+  margin: 0;
+  line-height: 90%;
+  font-size: 8em; }
+  @media (max-width: 900px) {
+    .overview-percentage {
+      font-size: 5em; } }
 
 .container {
   display: block;

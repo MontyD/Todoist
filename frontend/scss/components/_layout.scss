@@ -21,7 +21,7 @@ ui-view {
 }
 
 main.full-height {
-    height: 90%;
+    min-height: 80%;
 }
 
 .halfWidth {
@@ -210,6 +210,15 @@ main.full-height {
         font-family: $serif;
         font-size  : 5.5em;
         line-height: 90%;
+    }
+}
+
+.overview-percentage {
+    margin: 0;
+    line-height: 90%;
+    font-size: 8em;
+    @media(max-width: $mediumBP) {
+      font-size: 5em;
     }
 }
 
