@@ -13,7 +13,10 @@
     <section class="thirds one  transparent">
         <h2 class="subtle-subtitle left-aligned">Hi {{home.username}}</h2>
         <new-task create-task="home.createTask(newTask)" task="home.newTask" class="transparent left-aligned"></new-task>
-        {{home.tasksTotal}} - {{home.availablePages()}}
+        <article class="stats-container">
+          <div class="large-number">{{home.tasksTotal}}</div>
+          Todos to do
+        </article>
     </section>
     <section class="thirds two tasks-container">
         <article ng-if="home.tasks.length !== 0">
@@ -22,9 +25,9 @@
                 </task-view>
             </div>
             <div class="pagination-controls" ng-if="home.availablePages() > 1">
-                <button class="icon" ng-if="home.taskPage > 0" ng-click="home.pageBack()"><span class="lnr lnr-arrow-left"></span></button>
-                <span>Page {{home.taskPage + 1}} of {{home.availablePages()}}</span>
-                <button class="icon" ng-if="home.availablePages() !== (home.taskPage + 1)" ng-click="home.pageForward()"><span class="lnr lnr-arrow-right"></span></button>
+                <button class="icon back" ng-if="home.taskPage > 0" ng-click="home.pageBack()"><span class="lnr lnr-arrow-left"></span></button>
+                <span class="page-number transparent">Page {{home.taskPage + 1}} of {{home.availablePages()}}</span>
+                <button class="icon forward" ng-if="home.availablePages() !== (home.taskPage + 1)" ng-click="home.pageForward()"><span class="lnr lnr-arrow-right"></span></button>
             </div>
         </article>
         <p class="empty-notification" ng-if="home.tasks.length === 0">No todos to be done</p>

@@ -482,9 +482,39 @@ ui-view {
     margin-top: 0; }
 
 .pagination-controls {
-  width: 100%; }
+  width: 100%;
+  height: 60px;
+  position: relative; }
   .pagination-controls * {
     vertical-align: middle; }
+  .pagination-controls .icon {
+    font-size: 2.2em; }
+  .pagination-controls .page-number {
+    display: block;
+    padding-top: 1.5em; }
+  .pagination-controls .back {
+    position: absolute;
+    left: 0;
+    top: 0; }
+  .pagination-controls .forward {
+    position: absolute;
+    right: 0;
+    top: 0; }
+
+.stats-container {
+  display: inline-block;
+  margin: 0.6em 0;
+  position: relative;
+  width: 49%;
+  box-sizing: border-box;
+  padding: 1em 0.4em;
+  text-align: center; }
+  .stats-container .large-number {
+    display: block;
+    width: 100%;
+    font-family: "butlerbold", serif;
+    font-size: 5.5em;
+    line-height: 90%; }
 
 .container {
   display: block;
@@ -1418,9 +1448,39 @@ ui-view {
     margin-top: 0; }
 
 .pagination-controls {
-  width: 100%; }
+  width: 100%;
+  height: 60px;
+  position: relative; }
   .pagination-controls * {
     vertical-align: middle; }
+  .pagination-controls .icon {
+    font-size: 2.2em; }
+  .pagination-controls .page-number {
+    display: block;
+    padding-top: 1.5em; }
+  .pagination-controls .back {
+    position: absolute;
+    left: 0;
+    top: 0; }
+  .pagination-controls .forward {
+    position: absolute;
+    right: 0;
+    top: 0; }
+
+.stats-container {
+  display: inline-block;
+  margin: 0.6em 0;
+  position: relative;
+  width: 49%;
+  box-sizing: border-box;
+  padding: 1em 0.4em;
+  text-align: center; }
+  .stats-container .large-number {
+    display: block;
+    width: 100%;
+    font-family: "butlerbold", serif;
+    font-size: 5.5em;
+    line-height: 90%; }
 
 .container {
   display: block;
@@ -2213,9 +2273,39 @@ ui-view {
     margin-top: 0; }
 
 .pagination-controls {
-  width: 100%; }
+  width: 100%;
+  height: 60px;
+  position: relative; }
   .pagination-controls * {
     vertical-align: middle; }
+  .pagination-controls .icon {
+    font-size: 2.2em; }
+  .pagination-controls .page-number {
+    display: block;
+    padding-top: 1.5em; }
+  .pagination-controls .back {
+    position: absolute;
+    left: 0;
+    top: 0; }
+  .pagination-controls .forward {
+    position: absolute;
+    right: 0;
+    top: 0; }
+
+.stats-container {
+  display: inline-block;
+  margin: 0.6em 0;
+  position: relative;
+  width: 49%;
+  box-sizing: border-box;
+  padding: 1em 0.4em;
+  text-align: center; }
+  .stats-container .large-number {
+    display: block;
+    width: 100%;
+    font-family: "butlerbold", serif;
+    font-size: 5.5em;
+    line-height: 90%; }
 
 .container {
   display: block;
