@@ -12,7 +12,7 @@ router.use('/rooms', require('./rooms.js'));
 router.use('/tasks', respondsToJSON, checkRoom, require('./tasks.js'));
 
 // render index or login if no user
-router.get('/', passRoomAndUser, function(req, res) {
+router.get(['/', '/overview', '/settings'], passRoomAndUser, function(req, res) {
   if (req.user) {
     res.render('room');
   } else {
