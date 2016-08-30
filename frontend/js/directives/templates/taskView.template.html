@@ -9,9 +9,9 @@
       <textarea class="last" ng-model="task.description" placeholder="Description"></textarea>
     </form>
 </div>
-<div ng-if="!editing" class="checkbox-container">
-    <button ng-click="deleted()">Delete</button>
-    <button ng-click="edit()">Edit</button>
+<div ng-if="!editing" class="control-container">
+    <button ng-click="deleted()" class="slide-out">Delete</button>
+    <button ng-click="edit()" class="slide-out">Edit</button>
     <button ng-click="completed()">Done</button>
 </div>
 <div ng-if="editing" class="checkbox-container">

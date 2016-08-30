@@ -589,23 +589,69 @@ input[type="submit"] {
     display: block;
     margin-left: auto;
     margin-right: auto; }
+  .fakeButton.fullwidth
   .fakeButton:disabled,
+  button.fullwidth
+  .fakeButton:disabled,
+  input[type="button"].fullwidth
+  .fakeButton:disabled,
+  input[type="submit"].fullwidth
+  .fakeButton:disabled, .fakeButton.fullwidth
   button:disabled,
+  button.fullwidth
+  button:disabled,
+  input[type="button"].fullwidth
+  button:disabled,
+  input[type="submit"].fullwidth
+  button:disabled, .fakeButton.fullwidth
   input[type="button"]:disabled,
+  button.fullwidth
+  input[type="button"]:disabled,
+  input[type="button"].fullwidth
+  input[type="button"]:disabled,
+  input[type="submit"].fullwidth
+  input[type="button"]:disabled, .fakeButton.fullwidth
+  input[type="submit"]:disabled,
+  button.fullwidth
+  input[type="submit"]:disabled,
+  input[type="button"].fullwidth
+  input[type="submit"]:disabled,
+  input[type="submit"].fullwidth
   input[type="submit"]:disabled {
     opacity: 0.8; }
+    .fakeButton.fullwidth
     .fakeButton:disabled:hover,
+    button.fullwidth
+    .fakeButton:disabled:hover,
+    input[type="button"].fullwidth
+    .fakeButton:disabled:hover,
+    input[type="submit"].fullwidth
+    .fakeButton:disabled:hover, .fakeButton.fullwidth
     button:disabled:hover,
+    button.fullwidth
+    button:disabled:hover,
+    input[type="button"].fullwidth
+    button:disabled:hover,
+    input[type="submit"].fullwidth
+    button:disabled:hover, .fakeButton.fullwidth
     input[type="button"]:disabled:hover,
+    button.fullwidth
+    input[type="button"]:disabled:hover,
+    input[type="button"].fullwidth
+    input[type="button"]:disabled:hover,
+    input[type="submit"].fullwidth
+    input[type="button"]:disabled:hover, .fakeButton.fullwidth
+    input[type="submit"]:disabled:hover,
+    button.fullwidth
+    input[type="submit"]:disabled:hover,
+    input[type="button"].fullwidth
+    input[type="submit"]:disabled:hover,
+    input[type="submit"].fullwidth
     input[type="submit"]:disabled:hover {
       box-shadow: none; }
 
 .dark {
   background: #004D40;
-  color: #FAFAFA; }
-
-.blue {
-  background: #009688;
   color: #FAFAFA; }
 
 .light, .tasks-container {
@@ -1499,23 +1545,69 @@ input[type="submit"] {
     display: block;
     margin-left: auto;
     margin-right: auto; }
+  .fakeButton.fullwidth
   .fakeButton:disabled,
+  button.fullwidth
+  .fakeButton:disabled,
+  input[type="button"].fullwidth
+  .fakeButton:disabled,
+  input[type="submit"].fullwidth
+  .fakeButton:disabled, .fakeButton.fullwidth
   button:disabled,
+  button.fullwidth
+  button:disabled,
+  input[type="button"].fullwidth
+  button:disabled,
+  input[type="submit"].fullwidth
+  button:disabled, .fakeButton.fullwidth
   input[type="button"]:disabled,
+  button.fullwidth
+  input[type="button"]:disabled,
+  input[type="button"].fullwidth
+  input[type="button"]:disabled,
+  input[type="submit"].fullwidth
+  input[type="button"]:disabled, .fakeButton.fullwidth
+  input[type="submit"]:disabled,
+  button.fullwidth
+  input[type="submit"]:disabled,
+  input[type="button"].fullwidth
+  input[type="submit"]:disabled,
+  input[type="submit"].fullwidth
   input[type="submit"]:disabled {
     opacity: 0.8; }
+    .fakeButton.fullwidth
     .fakeButton:disabled:hover,
+    button.fullwidth
+    .fakeButton:disabled:hover,
+    input[type="button"].fullwidth
+    .fakeButton:disabled:hover,
+    input[type="submit"].fullwidth
+    .fakeButton:disabled:hover, .fakeButton.fullwidth
     button:disabled:hover,
+    button.fullwidth
+    button:disabled:hover,
+    input[type="button"].fullwidth
+    button:disabled:hover,
+    input[type="submit"].fullwidth
+    button:disabled:hover, .fakeButton.fullwidth
     input[type="button"]:disabled:hover,
+    button.fullwidth
+    input[type="button"]:disabled:hover,
+    input[type="button"].fullwidth
+    input[type="button"]:disabled:hover,
+    input[type="submit"].fullwidth
+    input[type="button"]:disabled:hover, .fakeButton.fullwidth
+    input[type="submit"]:disabled:hover,
+    button.fullwidth
+    input[type="submit"]:disabled:hover,
+    input[type="button"].fullwidth
+    input[type="submit"]:disabled:hover,
+    input[type="submit"].fullwidth
     input[type="submit"]:disabled:hover {
       box-shadow: none; }
 
 .dark {
   background: #004D40;
-  color: #FAFAFA; }
-
-.blue {
-  background: #009688;
   color: #FAFAFA; }
 
 .light, .tasks-container {
@@ -2268,23 +2360,69 @@ input[type="submit"] {
     display: block;
     margin-left: auto;
     margin-right: auto; }
+  .fakeButton.fullwidth
   .fakeButton:disabled,
+  button.fullwidth
+  .fakeButton:disabled,
+  input[type="button"].fullwidth
+  .fakeButton:disabled,
+  input[type="submit"].fullwidth
+  .fakeButton:disabled, .fakeButton.fullwidth
   button:disabled,
+  button.fullwidth
+  button:disabled,
+  input[type="button"].fullwidth
+  button:disabled,
+  input[type="submit"].fullwidth
+  button:disabled, .fakeButton.fullwidth
   input[type="button"]:disabled,
+  button.fullwidth
+  input[type="button"]:disabled,
+  input[type="button"].fullwidth
+  input[type="button"]:disabled,
+  input[type="submit"].fullwidth
+  input[type="button"]:disabled, .fakeButton.fullwidth
+  input[type="submit"]:disabled,
+  button.fullwidth
+  input[type="submit"]:disabled,
+  input[type="button"].fullwidth
+  input[type="submit"]:disabled,
+  input[type="submit"].fullwidth
   input[type="submit"]:disabled {
     opacity: 0.8; }
+    .fakeButton.fullwidth
     .fakeButton:disabled:hover,
+    button.fullwidth
+    .fakeButton:disabled:hover,
+    input[type="button"].fullwidth
+    .fakeButton:disabled:hover,
+    input[type="submit"].fullwidth
+    .fakeButton:disabled:hover, .fakeButton.fullwidth
     button:disabled:hover,
+    button.fullwidth
+    button:disabled:hover,
+    input[type="button"].fullwidth
+    button:disabled:hover,
+    input[type="submit"].fullwidth
+    button:disabled:hover, .fakeButton.fullwidth
     input[type="button"]:disabled:hover,
+    button.fullwidth
+    input[type="button"]:disabled:hover,
+    input[type="button"].fullwidth
+    input[type="button"]:disabled:hover,
+    input[type="submit"].fullwidth
+    input[type="button"]:disabled:hover, .fakeButton.fullwidth
+    input[type="submit"]:disabled:hover,
+    button.fullwidth
+    input[type="submit"]:disabled:hover,
+    input[type="button"].fullwidth
+    input[type="submit"]:disabled:hover,
+    input[type="submit"].fullwidth
     input[type="submit"]:disabled:hover {
       box-shadow: none; }
 
 .dark {
   background: #004D40;
-  color: #FAFAFA; }
-
-.blue {
-  background: #009688;
   color: #FAFAFA; }
 
 .light, .tasks-container {
@@ -2313,14 +2451,67 @@ input[type="submit"] {
 .slightGradient {
   background: radial-gradient(#009688, #004D40); }
 
+.bounce {
+  -webkit-animation-name: bounce;
+          animation-name: bounce;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-duration: 1.2s;
+          animation-duration: 1.2s;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear; }
+
+@-webkit-keyframes bounce {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); }
+  33% {
+    -webkit-transform: translateY(-3px);
+            transform: translateY(-3px); }
+  66% {
+    -webkit-transform: translateY(3px);
+            transform: translateY(3px); }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); } }
+
+@keyframes bounce {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); }
+  33% {
+    -webkit-transform: translateY(-3px);
+            transform: translateY(-3px); }
+  66% {
+    -webkit-transform: translateY(3px);
+            transform: translateY(3px); }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); } }
+.slide-out.hidden, .task-item button.slide-out {
+  opacity: 0;
+  -webkit-transform: translateX(100%);
+      -ms-transform: translateX(100%);
+          transform: translateX(100%);
+  transition: opacity 0.2s ease-in, -webkit-transform 0.2s ease-in;
+  transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+  transition: opacity 0.2s ease-in, transform 0.2s ease-in, -webkit-transform 0.2s ease-in; }
+
+.slide-out.active, .task-item:hover button.slide-out {
+  opacity: 1;
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0); }
+
 .tasks-container {
-  display: inline-block;
-  max-width: none; }
+  max-width: none;
+  display: inline-block; }
 
 .task-item {
   display: block;
   clear: both;
-  border-top: 2px solid #E0E0E0; }
+  border-top: 2px solid #E0E0E0;
+  transition: background 0.2s ease; }
   .task-item .task-description {
     display: inline-block;
     width: 55%;
@@ -2331,12 +2522,14 @@ input[type="submit"] {
     font-weight: bold;
     font-size: 1.5em;
     margin-bottom: 0; }
-  .task-item .checkbox-container {
+  .task-item .control-container {
     display: inline-block;
     width: 40%;
     vertical-align: middle; }
-    .task-item .checkbox-container * {
+    .task-item .control-container * {
       vertical-align: middle; }
+  .task-item:hover {
+    background: #F1F1F1; }
   .task-item:first-child {
     border-top: none; }
   .task-item label.first {

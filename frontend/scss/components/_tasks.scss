@@ -1,46 +1,69 @@
 @import '_styling';
+@import '_animation';
 
 .tasks-container {
-  @extend .modal;
-  @extend .light;
-  display: inline-block;
-  max-width: none;
+    @extend .modal;
+    @extend .light;
+    max-width: none;
+    display  : inline-block;
 }
+
 .task-item {
     display   : block;
     clear     : both;
     border-top: 2px solid $colorGrey;
+    transition: background 0.2s ease;
+
     .task-description {
         display       : inline-block;
         width         : 55%;
         vertical-align: middle;
         color         : $colorDarkGrey;
     }
+
     .task-title {
         color        : $colorDark;
         font-weight  : bold;
         font-size    : 1.5em;
         margin-bottom: 0;
     }
-    .checkbox-container {
+
+    .control-container {
         display       : inline-block;
         width         : 40%;
         vertical-align: middle;
+
         * {
             vertical-align: middle;
         }
     }
+
+    button.slide-out {
+        @extend.slide-out.hidden;
+    }
+
+    &:hover {
+        background: #F1F1F1;
+
+        button.slide-out {
+            @extend .slide-out.active;
+        }
+    }
+
     &:first-child {
         border-top: none;
     }
+
     label.first {
-      display: block;
-      margin-top: 0.8em;
+        display   : block;
+        margin-top: 0.8em;
     }
+
     textarea.last {
-      margin-bottom: 0.8em;
+        margin-bottom: 0.8em;
     }
 }
+
 .empty-notification {
     margin   : 4em;
     font-size: 1.2em;
