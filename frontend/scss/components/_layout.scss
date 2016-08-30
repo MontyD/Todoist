@@ -1,0 +1,147 @@
+$sans-serif: 'Droid Sans', sans-serif;
+$serif: 'butlerbold', serif;
+$containerWidth: 1000px;
+$largeBP: 1100px;
+$mediumBP: 900px;
+$smallBP: 550px;
+
+html {
+    min-height: 100%;
+    width     : 100%;
+    position  : relative;
+}
+body,
+ui-view {
+    display               : block;
+    min-height            : 100%;
+    width                 : 100%;
+    font-family           : $sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+.halfWidth {
+    display     : inline-block;
+    width       : 50%;
+    box-sizing  : border-box;
+    margin-left : 0;
+    margin-right: 0;
+}
+.fullWidth {
+    display     : block;
+    width       : 100%;
+    box-sizing  : border-box;
+    margin-left : 0;
+    margin-right: 0;
+}
+
+.halves {
+    display       : inline-block;
+    width         : 49%;
+    padding       : 0 1em;
+    box-sizing    : border-box;
+    margin-left   : 0;
+    margin-right  : 0;
+    vertical-align: top;
+    p {
+        padding       : 0;
+        margin        : 1em auto;
+        vertical-align: top;
+        width         : 100%;
+    }
+    h3 {
+        margin-top: 0;
+        font-size : 2.2em;
+    }
+    @media(max-width: $mediumBP) {
+        display: block;
+        width  : 90%;
+        margin : 1em auto 3.5em;
+    }
+    @media(max-width: $smallBP) {
+        width: 98%;
+        img.boxed {
+            width: 95%;
+        }
+        p {
+            text-align: center;
+        }
+    }
+    img.boxed {
+        width: 80%;
+    }
+}
+
+.thirds {
+    display       : inline-block;
+    width         : 32%;
+    padding       : 0 1em;
+    box-sizing    : border-box;
+    margin-left   : 0;
+    margin-right  : 0;
+    text-align    : center;
+    vertical-align: top;
+    &.two {
+        width: 65%;
+    }
+    &.vertically-center {
+        vertical-align: middle;
+    }
+    h3 {
+        margin   : 0 auto;
+        font-size: 2.2em;
+    }
+    @media(max-width: $mediumBP) {
+        &.two {
+            width: 90%;
+        }
+        display: block;
+        width  : 90%;
+        margin : 0.5em auto 1em;
+    }
+}
+
+.modal {
+    position  : relative;
+    display   : block;
+    margin    : 0 auto;
+    max-width : 600px;
+    padding   : 1em;
+    box-sizing: border-box;
+    text-align: center;
+    &.main {
+        margin: 5% auto;
+    }
+    &.full-width {
+        max-width: none;
+    }
+    h1,
+    h2,
+    h3 {
+        margin-top: 0;
+    }
+}
+
+.container {
+    display   : block;
+    position  : relative;
+    margin    : 0 auto;
+    box-sizing: border-box;
+    padding   : 1em;
+    width     : 100%;
+    max-width : $containerWidth;
+    &.no-pad {
+        padding-left : 0;
+        padding-right: 0;
+    }
+}
+.left-aligned {
+    text-align: left;
+}
+.right-aligned {
+    text-align: right;
+}
+.center {
+    text-align: center;
+}
+.vertically-center {
+    vertical-align: middle;
+}

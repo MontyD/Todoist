@@ -18,16 +18,3 @@
         transform: translateY(0);
     }
 }
-.task-item.ng-leave {
-    animation: task-out 0.3s ease-out;
-}
-@keyframes task-out {
-    0% {
-        transform: translateX(0) scale(1);
-        opacity  : 1;
-    }
-    100% {
-        transform: translateX(-200px) scale(0.9);
-        opacity  : 0;
-    }
-}

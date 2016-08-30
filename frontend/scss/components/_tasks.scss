@@ -1,0 +1,48 @@
+@import '_styling';
+
+.tasks-container {
+  @extend .modal;
+  @extend .light;
+  display: inline-block;
+  max-width: none;
+}
+.task-item {
+    display   : block;
+    clear     : both;
+    border-top: 2px solid $colorGrey;
+    .task-description {
+        display       : inline-block;
+        width         : 55%;
+        vertical-align: middle;
+        color         : $colorDarkGrey;
+    }
+    .task-title {
+        color        : $colorDark;
+        font-weight  : bold;
+        font-size    : 1.5em;
+        margin-bottom: 0;
+    }
+    .checkbox-container {
+        display       : inline-block;
+        width         : 40%;
+        vertical-align: middle;
+        * {
+            vertical-align: middle;
+        }
+    }
+    &:first-child {
+        border-top: none;
+    }
+    label.first {
+      display: block;
+      margin-top: 0.8em;
+    }
+    textarea.last {
+      margin-bottom: 0.8em;
+    }
+}
+.empty-notification {
+    margin   : 4em;
+    font-size: 1.2em;
+    color    : $colorDarkGrey;
+}

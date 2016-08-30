@@ -15,7 +15,7 @@
         <new-task create-task="home.createTask(newTask)" task="home.newTask" class="transparent left-aligned"></new-task>
         {{home.tasksTotal}}
     </section>
-    <section class="thirds two modal full-width light tasks-container">
+    <section class="thirds two tasks-container">
         <article ng-if="home.tasks.length !== 0">
             <div class="task-item" ng-repeat="task in home.tasks">
                 <task-view task="task" edited="home.updateTask(task)" deleted="home.deleteTask(task)">
