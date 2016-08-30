@@ -24,7 +24,7 @@ class RoomCtrl {
 
         this.taskPage = 0;
 
-        this.taskCount = 0;
+        this.tasksTotal = 0;
 
         // read tasks from server, and also get username
         // and room name. Set initial to true (last arg);
@@ -43,8 +43,13 @@ class RoomCtrl {
             }
         );
 
+        this.TasksService.countTodos().then(
+          result => this.tasksTotal = result.data.count,
+          error => console.error(error)
+        );
+
     }
-    
+
     initSockets() {
         this.SocketsService.emit('room', this.roomName);
 
@@ -94,9 +99,27 @@ class RoomCtrl {
     addTaskLocally(newTask, username) {
         let alreadyAdded = this.tasks.find(task => task.id === newTask.id);
         if (!alreadyAdded) {
-            this.tasks.push(newTask);
+            this.tasks.unshift(newTask);
+            this.tasksTotal++;
         }
     }
+
+    // update task locally within js array.
+    // includes remove
+    updateTaskLocally(reqTask, remove) {
+        this.tasks.forEach(function(task, i) {
+            if (task.id === reqTask.id) {
+                if (reqTask.status !== 'Todo' || remove) {
+                    this.tasks.splice(i, 1);
+                    this.tasksTotal--;
+                    return;
+                }
+                this.tasks[i] = reqTask;
+                return;
+            }
+        }, this);
+    }
+
 
     updateTask(task) {
         if (!task) {
@@ -122,19 +145,6 @@ class RoomCtrl {
                 this.Notify('Error removing todo', 'Error');
             }
         );
-    }
-
-    updateTaskLocally(reqTask, remove) {
-        this.tasks.forEach(function(task, i) {
-            if (task.id === reqTask.id) {
-                if (reqTask.status !== 'Todo' || remove) {
-                    this.tasks.splice(i, 1);
-                    return;
-                }
-                this.tasks[i] = reqTask;
-                return;
-            }
-        }, this);
     }
 
     Notify(text, type) {

@@ -43766,7 +43766,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-serf=\"home\" title=\"\">Tasks</a></li>\n            <li><a href=\"#\" title=\"\">Settings</a></li>\n            <li><a href=\"#\" title=\"\">Overview</a></li>\n            <li><a href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n  <section class=\"thirds one  transparent\">\n      <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n      <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n  </section>\n    <section class=\"thirds two modal full-width light tasks-container\">\n        <article class=\"task-item\" ng-repeat=\"task in home.tasks\">\n            <task-view\n              task=\"task\"\n              edited=\"home.updateTask(task)\"\n              deleted=\"home.deleteTask(task)\">\n            </task-view>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-serf=\"home\" title=\"\">Tasks</a></li>\n            <li><a href=\"#\" title=\"\">Settings</a></li>\n            <li><a href=\"#\" title=\"\">Overview</a></li>\n            <li><a href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n  <section class=\"thirds one  transparent\">\n      <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n      <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n      {{home.tasksTotal}}\n  </section>\n    <section class=\"thirds two modal full-width light tasks-container\">\n        <article class=\"task-item\" ng-repeat=\"task in home.tasks\">\n            <task-view\n              task=\"task\"\n              edited=\"home.updateTask(task)\"\n              deleted=\"home.deleteTask(task)\">\n            </task-view>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
 
 /***/ },
 /* 56 */
@@ -43809,7 +43809,7 @@
 
 	        this.taskPage = 0;
 
-	        this.taskCount = 0;
+	        this.tasksTotal = 0;
 
 	        // read tasks from server, and also get username
 	        // and room name. Set initial to true (last arg);
@@ -43823,6 +43823,12 @@
 	        }, function (error) {
 	            console.error(error);
 	            _this.Nofity('Error getting todos', 'Error');
+	        });
+
+	        this.TasksService.countTodos().then(function (result) {
+	            return _this.tasksTotal = result.data.count;
+	        }, function (error) {
+	            return console.error(error);
 	        });
 	    }
 
@@ -43880,8 +43886,27 @@
 	                return task.id === newTask.id;
 	            });
 	            if (!alreadyAdded) {
-	                this.tasks.push(newTask);
+	                this.tasks.unshift(newTask);
+	                this.tasksTotal++;
 	            }
+	        }
+
+	        // update task locally within js array.
+	        // includes remove
+	    }, {
+	        key: 'updateTaskLocally',
+	        value: function updateTaskLocally(reqTask, remove) {
+	            this.tasks.forEach(function (task, i) {
+	                if (task.id === reqTask.id) {
+	                    if (reqTask.status !== 'Todo' || remove) {
+	                        this.tasks.splice(i, 1);
+	                        this.tasksTotal--;
+	                        return;
+	                    }
+	                    this.tasks[i] = reqTask;
+	                    return;
+	                }
+	            }, this);
 	        }
 	    }, {
 	        key: 'updateTask',
@@ -43912,20 +43937,6 @@
 	                console.error(error);
 	                _this4.Notify('Error removing todo', 'Error');
 	            });
-	        }
-	    }, {
-	        key: 'updateTaskLocally',
-	        value: function updateTaskLocally(reqTask, remove) {
-	            this.tasks.forEach(function (task, i) {
-	                if (task.id === reqTask.id) {
-	                    if (reqTask.status !== 'Todo' || remove) {
-	                        this.tasks.splice(i, 1);
-	                        return;
-	                    }
-	                    this.tasks[i] = reqTask;
-	                    return;
-	                }
-	            }, this);
 	        }
 	    }, {
 	        key: 'Notify',
@@ -44336,7 +44347,7 @@
 	                requestURL += 'start=' + start + '&';
 	            }
 	            if (limit) {
-	                requestURL += 'limit=' + limit;
+	                requestURL += 'limit=' + limit + '&';
 	            }
 	            if (status) {
 	                requestURL += 'status=' + status;
@@ -44358,6 +44369,11 @@
 	        key: 'destroy',
 	        value: function destroy(reqTaskId) {
 	            return this.$http['delete'](this.urlBase + reqTaskId);
+	        }
+	    }, {
+	        key: 'countTodos',
+	        value: function countTodos() {
+	            return this.$http.get(this.urlBase + 'todo-count');
 	        }
 	    }]);
 

@@ -28,7 +28,7 @@ class TasksService {
             requestURL += 'start=' + start + '&';
         }
         if (limit) {
-            requestURL += 'limit=' + limit;
+            requestURL += 'limit=' + limit + '&';
         }
         if (status) {
           requestURL += 'status=' + status;
@@ -48,6 +48,10 @@ class TasksService {
 
     destroy(reqTaskId) {
         return this.$http.delete(this.urlBase + reqTaskId);
+    }
+
+    countTodos() {
+      return this.$http.get(this.urlBase + 'todo-count');
     }
 
 

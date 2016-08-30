@@ -13,6 +13,7 @@
   <section class="thirds one  transparent">
       <h2 class="subtle-subtitle left-aligned">Hi {{home.username}}</h2>
       <new-task create-task="home.createTask(newTask)" task="home.newTask" class="transparent left-aligned"></new-task>
+      {{home.tasksTotal}}
   </section>
     <section class="thirds two modal full-width light tasks-container">
         <article class="task-item" ng-repeat="task in home.tasks">

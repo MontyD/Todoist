@@ -9,10 +9,10 @@ var express = require('express'),
     handleError = require(path.join(__dirname, '..', 'middlewares', 'handleError'));
 
 // GET ALL
-router.get('/', respondsToJSON, checkRoom, function(req, res, next) {
+router.get('/', function(req, res, next) {
 
-    var start = req.query.start || 0;
-    var limit = req.query.limit || 10;
+    var start = parseInt(req.query.start) || 0;
+    var limit = parseInt(req.query.limit) || 10;
     var initial = !!req.query.initial;
     var query = {
         roomId: req.user.id
@@ -25,7 +25,7 @@ router.get('/', respondsToJSON, checkRoom, function(req, res, next) {
     models.tasks.findAll({
         where: query,
         order: [
-            ['updatedAt'],
+            ['createdAt', 'DESC'],
         ],
         limit: limit,
         offset: start
@@ -45,9 +45,36 @@ router.get('/', respondsToJSON, checkRoom, function(req, res, next) {
 
 });
 
+// GET count of tasks - status Todo
+router.get('/todo-count', function(req, res, next) {
+
+    var reqRoomId = req.user.id;
+
+    models.tasks.count({
+        where: {
+            status: 'Todo',
+            roomId: reqRoomId
+        }
+    }).then(function(c) {
+        if (!c) {
+            return res.json({
+                count: 0
+            });
+        }
+        return res.json({
+            count: c
+        });
+    }).catch(function(err) {
+        return handleError(err, next);
+    });
+
+
+});
+
+
 
 // GET one task by ID
-router.get('/:taskID', respondsToJSON, checkRoom, function(req, res, next) {
+router.get('/:taskID', function(req, res, next) {
 
     if (isNaN(req.params.taskID)) {
         var error = new Error('Bad get request');
@@ -74,7 +101,7 @@ router.get('/:taskID', respondsToJSON, checkRoom, function(req, res, next) {
 });
 
 // CREATE NEW
-router.post('/', respondsToJSON, checkRoom, function(req, res, next) {
+router.post('/', function(req, res, next) {
 
     if (!req.body.task) {
         var error = new Error('Bad get request');
@@ -102,7 +129,7 @@ router.post('/', respondsToJSON, checkRoom, function(req, res, next) {
 
 
 // Update task by id
-router.put('/:taskID', respondsToJSON, checkRoom, function(req, res, next) {
+router.put('/:taskID', function(req, res, next) {
 
     if (isNaN(req.params.taskID) || !req.body.task) {
         var error = new Error('Bad put data');
@@ -167,27 +194,6 @@ router.delete('/:taskID', function(req, res, next) {
     });
 
 });
-
-
-// GET count of tasks - status Todo
-router.get('/todo-count', function(req, res, next) {
-
-    var reqRoomId = req.user.id;
-
-    models.tasks.count({
-        where: {status: 'Todo', roomId: reqRoomId}
-    }).then(function(c){
-      if (!c) {
-        return res.json({count: 0});
-      }
-      return res.json({count: c});
-    }).catch(function(err){
-      return handleError(err, next);
-    });
-
-
-});
-
 
 
 module.exports = router;
