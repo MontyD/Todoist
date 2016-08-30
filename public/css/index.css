@@ -508,7 +508,8 @@ ui-view {
   width: 49%;
   box-sizing: border-box;
   padding: 1em 0.4em;
-  text-align: center; }
+  text-align: center;
+  font-size: 0.9em; }
   .stats-container .large-number {
     display: block;
     width: 100%;
@@ -659,6 +660,9 @@ button.icon {
     color: #004D40; }
   button.icon:active, button.icon:focus {
     outline: 0; }
+
+.stats-container.first {
+  border-right: 1px solid #6f6f6f; }
 
 .dark {
   background: #004D40;
@@ -1474,7 +1478,8 @@ ui-view {
   width: 49%;
   box-sizing: border-box;
   padding: 1em 0.4em;
-  text-align: center; }
+  text-align: center;
+  font-size: 0.9em; }
   .stats-container .large-number {
     display: block;
     width: 100%;
@@ -1625,6 +1630,9 @@ button.icon {
     color: #004D40; }
   button.icon:active, button.icon:focus {
     outline: 0; }
+
+.stats-container.first {
+  border-right: 1px solid #6f6f6f; }
 
 .dark {
   background: #004D40;
@@ -2299,7 +2307,8 @@ ui-view {
   width: 49%;
   box-sizing: border-box;
   padding: 1em 0.4em;
-  text-align: center; }
+  text-align: center;
+  font-size: 0.9em; }
   .stats-container .large-number {
     display: block;
     width: 100%;
@@ -2450,6 +2459,9 @@ button.icon {
     color: #004D40; }
   button.icon:active, button.icon:focus {
     outline: 0; }
+
+.stats-container.first {
+  border-right: 1px solid #6f6f6f; }
 
 .dark {
   background: #004D40;

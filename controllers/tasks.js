@@ -68,7 +68,6 @@ router.get('/todo-count', function(req, res, next) {
         return handleError(err, next);
     });
 
-
 });
 
 router.get('/completed-last-day', function(req, res, next) {
@@ -89,7 +88,7 @@ router.get('/completed-last-day', function(req, res, next) {
         count: 0
       });
     }
-    return req.json({
+    return res.json({
       count: c
     });
   }).catch(function(err) {

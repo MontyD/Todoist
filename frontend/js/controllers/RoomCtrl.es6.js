@@ -26,6 +26,8 @@ class RoomCtrl {
 
         this.tasksTotal = 0;
 
+        this.completedLastDay = 0;
+
         this.cacheActedTask = {};
 
         this.moving = false;
@@ -41,10 +43,7 @@ class RoomCtrl {
                 // connect to socket by room name
                 this.initSockets();
             },
-            error => {
-                console.error(error);
-                this.Nofity('Error getting todos', 'Error');
-            }
+            this.handleError.bind(this)
         );
 
         // read todos count
@@ -53,6 +52,28 @@ class RoomCtrl {
             error => console.error(error)
         );
 
+        // read completed count for last day
+        this.TasksService.countCompletedLastDay().then(
+            result => this.completedLastDay = result.data.count,
+            this.handleError.bind(this)
+        );
+
+    }
+
+    Notify(text, type) {
+        if (this.doNotNotify) {
+            return false;
+        }
+        switch (type) {
+            case 'Success':
+                this.Notification.success(text);
+                break;
+            case 'Error':
+                this.Notification.error(text);
+                break;
+            default:
+                this.Notification.info(text);
+        }
     }
 
     initSockets() {
@@ -101,7 +122,7 @@ class RoomCtrl {
     }
 
     availablePages() {
-      return Math.ceil(this.tasksTotal / this.taskPageAmount);
+        return Math.ceil(this.tasksTotal / this.taskPageAmount);
     }
 
     movePage(pageNumber) {
@@ -121,10 +142,7 @@ class RoomCtrl {
                 this.username = result.data.username;
                 this.roomName = result.data.roomName;
             },
-            error => {
-                console.error(error);
-                this.Notify('Error getting todos', 'Error');
-            }
+            this.handleError.bind(this)
         );
     }
 
@@ -162,11 +180,7 @@ class RoomCtrl {
                     }
 
                 },
-                error => {
-                    console.error(error);
-                    this.Notify('Error getting todos', 'Error');
-                    this.cacheActedTask = {};
-                }
+                this.handleError.bind(this)
             );
         }
 
@@ -176,13 +190,16 @@ class RoomCtrl {
     // update task locally within js array.
     // includes remove
     updateTaskLocally(reqTask, remove) {
+        if (reqTask.status === 'Complete') {
+            this.completedLastDay++;
+        }
         let found = false;
         this.tasks.forEach(function(task, i) {
             if (task.id === reqTask.id) {
                 if (reqTask.status !== 'Todo' || remove) {
                     this.tasks.splice(i, 1);
-                    if (this.tasks.length === 0){
-                      this.pageBack();
+                    if (this.tasks.length === 0) {
+                        this.pageBack();
                     }
                     this.tasksTotal--;
                     found = true;
@@ -206,13 +223,10 @@ class RoomCtrl {
                             this.tasks.push(result.data.tasks[0]);
                         }
                         if (this.tasks.length === 0) {
-                          this.pageBack();
+                            this.pageBack();
                         }
                     },
-                    error => {
-                        console.error(error);
-                        this.Notify('Error getting todos', 'Error');
-                    }
+                    this.handleError.bind(this)
                 );
             }
         }
@@ -229,11 +243,7 @@ class RoomCtrl {
                 };
                 this.addTaskLocally(result.data);
             },
-            error => {
-                console.error(error);
-                this.Notify('Error saving todos', 'Error');
-                this.cacheActedTask = {};
-            }
+            this.handleError.bind(this)
         );
 
     }
@@ -247,11 +257,7 @@ class RoomCtrl {
         this.cacheActedTask.action = 'update';
         this.TasksService.update(task.id, task).then(
             result => this.updateTaskLocally(result.data),
-            error => {
-                console.error(error);
-                this.Notify('Error updating todo', 'Error');
-                this.cacheActedTask = {};
-            }
+            this.handleError.bind(this)
         );
     }
 
@@ -263,30 +269,17 @@ class RoomCtrl {
         this.cacheActedTask.action = 'delete';
         this.TasksService.destroy(task.id).then(
             result => this.updateTaskLocally(task, true),
-            error => {
-                console.error(error);
-                this.Notify('Error removing todo', 'Error');
-                this.cacheActedTask = {};
-            }
+            this.handleError.bind(this)
         );
     }
 
-    Notify(text, type) {
-        if (this.doNotNotify) {
-            return false;
-        }
-        switch (type) {
-            case 'Success':
-                this.Notification.success(text);
-                break;
-            case 'Error':
-                this.Notification.error(text);
-                break;
-            default:
-                this.Notification.info(text);
-        }
-
-
+    handleError(error) {
+      if (error.status === 401 || error.status === 403) {
+        window.location = '/rooms/login?timeout=true';
+      }
+      console.error(error);
+      this.Notify('Error communicating with server', 'Error');
+      this.cacheActedTask = {};
     }
 
 }

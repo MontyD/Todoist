@@ -43766,7 +43766,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-serf=\"home\" title=\"\">Tasks</a></li>\n            <li><a href=\"#\" title=\"\">Settings</a></li>\n            <li><a href=\"#\" title=\"\">Overview</a></li>\n            <li><a href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n    <section class=\"thirds one  transparent\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n        <article class=\"stats-container\">\n          <div class=\"large-number\">{{home.tasksTotal}}</div>\n          Todos to do\n        </article>\n    </section>\n    <section class=\"thirds two tasks-container\">\n        <article ng-if=\"home.tasks.length !== 0\">\n            <div class=\"task-item\" ng-repeat=\"task in home.tasks\">\n                <task-view task=\"task\" edited=\"home.updateTask(task)\" deleted=\"home.deleteTask(task)\">\n                </task-view>\n            </div>\n            <div class=\"pagination-controls\" ng-if=\"home.availablePages() > 1\">\n                <button class=\"icon back\" ng-if=\"home.taskPage > 0\" ng-click=\"home.pageBack()\"><span class=\"lnr lnr-arrow-left\"></span></button>\n                <span class=\"page-number transparent\">Page {{home.taskPage + 1}} of {{home.availablePages()}}</span>\n                <button class=\"icon forward\" ng-if=\"home.availablePages() !== (home.taskPage + 1)\" ng-click=\"home.pageForward()\"><span class=\"lnr lnr-arrow-right\"></span></button>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-serf=\"home\" title=\"\">Tasks</a></li>\n            <li><a href=\"#\" title=\"\">Settings</a></li>\n            <li><a href=\"#\" title=\"\">Overview</a></li>\n            <li><a href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container no-pad\">\n    <section class=\"thirds one  transparent\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n        <article class=\"stats-container first\">\n          <div class=\"large-number\">{{home.tasksTotal}}</div>\n          Todos to do\n        </article>\n        <article class=\"stats-container\">\n          <div class=\"large-number\">{{home.completedLastDay}}</div>\n          Todos done today\n        </article>\n    </section>\n    <section class=\"thirds two tasks-container\">\n        <article ng-if=\"home.tasks.length !== 0\">\n            <div class=\"task-item\" ng-repeat=\"task in home.tasks\">\n                <task-view task=\"task\" edited=\"home.updateTask(task)\" deleted=\"home.deleteTask(task)\">\n                </task-view>\n            </div>\n            <div class=\"pagination-controls\" ng-if=\"home.availablePages() > 1\">\n                <button class=\"icon back\" ng-if=\"home.taskPage > 0\" ng-click=\"home.pageBack()\"><span class=\"lnr lnr-arrow-left\"></span></button>\n                <span class=\"page-number transparent\">Page {{home.taskPage + 1}} of {{home.availablePages()}}</span>\n                <button class=\"icon forward\" ng-if=\"home.availablePages() !== (home.taskPage + 1)\" ng-click=\"home.pageForward()\"><span class=\"lnr lnr-arrow-right\"></span></button>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
 
 /***/ },
 /* 56 */
@@ -43811,6 +43811,8 @@
 
 	        this.tasksTotal = 0;
 
+	        this.completedLastDay = 0;
+
 	        this.cacheActedTask = {};
 
 	        this.moving = false;
@@ -43824,10 +43826,7 @@
 
 	            // connect to socket by room name
 	            _this.initSockets();
-	        }, function (error) {
-	            console.error(error);
-	            _this.Nofity('Error getting todos', 'Error');
-	        });
+	        }, this.handleError.bind(this));
 
 	        // read todos count
 	        this.TasksService.countTodos().then(function (result) {
@@ -43835,9 +43834,31 @@
 	        }, function (error) {
 	            return console.error(error);
 	        });
+
+	        // read completed count for last day
+	        this.TasksService.countCompletedLastDay().then(function (result) {
+	            return _this.completedLastDay = result.data.count;
+	        }, this.handleError.bind(this));
 	    }
 
 	    _createClass(RoomCtrl, [{
+	        key: 'Notify',
+	        value: function Notify(text, type) {
+	            if (this.doNotNotify) {
+	                return false;
+	            }
+	            switch (type) {
+	                case 'Success':
+	                    this.Notification.success(text);
+	                    break;
+	                case 'Error':
+	                    this.Notification.error(text);
+	                    break;
+	                default:
+	                    this.Notification.info(text);
+	            }
+	        }
+	    }, {
 	        key: 'initSockets',
 	        value: function initSockets() {
 	            this.SocketsService.emit('room', this.roomName);
@@ -43906,10 +43927,7 @@
 	                _this2.tasks = result.data.tasks;
 	                _this2.username = result.data.username;
 	                _this2.roomName = result.data.roomName;
-	            }, function (error) {
-	                console.error(error);
-	                _this2.Notify('Error getting todos', 'Error');
-	            });
+	            }, this.handleError.bind(this));
 	        }
 	    }, {
 	        key: 'pageBack',
@@ -43949,11 +43967,7 @@
 	                            _this3.tasks.length = _this3.taskPageAmount;
 	                        }
 	                    }
-	                }, function (error) {
-	                    console.error(error);
-	                    _this3.Notify('Error getting todos', 'Error');
-	                    _this3.cacheActedTask = {};
-	                });
+	                }, this.handleError.bind(this));
 	            }
 	        }
 
@@ -43964,6 +43978,9 @@
 	        value: function updateTaskLocally(reqTask, remove) {
 	            var _this4 = this;
 
+	            if (reqTask.status === 'Complete') {
+	                this.completedLastDay++;
+	            }
 	            var found = false;
 	            this.tasks.forEach(function (task, i) {
 	                if (task.id === reqTask.id) {
@@ -43995,10 +44012,7 @@
 	                        if (_this4.tasks.length === 0) {
 	                            _this4.pageBack();
 	                        }
-	                    }, function (error) {
-	                        console.error(error);
-	                        _this4.Notify('Error getting todos', 'Error');
-	                    });
+	                    }, this.handleError.bind(this));
 	                }
 	            }
 	        }
@@ -44016,11 +44030,7 @@
 	                    status: 'Todo'
 	                };
 	                _this5.addTaskLocally(result.data);
-	            }, function (error) {
-	                console.error(error);
-	                _this5.Notify('Error saving todos', 'Error');
-	                _this5.cacheActedTask = {};
-	            });
+	            }, this.handleError.bind(this));
 	        }
 	    }, {
 	        key: 'updateTask',
@@ -44034,11 +44044,7 @@
 	            this.cacheActedTask.action = 'update';
 	            this.TasksService.update(task.id, task).then(function (result) {
 	                return _this6.updateTaskLocally(result.data);
-	            }, function (error) {
-	                console.error(error);
-	                _this6.Notify('Error updating todo', 'Error');
-	                _this6.cacheActedTask = {};
-	            });
+	            }, this.handleError.bind(this));
 	        }
 	    }, {
 	        key: 'deleteTask',
@@ -44052,28 +44058,17 @@
 	            this.cacheActedTask.action = 'delete';
 	            this.TasksService.destroy(task.id).then(function (result) {
 	                return _this7.updateTaskLocally(task, true);
-	            }, function (error) {
-	                console.error(error);
-	                _this7.Notify('Error removing todo', 'Error');
-	                _this7.cacheActedTask = {};
-	            });
+	            }, this.handleError.bind(this));
 	        }
 	    }, {
-	        key: 'Notify',
-	        value: function Notify(text, type) {
-	            if (this.doNotNotify) {
-	                return false;
+	        key: 'handleError',
+	        value: function handleError(error) {
+	            if (error.status === 401 || error.status === 403) {
+	                window.location = '/rooms/login?timeout=true';
 	            }
-	            switch (type) {
-	                case 'Success':
-	                    this.Notification.success(text);
-	                    break;
-	                case 'Error':
-	                    this.Notification.error(text);
-	                    break;
-	                default:
-	                    this.Notification.info(text);
-	            }
+	            console.error(error);
+	            this.Notify('Error communicating with server', 'Error');
+	            this.cacheActedTask = {};
 	        }
 	    }]);
 
@@ -44504,6 +44499,11 @@
 	        key: 'countTodos',
 	        value: function countTodos() {
 	            return this.$http.get(this.urlBase + 'todo-count');
+	        }
+	    }, {
+	        key: 'countCompletedLastDay',
+	        value: function countCompletedLastDay() {
+	            return this.$http.get(this.urlBase + '/completed-last-day');
 	        }
 	    }]);
 

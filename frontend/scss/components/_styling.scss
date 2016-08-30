@@ -179,6 +179,9 @@ button.icon {
       outline: 0;
     }
 }
+.stats-container.first {
+    border-right: 1px solid $colorDarkGrey;
+}
 //** Color styles **//
 
 .dark {

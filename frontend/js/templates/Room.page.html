@@ -13,9 +13,13 @@
     <section class="thirds one  transparent">
         <h2 class="subtle-subtitle left-aligned">Hi {{home.username}}</h2>
         <new-task create-task="home.createTask(newTask)" task="home.newTask" class="transparent left-aligned"></new-task>
-        <article class="stats-container">
+        <article class="stats-container first">
           <div class="large-number">{{home.tasksTotal}}</div>
           Todos to do
+        </article>
+        <article class="stats-container">
+          <div class="large-number">{{home.completedLastDay}}</div>
+          Todos done today
         </article>
     </section>
     <section class="thirds two tasks-container">
