@@ -1,6 +1,6 @@
 <nav class="top">
     <div class="container">
-        <a class="home-link" target="_self" href="/" title="Home">Todoist | {{overview.roomName}}</a>
+        <a class="home-link" target="_self" href="/" title="Home">Todoist | {{settings.roomName}}</a>
         <ul>
             <li><a ui-sref="home" title="Todo">Todos</a></li>
             <li><a ui-sref="overview" title="Overview">Overview</a></li>
@@ -9,6 +9,60 @@
         </ul>
     </div>
 </nav>
-<main class="full-height">
+<main class="container">
+  <section class="modal light">
+    <h2>{{settings.roomName}} Settings</h2>
+    <article class="settings-article">
+      <div class="thirds two left-aligned vertical-middle">
+        Remove completed todos:
+        <span class="explaination-text">This cannot be undone</span>
+      </div>
+      <div class="thirds one vertical-middle">
+        <button class="button danger" ng-click="settings.confirmingDelete()">Remove Completed</button>
+      </div>
+    </article>
+    <article class="settings-article">
+      <div class="thirds two left-aligned vertical-middle">
+        Log out all members of this room:<span class="explaination-text">You will also be logged out</span>
+      </div>
+      <div class="thirds one vertical-middle">
+        <button class="button secondary" ng-click="settings.confirmingDelete()">Log out all</button>
+      </div>
+    </article>
+    <article class="settings-article">
+      <p class="left-aligned">
+        Change the email address associated with this room:
+      </p>
+      <form class="inline" name="emailAddressForm" ng-submit="updateEmail()" novalidate="novalidate">
+        <label for="email">New email address:</label>
+        <input type="email" id="email" name="email" required="requied" />
+        <label for="email-confirm" >Confirm email address:</label>
+        <input type="email" id="email-confirm" name="email-confirm" required="requied" />
+        <input type="submit" class="button secondary" value="Change Email" />
+      </form>
+    </article>
+    <article class="settings-article">
+      <p class="left-aligned">
+        Change the password for this room:
+      </p>
+      <form class="inline" name="emailAddressForm" ng-submit="updatePassword()" novalidate="novalidate">
+        <label for="current-password">Current password:</label>
+        <input type="password" id="current-password" name="current-password" required="requied" />
+        <label for="password">New password:</label>
+        <input type="password" id="password" name="password" required="requied" />
+        <label for="password-confirm" >Confirm password:</label>
+        <input type="password" id="password-confirm" name="password-confirm" required="requied" />
+        <input type="submit" class="button secondary" value="Change Password" />
+      </form>
+    </article>
 
+    <article class="settings-article">
+      <div class="thirds two left-aligned vertical-middle">
+        Delete this room completely:<span class="explaination-text">This cannot be undone</span>
+      </div>
+      <div class="thirds one vertical-middle">
+        <button class="button danger" ng-click="settings.confirmingDeleteRoom()">Delete this room</button>
+      </div>
+    </article>
+  </section>
 </main>

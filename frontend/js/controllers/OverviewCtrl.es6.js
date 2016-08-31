@@ -110,22 +110,7 @@ class OverviewCtrl {
                 this.Notification.info(text);
         }
     }
-
-    toggleDelete() {
-      this.confirmingDelete = !this.confirmingDelete;
-    }
-
-    clearCompleted() {
-      this.TasksService.clearCompleted(this.$rootScope.hash).then(
-        result => {
-          this.completed = 0;
-          this.completedWeek = [0, 0, 0, 0, 0, 0, 0];
-          this.confirmingDelete = false;
-        },
-        this.handleError.bind(this)
-      );
-    }
-
+    
     percentageDone() {
       let done = (Math.round((this.completed / (this.todo + this.completed)) * 10000)) / 100;
       return isNaN(done) ? 0 : done;

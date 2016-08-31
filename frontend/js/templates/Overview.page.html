@@ -53,14 +53,6 @@
                 <div class="large-number">{{overview.completed}}</div>
                 Todos done
             </article>
-            <p>
-                <p class="transparent" ng-if="overview.confirmingDelete">Are you sure? This will reset all stats.</p>
-                <div class="button-group" ng-if="overview.confirmingDelete">
-                  <button class="button secondary" ng-click="overview.toggleDelete()">Cancel</button>
-                  <button class="button danger" ng-click="overview.clearCompleted()">Delete</button>
-                </div>
-                <button class="button danger" ng-if="!overview.confirmingDelete && overview.completed > 0" ng-click="overview.toggleDelete()">Remove completed todos</button>
-            </p>
             <button class="button secondary" ng-if="overview.completed > 0" ng-click="overview.toggleWeeklygraph()">Toggle weekly graph</button>
         </div>
     </section>

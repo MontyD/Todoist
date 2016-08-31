@@ -145,7 +145,7 @@ main.full-height {
     margin    : 0 auto;
     width     : 90%;
     max-width : 600px;
-    padding   : 1em;
+    padding   : 1.6em 1em;
     box-sizing: border-box;
     text-align: center;
 
@@ -315,6 +315,15 @@ main.full-height {
     }
 }
 
+.settings-article {
+  display: block;
+  padding: 1.5em 0;
+  p {
+    padding: 0 1em;
+    box-sizing: border-box;
+  }
+}
+
 .container {
     display   : block;
     position  : relative;
@@ -336,11 +345,13 @@ main.full-height {
 .center {
     text-align: center;
 }
-
+.vertical-middle {
+  vertical-align: middle;
+}
 .vertically-center {
     position : absolute;
     margin   : 0 auto;
-    top      : 45%;
+    top      : 40%;
     left     : 0;
     right    : 0;
     transform: translateY(-50%);

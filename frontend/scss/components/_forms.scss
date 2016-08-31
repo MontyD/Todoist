@@ -1,6 +1,8 @@
 @import '_styling';
+
 form {
     padding: 0 0 1em;
+
     h3 {
         margin     : 1em 0;
         padding    : 0.6em 0;
@@ -9,17 +11,20 @@ form {
         font-weight: normal;
         font-family: $sans-serif;
     }
+
     &.attempted-submit {
-      input.ng-invalid {
-        border-color: $colorError;
-      }
+        input.ng-invalid {
+            border-color: $colorError;
+        }
     }
 }
+
 label {
     &.checkbox {
         display     : inline-block;
         margin-right: 0.2em;
     }
+
     &.required::after {
         content       : '*';
         font-weight   : normal;
@@ -29,6 +34,7 @@ label {
         vertical-align: top;
     }
 }
+
 input[type="currency"],
 input[type="date"],
 input[type="email"],
@@ -45,48 +51,58 @@ textarea {
     resize       : none;
     width        : 90%;
     font-size    : 0.8em;
+
     &:active,
     &:focus {
         outline: none;
         border : 1px solid $colorDark;
     }
+
     &.outline {
         border-radius: 0;
         border       : none;
         border-bottom: 1px solid $colorGrey;
         background   : rgba(0,0,0, 0.1);
         transition   : background 0.2s;
+
         &:active,
         &:focus {
             outline   : none;
             background: rgba(0,0,0, 0.18);
         }
+
         &.editable {
             padding  : 0.2em 0.5em;
             font-size: 90%;
         }
     }
+
     &.error {
         border-color             : #F44336;
         animation-name           : bounce;
         animation-iteration-count: 2;
         animation-duration       : 0.2s;
     }
+
     &:disabled {
         background: rgba(0,0,0,0.1);
+
         &:hover {
-          box-shadow: none;
+            box-shadow: none;
         }
     }
 }
+
 textarea {
     min-height: 80px;
 }
+
 select {
     margin-left  : auto;
     margin-right : auto;
     margin-bottom: 0.8em;
 }
+
 .transparent {
     input,
     textarea {
@@ -94,30 +110,36 @@ select {
         background  : rgba(255,255,255, 0.5);
     }
 }
+
 .left-aligned {
     input,
     select,
     textarea {
         margin-left : 0;
         margin-right: 0;
-        width: 100%;
+        width       : 100%;
     }
+
     input[type="submit"] {
         display     : block;
         background  : rgba(255,255,255, 0.8);
         border-color: $colorDarkGrey;
         color       : $colorDarkGrey;
         margin      : 0.4em auto;
+
         &:hover {
             @include shadow(1);
         }
     }
 }
+
 input[type="checkbox"] {
     display: none;
+
     & + label {
         cursor: pointer;
     }
+
     & + label:before {
         display       : inline-block;
         content       : ' ';
@@ -132,8 +154,10 @@ input[type="checkbox"] {
         transition    : all 0.2s ease-out;
         cursor        : pointer;
     }
+
     &:checked + label {
         color: $colorDark;
+
         &:before {
             height            : 0.5em;
             width             : 1.2em;
@@ -145,31 +169,38 @@ input[type="checkbox"] {
             margin-bottom     : 0.3em;
         }
     }
+
     &.light {
         & + label:before {
             border-color: $colorWhite;
         }
+
         &:checked + label:before {
             border-top-color  : transparent;
             border-right-color: transparent;
         }
     }
+
     &.large {
         & + label:before {
             width : 1.5em;
             height: 1.5em;
         }
+
         &:checked + label:before {
             height: 0.9em;
             width : 2.5em;
         }
     }
 }
+
 input[type="radio"] {
     display: none;
+
     & + label {
         cursor: pointer;
     }
+
     & + label:before {
         display      : inline-block;
         content      : ' ';
@@ -183,8 +214,10 @@ input[type="radio"] {
         transition   : all 0.2s ease-out;
         cursor       : pointer;
     }
+
     &:checked + label {
         color: $colorDark;
+
         &:before {
             background   : $colorDark;
             height       : 0.9em;
@@ -192,12 +225,39 @@ input[type="radio"] {
             margin-bottom: -0.1em;
         }
     }
+
     &.light {
         & + label:before {
             border-color: $colorWhite;
         }
+
         &:checked + label:before {
             background: $colorWhite;
         }
+    }
+}
+
+form.inline {
+    padding   : 0 1em;
+    box-sizing: border-box;
+    text-align: center;
+
+    input[type="date"],
+    input[type="email"],
+    input[type="number"],
+    input[type="password"],
+    input[type="text"],
+    label, input[type="currency"],
+    textarea {
+        display: inline-block;
+        width  : 49%;
+        @media(max-width: $smallBP) {
+            display: block;
+            margin : 0 auto;
+            width  : 95%;
+        }
+    }
+    label {
+      text-align: left;
     }
 }

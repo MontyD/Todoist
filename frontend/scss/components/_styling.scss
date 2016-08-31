@@ -105,6 +105,11 @@ p.slight {
     font-weight   : normal;
     padding-bottom: 1em;
 }
+.explaination-text {
+  display: block;
+  font-size: 0.9em;
+  color: $colorDarkGrey;
+}
 
 .button,
 .fake-button {
@@ -164,6 +169,13 @@ p.slight {
             box-shadow: none;
         }
     }
+}
+
+.settings-article {
+  border-bottom: 2px solid $colorGrey;
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 button.icon {
