@@ -277,7 +277,6 @@ class RoomCtrl {
         }
         console.error(error);
         this.Notify('Error communicating with server', 'Error');
-        this.clearCache();
     }
 
 }

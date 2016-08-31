@@ -555,6 +555,8 @@ main.full-height {
     left: 0;
     display: block;
     width: 100%; }
+  .graphs .week-graph {
+    position: relative; }
 
 .container {
   display: block;
@@ -738,7 +740,7 @@ button.icon {
   background: radial-gradient(#009688, #004D40); }
 
 .main-graph {
-  background: rgba(68, 138, 255, 0.2); }
+  background: rgba(68, 138, 255, 0.1); }
 
 form {
   padding: 0 0 1em; }
@@ -1515,6 +1517,8 @@ main.full-height {
     left: 0;
     display: block;
     width: 100%; }
+  .graphs .week-graph {
+    position: relative; }
 
 .container {
   display: block;
@@ -1698,7 +1702,7 @@ button.icon {
   background: radial-gradient(#009688, #004D40); }
 
 .main-graph {
-  background: rgba(68, 138, 255, 0.2); }
+  background: rgba(68, 138, 255, 0.1); }
 
 body {
   margin: 0 0 130px; }
@@ -2390,6 +2394,8 @@ main.full-height {
     left: 0;
     display: block;
     width: 100%; }
+  .graphs .week-graph {
+    position: relative; }
 
 .container {
   display: block;
@@ -2573,7 +2579,7 @@ button.icon {
   background: radial-gradient(#009688, #004D40); }
 
 .main-graph {
-  background: rgba(68, 138, 255, 0.2); }
+  background: rgba(68, 138, 255, 0.1); }
 
 .bounce {
   -webkit-animation-name: bounce;

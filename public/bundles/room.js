@@ -43781,7 +43781,7 @@
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"full-height\">\n    <section class=\"graphs\">\n      <div class=\"graph main-graph\" ng-style=\"{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform(), '-ms-transform': overview.percentageDoneTransform() }\"></div>\n    </section>\n    <section class=\"vertically-center container transparent center\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">Of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container \">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todo done\n            </article>\n        </div>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"full-height\">\n    <section class=\"graphs\">\n      <div class=\"graph main-graph\" ng-style=\"{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform(), '-ms-transform': overview.percentageDoneTransform() }\"></div>\n    </section>\n    <section class=\"vertically-center container transparent center\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">Of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container \">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todos done\n            </article>\n        </div>\n    </section>\n</main>\n";
 
 /***/ },
 /* 57 */
@@ -44084,7 +44084,6 @@
 	            }
 	            console.error(error);
 	            this.Notify('Error communicating with server', 'Error');
-	            this.clearCache();
 	        }
 	    }]);
 
@@ -44128,6 +44127,10 @@
 	        this.completed = 0;
 	        this.todo = 0;
 
+	        // array of completed this week,
+	        // initially seven 0
+	        this.completedWeek = [0, 0, 0, 0, 0, 0, 0];
+
 	        // read todos count
 	        this.TasksService.countTodos().then(function (result) {
 	            return _this.todo = result.data.count;
@@ -44139,6 +44142,10 @@
 	        this.TasksService.countCompleted().then(function (result) {
 	            _this.completed = result.data.count;
 	            _this.roomName = result.data.roomName;
+	        }, this.handleError.bind(this));
+
+	        this.TasksService.getCompletedLastWeek().then(function (result) {
+	            return _this.sortToDays(result.data);
 	        }, this.handleError.bind(this));
 	    }
 
@@ -44169,6 +44176,29 @@
 	        value: function percentageDoneTransform() {
 	            var amount = this.percentageDone() / 100;
 	            return 'scaleY(' + amount + ')';
+	        }
+	    }, {
+	        key: 'sortToDays',
+	        value: function sortToDays(array) {
+	            var today = this.dateWithoutTime();
+	            var oneDay = 24 * 60 * 60 * 1000;
+	            array.forEach(function (element, index) {
+	                var date = this.dateWithoutTime(element.updatedAt);
+	                var daysAgo = Math.round(Math.abs((date.getTime() - today.getTime()) / oneDay));
+	                this.completedWeek[daysAgo]++;
+	            }, this);
+	            console.log(this.completedWeek);
+	        }
+	    }, {
+	        key: 'dateWithoutTime',
+	        value: function dateWithoutTime(date) {
+	            if (!date) {
+	                date = new Date();
+	            } else if (!(date instanceof Date)) {
+	                date = new Date(date);
+	            }
+	            var returnDate = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+	            return returnDate;
 	        }
 	    }, {
 	        key: 'handleError',
@@ -44632,6 +44662,11 @@
 	        key: 'countCompleted',
 	        value: function countCompleted() {
 	            return this.$http.get(this.urlBase + 'completed-count');
+	        }
+	    }, {
+	        key: 'getCompletedLastWeek',
+	        value: function getCompletedLastWeek() {
+	            return this.$http.get(this.urlBase + 'completed-last-week');
 	        }
 	    }]);
 

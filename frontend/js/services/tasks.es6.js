@@ -64,6 +64,10 @@ class TasksService {
       return this.$http.get(this.urlBase + 'completed-count');
     }
 
+    getCompletedLastWeek() {
+      return this.$http.get(this.urlBase + 'completed-last-week');
+    }
+
 }
 
 
