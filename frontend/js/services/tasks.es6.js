@@ -68,6 +68,10 @@ class TasksService {
       return this.$http.get(this.urlBase + 'completed-last-week');
     }
 
+    clearCompleted(hash) {
+      return this.$http.delete(this.urlBase + 'delete-completed' + '?hash=' + hash)
+    }
+
 }
 
 

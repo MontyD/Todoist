@@ -72,77 +72,77 @@ router.get('/todo-count', function(req, res, next) {
 
 router.get('/completed-count', function(req, res, next) {
 
-  var reqRoomId = req.user.id;
+    var reqRoomId = req.user.id;
 
-  models.tasks.count({
-      where: {
-          status: 'Complete',
-          roomId: reqRoomId
-      }
-  }).then(function(c) {
-      if (!c) {
-          return res.json({
-              roomName: req.user.name,
-              count: 0
-          });
-      }
-      return res.json({
-          roomName: req.user.name,
-          count: c
-      });
-  }).catch(function(err) {
-      return handleError(err, next);
-  });
+    models.tasks.count({
+        where: {
+            status: 'Complete',
+            roomId: reqRoomId
+        }
+    }).then(function(c) {
+        if (!c) {
+            return res.json({
+                roomName: req.user.name,
+                count: 0
+            });
+        }
+        return res.json({
+            roomName: req.user.name,
+            count: c
+        });
+    }).catch(function(err) {
+        return handleError(err, next);
+    });
 
 });
 
 router.get('/completed-last-day', function(req, res, next) {
 
-  var reqRoomId = req.user.id;
-  var today = new Date();
+    var reqRoomId = req.user.id;
+    var today = new Date();
 
-  models.tasks.count({
-    where: {
-      status: 'Complete',
-      roomId: reqRoomId,
-      updatedAt: {
-        $gt: new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate())
-      }
-    }
-  }).then(function(c){
-    if (!c) {
-      return res.json({
-        count: 0
-      });
-    }
-    return res.json({
-      count: c
+    models.tasks.count({
+        where: {
+            status: 'Complete',
+            roomId: reqRoomId,
+            updatedAt: {
+                $gt: new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate())
+            }
+        }
+    }).then(function(c) {
+        if (!c) {
+            return res.json({
+                count: 0
+            });
+        }
+        return res.json({
+            count: c
+        });
+    }).catch(function(err) {
+        return handleError(err, next);
     });
-  }).catch(function(err) {
-    return handleError(err, next);
-  });
 
 });
 
 router.get('/completed-last-week', function(req, res, next) {
 
-  var reqRoomId = req.user.id;
-  var today = new Date();
+    var reqRoomId = req.user.id;
+    var today = new Date();
 
-  models.tasks.findAll({
-    attributes: ['updatedAt'],
-    where: {
-      status: 'Complete',
-      roomId: reqRoomId,
-      updatedAt: {
-        $gt: new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() - 7)
-      }
-    }
-  }).then(function(data){
-    return res.json(data);
-  }).catch(function(err) {
-    return handleError(err, next);
-  });
+    models.tasks.findAll({
+        attributes: ['updatedAt'],
+        where: {
+            status: 'Complete',
+            roomId: reqRoomId,
+            updatedAt: {
+                $gt: new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() - 7)
+            }
+        }
+    }).then(function(data) {
+        return res.json(data);
+    }).catch(function(err) {
+        return handleError(err, next);
+    });
 
 });
 
@@ -237,6 +237,26 @@ router.put('/:taskID', function(req, res, next) {
     });
 
 });
+
+
+// DELETE all completed - by room id
+router.delete('/delete-completed', function(req, res, next) {
+    models.tasks.destroy({
+        where: {
+            roomId: req.user.id,
+            status: 'Complete'
+        }
+    }).then(function() {
+        res.io.to(req.user.name).emit('DeletedAllComplete', {
+            username: req.session.username,
+            hash: req.query.hash
+        });
+        return res.sendStatus(200);
+    }).catch(function(err) {
+        handleError(err, next);
+    });
+});
+
 
 
 // DELETE by ID

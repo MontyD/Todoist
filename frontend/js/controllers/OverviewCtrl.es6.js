@@ -17,6 +17,8 @@ class OverviewCtrl {
 
         this.showWeeklyGraph = false;
 
+        this.confirmingDelete = false;
+
         // array of completed this week,
         // initially seven 0
         this.completedWeek = [0, 0, 0, 0, 0, 0, 0];
@@ -54,12 +56,6 @@ class OverviewCtrl {
 
         // echo room name
         this.SocketsService.emit('room', this.roomName);
-
-        // Socket events config
-        this.SocketsService.on('UserConnected', (function(data) {
-
-        }).bind(this));
-
 
         // <--- Actual Event Listeners
         this.SocketsService.on('NewTask', (function(data) {
@@ -100,6 +96,21 @@ class OverviewCtrl {
             default:
                 this.Notification.info(text);
         }
+    }
+
+    toggleDelete() {
+      this.confirmingDelete = !this.confirmingDelete;
+    }
+
+    clearCompleted() {
+      this.TasksService.clearCompleted(this.$rootScope.hash).then(
+        result => {
+          this.completed = 0;
+          this.completedWeek = [0, 0, 0, 0, 0, 0, 0];
+          this.confirmingDelete = false;
+        },
+        this.handleError.bind(this)
+      );
     }
 
     percentageDone() {

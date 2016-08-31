@@ -43781,7 +43781,7 @@
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"full-height\">\n    <section class=\"graphs\" ng-class=\"{'weekly': overview.showWeeklyGraph}\">\n      <div class=\"graph main-graph\" ng-style=\"{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform() }\"></div>\n      <div class=\"week-graph six\">\n        <div\n          class=\"graph\"\n          ng-if=\"overview.completedWeek[5]\"\n          ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[6]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[6]) }\"></div>\n        <span>{{overview.completedWeek[6]}} completed on {{overview.daysOfTheWeek[6]}}</span>\n      </div>\n      <div class=\"week-graph five\">\n        <div\n          ng-if=\"overview.completedWeek[5]\"\n          class=\"graph\"\n          ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[5]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[5]) }\"></div>\n        <span>{{overview.completedWeek[5]}} completed on {{overview.daysOfTheWeek[5]}}</span>\n      </div>\n      <div class=\"week-graph four\">\n        <div\n          ng-if=\"overview.completedWeek[4]\"\n          class=\"graph\"\n          ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[4]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[4]) }\"></div>\n        <span>{{overview.completedWeek[4]}} completed on {{overview.daysOfTheWeek[4]}}</span>\n      </div>\n      <div class=\"week-graph three\">\n        <div\n          ng-if=\"overview.completedWeek[3]\"\n          class=\"graph\"\n          ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[3]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[3]) }\"></div>\n        <span>{{overview.completedWeek[3]}} completed on {{overview.daysOfTheWeek[3]}}</span>\n      </div>\n      <div class=\"week-graph two\">\n        <div\n          ng-if=\"overview.completedWeek[2]\"\n          class=\"graph\"\n          ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[2]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[2]) }\"></div>\n        <span>{{overview.completedWeek[2]}} completed on {{overview.daysOfTheWeek[2]}}</span>\n      </div>\n      <div class=\"week-graph one\">\n        <div\n          ng-if=\"overview.completedWeek[1]\"\n          class=\"graph\"\n          ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[1]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[1]) }\"></div>\n        <span>{{overview.completedWeek[1]}} completed yesterday</span>\n      </div>\n      <div class=\"week-graph zero\">\n        <div\n          ng-if=\"overview.completedWeek[0]\"\n          class=\"graph\"\n          ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[0]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[0]) }\"></div>\n        <span>{{overview.completedWeek[0]}} completed today</span>\n      </div>\n    </section>\n    <section class=\"vertically-center modal light transparent center\" ng-class=\"{'opacity': overview.showWeeklyGraph}\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container \">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todos done\n            </article>\n            <button class=\"button secondary\" ng-click=\"overview.toggleWeeklygraph()\">Toggle weekly graph</button>\n        </div>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"full-height\">\n    <section class=\"graphs\" ng-class=\"{'weekly': overview.showWeeklyGraph}\">\n        <div class=\"graph main-graph\" ng-style=\"{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform() }\"></div>\n        <div class=\"week-graph six\">\n            <div class=\"graph\" ng-if=\"overview.completedWeek[5]\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[6]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[6]) }\"></div>\n            <span>{{overview.completedWeek[6]}} completed on {{overview.daysOfTheWeek[6]}}</span>\n        </div>\n        <div class=\"week-graph five\">\n            <div ng-if=\"overview.completedWeek[5]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[5]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[5]) }\"></div>\n            <span>{{overview.completedWeek[5]}} completed on {{overview.daysOfTheWeek[5]}}</span>\n        </div>\n        <div class=\"week-graph four\">\n            <div ng-if=\"overview.completedWeek[4]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[4]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[4]) }\"></div>\n            <span>{{overview.completedWeek[4]}} completed on {{overview.daysOfTheWeek[4]}}</span>\n        </div>\n        <div class=\"week-graph three\">\n            <div ng-if=\"overview.completedWeek[3]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[3]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[3]) }\"></div>\n            <span>{{overview.completedWeek[3]}} completed on {{overview.daysOfTheWeek[3]}}</span>\n        </div>\n        <div class=\"week-graph two\">\n            <div ng-if=\"overview.completedWeek[2]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[2]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[2]) }\"></div>\n            <span>{{overview.completedWeek[2]}} completed on {{overview.daysOfTheWeek[2]}}</span>\n        </div>\n        <div class=\"week-graph one\">\n            <div ng-if=\"overview.completedWeek[1]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[1]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[1]) }\"></div>\n            <span>{{overview.completedWeek[1]}} completed yesterday</span>\n        </div>\n        <div class=\"week-graph zero\">\n            <div ng-if=\"overview.completedWeek[0]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[0]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[0]) }\"></div>\n            <span>{{overview.completedWeek[0]}} completed today</span>\n        </div>\n    </section>\n    <section class=\"vertically-center modal light transparent center\" ng-class=\"{'opacity': overview.showWeeklyGraph}\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container\">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todos done\n            </article>\n            <p>\n                <p class=\"transparent\" ng-if=\"overview.confirmingDelete\">Are you sure? This will reset all stats.</p>\n                <div class=\"button-group\" ng-if=\"overview.confirmingDelete\">\n                  <button class=\"button secondary\" ng-click=\"overview.toggleDelete()\">Cancel</button>\n                  <button class=\"button danger\" ng-click=\"overview.clearCompleted()\">Delete</button>\n                </div>\n                <button class=\"button danger\" ng-if=\"!overview.confirmingDelete && overview.completed > 0\" ng-click=\"overview.toggleDelete()\">Remove completed todos</button>\n            </p>\n            <button class=\"button secondary\" ng-if=\"overview.completed > 0\" ng-click=\"overview.toggleWeeklygraph()\">Toggle weekly graph</button>\n        </div>\n    </section>\n</main>\n";
 
 /***/ },
 /* 57 */
@@ -43877,7 +43877,6 @@
 	    }, {
 	        key: 'initSockets',
 	        value: function initSockets() {
-
 	            // echo room name
 	            this.SocketsService.emit('room', this.roomName);
 
@@ -44124,6 +44123,8 @@
 
 	        this.showWeeklyGraph = false;
 
+	        this.confirmingDelete = false;
+
 	        // array of completed this week,
 	        // initially seven 0
 	        this.completedWeek = [0, 0, 0, 0, 0, 0, 0];
@@ -44159,9 +44160,6 @@
 
 	            // echo room name
 	            this.SocketsService.emit('room', this.roomName);
-
-	            // Socket events config
-	            this.SocketsService.on('UserConnected', (function (data) {}).bind(this));
 
 	            // <--- Actual Event Listeners
 	            this.SocketsService.on('NewTask', (function (data) {
@@ -44203,6 +44201,22 @@
 	                default:
 	                    this.Notification.info(text);
 	            }
+	        }
+	    }, {
+	        key: 'toggleDelete',
+	        value: function toggleDelete() {
+	            this.confirmingDelete = !this.confirmingDelete;
+	        }
+	    }, {
+	        key: 'clearCompleted',
+	        value: function clearCompleted() {
+	            var _this2 = this;
+
+	            this.TasksService.clearCompleted(this.$rootScope.hash).then(function (result) {
+	                _this2.completed = 0;
+	                _this2.completedWeek = [0, 0, 0, 0, 0, 0, 0];
+	                _this2.confirmingDelete = false;
+	            }, this.handleError.bind(this));
 	        }
 	    }, {
 	        key: 'percentageDone',
@@ -44728,6 +44742,11 @@
 	        key: 'getCompletedLastWeek',
 	        value: function getCompletedLastWeek() {
 	            return this.$http.get(this.urlBase + 'completed-last-week');
+	        }
+	    }, {
+	        key: 'clearCompleted',
+	        value: function clearCompleted(hash) {
+	            return this.$http['delete'](this.urlBase + 'delete-completed' + '?hash=' + hash);
 	        }
 	    }]);
 
