@@ -378,7 +378,7 @@ ui-view {
   -webkit-font-smoothing: antialiased; }
 
 main.full-height {
-  min-height: 80%; }
+  min-height: calc(100% - 3.8em); }
 
 .halfWidth {
   display: inline-block;
@@ -1309,7 +1309,7 @@ ui-view {
   -webkit-font-smoothing: antialiased; }
 
 main.full-height {
-  min-height: 80%; }
+  min-height: calc(100% - 3.8em); }
 
 .halfWidth {
   display: inline-block;
@@ -2155,7 +2155,7 @@ ui-view {
   -webkit-font-smoothing: antialiased; }
 
 main.full-height {
-  min-height: 80%; }
+  min-height: calc(100% - 3.8em); }
 
 .halfWidth {
   display: inline-block;
@@ -2602,11 +2602,3 @@ button.icon {
   margin: 4em;
   font-size: 1.2em;
   color: #6f6f6f; }
-
-header {
-  margin: 0 auto 2em 0;
-  padding: 7em 0;
-  text-align: center; }
-
-.modal.main, .main.tasks-container {
-  top: 3em; }

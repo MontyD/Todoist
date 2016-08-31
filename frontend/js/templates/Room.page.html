@@ -3,8 +3,8 @@
         <a class="home-link" target="_self" href="/" title="Home">Todoist | {{home.roomName}}</a>
         <ul>
             <li><a ui-sref="home" title="Todo" class="current">Todos</a></li>
-            <li><a ui-sref="settings" title="Settings">Settings</a></li>
             <li><a ui-sref="overview" title="Overview">Overview</a></li>
+            <li><a ui-sref="settings" title="Settings">Settings</a></li>
             <li><a target="_self" href="/rooms/login/" title="Logout">Logout</a></li>
         </ul>
     </div>
@@ -14,12 +14,12 @@
         <h2 class="subtle-subtitle left-aligned">Hi {{home.username}}</h2>
         <new-task create-task="home.createTask(newTask)" task="home.newTask" class="transparent left-aligned"></new-task>
         <article class="stats-container first">
-          <div class="large-number">{{home.tasksTotal}}</div>
-          Todos to do
+            <div class="large-number">{{home.tasksTotal}}</div>
+            Todos to do
         </article>
         <article class="stats-container">
-          <div class="large-number">{{home.completedLastDay}}</div>
-          Todos done today
+            <div class="large-number">{{home.completedLastDay}}</div>
+            Todos done today
         </article>
     </section>
     <section class="thirds two tasks-container">

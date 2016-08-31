@@ -21,7 +21,7 @@ ui-view {
 }
 
 main.full-height {
-    min-height: 80%;
+    min-height: calc(100% - 3.8em);
 }
 
 .halfWidth {

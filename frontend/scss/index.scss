@@ -2,11 +2,3 @@
 @import 'components/_navigation';
 @import 'vendor/notifications';
 @import 'components/_tasks';
-header {
-    margin    : 0 auto 2em 0;
-    padding   : 7em 0;
-    text-align: center;
-}
-.modal.main {
-  top: 3em;
-}

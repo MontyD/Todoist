@@ -43775,13 +43775,13 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n    <section class=\"thirds one  transparent\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n        <article class=\"stats-container first\">\n          <div class=\"large-number\">{{home.tasksTotal}}</div>\n          Todos to do\n        </article>\n        <article class=\"stats-container\">\n          <div class=\"large-number\">{{home.completedLastDay}}</div>\n          Todos done today\n        </article>\n    </section>\n    <section class=\"thirds two tasks-container\">\n        <article ng-if=\"home.tasks.length !== 0\">\n            <div class=\"task-item\" ng-repeat=\"task in home.tasks\">\n                <task-view task=\"task\" edited=\"home.updateTask(task)\" deleted=\"home.deleteTask(task)\">\n                </task-view>\n            </div>\n            <div class=\"pagination-controls\" ng-if=\"home.availablePages() > 1\">\n                <button class=\"icon back\" ng-if=\"home.taskPage > 0\" ng-click=\"home.pageBack()\"><span class=\"lnr lnr-arrow-left\"></span></button>\n                <span class=\"page-number transparent\">Page {{home.taskPage + 1}} of {{home.availablePages()}}</span>\n                <button class=\"icon forward\" ng-if=\"home.availablePages() !== (home.taskPage + 1)\" ng-click=\"home.pageForward()\"><span class=\"lnr lnr-arrow-right\"></span></button>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n    <section class=\"thirds one  transparent\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n        <article class=\"stats-container first\">\n            <div class=\"large-number\">{{home.tasksTotal}}</div>\n            Todos to do\n        </article>\n        <article class=\"stats-container\">\n            <div class=\"large-number\">{{home.completedLastDay}}</div>\n            Todos done today\n        </article>\n    </section>\n    <section class=\"thirds two tasks-container\">\n        <article ng-if=\"home.tasks.length !== 0\">\n            <div class=\"task-item\" ng-repeat=\"task in home.tasks\">\n                <task-view task=\"task\" edited=\"home.updateTask(task)\" deleted=\"home.deleteTask(task)\">\n                </task-view>\n            </div>\n            <div class=\"pagination-controls\" ng-if=\"home.availablePages() > 1\">\n                <button class=\"icon back\" ng-if=\"home.taskPage > 0\" ng-click=\"home.pageBack()\"><span class=\"lnr lnr-arrow-left\"></span></button>\n                <span class=\"page-number transparent\">Page {{home.taskPage + 1}} of {{home.availablePages()}}</span>\n                <button class=\"icon forward\" ng-if=\"home.availablePages() !== (home.taskPage + 1)\" ng-click=\"home.pageForward()\"><span class=\"lnr lnr-arrow-right\"></span></button>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
 
 /***/ },
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container full-height\">\n    <section class=\"vertically-center transparent center\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}</h1>\n        <p class=\"transparent center\">Of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container \">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todo done\n            </article>\n        </div>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container full-height\">\n    <section class=\"vertically-center transparent center\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}</h1>\n        <p class=\"transparent center\">Of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container \">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todo done\n            </article>\n        </div>\n    </section>\n</main>\n";
 
 /***/ },
 /* 57 */
@@ -43877,14 +43877,18 @@
 	    }, {
 	        key: 'initSockets',
 	        value: function initSockets() {
+	            // Check if already set up, if so return.
 	            if (this.$rootScope.initCompleteRoom) {
 	                return;
 	            }
+
+	            // echo room name
 	            this.SocketsService.emit('room', this.roomName);
 
 	            // Socket events config
 	            this.SocketsService.on('UserConnected', (function (data) {}).bind(this));
 
+	            // <--- Actual Event Listeners
 	            this.SocketsService.on('NewTask', (function (data) {
 
 	                if (this.$rootScope.hash === data.hash) {
@@ -43917,7 +43921,9 @@
 	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
+	            // ----->
 
+	            // create hash and make sockets as initialised.
 	            this.$rootScope.hash = Math.random().toString(36).substring(7);
 	            this.$rootScope.initCompleteRoom = true;
 	        }
@@ -44030,7 +44036,7 @@
 	            }, this.handleError.bind(this));
 	        }
 
-	        // create task on server
+	        // <---- SERVER SIDE INTERACTIONS:
 	    }, {
 	        key: 'createTask',
 	        value: function createTask() {
@@ -44067,6 +44073,9 @@
 	                return _this6.updateTaskLocally(task, true);
 	            }, this.handleError.bind(this));
 	        }
+
+	        // ---->
+
 	    }, {
 	        key: 'handleError',
 	        value: function handleError(error) {
