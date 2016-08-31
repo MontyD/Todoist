@@ -63,7 +63,7 @@ class SettingsCtrl {
     }
 
     toggleConfirmingLogOut() {
-        this.confirmingDeleteTasks = !this.confirmingDeleteTasks;
+        this.confirmingLogOut = !this.confirmingLogOut;
     }
 
     logAllOut() {

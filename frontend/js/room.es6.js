@@ -29,4 +29,5 @@ angular.module('app', [uiRouter, 'ui-notification'])
     .directive('taskView', taskView)
     .service('TasksService', TasksService)
     .service('SocketsService', SocketsService)
+    .service('RoomService', RoomService)
     .config(RoomConfig);

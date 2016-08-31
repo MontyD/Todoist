@@ -104,7 +104,7 @@
 
 	window.io = _socketIoClient2['default'];
 
-	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).controller('OverviewCtrl', _controllersOverviewCtrlEs6Js2['default']).controller('SettingsCtrl', _controllersSettingsCtrlEs6Js2['default']).directive('newTask', _directivesNewTaskEs6Js2['default']).directive('taskView', _directivesTaskViewEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketsService', _servicesSocketsEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
+	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).controller('OverviewCtrl', _controllersOverviewCtrlEs6Js2['default']).controller('SettingsCtrl', _controllersSettingsCtrlEs6Js2['default']).directive('newTask', _directivesNewTaskEs6Js2['default']).directive('taskView', _directivesTaskViewEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketsService', _servicesSocketsEs6Js2['default']).service('RoomService', _servicesRoomEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -44413,7 +44413,7 @@
 	    }, {
 	        key: 'toggleConfirmingLogOut',
 	        value: function toggleConfirmingLogOut() {
-	            this.confirmingDeleteTasks = !this.confirmingDeleteTasks;
+	            this.confirmingLogOut = !this.confirmingLogOut;
 	        }
 	    }, {
 	        key: 'logAllOut',
