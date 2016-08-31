@@ -39,6 +39,7 @@ class RoomCtrl {
             result => {
                 this.tasks = result.data.tasks;
                 this.username = result.data.username;
+                this.$rootScope.roomName = result.data.roomName;
                 this.roomName = result.data.roomName;
 
                 // connect to socket by room name

@@ -12,20 +12,24 @@
 <main class="container">
   <section class="modal light">
     <h2>{{settings.roomName}} Settings</h2>
-    <article class="settings-article">
-      <div class="thirds two left-aligned vertical-middle">
+    <article class="settings-article" ng-if="settings.completed">
+      <div class="halves left-aligned vertical-middle">
         Remove completed todos:
         <span class="explaination-text">This cannot be undone</span>
       </div>
-      <div class="thirds one vertical-middle">
-        <button class="button danger" ng-click="settings.confirmingDelete()">Remove Completed</button>
+      <div class="halves vertical-middle">
+        <button ng-if="!settings.confirmingDeleteTasks" class="button danger" ng-click="settings.toggleConfirmingDeleteTasks()">Remove Completed</button>
+        <div ng-if="settings.confirmingDeleteTasks" class="button-group">
+          <button class="button secondary" ng-click="settings.toggleConfirmingDeleteTasks()">Cancel</button>
+          <button class="button danger" ng-click="settings.deleteCompletedTasks()">Confirm</button>
+        </div>
       </div>
     </article>
     <article class="settings-article">
-      <div class="thirds two left-aligned vertical-middle">
+      <div class="halves left-aligned vertical-middle">
         Log out all members of this room:<span class="explaination-text">You will also be logged out</span>
       </div>
-      <div class="thirds one vertical-middle">
+      <div class="halves vertical-middle">
         <button class="button secondary" ng-click="settings.confirmingDelete()">Log out all</button>
       </div>
     </article>
@@ -57,10 +61,10 @@
     </article>
 
     <article class="settings-article">
-      <div class="thirds two left-aligned vertical-middle">
+      <div class="halves left-aligned vertical-middle">
         Delete this room completely:<span class="explaination-text">This cannot be undone</span>
       </div>
-      <div class="thirds one vertical-middle">
+      <div class="halves vertical-middle">
         <button class="button danger" ng-click="settings.confirmingDeleteRoom()">Delete this room</button>
       </div>
     </article>

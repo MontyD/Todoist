@@ -7,7 +7,7 @@ import RoomConfig from './config/RoomConfig.es6.js';
 
 import RoomCtrl from './controllers/RoomCtrl.es6.js';
 import OverviewCtrl from './controllers/OverviewCtrl.es6.js';
-import SettingsCtrl from './controllers/OverviewCtrl.es6.js';
+import SettingsCtrl from './controllers/SettingsCtrl.es6.js';
 
 import newTask from './directives/newTask.es6.js';
 import taskView from './directives/taskView.es6.js';

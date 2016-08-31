@@ -10,7 +10,19 @@ class SettingsCtrl {
         this.$scope = $scope;
         this.$rootScope = $rootScope;
 
-      }
+        this.completed = false;
+
+        this.roomName = this.$rootScope.roomName;
+
+        this.confirmingDeleteTasks = false;
+
+        this.TasksService.countCompleted().then(
+            result => this.completed = result.data.count > 0 ? true : false,
+            this.handleError.bind(this)
+        );
+
+        this.initSockets();
+    }
 
     Notify(text, type) {
         if (this.doNotNotify) {
@@ -32,11 +44,18 @@ class SettingsCtrl {
         // echo room name
         this.SocketsService.emit('room', this.roomName);
 
-        // create hash and make sockets as initialised.
-        this.$rootScope.hash = Math.random().toString(36).substring(7);
-
     }
 
+    toggleConfirmingDeleteTasks() {
+        this.confirmingDeleteTasks = !this.confirmingDeleteTasks;
+    }
+
+    deleteCompletedTasks() {
+        this.TasksService.clearCompleted(this.$rootScope.hash).then(
+            result => this.completed = false,
+            this.handleError.bind(this)
+        );
+    }
 
     handleError(error) {
         if (error.status === 401 || error.status === 403) {

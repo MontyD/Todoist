@@ -11,7 +11,7 @@ class OverviewCtrl {
         this.$rootScope = $rootScope;
 
         // initial variables
-        this.roomName = '';
+        this.roomName = this.$rootScope.roomName;
         this.completed = 0;
         this.todo = 0;
 
@@ -33,7 +33,7 @@ class OverviewCtrl {
             error => console.error(error)
         );
 
-        // read completed count for last day
+        // read completed count
         this.TasksService.countCompleted().then(
             result => {
                 this.completed = result.data.count;
@@ -110,7 +110,7 @@ class OverviewCtrl {
                 this.Notification.info(text);
         }
     }
-    
+
     percentageDone() {
       let done = (Math.round((this.completed / (this.todo + this.completed)) * 10000)) / 100;
       return isNaN(done) ? 0 : done;
