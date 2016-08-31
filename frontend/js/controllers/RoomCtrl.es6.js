@@ -120,6 +120,13 @@ class RoomCtrl {
             // force view to update;
             this.$scope.$apply();
         }).bind(this));
+
+        this.SocketsService.on('DeletedAllComplete', (function(data) {
+          this.completedLastDay = 0;
+          this.Notify(data.username + ' cleared all completed todos');
+          // force view to update;
+          this.$scope.$apply();
+        }).bind(this));
         // ----->
 
 

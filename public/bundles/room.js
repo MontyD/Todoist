@@ -43916,6 +43916,13 @@
 	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
+
+	            this.SocketsService.on('DeletedAllComplete', (function (data) {
+	                this.completedLastDay = 0;
+	                this.Notify(data.username + ' cleared all completed todos');
+	                // force view to update;
+	                this.$scope.$apply();
+	            }).bind(this));
 	            // ----->
 
 	            // create hash and make sockets as initialised.
@@ -44183,6 +44190,19 @@
 	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
+
+	            this.SocketsService.on('DeletedAllComplete', (function (data) {
+	                if (this.$rootScope.hash === data.hash) {
+	                    return;
+	                }
+	                this.completed = 0;
+	                this.completedWeek = [0, 0, 0, 0, 0, 0, 0];
+	                this.confirmingDelete = false;
+	                this.Notify(data.username + ' cleared all completed todos');
+
+	                // force view to update;
+	                this.$scope.$apply();
+	            }).bind(this));
 	            // ----->
 	        }
 	    }, {
@@ -44232,7 +44252,7 @@
 	    }, {
 	        key: 'calculateTransform',
 	        value: function calculateTransform(amount) {
-	            var scale = this.showWeeklyGraph ? amount / this.completed : 0;
+	            var scale = this.showWeeklyGraph ? amount / (this.todo + this.completed) : 0;
 	            return 'scaleY(' + scale + ')';
 	        }
 	    }, {
