@@ -543,9 +543,9 @@ main.full-height {
     -webkit-transform-origin: left bottom;
         -ms-transform-origin: left bottom;
             transform-origin: left bottom;
-    transition: -webkit-transform 0.2s ease;
-    transition: transform 0.2s ease;
-    transition: transform 0.2s ease, -webkit-transform 0.2s ease;
+    transition: -webkit-transform 0.3s ease-in;
+    transition: transform 0.3s ease-in;
+    transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
     -webkit-transform: scaleY(0);
         -ms-transform: scaleY(0);
             transform: scaleY(0); }
@@ -568,7 +568,12 @@ main.full-height {
       box-sizing: border-box;
       padding: 0 0.5em;
       transition: opacity 0.2s ease;
-      opacity: 0; }
+      opacity: 0;
+      font-size: 0.8em; }
+    .graphs .week-graph .big-number {
+      font-family: "butlerbold", serif;
+      font-size: 4em;
+      line-height: 90%; }
     .graphs .week-graph .graph {
       position: absolute;
       top: 0;
@@ -577,26 +582,19 @@ main.full-height {
       left: 0;
       width: 94%; }
     .graphs .week-graph.zero {
-      right: 1%;
-      transition-delay: 0.1s; }
+      right: 1%; }
     .graphs .week-graph.one {
-      right: 15%;
-      transition-delay: 0.15s; }
+      right: 15%; }
     .graphs .week-graph.two {
-      right: 29%;
-      transition-delay: 0.2s; }
+      right: 29%; }
     .graphs .week-graph.three {
-      right: 43%;
-      transition-delay: 0.25s; }
+      right: 43%; }
     .graphs .week-graph.four {
-      right: 57%;
-      transition-delay: 0.3s; }
+      right: 57%; }
     .graphs .week-graph.five {
-      right: 71%;
-      transition-delay: 0.35s; }
+      right: 71%; }
     .graphs .week-graph.six {
-      right: 85%;
-      transition-delay: 0.4s; }
+      right: 85%; }
   .graphs.weekly .week-graph span {
     opacity: 1; }
 
@@ -1555,9 +1553,9 @@ main.full-height {
     -webkit-transform-origin: left bottom;
         -ms-transform-origin: left bottom;
             transform-origin: left bottom;
-    transition: -webkit-transform 0.2s ease;
-    transition: transform 0.2s ease;
-    transition: transform 0.2s ease, -webkit-transform 0.2s ease;
+    transition: -webkit-transform 0.3s ease-in;
+    transition: transform 0.3s ease-in;
+    transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
     -webkit-transform: scaleY(0);
         -ms-transform: scaleY(0);
             transform: scaleY(0); }
@@ -1580,7 +1578,12 @@ main.full-height {
       box-sizing: border-box;
       padding: 0 0.5em;
       transition: opacity 0.2s ease;
-      opacity: 0; }
+      opacity: 0;
+      font-size: 0.8em; }
+    .graphs .week-graph .big-number {
+      font-family: "butlerbold", serif;
+      font-size: 4em;
+      line-height: 90%; }
     .graphs .week-graph .graph {
       position: absolute;
       top: 0;
@@ -1589,26 +1592,19 @@ main.full-height {
       left: 0;
       width: 94%; }
     .graphs .week-graph.zero {
-      right: 1%;
-      transition-delay: 0.1s; }
+      right: 1%; }
     .graphs .week-graph.one {
-      right: 15%;
-      transition-delay: 0.15s; }
+      right: 15%; }
     .graphs .week-graph.two {
-      right: 29%;
-      transition-delay: 0.2s; }
+      right: 29%; }
     .graphs .week-graph.three {
-      right: 43%;
-      transition-delay: 0.25s; }
+      right: 43%; }
     .graphs .week-graph.four {
-      right: 57%;
-      transition-delay: 0.3s; }
+      right: 57%; }
     .graphs .week-graph.five {
-      right: 71%;
-      transition-delay: 0.35s; }
+      right: 71%; }
     .graphs .week-graph.six {
-      right: 85%;
-      transition-delay: 0.4s; }
+      right: 85%; }
   .graphs.weekly .week-graph span {
     opacity: 1; }
 
@@ -2482,9 +2478,9 @@ main.full-height {
     -webkit-transform-origin: left bottom;
         -ms-transform-origin: left bottom;
             transform-origin: left bottom;
-    transition: -webkit-transform 0.2s ease;
-    transition: transform 0.2s ease;
-    transition: transform 0.2s ease, -webkit-transform 0.2s ease;
+    transition: -webkit-transform 0.3s ease-in;
+    transition: transform 0.3s ease-in;
+    transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
     -webkit-transform: scaleY(0);
         -ms-transform: scaleY(0);
             transform: scaleY(0); }
@@ -2507,7 +2503,12 @@ main.full-height {
       box-sizing: border-box;
       padding: 0 0.5em;
       transition: opacity 0.2s ease;
-      opacity: 0; }
+      opacity: 0;
+      font-size: 0.8em; }
+    .graphs .week-graph .big-number {
+      font-family: "butlerbold", serif;
+      font-size: 4em;
+      line-height: 90%; }
     .graphs .week-graph .graph {
       position: absolute;
       top: 0;
@@ -2516,26 +2517,19 @@ main.full-height {
       left: 0;
       width: 94%; }
     .graphs .week-graph.zero {
-      right: 1%;
-      transition-delay: 0.1s; }
+      right: 1%; }
     .graphs .week-graph.one {
-      right: 15%;
-      transition-delay: 0.15s; }
+      right: 15%; }
     .graphs .week-graph.two {
-      right: 29%;
-      transition-delay: 0.2s; }
+      right: 29%; }
     .graphs .week-graph.three {
-      right: 43%;
-      transition-delay: 0.25s; }
+      right: 43%; }
     .graphs .week-graph.four {
-      right: 57%;
-      transition-delay: 0.3s; }
+      right: 57%; }
     .graphs .week-graph.five {
-      right: 71%;
-      transition-delay: 0.35s; }
+      right: 71%; }
     .graphs .week-graph.six {
-      right: 85%;
-      transition-delay: 0.4s; }
+      right: 85%; }
   .graphs.weekly .week-graph span {
     opacity: 1; }
 

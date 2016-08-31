@@ -234,7 +234,7 @@ main.full-height {
     .graph {
         height          : 100%;
         transform-origin: left bottom;
-        transition      : transform 0.2s ease;
+        transition      : transform 0.3s ease-in;
         transform       : scaleY(0);
     }
 
@@ -261,6 +261,13 @@ main.full-height {
             padding   : 0 0.5em;
             transition: opacity 0.2s ease;
             opacity   : 0;
+            font-size : 0.8em;
+        }
+
+        .big-number {
+            font-family: $serif;
+            font-size  : 4em;
+            line-height: 90%;
         }
 
         .graph {
@@ -274,37 +281,30 @@ main.full-height {
 
         &.zero {
             right           : 1%;
-            transition-delay: 0.1s;
         }
 
         &.one {
             right           : 15%;
-            transition-delay: 0.15s;
         }
 
         &.two {
             right           : 29%;
-            transition-delay: 0.2s;
         }
 
         &.three {
             right           : 43%;
-            transition-delay: 0.25s;
         }
 
         &.four {
             right           : 57%;
-            transition-delay: 0.3s;
         }
 
         &.five {
             right           : 71%;
-            transition-delay: 0.35s;
         }
 
         &.six {
             right           : 85%;
-            transition-delay: 0.4s;
         }
     }
 

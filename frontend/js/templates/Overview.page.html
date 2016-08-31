@@ -14,31 +14,31 @@
         <div class="graph main-graph" ng-style="{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform() }"></div>
         <div class="week-graph six">
             <div class="graph" ng-if="overview.completedWeek[5]" ng-style="{'transform': overview.calculateTransform(overview.completedWeek[6]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[6]) }"></div>
-            <span>{{overview.completedWeek[6]}} completed on {{overview.daysOfTheWeek[6]}}</span>
+            <span><span class="big-number">{{overview.completedWeek[6]}}</span> completed on {{overview.daysOfTheWeek[6]}}</span>
         </div>
         <div class="week-graph five">
             <div ng-if="overview.completedWeek[5]" class="graph" ng-style="{'transform': overview.calculateTransform(overview.completedWeek[5]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[5]) }"></div>
-            <span>{{overview.completedWeek[5]}} completed on {{overview.daysOfTheWeek[5]}}</span>
+            <span><span class="big-number">{{overview.completedWeek[5]}}</span> completed on {{overview.daysOfTheWeek[5]}}</span>
         </div>
         <div class="week-graph four">
             <div ng-if="overview.completedWeek[4]" class="graph" ng-style="{'transform': overview.calculateTransform(overview.completedWeek[4]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[4]) }"></div>
-            <span>{{overview.completedWeek[4]}} completed on {{overview.daysOfTheWeek[4]}}</span>
+            <span><span class="big-number">{{overview.completedWeek[4]}}</span> completed on {{overview.daysOfTheWeek[4]}}</span>
         </div>
         <div class="week-graph three">
             <div ng-if="overview.completedWeek[3]" class="graph" ng-style="{'transform': overview.calculateTransform(overview.completedWeek[3]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[3]) }"></div>
-            <span>{{overview.completedWeek[3]}} completed on {{overview.daysOfTheWeek[3]}}</span>
+            <span><span class="big-number">{{overview.completedWeek[3]}}</span> completed on {{overview.daysOfTheWeek[3]}}</span>
         </div>
         <div class="week-graph two">
             <div ng-if="overview.completedWeek[2]" class="graph" ng-style="{'transform': overview.calculateTransform(overview.completedWeek[2]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[2]) }"></div>
-            <span>{{overview.completedWeek[2]}} completed on {{overview.daysOfTheWeek[2]}}</span>
+            <span><span class="big-number">{{overview.completedWeek[2]}}</span> completed on {{overview.daysOfTheWeek[2]}}</span>
         </div>
         <div class="week-graph one">
             <div ng-if="overview.completedWeek[1]" class="graph" ng-style="{'transform': overview.calculateTransform(overview.completedWeek[1]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[1]) }"></div>
-            <span>{{overview.completedWeek[1]}} completed yesterday</span>
+            <span><span class="big-number">{{overview.completedWeek[1]}}</span> completed yesterday</span>
         </div>
         <div class="week-graph zero">
             <div ng-if="overview.completedWeek[0]" class="graph" ng-style="{'transform': overview.calculateTransform(overview.completedWeek[0]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[0]) }"></div>
-            <span>{{overview.completedWeek[0]}} completed today</span>
+            <span><span class="big-number">{{overview.completedWeek[0]}}</span> completed today</span>
         </div>
     </section>
     <section class="vertically-center modal light transparent center" ng-class="{'opacity': overview.showWeeklyGraph}">
