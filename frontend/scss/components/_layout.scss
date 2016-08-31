@@ -260,14 +260,16 @@ main.full-height {
             box-sizing: border-box;
             padding   : 0 0.5em;
             transition: opacity 0.2s ease;
-            opacity: 0;
+            opacity   : 0;
         }
 
         .graph {
             position: absolute;
             top     : 0;
+            right   : 0;
+            margin  : 0 auto;
             left    : 0;
-            width   : 100%;
+            width   : 94%;
         }
 
         &.zero {
@@ -305,10 +307,11 @@ main.full-height {
             transition-delay: 0.4s;
         }
     }
+
     &.weekly {
-      .week-graph span {
-        opacity: 1;
-      }
+        .week-graph span {
+            opacity: 1;
+        }
     }
 }
 

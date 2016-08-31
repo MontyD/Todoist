@@ -90,7 +90,6 @@ class RoomCtrl {
 
         // <--- Actual Event Listeners
         this.SocketsService.on('NewTask', (function(data) {
-
             if (this.$rootScope.hash === data.hash) {
                 return;
             }

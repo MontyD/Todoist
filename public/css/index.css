@@ -572,8 +572,10 @@ main.full-height {
     .graphs .week-graph .graph {
       position: absolute;
       top: 0;
+      right: 0;
+      margin: 0 auto;
       left: 0;
-      width: 100%; }
+      width: 94%; }
     .graphs .week-graph.zero {
       right: 1%;
       transition-delay: 0.1s; }
@@ -1582,8 +1584,10 @@ main.full-height {
     .graphs .week-graph .graph {
       position: absolute;
       top: 0;
+      right: 0;
+      margin: 0 auto;
       left: 0;
-      width: 100%; }
+      width: 94%; }
     .graphs .week-graph.zero {
       right: 1%;
       transition-delay: 0.1s; }
@@ -2507,8 +2511,10 @@ main.full-height {
     .graphs .week-graph .graph {
       position: absolute;
       top: 0;
+      right: 0;
+      margin: 0 auto;
       left: 0;
-      width: 100%; }
+      width: 94%; }
     .graphs .week-graph.zero {
       right: 1%;
       transition-delay: 0.1s; }
