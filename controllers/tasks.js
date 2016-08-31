@@ -124,7 +124,27 @@ router.get('/completed-last-day', function(req, res, next) {
 
 });
 
+router.get('/completed-last-week', function(req, res, next) {
 
+  var reqRoomId = req.user.id;
+  var today = new Date();
+
+  models.tasks.findAll({
+    attributes: ['title'],
+    where: {
+      status: 'Complete',
+      roomId: reqRoomId,
+      updatedAt: {
+        $gt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7)
+      }
+    }
+  }).then(function(data){
+    return res.json(data);
+  }).catch(function(err) {
+    return handleError(err, next);
+  });
+
+});
 
 // GET one task by ID
 router.get('/:taskID', function(req, res, next) {
