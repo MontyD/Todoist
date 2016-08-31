@@ -44241,7 +44241,8 @@
 	    }, {
 	        key: 'percentageDone',
 	        value: function percentageDone() {
-	            return Math.round(this.completed / (this.todo + this.completed) * 10000) / 100;
+	            var done = Math.round(this.completed / (this.todo + this.completed) * 10000) / 100;
+	            return isNaN(done) ? 0 : done;
 	        }
 	    }, {
 	        key: 'percentageDoneTransform',
