@@ -21,6 +21,10 @@ class OverviewCtrl {
         // initially seven 0
         this.completedWeek = [0, 0, 0, 0, 0, 0, 0];
 
+        // array of last few days this week,
+        // initially seven blank strings
+        this.daysOfTheWeek = ['', '', '', '', '', '', ''];
+
         // read todos count
         this.TasksService.countTodos().then(
             result => this.todo = result.data.count,
@@ -40,6 +44,8 @@ class OverviewCtrl {
             result => this.sortToDays(result.data),
             this.handleError.bind(this)
         );
+
+        this.calculateDaysOfTheWeek();
 
     }
 
@@ -91,6 +97,18 @@ class OverviewCtrl {
       }
       let returnDate = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
       return returnDate;
+    }
+
+    calculateDaysOfTheWeek() {
+      let today = (new Date()).getDay();
+      let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      for (let i = 0; i < 7; i++) {
+        if ((today - i) > -1) {
+          this.daysOfTheWeek[i] = days[today - i];
+        } else {
+          this.daysOfTheWeek[i] = days[today - i + 7];
+        }
+      }
     }
 
     toggleWeeklygraph() {
