@@ -43877,10 +43877,6 @@
 	    }, {
 	        key: 'initSockets',
 	        value: function initSockets() {
-	            // Check if already set up, if so return.
-	            if (this.$rootScope.initCompleteRoom) {
-	                return;
-	            }
 
 	            // echo room name
 	            this.SocketsService.emit('room', this.roomName);
@@ -43925,7 +43921,6 @@
 
 	            // create hash and make sockets as initialised.
 	            this.$rootScope.hash = Math.random().toString(36).substring(7);
-	            this.$rootScope.initCompleteRoom = true;
 	        }
 	    }, {
 	        key: 'availablePages',
@@ -44161,10 +44156,6 @@
 	    _createClass(OverviewCtrl, [{
 	        key: 'initSockets',
 	        value: function initSockets() {
-	            // Check if already set up, if so return.
-	            if (this.$rootScope.initCompleteOverview) {
-	                return;
-	            }
 
 	            // echo room name
 	            this.SocketsService.emit('room', this.roomName);
@@ -44195,7 +44186,6 @@
 	                this.$scope.$apply();
 	            }).bind(this));
 	            // ----->
-	            this.$rootScope.initCompleteOverview = true;
 	        }
 	    }, {
 	        key: 'Notify',
@@ -44764,11 +44754,18 @@
 
 	        this.socket = $window.io.connect($window.location.origin);
 	        this.$rootScope = $rootScope;
+	        this.subscriptions = [];
 	    }
 
 	    _createClass(SocketsService, [{
 	        key: 'on',
 	        value: function on(eventName, callback) {
+	            var alreadySubscribed = this.subscriptions.indexOf(eventName) > -1;
+	            if (!alreadySubscribed) {
+	                this.subscriptions.push(eventName);
+	            } else {
+	                this.socket.off(eventName);
+	            }
 	            this.socket.on(eventName, callback);
 	        }
 	    }, {

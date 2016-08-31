@@ -78,10 +78,6 @@ class RoomCtrl {
     }
 
     initSockets() {
-        // Check if already set up, if so return.
-        if (this.$rootScope.initCompleteRoom) {
-            return;
-        }
 
         // echo room name
         this.SocketsService.emit('room', this.roomName);
@@ -130,7 +126,6 @@ class RoomCtrl {
 
         // create hash and make sockets as initialised.
         this.$rootScope.hash = Math.random().toString(36).substring(7);
-        this.$rootScope.initCompleteRoom = true;
 
     }
 

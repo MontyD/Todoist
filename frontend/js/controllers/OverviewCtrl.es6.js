@@ -51,10 +51,6 @@ class OverviewCtrl {
     }
 
     initSockets() {
-        // Check if already set up, if so return.
-        if (this.$rootScope.initCompleteOverview) {
-            return;
-        }
 
         // echo room name
         this.SocketsService.emit('room', this.roomName);
@@ -88,8 +84,6 @@ class OverviewCtrl {
             this.$scope.$apply();
         }).bind(this));
         // ----->
-        this.$rootScope.initCompleteOverview = true;
-
     }
 
     Notify(text, type) {
