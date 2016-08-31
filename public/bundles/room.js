@@ -98,6 +98,10 @@
 
 	var _servicesSocketsEs6Js2 = _interopRequireDefault(_servicesSocketsEs6Js);
 
+	var _servicesRoomEs6Js = __webpack_require__(69);
+
+	var _servicesRoomEs6Js2 = _interopRequireDefault(_servicesRoomEs6Js);
+
 	window.io = _socketIoClient2['default'];
 
 	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).controller('OverviewCtrl', _controllersOverviewCtrlEs6Js2['default']).controller('SettingsCtrl', _controllersSettingsCtrlEs6Js2['default']).directive('newTask', _directivesNewTaskEs6Js2['default']).directive('taskView', _directivesTaskViewEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketsService', _servicesSocketsEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
@@ -43796,7 +43800,7 @@
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{settings.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\" class=\"current\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <section class=\"modal light\">\n    <h2>{{settings.roomName}} Settings</h2>\n    <article class=\"settings-article\" ng-if=\"settings.completed\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Remove completed todos:\n        <span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingDeleteTasks\" class=\"button danger\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Remove Completed</button>\n        <div ng-if=\"settings.confirmingDeleteTasks\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Cancel</button>\n          <button class=\"button danger\" ng-click=\"settings.deleteCompletedTasks()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Log out all members of this room:<span class=\"explaination-text\">You will also be logged out</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button class=\"button secondary\" ng-click=\"settings.confirmingDelete()\">Log out all</button>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the email address associated with this room:\n      </p>\n      <form class=\"inline\" name=\"emailAddressForm\" ng-submit=\"updateEmail()\" novalidate=\"novalidate\">\n        <label for=\"email\">New email address:</label>\n        <input type=\"email\" id=\"email\" name=\"email\" required=\"requied\" />\n        <label for=\"email-confirm\" >Confirm email address:</label>\n        <input type=\"email\" id=\"email-confirm\" name=\"email-confirm\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change Email\" />\n      </form>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the password for this room:\n      </p>\n      <form class=\"inline\" name=\"emailAddressForm\" ng-submit=\"updatePassword()\" novalidate=\"novalidate\">\n        <label for=\"current-password\">Current password:</label>\n        <input type=\"password\" id=\"current-password\" name=\"current-password\" required=\"requied\" />\n        <label for=\"password\">New password:</label>\n        <input type=\"password\" id=\"password\" name=\"password\" required=\"requied\" />\n        <label for=\"password-confirm\" >Confirm password:</label>\n        <input type=\"password\" id=\"password-confirm\" name=\"password-confirm\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change Password\" />\n      </form>\n    </article>\n\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Delete this room completely:<span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button class=\"button danger\" ng-click=\"settings.confirmingDeleteRoom()\">Delete this room</button>\n      </div>\n    </article>\n  </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{settings.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\" class=\"current\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <section class=\"modal light\">\n    <h2>{{settings.roomName}} Settings</h2>\n    <article class=\"settings-article\" ng-if=\"settings.completed\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Remove completed todos:\n        <span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingDeleteTasks\" class=\"button danger\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Remove Completed</button>\n        <div ng-if=\"settings.confirmingDeleteTasks\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Cancel</button>\n          <button class=\"button danger\" ng-click=\"settings.deleteCompletedTasks()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Log out all members of this room:<span class=\"explaination-text\">You will also be logged out</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingLogOut\" class=\"button secondary\" ng-click=\"settings.toggleConfirmingLogOut()\">Log all out</button>\n        <div ng-if=\"settings.confirmingLogOut\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingLogOut()\">Cancel</button>\n          <button class=\"button primary\" ng-click=\"settings.logAllOut()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the email address associated with this room:\n      </p>\n      <form class=\"inline\" name=\"emailAddressForm\" ng-submit=\"updateEmail()\" novalidate=\"novalidate\">\n        <label for=\"email\">New email address:</label>\n        <input type=\"email\" id=\"email\" name=\"email\" required=\"requied\" />\n        <label for=\"email-confirm\" >Confirm email address:</label>\n        <input type=\"email\" id=\"email-confirm\" name=\"email-confirm\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change Email\" />\n      </form>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the password for this room:\n      </p>\n      <form class=\"inline\" name=\"emailAddressForm\" ng-submit=\"updatePassword()\" novalidate=\"novalidate\">\n        <label for=\"current-password\">Current password:</label>\n        <input type=\"password\" id=\"current-password\" name=\"current-password\" required=\"requied\" />\n        <label for=\"password\">New password:</label>\n        <input type=\"password\" id=\"password\" name=\"password\" required=\"requied\" />\n        <label for=\"password-confirm\" >Confirm password:</label>\n        <input type=\"password\" id=\"password-confirm\" name=\"password-confirm\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change Password\" />\n      </form>\n    </article>\n\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Delete this room completely:<span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button class=\"button danger\" ng-click=\"settings.confirmingDeleteRoom()\">Delete this room</button>\n      </div>\n    </article>\n  </section>\n</main>\n";
 
 /***/ },
 /* 58 */
@@ -43938,6 +43942,10 @@
 	                this.Notify(data.username + ' cleared all completed todos');
 	                // force view to update;
 	                this.$scope.$apply();
+	            }).bind(this));
+
+	            this.SocketsService.on('logAllOut', (function (data) {
+	                window.location = '/rooms/login?kicked=true';
 	            }).bind(this));
 	            // ----->
 
@@ -44219,6 +44227,10 @@
 	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
+
+	            this.SocketsService.on('logAllOut', (function (data) {
+	                window.location = '/rooms/login?kicked=true';
+	            }).bind(this));
 	            // ----->
 	        }
 	    }, {
@@ -44330,7 +44342,7 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var SettingsCtrl = (function () {
-	    function SettingsCtrl(Notification, TasksService, SocketsService, $scope, $rootScope) {
+	    function SettingsCtrl(Notification, TasksService, SocketsService, RoomService, $scope, $rootScope) {
 	        var _this = this;
 
 	        _classCallCheck(this, SettingsCtrl);
@@ -44339,6 +44351,7 @@
 	        this.Notification = Notification;
 	        this.TasksService = TasksService;
 	        this.SocketsService = SocketsService;
+	        this.RoomService = RoomService;
 	        this.$scope = $scope;
 	        this.$rootScope = $rootScope;
 
@@ -44347,6 +44360,7 @@
 	        this.roomName = this.$rootScope.roomName;
 
 	        this.confirmingDeleteTasks = false;
+	        this.confirmingLogOut = false;
 
 	        this.TasksService.countCompleted().then(function (result) {
 	            return _this.completed = result.data.count > 0 ? true : false;
@@ -44377,6 +44391,10 @@
 	        value: function initSockets() {
 	            // echo room name
 	            this.SocketsService.emit('room', this.roomName);
+
+	            this.SocketsService.on('logAllOut', (function (data) {
+	                window.location = '/rooms/login?kicked=true';
+	            }).bind(this));
 	        }
 	    }, {
 	        key: 'toggleConfirmingDeleteTasks',
@@ -44393,6 +44411,18 @@
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
+	        key: 'toggleConfirmingLogOut',
+	        value: function toggleConfirmingLogOut() {
+	            this.confirmingDeleteTasks = !this.confirmingDeleteTasks;
+	        }
+	    }, {
+	        key: 'logAllOut',
+	        value: function logAllOut() {
+	            this.RoomService.logAllOut().then(function (result) {
+	                return window.location = '/rooms/login?kicked=true';
+	            }, this.handleError.bind(this));
+	        }
+	    }, {
 	        key: 'handleError',
 	        value: function handleError(error) {
 	            if (error.status === 401 || error.status === 403) {
@@ -44406,7 +44436,7 @@
 	    return SettingsCtrl;
 	})();
 
-	SettingsCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope', '$rootScope'];
+	SettingsCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', 'RoomService', '$scope', '$rootScope'];
 
 	exports['default'] = SettingsCtrl;
 	module.exports = exports['default'];
@@ -44922,6 +44952,38 @@
 	SocketsService.$inject = ['$window', '$rootScope'];
 
 	module.exports = SocketsService;
+
+/***/ },
+/* 69 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var RoomService = (function () {
+	    function RoomService($http) {
+	        _classCallCheck(this, RoomService);
+
+	        this.$http = $http;
+	        this.urlBase = '/rooms/';
+	    }
+
+	    _createClass(RoomService, [{
+	        key: 'logAllOut',
+	        value: function logAllOut() {
+	            return this.$http['delete'](this.urlBase + 'log-all-out');
+	        }
+	    }]);
+
+	    return RoomService;
+	})();
+
+	RoomService.$inject = ['$http'];
+
+	module.exports = RoomService;
 
 /***/ }
 /******/ ]);

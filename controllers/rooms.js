@@ -83,5 +83,10 @@ router.get('/logout', function(req, res, next) {
 
 });
 
+router.delete('/log-all-out', respondsToJSON, checkRoom, function(req, res, next){
+  res.io.to(req.user.name).emit('logAllOut', 'true');
+  res.sendStatus(200);
+});
+
 
 module.exports = router;

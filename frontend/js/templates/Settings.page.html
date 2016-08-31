@@ -30,7 +30,11 @@
         Log out all members of this room:<span class="explaination-text">You will also be logged out</span>
       </div>
       <div class="halves vertical-middle">
-        <button class="button secondary" ng-click="settings.confirmingDelete()">Log out all</button>
+        <button ng-if="!settings.confirmingLogOut" class="button secondary" ng-click="settings.toggleConfirmingLogOut()">Log all out</button>
+        <div ng-if="settings.confirmingLogOut" class="button-group">
+          <button class="button secondary" ng-click="settings.toggleConfirmingLogOut()">Cancel</button>
+          <button class="button primary" ng-click="settings.logAllOut()">Confirm</button>
+        </div>
       </div>
     </article>
     <article class="settings-article">

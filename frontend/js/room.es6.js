@@ -17,6 +17,7 @@ import uiNotification from 'angular-ui-notification';
 
 import TasksService from './services/tasks.es6.js';
 import SocketsService from './services/sockets.es6.js';
+import RoomService from './services/room.es6.js';
 
 window.io = io;
 

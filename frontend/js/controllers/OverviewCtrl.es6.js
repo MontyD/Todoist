@@ -92,6 +92,10 @@ class OverviewCtrl {
           // force view to update;
           this.$scope.$apply();
         }).bind(this));
+
+        this.SocketsService.on('logAllOut', (function(data) {
+            window.location = '/rooms/login?kicked=true';
+        }).bind(this));
         // ----->
     }
 
