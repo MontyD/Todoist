@@ -91,6 +91,8 @@ class RoomCtrl {
 
         }).bind(this));
 
+
+        // <--- Actual Event Listeners
         this.SocketsService.on('NewTask', (function(data) {
 
             if (this.$rootScope.hash === data.hash) {
@@ -123,6 +125,7 @@ class RoomCtrl {
             // force view to update;
             this.$scope.$apply();
         }).bind(this));
+        // ----->
 
 
         // create hash and make sockets as initialised.

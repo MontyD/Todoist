@@ -99,13 +99,16 @@ router.get('/completed-count', function(req, res, next) {
 router.get('/completed-last-day', function(req, res, next) {
 
   var reqRoomId = req.user.id;
+  var today = new Date();
+  console.log(today);
+  console.log(new Date(today.getFullYear(), today.getMonth(), today.getDate()));
 
   models.tasks.count({
     where: {
       status: 'Complete',
       roomId: reqRoomId,
       updatedAt: {
-        $gt: new Date(new Date() - 24 * 60 * 60 * 1000)
+        $gt: new Date(today.getFullYear(), today.getMonth(), today.getDate())
       }
     }
   }).then(function(c){
