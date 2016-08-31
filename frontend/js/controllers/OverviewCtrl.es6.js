@@ -52,6 +52,11 @@ class OverviewCtrl {
       return (Math.round((this.completed / (this.todo + this.completed)) * 10000))/100;
     }
 
+    percentageDoneTransform() {
+      let amount = this.percentageDone() / 100;
+      return 'scaleY(' + amount + ')';
+    }
+
     handleError(error) {
         if (error.status === 401 || error.status === 403) {
             window.location = '/rooms/login?timeout=true';

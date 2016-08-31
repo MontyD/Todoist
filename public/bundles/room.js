@@ -43781,7 +43781,7 @@
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container full-height\">\n    <section class=\"graphs\">\n      <div class=\"graph main-graph\"></div>\n\n\n    </section>\n    <section class=\"vertically-center transparent center\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">Of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container \">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todo done\n            </article>\n        </div>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"full-height\">\n    <section class=\"graphs\">\n      <div class=\"graph main-graph\" ng-style=\"{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform(), '-ms-transform': overview.percentageDoneTransform() }\"></div>\n    </section>\n    <section class=\"vertically-center container transparent center\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">Of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container \">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todo done\n            </article>\n        </div>\n    </section>\n</main>\n";
 
 /***/ },
 /* 57 */
@@ -44163,6 +44163,12 @@
 	        key: 'percentageDone',
 	        value: function percentageDone() {
 	            return Math.round(this.completed / (this.todo + this.completed) * 10000) / 100;
+	        }
+	    }, {
+	        key: 'percentageDoneTransform',
+	        value: function percentageDoneTransform() {
+	            var amount = this.percentageDone() / 100;
+	            return 'scaleY(' + amount + ')';
 	        }
 	    }, {
 	        key: 'handleError',

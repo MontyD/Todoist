@@ -11,11 +11,9 @@
 </nav>
 <main class="full-height">
     <section class="graphs">
-      <div class="graph main-graph"></div>
-
-
+      <div class="graph main-graph" ng-style="{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform(), '-ms-transform': overview.percentageDoneTransform() }"></div>
     </section>
-    <section class="vertically-center transparent center">
+    <section class="vertically-center container transparent center">
         <h1 class="overview-percentage">{{overview.percentageDone()}}%</h1>
         <p class="transparent center">Of all Todos complete</p>
         <div class="thirds two">
