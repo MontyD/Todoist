@@ -247,7 +247,32 @@ main.full-height {
     }
 
     .week-graph {
-      position: relative;
+      position: absolute;
+      height: 100%;
+      width: 14%;
+      background: transparentize(blue, 0.5);
+      top: 0;
+      &.zero {
+        right: 1%;
+      }
+      &.one {
+        right: 15%;
+      }
+      &.two {
+        right: 29%;
+      }
+      &.three {
+        right: 43%;
+      }
+      &.four {
+        right: 57%;
+      }
+      &.five {
+        right: 71%;
+      }
+      &.six {
+        right: 85%;
+      }
     }
 }
 

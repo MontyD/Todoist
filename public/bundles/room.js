@@ -43781,7 +43781,7 @@
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"full-height\">\n    <section class=\"graphs\">\n      <div class=\"graph main-graph\" ng-style=\"{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform(), '-ms-transform': overview.percentageDoneTransform() }\"></div>\n    </section>\n    <section class=\"vertically-center container transparent center\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">Of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container \">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todos done\n            </article>\n        </div>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"full-height\">\n    <section class=\"graphs\">\n      <div class=\"graph main-graph\" ng-style=\"{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform() }\"></div>\n      <div class=\"graph week-graph six\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[6]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[6]) }\"></div>\n      <div class=\"graph week-graph five\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[5]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[5]) }\"></div>\n      <div class=\"graph week-graph four\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[4]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[4]) }\"></div>\n      <div class=\"graph week-graph three\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[3]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[3]) }\"></div>\n      <div class=\"graph week-graph two\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[2]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[2]) }\"></div>\n      <div class=\"graph week-graph one\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[1]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[1]) }\"></div>\n      <div class=\"graph week-graph zero\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[0]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[0]) }\"></div>\n    </section>\n    <section class=\"vertically-center container transparent center\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">Of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container \">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todos done\n            </article>\n        </div>\n    </section>\n</main>\n";
 
 /***/ },
 /* 57 */
@@ -44174,8 +44174,14 @@
 	    }, {
 	        key: 'percentageDoneTransform',
 	        value: function percentageDoneTransform() {
-	            var amount = this.percentageDone() / 100;
-	            return 'scaleY(' + amount + ')';
+	            var scale = this.percentageDone() / 100;
+	            return 'scaleY(' + scale + ')';
+	        }
+	    }, {
+	        key: 'calculateTransform',
+	        value: function calculateTransform(amount) {
+	            var scale = amount / this.completed;
+	            return 'scaleY(' + scale + ')';
 	        }
 	    }, {
 	        key: 'sortToDays',
@@ -44187,7 +44193,6 @@
 	                var daysAgo = Math.round(Math.abs((date.getTime() - today.getTime()) / oneDay));
 	                this.completedWeek[daysAgo]++;
 	            }, this);
-	            console.log(this.completedWeek);
 	        }
 	    }, {
 	        key: 'dateWithoutTime',

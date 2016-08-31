@@ -556,7 +556,25 @@ main.full-height {
     display: block;
     width: 100%; }
   .graphs .week-graph {
-    position: relative; }
+    position: absolute;
+    height: 100%;
+    width: 14%;
+    background: rgba(0, 0, 255, 0.5);
+    top: 0; }
+    .graphs .week-graph.zero {
+      right: 1%; }
+    .graphs .week-graph.one {
+      right: 15%; }
+    .graphs .week-graph.two {
+      right: 29%; }
+    .graphs .week-graph.three {
+      right: 43%; }
+    .graphs .week-graph.four {
+      right: 57%; }
+    .graphs .week-graph.five {
+      right: 71%; }
+    .graphs .week-graph.six {
+      right: 85%; }
 
 .container {
   display: block;
@@ -1518,7 +1536,25 @@ main.full-height {
     display: block;
     width: 100%; }
   .graphs .week-graph {
-    position: relative; }
+    position: absolute;
+    height: 100%;
+    width: 14%;
+    background: rgba(0, 0, 255, 0.5);
+    top: 0; }
+    .graphs .week-graph.zero {
+      right: 1%; }
+    .graphs .week-graph.one {
+      right: 15%; }
+    .graphs .week-graph.two {
+      right: 29%; }
+    .graphs .week-graph.three {
+      right: 43%; }
+    .graphs .week-graph.four {
+      right: 57%; }
+    .graphs .week-graph.five {
+      right: 71%; }
+    .graphs .week-graph.six {
+      right: 85%; }
 
 .container {
   display: block;
@@ -2395,7 +2431,25 @@ main.full-height {
     display: block;
     width: 100%; }
   .graphs .week-graph {
-    position: relative; }
+    position: absolute;
+    height: 100%;
+    width: 14%;
+    background: rgba(0, 0, 255, 0.5);
+    top: 0; }
+    .graphs .week-graph.zero {
+      right: 1%; }
+    .graphs .week-graph.one {
+      right: 15%; }
+    .graphs .week-graph.two {
+      right: 29%; }
+    .graphs .week-graph.three {
+      right: 43%; }
+    .graphs .week-graph.four {
+      right: 57%; }
+    .graphs .week-graph.five {
+      right: 71%; }
+    .graphs .week-graph.six {
+      right: 85%; }
 
 .container {
   display: block;

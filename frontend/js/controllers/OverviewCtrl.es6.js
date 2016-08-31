@@ -62,8 +62,13 @@ class OverviewCtrl {
     }
 
     percentageDoneTransform() {
-        let amount = this.percentageDone() / 100;
-        return 'scaleY(' + amount + ')';
+        let scale = this.percentageDone() / 100;
+        return 'scaleY(' + scale + ')';
+    }
+
+    calculateTransform(amount) {
+      let scale = amount / this.completed;
+      return 'scaleY(' + scale + ')';
     }
 
     sortToDays(array) {
@@ -74,7 +79,6 @@ class OverviewCtrl {
           let daysAgo = Math.round(Math.abs((date.getTime() - today.getTime())/(oneDay)));
           this.completedWeek[daysAgo]++;
         }, this);
-        console.log(this.completedWeek);
     }
 
     dateWithoutTime(date) {

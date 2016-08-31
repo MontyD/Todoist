@@ -11,7 +11,14 @@
 </nav>
 <main class="full-height">
     <section class="graphs">
-      <div class="graph main-graph" ng-style="{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform(), '-ms-transform': overview.percentageDoneTransform() }"></div>
+      <div class="graph main-graph" ng-style="{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform() }"></div>
+      <div class="graph week-graph six" ng-style="{'transform': overview.calculateTransform(overview.completedWeek[6]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[6]) }"></div>
+      <div class="graph week-graph five" ng-style="{'transform': overview.calculateTransform(overview.completedWeek[5]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[5]) }"></div>
+      <div class="graph week-graph four" ng-style="{'transform': overview.calculateTransform(overview.completedWeek[4]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[4]) }"></div>
+      <div class="graph week-graph three" ng-style="{'transform': overview.calculateTransform(overview.completedWeek[3]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[3]) }"></div>
+      <div class="graph week-graph two" ng-style="{'transform': overview.calculateTransform(overview.completedWeek[2]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[2]) }"></div>
+      <div class="graph week-graph one" ng-style="{'transform': overview.calculateTransform(overview.completedWeek[1]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[1]) }"></div>
+      <div class="graph week-graph zero" ng-style="{'transform': overview.calculateTransform(overview.completedWeek[0]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[0]) }"></div>
     </section>
     <section class="vertically-center container transparent center">
         <h1 class="overview-percentage">{{overview.percentageDone()}}%</h1>
