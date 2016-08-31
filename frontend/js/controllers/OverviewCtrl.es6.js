@@ -49,7 +49,7 @@ class OverviewCtrl {
     }
 
     percentageDone() {
-      return ((this.completed / (this.todo + this.completed)) * 100).toFixed(2) + '%';
+      return (Math.round((this.completed / (this.todo + this.completed)) * 10000))/100;
     }
 
     handleError(error) {

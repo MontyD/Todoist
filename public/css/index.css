@@ -530,6 +530,25 @@ main.full-height {
     .overview-percentage {
       font-size: 5em; } }
 
+.graphs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+  .graphs .graph {
+    height: 100%;
+    -webkit-transform-origin: left bottom;
+        -ms-transform-origin: left bottom;
+            transform-origin: left bottom;
+    transition: -webkit-transform 0.2s ease;
+    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, -webkit-transform 0.2s ease; }
+  .graphs .main-graph {
+    position: relative;
+    display: block;
+    width: 100%; }
+
 .container {
   display: block;
   position: relative;
@@ -710,6 +729,9 @@ button.icon {
 
 .slight-gradient {
   background: radial-gradient(#009688, #004D40); }
+
+.main-graph {
+  background: rgba(68, 138, 255, 0.4); }
 
 form {
   padding: 0 0 1em; }
@@ -1461,6 +1483,25 @@ main.full-height {
     .overview-percentage {
       font-size: 5em; } }
 
+.graphs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+  .graphs .graph {
+    height: 100%;
+    -webkit-transform-origin: left bottom;
+        -ms-transform-origin: left bottom;
+            transform-origin: left bottom;
+    transition: -webkit-transform 0.2s ease;
+    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, -webkit-transform 0.2s ease; }
+  .graphs .main-graph {
+    position: relative;
+    display: block;
+    width: 100%; }
+
 .container {
   display: block;
   position: relative;
@@ -1641,6 +1682,9 @@ button.icon {
 
 .slight-gradient {
   background: radial-gradient(#009688, #004D40); }
+
+.main-graph {
+  background: rgba(68, 138, 255, 0.4); }
 
 body {
   margin: 0 0 130px; }
@@ -2307,6 +2351,25 @@ main.full-height {
     .overview-percentage {
       font-size: 5em; } }
 
+.graphs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+  .graphs .graph {
+    height: 100%;
+    -webkit-transform-origin: left bottom;
+        -ms-transform-origin: left bottom;
+            transform-origin: left bottom;
+    transition: -webkit-transform 0.2s ease;
+    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, -webkit-transform 0.2s ease; }
+  .graphs .main-graph {
+    position: relative;
+    display: block;
+    width: 100%; }
+
 .container {
   display: block;
   position: relative;
@@ -2487,6 +2550,9 @@ button.icon {
 
 .slight-gradient {
   background: radial-gradient(#009688, #004D40); }
+
+.main-graph {
+  background: rgba(68, 138, 255, 0.4); }
 
 .bounce {
   -webkit-animation-name: bounce;

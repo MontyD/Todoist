@@ -221,3 +221,7 @@ button.icon {
 .slight-gradient {
     background: radial-gradient($colorMain, $colorDark);
 }
+
+.main-graph {
+  background: transparentize($colorLight, 0.6);
+}
