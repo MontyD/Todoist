@@ -36,6 +36,7 @@ class OverviewCtrl {
             result => {
                 this.completed = result.data.count;
                 this.roomName = result.data.roomName;
+                this.initSockets();
             },
             this.handleError.bind(this)
         );
@@ -46,6 +47,48 @@ class OverviewCtrl {
         );
 
         this.calculateDaysOfTheWeek();
+
+    }
+
+    initSockets() {
+        // Check if already set up, if so return.
+        if (this.$rootScope.initCompleteOverview) {
+            return;
+        }
+
+        // echo room name
+        this.SocketsService.emit('room', this.roomName);
+
+        // Socket events config
+        this.SocketsService.on('UserConnected', (function(data) {
+
+        }).bind(this));
+
+
+        // <--- Actual Event Listeners
+        this.SocketsService.on('NewTask', (function(data) {
+            this.todo++;
+            // force view to update;
+            this.$scope.$apply();
+        }).bind(this));
+
+        this.SocketsService.on('UpdatedTask', (function(data) {
+            if (data.task.status === 'Complete') {
+                this.completed++;
+                this.completedWeek[0]++;
+                this.todo--;
+            }
+            // force view to update;
+            this.$scope.$apply();
+        }).bind(this));
+
+        this.SocketsService.on('DeletedTask', (function(data) {
+            this.todo--;
+            // force view to update;
+            this.$scope.$apply();
+        }).bind(this));
+        // ----->
+        this.$rootScope.initCompleteOverview = true;
 
     }
 

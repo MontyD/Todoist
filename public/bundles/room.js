@@ -44148,6 +44148,7 @@
 	        this.TasksService.countCompleted().then(function (result) {
 	            _this.completed = result.data.count;
 	            _this.roomName = result.data.roomName;
+	            _this.initSockets();
 	        }, this.handleError.bind(this));
 
 	        this.TasksService.getCompletedLastWeek().then(function (result) {
@@ -44158,6 +44159,45 @@
 	    }
 
 	    _createClass(OverviewCtrl, [{
+	        key: 'initSockets',
+	        value: function initSockets() {
+	            // Check if already set up, if so return.
+	            if (this.$rootScope.initCompleteOverview) {
+	                return;
+	            }
+
+	            // echo room name
+	            this.SocketsService.emit('room', this.roomName);
+
+	            // Socket events config
+	            this.SocketsService.on('UserConnected', (function (data) {}).bind(this));
+
+	            // <--- Actual Event Listeners
+	            this.SocketsService.on('NewTask', (function (data) {
+	                this.todo++;
+	                // force view to update;
+	                this.$scope.$apply();
+	            }).bind(this));
+
+	            this.SocketsService.on('UpdatedTask', (function (data) {
+	                if (data.task.status === 'Complete') {
+	                    this.completed++;
+	                    this.completedWeek[0]++;
+	                    this.todo--;
+	                }
+	                // force view to update;
+	                this.$scope.$apply();
+	            }).bind(this));
+
+	            this.SocketsService.on('DeletedTask', (function (data) {
+	                this.todo--;
+	                // force view to update;
+	                this.$scope.$apply();
+	            }).bind(this));
+	            // ----->
+	            this.$rootScope.initCompleteOverview = true;
+	        }
+	    }, {
 	        key: 'Notify',
 	        value: function Notify(text, type) {
 	            if (this.doNotNotify) {
