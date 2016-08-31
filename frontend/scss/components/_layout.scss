@@ -247,31 +247,67 @@ main.full-height {
     }
 
     .week-graph {
-      position: absolute;
-      height: 100%;
-      width: 14%;
-      background: transparentize(blue, 0.5);
-      top: 0;
-      &.zero {
-        right: 1%;
-      }
-      &.one {
-        right: 15%;
-      }
-      &.two {
-        right: 29%;
-      }
-      &.three {
-        right: 43%;
-      }
-      &.four {
-        right: 57%;
-      }
-      &.five {
-        right: 71%;
-      }
-      &.six {
-        right: 85%;
+        position: absolute;
+        height  : 100%;
+        width   : 14%;
+        top     : 0;
+
+        span {
+            position  : absolute;
+            bottom    : 1em;
+            width     : 100%;
+            left      : 0;
+            box-sizing: border-box;
+            padding   : 0 0.5em;
+            transition: opacity 0.2s ease;
+            opacity: 0;
+        }
+
+        .graph {
+            position: absolute;
+            top     : 0;
+            left    : 0;
+            width   : 100%;
+        }
+
+        &.zero {
+            right           : 1%;
+            transition-delay: 0.1s;
+        }
+
+        &.one {
+            right           : 15%;
+            transition-delay: 0.15s;
+        }
+
+        &.two {
+            right           : 29%;
+            transition-delay: 0.2s;
+        }
+
+        &.three {
+            right           : 43%;
+            transition-delay: 0.25s;
+        }
+
+        &.four {
+            right           : 57%;
+            transition-delay: 0.3s;
+        }
+
+        &.five {
+            right           : 71%;
+            transition-delay: 0.35s;
+        }
+
+        &.six {
+            right           : 85%;
+            transition-delay: 0.4s;
+        }
+    }
+    &.weekly {
+      .week-graph span {
+        opacity: 1;
       }
     }
 }

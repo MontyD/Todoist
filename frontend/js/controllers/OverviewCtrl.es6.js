@@ -15,6 +15,8 @@ class OverviewCtrl {
         this.completed = 0;
         this.todo = 0;
 
+        this.showWeeklyGraph = false;
+
         // array of completed this week,
         // initially seven 0
         this.completedWeek = [0, 0, 0, 0, 0, 0, 0];
@@ -62,12 +64,12 @@ class OverviewCtrl {
     }
 
     percentageDoneTransform() {
-        let scale = this.percentageDone() / 100;
+        let scale = this.showWeeklyGraph ? 0 : this.percentageDone() / 100;
         return 'scaleY(' + scale + ')';
     }
 
     calculateTransform(amount) {
-      let scale = amount / this.completed;
+      let scale = this.showWeeklyGraph ? amount / this.completed : 0;
       return 'scaleY(' + scale + ')';
     }
 
@@ -89,6 +91,10 @@ class OverviewCtrl {
       }
       let returnDate = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
       return returnDate;
+    }
+
+    toggleWeeklygraph() {
+      this.showWeeklyGraph = !this.showWeeklyGraph;
     }
 
     handleError(error) {

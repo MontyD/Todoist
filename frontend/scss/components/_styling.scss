@@ -130,14 +130,16 @@ p.slight {
         border    : 1px solid $colorDarkGrey;
         color     : $colorDarkGrey;
     }
+
     &.danger {
-      background: $colorWhite;
-      border    : 1px solid $colorError;
-      color     : $colorError;
-      &:hover {
-        color: $colorWhite;
-        background: $colorError;
-      }
+        background: $colorWhite;
+        border    : 1px solid $colorError;
+        color     : $colorError;
+
+        &:hover {
+            color     : $colorWhite;
+            background: $colorError;
+        }
     }
 
     &:hover {
@@ -175,10 +177,13 @@ button.icon {
     &:hover {
         color: $colorDark;
     }
-    &:active, &:focus {
-      outline: 0;
+
+    &:active,
+    &:focus {
+        outline: 0;
     }
 }
+
 .stats-container.first {
     border-right: 1px solid $colorDarkGrey;
 }
@@ -222,6 +227,20 @@ button.icon {
     background: radial-gradient($colorMain, $colorDark);
 }
 
+.opacity {
+    opacity: 0.6;
+}
+
 .main-graph {
-  background: transparentize($colorLight, 0.9);
+    background: transparentize($colorLight, 0.8);
+}
+
+.week-graph {
+    .graph {
+        background: transparentize($colorLight, 0.5);
+    }
+
+    span {
+        color: rgb(60, 78, 109);
+    }
 }

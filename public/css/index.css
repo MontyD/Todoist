@@ -559,22 +559,44 @@ main.full-height {
     position: absolute;
     height: 100%;
     width: 14%;
-    background: rgba(0, 0, 255, 0.5);
     top: 0; }
+    .graphs .week-graph span {
+      position: absolute;
+      bottom: 1em;
+      width: 100%;
+      left: 0;
+      box-sizing: border-box;
+      padding: 0 0.5em;
+      transition: opacity 0.2s ease;
+      opacity: 0; }
+    .graphs .week-graph .graph {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%; }
     .graphs .week-graph.zero {
-      right: 1%; }
+      right: 1%;
+      transition-delay: 0.1s; }
     .graphs .week-graph.one {
-      right: 15%; }
+      right: 15%;
+      transition-delay: 0.15s; }
     .graphs .week-graph.two {
-      right: 29%; }
+      right: 29%;
+      transition-delay: 0.2s; }
     .graphs .week-graph.three {
-      right: 43%; }
+      right: 43%;
+      transition-delay: 0.25s; }
     .graphs .week-graph.four {
-      right: 57%; }
+      right: 57%;
+      transition-delay: 0.3s; }
     .graphs .week-graph.five {
-      right: 71%; }
+      right: 71%;
+      transition-delay: 0.35s; }
     .graphs .week-graph.six {
-      right: 85%; }
+      right: 85%;
+      transition-delay: 0.4s; }
+  .graphs.weekly .week-graph span {
+    opacity: 1; }
 
 .container {
   display: block;
@@ -757,8 +779,16 @@ button.icon {
 .slight-gradient {
   background: radial-gradient(#009688, #004D40); }
 
+.opacity {
+  opacity: 0.6; }
+
 .main-graph {
-  background: rgba(68, 138, 255, 0.1); }
+  background: rgba(68, 138, 255, 0.2); }
+
+.week-graph .graph {
+  background: rgba(68, 138, 255, 0.5); }
+.week-graph span {
+  color: #3c4e6d; }
 
 form {
   padding: 0 0 1em; }
@@ -1539,22 +1569,44 @@ main.full-height {
     position: absolute;
     height: 100%;
     width: 14%;
-    background: rgba(0, 0, 255, 0.5);
     top: 0; }
+    .graphs .week-graph span {
+      position: absolute;
+      bottom: 1em;
+      width: 100%;
+      left: 0;
+      box-sizing: border-box;
+      padding: 0 0.5em;
+      transition: opacity 0.2s ease;
+      opacity: 0; }
+    .graphs .week-graph .graph {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%; }
     .graphs .week-graph.zero {
-      right: 1%; }
+      right: 1%;
+      transition-delay: 0.1s; }
     .graphs .week-graph.one {
-      right: 15%; }
+      right: 15%;
+      transition-delay: 0.15s; }
     .graphs .week-graph.two {
-      right: 29%; }
+      right: 29%;
+      transition-delay: 0.2s; }
     .graphs .week-graph.three {
-      right: 43%; }
+      right: 43%;
+      transition-delay: 0.25s; }
     .graphs .week-graph.four {
-      right: 57%; }
+      right: 57%;
+      transition-delay: 0.3s; }
     .graphs .week-graph.five {
-      right: 71%; }
+      right: 71%;
+      transition-delay: 0.35s; }
     .graphs .week-graph.six {
-      right: 85%; }
+      right: 85%;
+      transition-delay: 0.4s; }
+  .graphs.weekly .week-graph span {
+    opacity: 1; }
 
 .container {
   display: block;
@@ -1737,8 +1789,16 @@ button.icon {
 .slight-gradient {
   background: radial-gradient(#009688, #004D40); }
 
+.opacity {
+  opacity: 0.6; }
+
 .main-graph {
-  background: rgba(68, 138, 255, 0.1); }
+  background: rgba(68, 138, 255, 0.2); }
+
+.week-graph .graph {
+  background: rgba(68, 138, 255, 0.5); }
+.week-graph span {
+  color: #3c4e6d; }
 
 body {
   margin: 0 0 130px; }
@@ -2434,22 +2494,44 @@ main.full-height {
     position: absolute;
     height: 100%;
     width: 14%;
-    background: rgba(0, 0, 255, 0.5);
     top: 0; }
+    .graphs .week-graph span {
+      position: absolute;
+      bottom: 1em;
+      width: 100%;
+      left: 0;
+      box-sizing: border-box;
+      padding: 0 0.5em;
+      transition: opacity 0.2s ease;
+      opacity: 0; }
+    .graphs .week-graph .graph {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%; }
     .graphs .week-graph.zero {
-      right: 1%; }
+      right: 1%;
+      transition-delay: 0.1s; }
     .graphs .week-graph.one {
-      right: 15%; }
+      right: 15%;
+      transition-delay: 0.15s; }
     .graphs .week-graph.two {
-      right: 29%; }
+      right: 29%;
+      transition-delay: 0.2s; }
     .graphs .week-graph.three {
-      right: 43%; }
+      right: 43%;
+      transition-delay: 0.25s; }
     .graphs .week-graph.four {
-      right: 57%; }
+      right: 57%;
+      transition-delay: 0.3s; }
     .graphs .week-graph.five {
-      right: 71%; }
+      right: 71%;
+      transition-delay: 0.35s; }
     .graphs .week-graph.six {
-      right: 85%; }
+      right: 85%;
+      transition-delay: 0.4s; }
+  .graphs.weekly .week-graph span {
+    opacity: 1; }
 
 .container {
   display: block;
@@ -2632,8 +2714,16 @@ button.icon {
 .slight-gradient {
   background: radial-gradient(#009688, #004D40); }
 
+.opacity {
+  opacity: 0.6; }
+
 .main-graph {
-  background: rgba(68, 138, 255, 0.1); }
+  background: rgba(68, 138, 255, 0.2); }
+
+.week-graph .graph {
+  background: rgba(68, 138, 255, 0.5); }
+.week-graph span {
+  color: #3c4e6d; }
 
 .bounce {
   -webkit-animation-name: bounce;

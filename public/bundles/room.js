@@ -43781,7 +43781,7 @@
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"full-height\">\n    <section class=\"graphs\">\n      <div class=\"graph main-graph\" ng-style=\"{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform() }\"></div>\n      <div class=\"graph week-graph six\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[6]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[6]) }\"></div>\n      <div class=\"graph week-graph five\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[5]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[5]) }\"></div>\n      <div class=\"graph week-graph four\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[4]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[4]) }\"></div>\n      <div class=\"graph week-graph three\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[3]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[3]) }\"></div>\n      <div class=\"graph week-graph two\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[2]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[2]) }\"></div>\n      <div class=\"graph week-graph one\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[1]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[1]) }\"></div>\n      <div class=\"graph week-graph zero\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[0]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[0]) }\"></div>\n    </section>\n    <section class=\"vertically-center container transparent center\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">Of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container \">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todos done\n            </article>\n        </div>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"full-height\">\n    <section class=\"graphs\" ng-class=\"{'weekly': overview.showWeeklyGraph}\">\n      <div class=\"graph main-graph\" ng-style=\"{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform() }\"></div>\n      <div class=\"week-graph six\">\n        <div\n          class=\"graph\"\n          ng-if=\"overview.completedWeek[5]\"\n          ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[6]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[6]) }\"></div>\n        <span>{{overview.completedWeek[6]}} completed</span>\n      </div>\n      <div class=\"week-graph five\">\n        <div\n          ng-if=\"overview.completedWeek[5]\"\n          class=\"graph\"\n          ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[5]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[5]) }\"></div>\n        <span>{{overview.completedWeek[5]}}</span>\n      </div>\n      <div class=\"week-graph four\">\n        <div\n          ng-if=\"overview.completedWeek[4]\"\n          class=\"graph\"\n          ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[4]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[4]) }\"></div>\n        <span>{{overview.completedWeek[4]}}</span>\n      </div>\n      <div class=\"week-graph three\">\n        <div\n          ng-if=\"overview.completedWeek[3]\"\n          class=\"graph\"\n          ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[3]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[3]) }\"></div>\n        <span>{{overview.completedWeek[3]}}</span>\n      </div>\n      <div class=\"week-graph two\">\n        <div\n          ng-if=\"overview.completedWeek[2]\"\n          class=\"graph\"\n          ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[2]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[2]) }\"></div>\n        <span>{{overview.completedWeek[2]}}</span>\n      </div>\n      <div class=\"week-graph one\">\n        <div\n          ng-if=\"overview.completedWeek[1]\"\n          class=\"graph\"\n          ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[1]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[1]) }\"></div>\n        <span>{{overview.completedWeek[1]}} completed yesterday</span>\n      </div>\n      <div class=\"week-graph zero\">\n        <div\n          ng-if=\"overview.completedWeek[0]\"\n          class=\"graph\"\n          ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[0]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[0]) }\"></div>\n        <span>{{overview.completedWeek[0]}} completed today</span>\n      </div>\n    </section>\n    <section class=\"vertically-center modal light transparent center\" ng-class=\"{'opacity': overview.showWeeklyGraph}\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container \">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todos done\n            </article>\n            <button class=\"button secondary\" ng-click=\"overview.toggleWeeklygraph()\">Toggle weekly graph</button>\n        </div>\n    </section>\n</main>\n";
 
 /***/ },
 /* 57 */
@@ -44127,6 +44127,8 @@
 	        this.completed = 0;
 	        this.todo = 0;
 
+	        this.showWeeklyGraph = false;
+
 	        // array of completed this week,
 	        // initially seven 0
 	        this.completedWeek = [0, 0, 0, 0, 0, 0, 0];
@@ -44174,13 +44176,13 @@
 	    }, {
 	        key: 'percentageDoneTransform',
 	        value: function percentageDoneTransform() {
-	            var scale = this.percentageDone() / 100;
+	            var scale = this.showWeeklyGraph ? 0 : this.percentageDone() / 100;
 	            return 'scaleY(' + scale + ')';
 	        }
 	    }, {
 	        key: 'calculateTransform',
 	        value: function calculateTransform(amount) {
-	            var scale = amount / this.completed;
+	            var scale = this.showWeeklyGraph ? amount / this.completed : 0;
 	            return 'scaleY(' + scale + ')';
 	        }
 	    }, {
@@ -44204,6 +44206,11 @@
 	            }
 	            var returnDate = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
 	            return returnDate;
+	        }
+	    }, {
+	        key: 'toggleWeeklygraph',
+	        value: function toggleWeeklygraph() {
+	            this.showWeeklyGraph = !this.showWeeklyGraph;
 	        }
 	    }, {
 	        key: 'handleError',
