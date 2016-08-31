@@ -17,6 +17,12 @@ function config($stateProvider, $urlRouterProvider, $locationProvider) {
           template: require('../templates/Overview.page.html'),
           controller: 'OverviewCtrl',
           controllerAs: 'overview'
+        })
+        .state('settings', {
+          url: '/settings',
+          template: require('../templates/Settings.page.html'),
+          controller: 'SettingsCtrl',
+          controllerAs: 'settings'
         });
 }
 
