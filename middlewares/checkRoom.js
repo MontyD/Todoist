@@ -3,8 +3,8 @@
 
 function checkRoom(req, res, next) {
 
-    // room gets passed as req.user
-    if (req.user) {
+    // room gets passed as req.room
+    if (req.room) {
         next();
     } else {
         var err = new Error('Please log in to view this page');

@@ -2,14 +2,14 @@
 
 function passRoomAndUser(req, res, next) {
 
-  //room is passed as req.user
-    if (!req.user) {
+  //room is passed as req.room
+    if (!req.room) {
         return next();
     }
     if (req.session.username) {
       res.locals.username = req.session.username;
     }
-    res.locals.room = req.user;
+    res.locals.room = req.room;
     next();
 }
 

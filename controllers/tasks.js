@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
     var limit = parseInt(req.query.limit) || 10;
     var initial = !!req.query.initial;
     var query = {
-        roomId: req.user.id
+        roomId: req.room.id
     };
     if (req.query.status) {
         query.status = req.query.status;
@@ -32,12 +32,12 @@ router.get('/', function(req, res, next) {
     }).then(function(tasks) {
         // emit socket that new user has joined
         if (initial) {
-            res.io.to(req.user.name).emit('UserConnected', req.session.username + ' has joined!');
+            res.io.to(req.room.name).emit('UserConnected', req.session.username + ' has joined!');
         }
         return res.json({
             tasks: tasks,
             username: req.session.username,
-            roomName: req.user.name
+            roomName: req.room.name
         });
     }).catch(function(err) {
         return handleError(err, next);
@@ -48,7 +48,7 @@ router.get('/', function(req, res, next) {
 // GET count of tasks - status Todo
 router.get('/todo-count', function(req, res, next) {
 
-    var reqRoomId = req.user.id;
+    var reqRoomId = req.room.id;
 
     models.tasks.count({
         where: {
@@ -72,7 +72,7 @@ router.get('/todo-count', function(req, res, next) {
 
 router.get('/completed-count', function(req, res, next) {
 
-    var reqRoomId = req.user.id;
+    var reqRoomId = req.room.id;
 
     models.tasks.count({
         where: {
@@ -82,12 +82,12 @@ router.get('/completed-count', function(req, res, next) {
     }).then(function(c) {
         if (!c) {
             return res.json({
-                roomName: req.user.name,
+                roomName: req.room.name,
                 count: 0
             });
         }
         return res.json({
-            roomName: req.user.name,
+            roomName: req.room.name,
             count: c
         });
     }).catch(function(err) {
@@ -98,7 +98,7 @@ router.get('/completed-count', function(req, res, next) {
 
 router.get('/completed-last-day', function(req, res, next) {
 
-    var reqRoomId = req.user.id;
+    var reqRoomId = req.room.id;
     var today = new Date();
 
     models.tasks.count({
@@ -126,7 +126,7 @@ router.get('/completed-last-day', function(req, res, next) {
 
 router.get('/completed-last-week', function(req, res, next) {
 
-    var reqRoomId = req.user.id;
+    var reqRoomId = req.room.id;
     var today = new Date();
 
     models.tasks.findAll({
@@ -159,7 +159,7 @@ router.get('/:taskID', function(req, res, next) {
         if (!task) {
             return next();
         } else {
-            if (task.roomId === req.user.id) {
+            if (task.roomId === req.room.id) {
                 return res.json(task);
             } else {
                 var error = new Error('Unauthorised');
@@ -184,12 +184,12 @@ router.post('/', function(req, res, next) {
 
     var task = req.body.task;
 
-    task.roomId = req.user.id;
+    task.roomId = req.room.id;
 
     task.username = req.session.username;
 
     models.tasks.create(task).then(function(newTask) {
-        res.io.to(req.user.name).emit('NewTask', {
+        res.io.to(req.room.name).emit('NewTask', {
             task: newTask,
             username: req.session.username,
             hash: req.body.hash
@@ -215,9 +215,9 @@ router.put('/:taskID', function(req, res, next) {
         if (!task) {
             return next();
         } else {
-            if (task.roomId === req.user.id) {
+            if (task.roomId === req.room.id) {
                 task.update(req.body.task).then(function(updatedTask) {
-                    res.io.to(req.user.name).emit('UpdatedTask', {
+                    res.io.to(req.room.name).emit('UpdatedTask', {
                         task: updatedTask,
                         username: req.session.username,
                         hash: req.body.hash
@@ -243,11 +243,11 @@ router.put('/:taskID', function(req, res, next) {
 router.delete('/delete-completed', function(req, res, next) {
     models.tasks.destroy({
         where: {
-            roomId: req.user.id,
+            roomId: req.room.id,
             status: 'Complete'
         }
     }).then(function() {
-        res.io.to(req.user.name).emit('DeletedAllComplete', {
+        res.io.to(req.room.name).emit('DeletedAllComplete', {
             username: req.session.username,
             hash: req.query.hash
         });
@@ -272,9 +272,9 @@ router.delete('/:taskID', function(req, res, next) {
         if (!task) {
             return next();
         } else {
-            if (task.roomId === req.user.id) {
+            if (task.roomId === req.room.id) {
                 task.destroy().then(function(confirm) {
-                    res.io.to(req.user.name).emit('DeletedTask', {
+                    res.io.to(req.room.name).emit('DeletedTask', {
                         task: task,
                         username: req.session.username,
                         hash: req.query.hash

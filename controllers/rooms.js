@@ -67,6 +67,10 @@ router.post('/new', function(req, res, next) {
     });
 });
 
+router.put('/change-email', function(req, res, next) {
+  
+});
+
 // Get home - render user home admin
 router.get('/new', function(req, res) {
 
@@ -84,7 +88,7 @@ router.get('/logout', function(req, res, next) {
 });
 
 router.delete('/log-all-out', respondsToJSON, checkRoom, function(req, res, next){
-  res.io.to(req.user.name).emit('logAllOut', 'true');
+  res.io.to(req.room.name).emit('logAllOut', 'true');
   res.sendStatus(200);
 });
 

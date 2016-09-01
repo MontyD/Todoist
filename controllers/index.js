@@ -13,7 +13,7 @@ router.use('/tasks', respondsToJSON, checkRoom, require('./tasks.js'));
 
 // render index or login if no user
 router.get(['/', '/overview', '/settings'], passRoomAndUser, function(req, res) {
-  if (req.user) {
+  if (req.room) {
     res.render('room');
   } else {
     res.render('Index');

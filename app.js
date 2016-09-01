@@ -41,7 +41,7 @@ app.use(session({
 
 
 // Passport setup
-app.use(passport.initialize());
+app.use(passport.initialize({userProperty: 'room'}));
 app.use(passport.session());
 
 passport.serializeUser(function(room, done) {
