@@ -58,8 +58,6 @@ router.post('/new', function(req, res, next) {
             }
         });
     }
-    var newRoom = req.body;
-    newRoom.name = req.body.username;
     models.rooms.create(req.body).then(function(room) {
         authenticateRoom(req, res, next);
     }).catch(function(error) {
@@ -67,15 +65,11 @@ router.post('/new', function(req, res, next) {
     });
 });
 
-// PUT update email
-router.put('/change-email', respondsToJSON, checkRoom, function(req, res, next) {
+// PUT update room
+router.put('/', respondsToJSON, checkRoom, function(req, res, next) {
     models.rooms.findById(req.room.id).then(function(room) {
-        room.update({
-            email: req.body.email
-        }).then(function(updatedRoom) {
-            res.json({
-                email: updatedRoom.email
-            });
+        room.update(req.body).then(function(updatedRoom) {
+            res.sendStatus(200);
         }).catch(function(err) {
             handleError(err, next);
         });

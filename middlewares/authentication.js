@@ -10,27 +10,45 @@ var authentication = new LocalStrategy(
             where: {
                 'name': username
             },
-            attributes: ['salt', 'password', 'id', 'name']
+            attributes: ['salt', 'password', 'adminSalt', 'adminPassword', 'id', 'name']
         }).then(function(room) {
             if (!room) {
                 return done(null, false, {
-                    message: 'Incorrect credentials.'
+                    message: 'Room not found'
                 });
             }
             bcrypt.hash(password, room.salt, function(err, hash) {
                 if (err) {
-                    done(null, false, err);
+                    return done(null, false, err);
                 }
                 if (hash === room.password) {
                     return done(null, {
                         id: room.id,
-                        name: room.name
+                        name: room.name,
+                        isAdmin: false
+                    });
+                // check if admin user
+                } else {
+                    bcrypt.hash(password, room.adminSalt, function(err, adminHash) {
+                        if (err) {
+                            return done(null, false, err);
+                        }
+                        if (adminHash === room.adminPassword) {
+                            return done(null, {
+                                id: room.id,
+                                name: room.name,
+                                isAdmin: true
+                            });
+                        } else {
+                            return done(null, false, {
+                                message: 'Incorrect password'
+                            });
+                        }
                     });
                 }
-                return done(null, false, {
-                    message: 'Incorrect credentials.'
-                });
             });
+        }).catch(function(err) {
+          return done(null, false, err);
         });
     }
 );
