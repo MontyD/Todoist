@@ -40,7 +40,8 @@ app.use(session({
 }));
 
 
-// Passport setup
+// Passport setup - use req.room instead
+// of req.user
 app.use(passport.initialize({userProperty: 'room'}));
 app.use(passport.session());
 

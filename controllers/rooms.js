@@ -63,12 +63,25 @@ router.post('/new', function(req, res, next) {
     models.rooms.create(req.body).then(function(room) {
         authenticateRoom(req, res, next);
     }).catch(function(error) {
-      return handleError(error, next);
+        return handleError(error, next);
     });
 });
 
-router.put('/change-email', function(req, res, next) {
-  
+// PUT update email
+router.put('/change-email', respondsToJSON, checkRoom, function(req, res, next) {
+    models.rooms.findById(req.room.id).then(function(room) {
+        room.update({
+            email: req.body.email
+        }).then(function(updatedRoom) {
+            res.json({
+                email: updatedRoom.email
+            });
+        }).catch(function(err) {
+            handleError(err, next);
+        });
+    }).catch(function(err) {
+        handleError(err, next);
+    });
 });
 
 // Get home - render user home admin
@@ -87,9 +100,9 @@ router.get('/logout', function(req, res, next) {
 
 });
 
-router.delete('/log-all-out', respondsToJSON, checkRoom, function(req, res, next){
-  res.io.to(req.room.name).emit('logAllOut', 'true');
-  res.sendStatus(200);
+router.delete('/log-all-out', respondsToJSON, checkRoom, function(req, res, next) {
+    res.io.to(req.room.name).emit('logAllOut', 'true');
+    res.sendStatus(200);
 });
 
 
