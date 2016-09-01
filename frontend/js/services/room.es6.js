@@ -7,6 +7,10 @@ class RoomService {
         this.urlBase = '/rooms/';
     }
 
+    getInfo() {
+      return this.$http.get(this.urlBase + 'info');
+    }
+
     logAllOut() {
       return this.$http.delete(this.urlBase + 'log-all-out');
     }

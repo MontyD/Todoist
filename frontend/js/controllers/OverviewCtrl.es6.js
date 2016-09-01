@@ -10,6 +10,8 @@ class OverviewCtrl {
         this.$scope = $scope;
         this.$rootScope = $rootScope;
 
+        this.isAdmin = this.$rootScope.isAdmin;
+
         // initial variables
         this.roomName = this.$rootScope.roomName;
         this.completed = 0;

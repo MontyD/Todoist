@@ -2,13 +2,18 @@
 
 class RoomCtrl {
 
-    constructor(Notification, TasksService, SocketsService, $scope, $rootScope) {
+    constructor(Notification, TasksService, SocketsService, RoomService, $scope, $rootScope) {
         // Dependencies
         this.Notification = Notification;
         this.TasksService = TasksService;
         this.SocketsService = SocketsService;
+        this.RoomService = RoomService;
         this.$scope = $scope;
         this.$rootScope = $rootScope;
+
+        this.$rootScope.roomName = '';
+        this.$rootScope.isAdmin = false;
+        this.isAdmin = false;
 
         // initial variables
         this.roomName = '';
@@ -33,8 +38,21 @@ class RoomCtrl {
 
         this.moving = false;
 
-        // read tasks from server, and also get username
-        // and room name. Set initial to true (last arg);
+        // get room info: username, roomname,
+        // admin status, and sockets echo that
+        // user is connected
+        this.RoomService.getInfo().then(
+          result => {
+            this.$rootScope.roomName = result.data.roomName;
+            this.roomName = result.data.roomName;
+            this.$rootScope.isAdmin = result.data.isAdmin;
+            this.isAdmin = result.data.isAdmin;
+            this.username = result.data.username;
+          },
+          this.handleError.bind(this)
+        );
+
+        // read tasks from server
         this.TasksService.read(undefined, undefined, this.taskAmount, 'Todo', true).then(
             result => {
                 this.tasks = result.data.tasks;
@@ -287,6 +305,6 @@ class RoomCtrl {
 
 }
 
-RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope', '$rootScope'];
+RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', 'RoomService', '$scope', '$rootScope'];
 
 export default RoomCtrl;

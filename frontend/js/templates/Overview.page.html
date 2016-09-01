@@ -4,7 +4,7 @@
         <ul>
             <li><a ui-sref="home" title="Todo">Todos</a></li>
             <li><a ui-sref="overview" title="Overview" class="current">Overview</a></li>
-            <li><a ui-sref="settings" title="Settings">Settings</a></li>
+            <li ng-if="overview.isAdmin"><a ui-sref="settings" title="Settings">Settings</a></li>
             <li><a target="_self" href="/rooms/login/" title="Logout">Logout</a></li>
         </ul>
     </div>

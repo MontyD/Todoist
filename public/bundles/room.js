@@ -43788,13 +43788,13 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n    <section class=\"thirds one  transparent\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n        <article class=\"stats-container first\">\n            <div class=\"large-number\">{{home.tasksTotal}}</div>\n            Todos to do\n        </article>\n        <article class=\"stats-container\">\n            <div class=\"large-number\">{{home.completedLastDay}}</div>\n            Todos done today\n        </article>\n    </section>\n    <section class=\"thirds two tasks-container\">\n        <article ng-if=\"home.tasks.length !== 0\">\n            <div class=\"task-item\" ng-repeat=\"task in home.tasks\">\n                <task-view task=\"task\" edited=\"home.updateTask(task)\" deleted=\"home.deleteTask(task)\">\n                </task-view>\n            </div>\n            <div class=\"pagination-controls\" ng-if=\"home.availablePages() > 1\">\n                <button class=\"icon back\" ng-if=\"home.taskPage > 0\" ng-click=\"home.pageBack()\"><span class=\"lnr lnr-arrow-left\"></span></button>\n                <span class=\"page-number transparent\">Page {{home.taskPage + 1}} of {{home.availablePages()}}</span>\n                <button class=\"icon forward\" ng-if=\"home.availablePages() !== (home.taskPage + 1)\" ng-click=\"home.pageForward()\"><span class=\"lnr lnr-arrow-right\"></span></button>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"home\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n    <section class=\"thirds one  transparent\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n        <article class=\"stats-container first\">\n            <div class=\"large-number\">{{home.tasksTotal}}</div>\n            Todos to do\n        </article>\n        <article class=\"stats-container\">\n            <div class=\"large-number\">{{home.completedLastDay}}</div>\n            Todos done today\n        </article>\n    </section>\n    <section class=\"thirds two tasks-container\">\n        <article ng-if=\"home.tasks.length !== 0\">\n            <div class=\"task-item\" ng-repeat=\"task in home.tasks\">\n                <task-view task=\"task\" edited=\"home.updateTask(task)\" deleted=\"home.deleteTask(task)\">\n                </task-view>\n            </div>\n            <div class=\"pagination-controls\" ng-if=\"home.availablePages() > 1\">\n                <button class=\"icon back\" ng-if=\"home.taskPage > 0\" ng-click=\"home.pageBack()\"><span class=\"lnr lnr-arrow-left\"></span></button>\n                <span class=\"page-number transparent\">Page {{home.taskPage + 1}} of {{home.availablePages()}}</span>\n                <button class=\"icon forward\" ng-if=\"home.availablePages() !== (home.taskPage + 1)\" ng-click=\"home.pageForward()\"><span class=\"lnr lnr-arrow-right\"></span></button>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
 
 /***/ },
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"full-height\">\n    <section class=\"graphs\" ng-class=\"{'weekly': overview.showWeeklyGraph}\">\n        <div class=\"graph main-graph\" ng-style=\"{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform() }\"></div>\n        <div class=\"week-graph six\">\n            <div class=\"graph\" ng-if=\"overview.completedWeek[5]\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[6]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[6]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[6]}}</span> completed on {{overview.daysOfTheWeek[6]}}</span>\n        </div>\n        <div class=\"week-graph five\">\n            <div ng-if=\"overview.completedWeek[5]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[5]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[5]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[5]}}</span> completed on {{overview.daysOfTheWeek[5]}}</span>\n        </div>\n        <div class=\"week-graph four\">\n            <div ng-if=\"overview.completedWeek[4]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[4]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[4]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[4]}}</span> completed on {{overview.daysOfTheWeek[4]}}</span>\n        </div>\n        <div class=\"week-graph three\">\n            <div ng-if=\"overview.completedWeek[3]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[3]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[3]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[3]}}</span> completed on {{overview.daysOfTheWeek[3]}}</span>\n        </div>\n        <div class=\"week-graph two\">\n            <div ng-if=\"overview.completedWeek[2]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[2]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[2]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[2]}}</span> completed on {{overview.daysOfTheWeek[2]}}</span>\n        </div>\n        <div class=\"week-graph one\">\n            <div ng-if=\"overview.completedWeek[1]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[1]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[1]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[1]}}</span> completed yesterday</span>\n        </div>\n        <div class=\"week-graph zero\">\n            <div ng-if=\"overview.completedWeek[0]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[0]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[0]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[0]}}</span> completed today</span>\n        </div>\n    </section>\n    <section class=\"vertically-center modal light transparent center\" ng-class=\"{'opacity': overview.showWeeklyGraph}\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container\">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todos done\n            </article>\n            <button class=\"button secondary\" ng-if=\"overview.completed > 0\" ng-click=\"overview.toggleWeeklygraph()\">Toggle weekly graph</button>\n        </div>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{overview.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li ng-if=\"overview.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"full-height\">\n    <section class=\"graphs\" ng-class=\"{'weekly': overview.showWeeklyGraph}\">\n        <div class=\"graph main-graph\" ng-style=\"{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform() }\"></div>\n        <div class=\"week-graph six\">\n            <div class=\"graph\" ng-if=\"overview.completedWeek[5]\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[6]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[6]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[6]}}</span> completed on {{overview.daysOfTheWeek[6]}}</span>\n        </div>\n        <div class=\"week-graph five\">\n            <div ng-if=\"overview.completedWeek[5]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[5]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[5]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[5]}}</span> completed on {{overview.daysOfTheWeek[5]}}</span>\n        </div>\n        <div class=\"week-graph four\">\n            <div ng-if=\"overview.completedWeek[4]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[4]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[4]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[4]}}</span> completed on {{overview.daysOfTheWeek[4]}}</span>\n        </div>\n        <div class=\"week-graph three\">\n            <div ng-if=\"overview.completedWeek[3]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[3]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[3]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[3]}}</span> completed on {{overview.daysOfTheWeek[3]}}</span>\n        </div>\n        <div class=\"week-graph two\">\n            <div ng-if=\"overview.completedWeek[2]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[2]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[2]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[2]}}</span> completed on {{overview.daysOfTheWeek[2]}}</span>\n        </div>\n        <div class=\"week-graph one\">\n            <div ng-if=\"overview.completedWeek[1]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[1]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[1]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[1]}}</span> completed yesterday</span>\n        </div>\n        <div class=\"week-graph zero\">\n            <div ng-if=\"overview.completedWeek[0]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[0]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[0]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[0]}}</span> completed today</span>\n        </div>\n    </section>\n    <section class=\"vertically-center modal light transparent center\" ng-class=\"{'opacity': overview.showWeeklyGraph}\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container\">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todos done\n            </article>\n            <button class=\"button secondary\" ng-if=\"overview.completed > 0\" ng-click=\"overview.toggleWeeklygraph()\">Toggle weekly graph</button>\n        </div>\n    </section>\n</main>\n";
 
 /***/ },
 /* 57 */
@@ -43817,7 +43817,7 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var RoomCtrl = (function () {
-	    function RoomCtrl(Notification, TasksService, SocketsService, $scope, $rootScope) {
+	    function RoomCtrl(Notification, TasksService, SocketsService, RoomService, $scope, $rootScope) {
 	        var _this = this;
 
 	        _classCallCheck(this, RoomCtrl);
@@ -43826,8 +43826,12 @@
 	        this.Notification = Notification;
 	        this.TasksService = TasksService;
 	        this.SocketsService = SocketsService;
+	        this.RoomService = RoomService;
 	        this.$scope = $scope;
 	        this.$rootScope = $rootScope;
+
+	        this.$rootScope.isAdmin = false;
+	        this.isAdmin = false;
 
 	        // initial variables
 	        this.roomName = '';
@@ -43852,8 +43856,18 @@
 
 	        this.moving = false;
 
-	        // read tasks from server, and also get username
-	        // and room name. Set initial to true (last arg);
+	        // get room info: username, roomname,
+	        // admin status, and sockets echo that
+	        // user is connected
+	        this.RoomService.getInfo().then(function (result) {
+	            _this.$rootScope.roomName = result.data.roomName;
+	            _this.roomName = result.data.roomName;
+	            _this.$rootScope.isAdmin = result.data.isAdmin;
+	            _this.isAdmin = result.data.isAdmin;
+	            _this.username = result.data.username;
+	        }, this.handleError.bind(this));
+
+	        // read tasks from server
 	        this.TasksService.read(undefined, undefined, this.taskAmount, 'Todo', true).then(function (result) {
 	            _this.tasks = result.data.tasks;
 	            _this.username = result.data.username;
@@ -44115,7 +44129,7 @@
 	    return RoomCtrl;
 	})();
 
-	RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope', '$rootScope'];
+	RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', 'RoomService', '$scope', '$rootScope'];
 
 	exports['default'] = RoomCtrl;
 	module.exports = exports['default'];
@@ -44146,6 +44160,8 @@
 	        this.SocketsService = SocketsService;
 	        this.$scope = $scope;
 	        this.$rootScope = $rootScope;
+
+	        this.isAdmin = this.$rootScope.isAdmin;
 
 	        // initial variables
 	        this.roomName = this.$rootScope.roomName;
@@ -44972,6 +44988,11 @@
 	    }
 
 	    _createClass(RoomService, [{
+	        key: 'getInfo',
+	        value: function getInfo() {
+	            return this.$http.get(this.urlBase + 'info');
+	        }
+	    }, {
 	        key: 'logAllOut',
 	        value: function logAllOut() {
 	            return this.$http['delete'](this.urlBase + 'log-all-out');

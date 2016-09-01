@@ -45,6 +45,15 @@ router.get('/login', function(req, res, next) {
     });
 });
 
+// Get - info about room logged into
+router.get('/info', respondsToJSON, checkRoom, function(req, res, next) {
+  return res.json({
+    roomName: req.room.name,
+    isAdmin: req.room.isAdmin,
+    username: req.session.username
+  });
+});
+
 // Post login - authenticate
 router.post('/login', authenticateRoom);
 
@@ -82,15 +91,6 @@ router.put('/', respondsToJSON, checkRoom, function(req, res, next) {
 router.get('/new', function(req, res) {
 
     res.render('security/new');
-
-});
-
-// Get - logout
-router.get('/logout', function(req, res, next) {
-
-    req.logout();
-
-    res.redirect('/');
 
 });
 

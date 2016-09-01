@@ -35,9 +35,7 @@ router.get('/', function(req, res, next) {
             res.io.to(req.room.name).emit('UserConnected', req.session.username + ' has joined!');
         }
         return res.json({
-            tasks: tasks,
-            username: req.session.username,
-            roomName: req.room.name
+            tasks: tasks
         });
     }).catch(function(err) {
         return handleError(err, next);
