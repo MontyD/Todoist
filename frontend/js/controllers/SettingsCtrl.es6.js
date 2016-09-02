@@ -81,7 +81,7 @@ class SettingsCtrl {
         this.passcodeAttemptedSubmit = true;
         return;
       }
-      this.RoomService.update({passcode: this.newPassCode}).then(
+      this.RoomService.update({password: this.newPassCode}).then(
         result => {
           this.Notify('Passcode sucessfully changed!', 'Success');
           this.newPassCode = '';

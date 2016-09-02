@@ -69,7 +69,7 @@ class TasksService {
     }
 
     clearCompleted(hash) {
-      return this.$http.delete(this.urlBase + 'delete-completed' + '?hash=' + hash)
+      return this.$http.delete(this.urlBase + 'delete-completed' + '?hash=' + hash);
     }
 
 }

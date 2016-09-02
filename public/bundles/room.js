@@ -43800,7 +43800,7 @@
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{settings.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\" class=\"current\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <section class=\"modal light\">\n    <h2>{{settings.roomName}} Settings</h2>\n    <article class=\"settings-article\" ng-if=\"settings.completed\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Remove completed todos:\n        <span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingDeleteTasks\" class=\"button danger\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Remove Completed</button>\n        <div ng-if=\"settings.confirmingDeleteTasks\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Cancel</button>\n          <button class=\"button danger\" ng-click=\"settings.deleteCompletedTasks()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Log out all members of this room:<span class=\"explaination-text\">You will also be logged out</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingLogOut\" class=\"button secondary\" ng-click=\"settings.toggleConfirmingLogOut()\">Log all out</button>\n        <div ng-if=\"settings.confirmingLogOut\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingLogOut()\">Cancel</button>\n          <button class=\"button primary\" ng-click=\"settings.logAllOut()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the passcode for access to this room:\n      </p>\n      <form class=\"inline\" name=\"emailAddressForm\" ng-class=\"{'attempted-submit': attemptedSubmit}\" ng-submit=\"changePasscode(emailAddressForm.$valid)\" novalidate=\"novalidate\">\n        <label for=\"passcode\">New passcode:</label>\n        <input type=\"text\" id=\"passcode\" name=\"passcode\" ng-model=\"newPasscode\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change passcode\" />\n      </form>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the password for this room:\n      </p>\n      <form class=\"inline\" name=\"emailAddressForm\" ng-submit=\"updatePassword()\" novalidate=\"novalidate\">\n        <label for=\"current-password\">Current password:</label>\n        <input type=\"password\" id=\"current-password\" name=\"current-password\" required=\"requied\" />\n        <label for=\"password\">New password:</label>\n        <input type=\"password\" id=\"password\" name=\"password\" required=\"requied\" />\n        <label for=\"password-confirm\" >Confirm password:</label>\n        <input type=\"password\" id=\"password-confirm\" name=\"password-confirm\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change Password\" />\n      </form>\n    </article>\n\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Delete this room completely:<span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button class=\"button danger\" ng-click=\"settings.confirmingDeleteRoom()\">Delete this room</button>\n      </div>\n    </article>\n  </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{settings.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\" class=\"current\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <section class=\"modal light\">\n    <h2>{{settings.roomName}} Settings</h2>\n    <article class=\"settings-article\" ng-if=\"settings.completed\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Remove completed todos:\n        <span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingDeleteTasks\" class=\"button danger\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Remove Completed</button>\n        <div ng-if=\"settings.confirmingDeleteTasks\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Cancel</button>\n          <button class=\"button danger\" ng-click=\"settings.deleteCompletedTasks()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Log out all members of this room:<span class=\"explaination-text\">You will also be logged out</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingLogOut\" class=\"button secondary\" ng-click=\"settings.toggleConfirmingLogOut()\">Log all out</button>\n        <div ng-if=\"settings.confirmingLogOut\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingLogOut()\">Cancel</button>\n          <button class=\"button primary\" ng-click=\"settings.logAllOut()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the passcode for access to this room:\n      </p>\n      <form class=\"inline\" name=\"passcodeForm\" ng-class=\"{'attempted-submit': settings.passcodeAttemptedSubmit}\" ng-submit=\"settings.changePasscode(passcodeForm.$valid)\" novalidate=\"novalidate\">\n        <label for=\"passcode\">New passcode:</label>\n        <input type=\"text\" id=\"passcode\" name=\"passcode\" ng-model=\"settings.newPassCode\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change passcode\" />\n      </form>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the password for this room:\n      </p>\n      <form class=\"inline\" name=\"emailAddressForm\" ng-submit=\"updatePassword()\" novalidate=\"novalidate\">\n        <label for=\"current-password\">Current password:</label>\n        <input type=\"password\" id=\"current-password\" name=\"current-password\" required=\"requied\" />\n        <label for=\"password\">New password:</label>\n        <input type=\"password\" id=\"password\" name=\"password\" required=\"requied\" />\n        <label for=\"password-confirm\" >Confirm password:</label>\n        <input type=\"password\" id=\"password-confirm\" name=\"password-confirm\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change Password\" />\n      </form>\n    </article>\n\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Delete this room completely:<span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button class=\"button danger\" ng-click=\"settings.confirmingDeleteRoom()\">Delete this room</button>\n      </div>\n    </article>\n  </section>\n</main>\n";
 
 /***/ },
 /* 58 */
@@ -44374,6 +44374,9 @@
 	        this.confirmingDeleteTasks = false;
 	        this.confirmingLogOut = false;
 
+	        this.passcodeAttemptedSubmit = false;
+	        this.newPassCode = '';
+
 	        this.TasksService.countCompleted().then(function (result) {
 	            return _this.completed = result.data.count > 0 ? true : false;
 	        }, this.handleError.bind(this));
@@ -44432,6 +44435,21 @@
 	        value: function logAllOut() {
 	            this.RoomService.logAllOut().then(function (result) {
 	                return window.location = '/rooms/login?kicked=true';
+	            }, this.handleError.bind(this));
+	        }
+	    }, {
+	        key: 'changePasscode',
+	        value: function changePasscode(valid) {
+	            var _this3 = this;
+
+	            if (!valid) {
+	                this.passcodeAttemptedSubmit = true;
+	                return;
+	            }
+	            this.RoomService.update({ password: this.newPassCode }).then(function (result) {
+	                _this3.Notify('Passcode sucessfully changed!', 'Success');
+	                _this3.newPassCode = '';
+	                _this3.passcodeAttemptedSubmit = false;
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
@@ -44976,26 +44994,31 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var RoomService = (function () {
-	    function RoomService($http) {
-	        _classCallCheck(this, RoomService);
+	  function RoomService($http) {
+	    _classCallCheck(this, RoomService);
 
-	        this.$http = $http;
-	        this.urlBase = '/rooms/';
+	    this.$http = $http;
+	    this.urlBase = '/rooms/';
+	  }
+
+	  _createClass(RoomService, [{
+	    key: 'getInfo',
+	    value: function getInfo() {
+	      return this.$http.get(this.urlBase + 'info');
 	    }
+	  }, {
+	    key: 'logAllOut',
+	    value: function logAllOut() {
+	      return this.$http['delete'](this.urlBase + 'log-all-out');
+	    }
+	  }, {
+	    key: 'update',
+	    value: function update(data) {
+	      return this.$http.put(this.urlBase, data);
+	    }
+	  }]);
 
-	    _createClass(RoomService, [{
-	        key: 'getInfo',
-	        value: function getInfo() {
-	            return this.$http.get(this.urlBase + 'info');
-	        }
-	    }, {
-	        key: 'logAllOut',
-	        value: function logAllOut() {
-	            return this.$http['delete'](this.urlBase + 'log-all-out');
-	        }
-	    }]);
-
-	    return RoomService;
+	  return RoomService;
 	})();
 
 	RoomService.$inject = ['$http'];

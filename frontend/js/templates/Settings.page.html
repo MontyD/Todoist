@@ -41,9 +41,9 @@
       <p class="left-aligned">
         Change the passcode for access to this room:
       </p>
-      <form class="inline" name="emailAddressForm" ng-class="{'attempted-submit': attemptedSubmit}" ng-submit="settings.changePasscode(emailAddressForm.$valid)" novalidate="novalidate">
+      <form class="inline" name="passcodeForm" ng-class="{'attempted-submit': settings.passcodeAttemptedSubmit}" ng-submit="settings.changePasscode(passcodeForm.$valid)" novalidate="novalidate">
         <label for="passcode">New passcode:</label>
-        <input type="text" id="passcode" name="passcode" ng-model="settings.newPasscode" required="requied" />
+        <input type="text" id="passcode" name="passcode" ng-model="settings.newPassCode" required="requied" />
         <input type="submit" class="button secondary" value="Change passcode" />
       </form>
     </article>
