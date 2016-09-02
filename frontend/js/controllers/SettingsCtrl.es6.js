@@ -18,6 +18,9 @@ class SettingsCtrl {
         this.confirmingDeleteTasks = false;
         this.confirmingLogOut = false;
 
+        this.passcodeAttemptedSubmit = false;
+        this.newPassCode = '';
+
         this.TasksService.countCompleted().then(
             result => this.completed = result.data.count > 0 ? true : false,
             this.handleError.bind(this)
@@ -69,6 +72,21 @@ class SettingsCtrl {
     logAllOut() {
       this.RoomService.logAllOut().then(
         result => window.location = '/rooms/login?kicked=true',
+        this.handleError.bind(this)
+      );
+    }
+
+    changePasscode(valid) {
+      if (!valid) {
+        this.passcodeAttemptedSubmit = true;
+        return;
+      }
+      this.RoomService.update({passcode: this.newPassCode}).then(
+        result => {
+          this.Notify('Passcode sucessfully changed!', 'Success');
+          this.newPassCode = '';
+          this.passcodeAttemptedSubmit = false;
+        },
         this.handleError.bind(this)
       );
     }
