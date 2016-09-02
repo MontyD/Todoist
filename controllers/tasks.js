@@ -80,12 +80,10 @@ router.get('/completed-count', function(req, res, next) {
     }).then(function(c) {
         if (!c) {
             return res.json({
-                roomName: req.room.name,
                 count: 0
             });
         }
         return res.json({
-            roomName: req.room.name,
             count: c
         });
     }).catch(function(err) {

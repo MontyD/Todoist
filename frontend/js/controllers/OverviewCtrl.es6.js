@@ -39,7 +39,6 @@ class OverviewCtrl {
         this.TasksService.countCompleted().then(
             result => {
                 this.completed = result.data.count;
-                this.roomName = result.data.roomName;
                 this.initSockets();
             },
             this.handleError.bind(this)
