@@ -47,11 +47,11 @@ router.get('/login', function(req, res, next) {
 
 // Get - info about room logged into
 router.get('/info', respondsToJSON, checkRoom, function(req, res, next) {
-  return res.json({
-    roomName: req.room.name,
-    isAdmin: req.room.isAdmin,
-    username: req.session.username
-  });
+    return res.json({
+        roomName: req.room.name,
+        isAdmin: req.room.isAdmin,
+        username: req.session.username
+    });
 });
 
 // Post login - authenticate
@@ -74,10 +74,13 @@ router.post('/new', function(req, res, next) {
     });
 });
 
-// PUT update room
-router.put('/', respondsToJSON, checkRoom, function(req, res, next) {
+// PUT update passcode
+router.put('/update-passcode', respondsToJSON, checkRoom, function(req, res, next) {
     models.rooms.findById(req.room.id).then(function(room) {
-        room.update(req.body).then(function(updatedRoom) {
+        // hash and salting done at model level
+        room.update({
+            password: req.body.password
+        }).then(function(updatedRoom) {
             res.sendStatus(200);
         }).catch(function(err) {
             handleError(err, next);
@@ -86,6 +89,40 @@ router.put('/', respondsToJSON, checkRoom, function(req, res, next) {
         handleError(err, next);
     });
 });
+
+// PUT update passcode
+router.put('/update-passcode', respondsToJSON, checkRoom, function(req, res, next) {
+    models.rooms.findById(req.room.id).then(function(room) {
+        room.update({
+            password: req.body.password
+        }).then(function(updatedRoom) {
+            res.sendStatus(200);
+        }).catch(function(err) {
+            handleError(err, next);
+        });
+    }).catch(function(err) {
+        handleError(err, next);
+    });
+});
+
+// PUT update admin password
+router.put('/update-admin-password', respondsToJSON, checkRoom, function(req, res, next) {
+  console.log(req.body);
+    models.rooms.findById(req.room.id).then(function(room) {
+        room.update({
+            oldPassword: req.body.old,
+            newPassword: req.body.new,
+            confirmPassword: req.body.confirm
+        }).then(function(updatedRoom) {
+            res.sendStatus(200);
+        }).catch(function(err) {
+            handleError(err, next);
+        });
+    }).catch(function(err) {
+        handleError(err, next);
+    });
+});
+
 
 // Get home - render user home admin
 router.get('/new', function(req, res) {

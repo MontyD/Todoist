@@ -15,8 +15,12 @@ class RoomService {
       return this.$http.delete(this.urlBase + 'log-all-out');
     }
 
-    update(data) {
-      return this.$http.put(this.urlBase, data);
+    updatePasscode(data) {
+      return this.$http.put(this.urlBase + 'update-passcode', data);
+    }
+
+    updateAdminPassword(data) {
+      return this.$http.put(this.urlBase + 'update-admin-password', data);
     }
 
 }

@@ -4,15 +4,6 @@ var bcrypt = require('bcrypt'),
     crypto = require('crypto');
 
 function generateHashAndSalt(room, options, cb) {
-    var done = 0,
-        passwordUpdate = false,
-        adminPasswordUpdate = false;
-    function complete() {
-        done--;
-        if (done === 0) {
-            cb(null, options);
-        }
-    }
     if (options.fields.indexOf('password') > -1) {
         done++;
         bcrypt.genSalt(12, function(err, salt) {
@@ -91,6 +82,40 @@ module.exports = function(sequelize, DataTypes) {
             beforeUpdate: generateHashAndSalt
         }
     });
+
+    room.prototype.generatePassCodeHash = function(room, cb) {
+      bcrypt.genSalt(12, function(err, salt) {
+          if (err) {
+              return cb(err);
+          }
+          room.salt = salt;
+          bcrypt.hash(room.password, salt, function(err, hash) {
+              if (err) {
+                  return cb(err);
+              }
+              room.password = hash;
+              room.salt = salt;
+              return cb(room);
+          });
+      });
+    };
+
+    room.prototype.generateAdminPasswordHash = function(room, cb) {
+      bcrypt.genSalt(12, function(err, salt) {
+          if (err) {
+              return cb(err);
+          }
+          room.adminSalt = salt;
+          bcrypt.hash(room.adminPassword, salt, function(err, hash) {
+              if (err) {
+                  return cb(err);
+              }
+              room.adminPassword = hash;
+              room.adminSalt = salt;
+              return cb(room);
+          });
+      });
+    }
 
     return room;
 };

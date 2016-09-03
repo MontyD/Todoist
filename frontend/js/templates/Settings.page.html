@@ -50,15 +50,16 @@
     </article>
     <article class="settings-article">
       <p class="left-aligned">
-        Change the password for this room:
+        Change the admin password for this room:
+        <span class="explaination-text">Password must be between five and seventy characters long</span>
       </p>
-      <form class="inline" name="emailAddressForm" ng-submit="updatePassword()" novalidate="novalidate">
+      <form class="inline" name="passwordForm" ng-class="{'attempted-submit': settings.passwordAttemptedSubmit}" ng-submit="settings.changeAdminPassword(passwordForm.$valid)" novalidate="novalidate">
         <label for="current-password">Current password:</label>
-        <input type="password" id="current-password" name="current-password" required="requied" />
+        <input type="password" pattern=".{5,70}" ng-model="settings.passwords.old" id="current-password" name="current-password" required="requied" />
         <label for="password">New password:</label>
-        <input type="password" id="password" name="password" required="requied" />
+        <input type="password" pattern=".{5,70}" ng-model="settings.passwords.new" id="password" name="password" required="requied" />
         <label for="password-confirm" >Confirm password:</label>
-        <input type="password" id="password-confirm" name="password-confirm" required="requied" />
+        <input type="password" pattern=".{5,70}" ng-model="settings.passwords.confirm" id="password-confirm" name="password-confirm" required="requied" />
         <input type="submit" class="button secondary" value="Change Password" />
       </form>
     </article>

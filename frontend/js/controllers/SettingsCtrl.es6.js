@@ -18,6 +18,13 @@ class SettingsCtrl {
         this.confirmingDeleteTasks = false;
         this.confirmingLogOut = false;
 
+        this.passwordAttemptedSubmit = false;
+        this.passwords = {
+          old: '',
+          new: '',
+          confirm: ''
+        };
+
         this.passcodeAttemptedSubmit = false;
         this.newPassCode = '';
 
@@ -81,11 +88,31 @@ class SettingsCtrl {
         this.passcodeAttemptedSubmit = true;
         return;
       }
-      this.RoomService.update({password: this.newPassCode}).then(
+      this.RoomService.updatePasscode({password: this.newPassCode}).then(
         result => {
           this.Notify('Passcode sucessfully changed!', 'Success');
           this.newPassCode = '';
           this.passcodeAttemptedSubmit = false;
+        },
+        this.handleError.bind(this)
+      );
+    }
+
+    changeAdminPassword(valid) {
+      if (!valid) {
+        this.passwordAttemptedSubmit = true;
+        return;
+      }
+      if (this.passwords.new !== this.passwords.confirm) {
+        this.passwordAttemptedSubmit = true;
+        this.Notify('Passwords do not match', 'Error');
+        return;
+      }
+      this.RoomService.updateAdminPassword(this.passwords).then(
+        result => {
+          this.Notify('Admin password sucessfully changed!', 'Success');
+          this.passwords = {old: '', new: '', confirm: ''};
+          this.passwordAttemptedSubmit = false;
         },
         this.handleError.bind(this)
       );
