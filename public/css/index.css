@@ -401,9 +401,8 @@ main.full-height {
   font-size: 0; }
   .button-group button {
     font-size: initial;
-    margin: 0;
+    margin: 0.4em -1px 0.4em 0;
     border-radius: 0;
-    margin-left: -1px;
     min-width: 75px; }
     .button-group button:first-child {
       border-top-left-radius: 0.3em;
@@ -1458,9 +1457,8 @@ main.full-height {
   font-size: 0; }
   .button-group button {
     font-size: initial;
-    margin: 0;
+    margin: 0.4em -1px 0.4em 0;
     border-radius: 0;
-    margin-left: -1px;
     min-width: 75px; }
     .button-group button:first-child {
       border-top-left-radius: 0.3em;
@@ -2403,9 +2401,8 @@ main.full-height {
   font-size: 0; }
   .button-group button {
     font-size: initial;
-    margin: 0;
+    margin: 0.4em -1px 0.4em 0;
     border-radius: 0;
-    margin-left: -1px;
     min-width: 75px; }
     .button-group button:first-child {
       border-top-left-radius: 0.3em;

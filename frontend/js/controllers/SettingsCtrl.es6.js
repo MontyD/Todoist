@@ -94,6 +94,11 @@ class SettingsCtrl {
     handleError(error) {
         if (error.status === 401 || error.status === 403) {
             window.location = '/rooms/login?timeout=true';
+            return;
+        }
+        if (error.status === 400) {
+          this.Notify(error.data, 'Error');
+          return;
         }
         console.error(error);
         this.Notify('Error communicating with server', 'Error');

@@ -48,9 +48,8 @@ main.full-height {
 
     button {
         font-size    : initial;
-        margin       : 0;
+        margin       : 0.4em -1px 0.4em 0;
         border-radius: 0;
-        margin-left  : -1px;
         min-width    : 75px;
 
         &:first-child {
