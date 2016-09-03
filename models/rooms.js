@@ -87,17 +87,29 @@ module.exports = function(sequelize, DataTypes) {
                 });
             },
             generateAdminPasswordHash: function(room, complete, error) {
-                bcrypt.genSalt(12, function(err, salt) {
+              // compare with passcode first
+                bcrypt.hash(room.adminPassword, room.passcodeSalt, function(err, hash) {
                     if (err) {
                         return error(err);
                     }
-                    bcrypt.hash(room.adminPassword, salt, function(err, hash) {
+                    if (hash === room.passcode) {
+                        return error({
+                            message: 'Admin password cannot be the same as room passcode',
+                            status: 400
+                        });
+                    }
+                    bcrypt.genSalt(12, function(err, salt) {
                         if (err) {
                             return error(err);
                         }
-                        room.adminPassword = hash;
-                        room.adminSalt = salt;
-                        return complete();
+                        bcrypt.hash(room.adminPassword, salt, function(err, hash) {
+                            if (err) {
+                                return error(err);
+                            }
+                            room.adminPassword = hash;
+                            room.adminSalt = salt;
+                            return complete();
+                        });
                     });
                 });
             },
@@ -108,28 +120,23 @@ module.exports = function(sequelize, DataTypes) {
                         status: 400
                     }, false);
                 }
-                bcrypt.hash(passwords.old, this.adminSalt, function(err, hash) {
+                var room = this;
+                bcrypt.hash(passwords.old, room.adminSalt, function(err, hash) {
                     if (err) {
                         return cb(err, false);
                     }
-                    if (hash !== this.adminPassword) {
+                    if (hash !== room.adminPassword) {
                         return cb({
                             message: 'Current password incorrect',
                             status: 400
                         }, false);
                     }
-                    bcrypt.genSalt(12, function(err, salt) {
-                        if (err) {
-                            return cb(err, false);
-                        }
-                        bcrypt.hash(passwords.new, salt, function(err, hash) {
-                            if (err) {
-                                return cb(err, false);
-                            }
-                            this.adminPassword = hash;
-                            this.adminSalt = salt;
-                            return cb(null, true);
-                        });
+                    room.update({
+                        adminPassword: passwords.new
+                    }).then(function(updated) {
+                        return cb(null, true);
+                    }).catch(function(err) {
+                        return cb(err, false);
                     });
                 });
             }

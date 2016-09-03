@@ -103,7 +103,7 @@ router.put('/update-passcode', respondsToJSON, checkRoom, function(req, res, nex
 // PUT update admin password
 router.put('/update-admin-password', respondsToJSON, checkRoom, function(req, res, next) {
     models.rooms.findById(req.room.id, {
-        attributes: ['id', 'adminSalt', 'adminPassword']
+        attributes: ['id', 'adminSalt', 'adminPassword', 'passcode', 'passcodeSalt']
     }).then(function(room) {
         room.updateAdminPassword(req.body, function(err, confirm) {
           if (err) {
