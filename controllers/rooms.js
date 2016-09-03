@@ -85,9 +85,11 @@ router.put('/update-passcode', respondsToJSON, checkRoom, function(req, res, nex
 
 // PUT update passcode
 router.put('/update-passcode', respondsToJSON, checkRoom, function(req, res, next) {
-    models.rooms.findById(req.room.id).then(function(room) {
+    models.rooms.findById(req.room.id, {
+        attributes: ['id']
+    }).then(function(room) {
         room.update({
-            password: req.body.password
+            passcode: req.body.passcode
         }).then(function(updatedRoom) {
             res.sendStatus(200);
         }).catch(function(err) {
@@ -100,15 +102,14 @@ router.put('/update-passcode', respondsToJSON, checkRoom, function(req, res, nex
 
 // PUT update admin password
 router.put('/update-admin-password', respondsToJSON, checkRoom, function(req, res, next) {
-    models.rooms.findById(req.room.id).then(function(room) {
-        room.update({
-            oldPassword: req.body.old,
-            newPassword: req.body.new,
-            confirmPassword: req.body.confirm
-        }).then(function(updatedRoom) {
-            res.sendStatus(200);
-        }).catch(function(err) {
-            handleError(err, next);
+    models.rooms.findById(req.room.id, {
+        attributes: ['id', 'adminSalt', 'adminPassword']
+    }).then(function(room) {
+        room.updateAdminPassword(req.body, function(err, confirm) {
+          if (err) {
+            return handleError(err, next);
+          }
+          return res.sendStatus(200);
         });
     }).catch(function(err) {
         handleError(err, next);

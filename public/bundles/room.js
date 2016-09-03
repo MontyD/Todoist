@@ -44453,7 +44453,7 @@
 	                this.passcodeAttemptedSubmit = true;
 	                return;
 	            }
-	            this.RoomService.updatePasscode({ password: this.newPassCode }).then(function (result) {
+	            this.RoomService.updatePasscode({ passcode: this.newPassCode }).then(function (result) {
 	                _this3.Notify('Passcode sucessfully changed!', 'Success');
 	                _this3.newPassCode = '';
 	                _this3.passcodeAttemptedSubmit = false;
