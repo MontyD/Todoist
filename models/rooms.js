@@ -3,45 +3,8 @@
 var bcrypt = require('bcrypt'),
     crypto = require('crypto');
 
-function generateHashAndSalt(room, options, cb) {
-    if (options.fields.indexOf('password') > -1) {
-        done++;
-        bcrypt.genSalt(12, function(err, salt) {
-            if (err) {
-                return cb(err, options);
-            }
-            room.salt = salt;
-            bcrypt.hash(room.password, salt, function(err, hash) {
-                if (err) {
-                    return cb(err, options);
-                }
-                room.password = hash;
-                room.salt = salt;
-                return complete();
-            });
-        });
-    }
-    if (options.fields.indexOf('adminPassword') > -1) {
-        done++;
-        bcrypt.genSalt(12, function(err, salt) {
-            if (err) {
-                return cb(err, options);
-            }
-            room.adminSalt = salt;
-            bcrypt.hash(room.adminPassword, salt, function(err, hash) {
-                if (err) {
-                    return cb(err, options);
-                }
-                room.adminPassword = hash;
-                room.adminSalt = salt;
-                return complete();
-            });
-        });
-    }
-}
-
 module.exports = function(sequelize, DataTypes) {
-    var room = sequelize.define('rooms', {
+    var Room = sequelize.define('rooms', {
         name: {
             type: DataTypes.STRING,
             unique: true,
@@ -54,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         theme: DataTypes.STRING,
-        password: {
+        passcode: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
@@ -64,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
                 }
             }
         },
-        salt: DataTypes.STRING,
+        passcodeSalt: DataTypes.STRING,
         adminPassword: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -78,44 +41,71 @@ module.exports = function(sequelize, DataTypes) {
         adminSalt: DataTypes.STRING
     }, {
         hooks: {
-            beforeCreate: generateHashAndSalt,
-            beforeUpdate: generateHashAndSalt
+            beforeCreate: function(room, options, cb) {
+              room.generatePasswordHashes(room, options, cb);
+            },
+            beforeUpdate: function(room, options, cb) {
+              room.generatePasswordHashes(room, options, cb);
+            }
+        },
+        instanceMethods: {
+          generatePasswordHashes: function(room, options, cb) {
+              var done = 0;
+              function complete() {
+                  done--;
+                  if (done === 0) {
+                      return cb(null, options);
+                  }
+              }
+              function error(err) {
+                return cb(err, options);
+              }
+              if (options.fields.indexOf('passcode') > -1) {
+                  done++;
+                  this.generatePassCodeHash(room, complete, error);
+              }
+              if (options.fields.indexOf('adminPassword') > -1) {
+                  done++;
+                  this.generateAdminPasswordHash(room, complete, error);
+              }
+          },
+          generatePassCodeHash: function(room, complete, error) {
+              bcrypt.genSalt(12, function(err, salt) {
+                  if (err) {
+                      return error(err);
+                  }
+                  room.salt = salt;
+                  bcrypt.hash(room.passcode, salt, function(err, hash) {
+                      if (err) {
+                          return error(err);
+                      }
+                      room.passcode = hash;
+                      room.passcodeSalt = salt;
+                      return complete();
+                  });
+              });
+          },
+          generateAdminPasswordHash: function(room, complete, error) {
+              bcrypt.genSalt(12, function(err, salt) {
+                  if (err) {
+                      return error(err);
+                  }
+                  room.adminSalt = salt;
+                  bcrypt.hash(room.adminPassword, salt, function(err, hash) {
+                      if (err) {
+                          return error(err);
+                      }
+                      room.adminPassword = hash;
+                      room.adminSalt = salt;
+                      return complete();
+                  });
+              });
+          }
         }
     });
 
-    room.prototype.generatePassCodeHash = function(room, cb) {
-      bcrypt.genSalt(12, function(err, salt) {
-          if (err) {
-              return cb(err);
-          }
-          room.salt = salt;
-          bcrypt.hash(room.password, salt, function(err, hash) {
-              if (err) {
-                  return cb(err);
-              }
-              room.password = hash;
-              room.salt = salt;
-              return cb(room);
-          });
-      });
-    };
 
-    room.prototype.generateAdminPasswordHash = function(room, cb) {
-      bcrypt.genSalt(12, function(err, salt) {
-          if (err) {
-              return cb(err);
-          }
-          room.adminSalt = salt;
-          bcrypt.hash(room.adminPassword, salt, function(err, hash) {
-              if (err) {
-                  return cb(err);
-              }
-              room.adminPassword = hash;
-              room.adminSalt = salt;
-              return cb(room);
-          });
-      });
-    }
+    return Room;
 
-    return room;
+
 };

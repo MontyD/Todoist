@@ -5,23 +5,23 @@ var path = require('path'),
     bcrypt = require('bcrypt');
 
 var authentication = new LocalStrategy(
-    function(username, password, done) {
+    function(name, passcode, done) {
         models.rooms.findOne({
             where: {
-                'name': username
+                'name': name
             },
-            attributes: ['salt', 'password', 'adminSalt', 'adminPassword', 'id', 'name']
+            attributes: ['salt', 'passcode', 'adminSalt', 'adminPassword', 'id', 'name']
         }).then(function(room) {
             if (!room) {
                 return done(null, false, {
                     message: 'Room not found'
                 });
             }
-            bcrypt.hash(password, room.salt, function(err, hash) {
+            bcrypt.hash(passcode, room.passcodeSalt, function(err, hash) {
                 if (err) {
                     return done(null, false, err);
                 }
-                if (hash === room.password) {
+                if (hash === room.passcode) {
                     return done(null, {
                         id: room.id,
                         name: room.name,
@@ -29,7 +29,7 @@ var authentication = new LocalStrategy(
                     });
                 // check if admin user
                 } else {
-                    bcrypt.hash(password, room.adminSalt, function(err, adminHash) {
+                    bcrypt.hash(passcode, room.adminSalt, function(err, adminHash) {
                         if (err) {
                             return done(null, false, err);
                         }

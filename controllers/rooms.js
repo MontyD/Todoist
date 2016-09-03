@@ -60,13 +60,6 @@ router.post('/login', authenticateRoom);
 
 // Post register
 router.post('/new', function(req, res, next) {
-    if (req.body.password !== req.body.confirm || !req.body.password || !req.body.confirm) {
-        return res.render('security/new', {
-            error: {
-                message: 'Password confirmation incorrect.'
-            }
-        });
-    }
     models.rooms.create(req.body).then(function(room) {
         authenticateRoom(req, res, next);
     }).catch(function(error) {
@@ -107,7 +100,6 @@ router.put('/update-passcode', respondsToJSON, checkRoom, function(req, res, nex
 
 // PUT update admin password
 router.put('/update-admin-password', respondsToJSON, checkRoom, function(req, res, next) {
-  console.log(req.body);
     models.rooms.findById(req.room.id).then(function(room) {
         room.update({
             oldPassword: req.body.old,
