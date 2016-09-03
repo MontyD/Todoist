@@ -267,24 +267,25 @@ router.delete('/:taskID', function(req, res, next) {
     models.tasks.findById(req.params.taskID).then(function(task) {
         if (!task) {
             return next();
-        } else {
-            if (task.roomId === req.room.id) {
-                task.destroy().then(function(confirm) {
-                    res.io.to(req.room.name).emit('DeletedTask', {
-                        task: task,
-                        username: req.session.username,
-                        hash: req.query.hash
-                    });
-                    res.sendStatus(200);
-                }).catch(function(err) {
-                    return handleError(err, next);
-                });
-            } else {
-                var error = new Error('Unauthorised');
-                error.status = 403;
-                return next(error);
-            }
         }
+        if (task.roomId === req.room.id) {
+            task.destroy().then(function(confirm) {
+                res.io.to(req.room.name).emit('DeletedTask', {
+                    task: task,
+                    username: req.session.username,
+                    hash: req.query.hash
+                });
+                res.sendStatus(200);
+            }).catch(function(err) {
+                return handleError(err, next);
+            });
+        } else {
+            var error = new Error('Unauthorised');
+            error.status = 403;
+            return next(error);
+        }
+    }).catch(function(err) {
+        return handleError(err, next);
     });
 
 });

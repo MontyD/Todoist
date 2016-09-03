@@ -7,6 +7,7 @@ var express = require('express'),
     models = require(path.join(__dirname, '..', 'models')),
     respondsToJSON = require(path.join(__dirname, '..', 'middlewares', 'respondsJSON')),
     checkRoom = require(path.join(__dirname, '..', 'middlewares', 'checkRoom')),
+    isAdmin = require(path.join(__dirname, '..', 'middlewares', 'isAdmin')),
     passRoomAndUser = require(path.join(__dirname, '..', 'middlewares', 'passRoomAndUser')),
     handleError = require(path.join(__dirname, '..', 'middlewares', 'handleError'));
 
@@ -60,6 +61,11 @@ router.post('/login', authenticateRoom);
 
 // Post register
 router.post('/new', function(req, res, next) {
+    if (req.body.passcode === req.body.adminPassword) {
+        var error = new Error('Passcode cannot be the same as the admin password');
+        error.status = 401;
+        return handleError(error, next);
+    }
     models.rooms.create(req.body).then(function(room) {
         authenticateRoom(req, res, next);
     }).catch(function(error) {
@@ -68,26 +74,11 @@ router.post('/new', function(req, res, next) {
 });
 
 // PUT update passcode
-router.put('/update-passcode', respondsToJSON, checkRoom, function(req, res, next) {
-    models.rooms.findById(req.room.id).then(function(room) {
-        // hash and salting done at model level
-        room.update({
-            password: req.body.password
-        }).then(function(updatedRoom) {
-            res.sendStatus(200);
-        }).catch(function(err) {
-            handleError(err, next);
-        });
-    }).catch(function(err) {
-        handleError(err, next);
-    });
-});
-
-// PUT update passcode
-router.put('/update-passcode', respondsToJSON, checkRoom, function(req, res, next) {
+router.put('/update-passcode', respondsToJSON, checkRoom, isAdmin, function(req, res, next) {
     models.rooms.findById(req.room.id, {
         attributes: ['id']
     }).then(function(room) {
+        // hash and salting done at model level
         room.update({
             passcode: req.body.passcode
         }).then(function(updatedRoom) {
@@ -101,15 +92,15 @@ router.put('/update-passcode', respondsToJSON, checkRoom, function(req, res, nex
 });
 
 // PUT update admin password
-router.put('/update-admin-password', respondsToJSON, checkRoom, function(req, res, next) {
+router.put('/update-admin-password', respondsToJSON, checkRoom, isAdmin, function(req, res, next) {
     models.rooms.findById(req.room.id, {
         attributes: ['id', 'adminSalt', 'adminPassword', 'passcode', 'passcodeSalt']
     }).then(function(room) {
         room.updateAdminPassword(req.body, function(err, confirm) {
-          if (err) {
-            return handleError(err, next);
-          }
-          return res.sendStatus(200);
+            if (err) {
+                return handleError(err, next);
+            }
+            return res.sendStatus(200);
         });
     }).catch(function(err) {
         handleError(err, next);
@@ -124,7 +115,22 @@ router.get('/new', function(req, res) {
 
 });
 
-router.delete('/log-all-out', respondsToJSON, checkRoom, function(req, res, next) {
+router.delete('/', respondsToJSON, checkRoom, isAdmin, function(req, res, next) {
+    models.rooms.findById(req.room.id, {
+        attributes: ['id']
+    }).then(function(room) {
+        room.destroy().then(function() {
+            res.sendStatus(200);
+        }).catch(function(err) {
+            handleError(err, next);
+        });
+    }).catch(function(err) {
+        handleError(err, next);
+    });
+});
+
+// DELETE session - echo log out across room session.
+router.delete('/log-all-out', respondsToJSON, checkRoom, isAdmin, function(req, res, next) {
     res.io.to(req.room.name).emit('logAllOut', 'true');
     res.sendStatus(200);
 });
