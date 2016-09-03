@@ -69,7 +69,11 @@
         Delete this room completely:<span class="explaination-text">This cannot be undone</span>
       </div>
       <div class="halves vertical-middle">
-        <button class="button danger" ng-click="settings.confirmingDeleteRoom()">Delete this room</button>
+        <button ng-if="!settings.confirmingDeleteRooms" class="button danger" ng-click="settings.toggleConfirmingDeleteRoom()">Delete this room</button>
+        <div ng-if="settings.confirmingDeleteRooms" class="button-group">
+          <button class="button secondary" ng-click="settings.toggleConfirmingDeleteRoom()">Cancel</button>
+          <button class="button danger" ng-click="settings.deleteRoom()">Confirm</button>
+        </div>
       </div>
     </article>
   </section>

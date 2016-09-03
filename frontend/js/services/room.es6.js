@@ -23,6 +23,10 @@ class RoomService {
       return this.$http.put(this.urlBase + 'update-admin-password', data);
     }
 
+    deleteRoom() {
+      return this.$http.delete(this.urlBase);
+    }
+
 }
 
 

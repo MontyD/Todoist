@@ -28,6 +28,8 @@ class SettingsCtrl {
         this.passcodeAttemptedSubmit = false;
         this.newPassCode = '';
 
+        this.confirmingDeleteRooms = false;
+
         this.TasksService.countCompleted().then(
             result => this.completed = result.data.count > 0 ? true : false,
             this.handleError.bind(this)
@@ -114,6 +116,17 @@ class SettingsCtrl {
           this.passwords = {old: '', new: '', confirm: ''};
           this.passwordAttemptedSubmit = false;
         },
+        this.handleError.bind(this)
+      );
+    }
+
+    toggleConfirmingDeleteRoom() {
+      this.confirmingDeleteRooms = !this.confirmingDeleteRooms;
+    }
+
+    deleteRoom() {
+      this.RoomService.deleteRoom().then(
+        result => window.location = '/rooms/login',
         this.handleError.bind(this)
       );
     }
