@@ -124,6 +124,30 @@
         font-size    : 1.2em;
         font-weight  : bold;
         border-bottom: 2px solid $colorGrey;
+        .control-container {
+          opacity: 0;
+          transition: opacity 0.2s ease;
+          font-size: 0.6em;
+          * {
+            padding: 0 0.1em;
+          }
+          .delete:hover {
+            color: $colorError;
+          }
+        }
+        input[type="text"] {
+          margin-bottom: 0;
+          font-size: 0.9em;
+        }
+        form {
+          font-size: 0.8em;
+          text-align: center;
+        }
+        &:hover {
+          .control-container {
+            opacity: 1;
+          }
+        }
     }
 
     &-new {

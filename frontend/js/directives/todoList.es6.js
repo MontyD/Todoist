@@ -15,6 +15,12 @@ function todoList() {
 
         link: function(scope, element, attrs) {
 
+          scope.editing = false;
+
+          scope.deleting = false;
+
+          scope.toggleListEdit = () => scope.editing = !scope.editing;
+
         }
     };
 }

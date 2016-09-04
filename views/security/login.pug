@@ -22,6 +22,6 @@ block content
             input(type="text", name="username", id="username", required="required")
           label(for="password") Room password
           input(type="password", name="password", id="password", required="required")
-          input(type="submit", value="Login")
+          input(type="submit", value="Login").button.primary
           if (originalURL)
             input(type="text", value=originalURL, name="originalURL").hidden

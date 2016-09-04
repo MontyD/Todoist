@@ -2,10 +2,9 @@
 
 class RoomCtrl {
 
-    constructor(Notification, TasksService, SocketsService, RoomService, TodoListsService, $scope, $rootScope) {
+    constructor(Notification, SocketsService, RoomService, TodoListsService, $scope, $rootScope) {
         // Dependencies
         this.Notification = Notification;
-        this.TasksService = TasksService;
         this.SocketsService = SocketsService;
         this.RoomService = RoomService;
         this.TodoListsService = TodoListsService;
@@ -199,6 +198,6 @@ class RoomCtrl {
 
 }
 
-RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', 'RoomService', 'TodoListsService', '$scope', '$rootScope'];
+RoomCtrl.$inject = ['Notification', 'SocketsService', 'RoomService', 'TodoListsService', '$scope', '$rootScope'];
 
 export default RoomCtrl;

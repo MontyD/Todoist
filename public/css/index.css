@@ -399,15 +399,15 @@ main.full-height {
   display: inline-block;
   margin: 0 auto;
   font-size: 0; }
-  .button-group button {
+  .button-group button, .button-group a {
     font-size: initial;
     margin: 0.4em -1px 0.4em 0;
     border-radius: 0;
     min-width: 75px; }
-    .button-group button:first-child {
+    .button-group button:first-child, .button-group a:first-child {
       border-top-left-radius: 0.3em;
       border-bottom-left-radius: 0.3em; }
-    .button-group button:last-child {
+    .button-group button:last-child, .button-group a:last-child {
       border-top-right-radius: 0.3em;
       border-bottom-right-radius: 0.3em; }
 
@@ -1458,15 +1458,15 @@ main.full-height {
   display: inline-block;
   margin: 0 auto;
   font-size: 0; }
-  .button-group button {
+  .button-group button, .button-group a {
     font-size: initial;
     margin: 0.4em -1px 0.4em 0;
     border-radius: 0;
     min-width: 75px; }
-    .button-group button:first-child {
+    .button-group button:first-child, .button-group a:first-child {
       border-top-left-radius: 0.3em;
       border-bottom-left-radius: 0.3em; }
-    .button-group button:last-child {
+    .button-group button:last-child, .button-group a:last-child {
       border-top-right-radius: 0.3em;
       border-bottom-right-radius: 0.3em; }
 
@@ -2405,15 +2405,15 @@ main.full-height {
   display: inline-block;
   margin: 0 auto;
   font-size: 0; }
-  .button-group button {
+  .button-group button, .button-group a {
     font-size: initial;
     margin: 0.4em -1px 0.4em 0;
     border-radius: 0;
     min-width: 75px; }
-    .button-group button:first-child {
+    .button-group button:first-child, .button-group a:first-child {
       border-top-left-radius: 0.3em;
       border-bottom-left-radius: 0.3em; }
-    .button-group button:last-child {
+    .button-group button:last-child, .button-group a:last-child {
       border-top-right-radius: 0.3em;
       border-bottom-right-radius: 0.3em; }
 
@@ -2948,6 +2948,22 @@ button.icon {
     font-size: 1.2em;
     font-weight: bold;
     border-bottom: 2px solid #E0E0E0; }
+    .todo-list .list-title .control-container {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      font-size: 0.6em; }
+      .todo-list .list-title .control-container * {
+        padding: 0 0.1em; }
+      .todo-list .list-title .control-container .delete:hover {
+        color: #E64A19; }
+    .todo-list .list-title input[type="text"] {
+      margin-bottom: 0;
+      font-size: 0.9em; }
+    .todo-list .list-title form {
+      font-size: 0.8em;
+      text-align: center; }
+    .todo-list .list-title:hover .control-container {
+      opacity: 1; }
   .todo-list-new {
     position: relative;
     padding-bottom: 1.8em;

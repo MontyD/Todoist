@@ -1,10 +1,20 @@
 <div class='todo-list thirds'>
-  <div class="list-title">{{list.title || 'Todo list ' + ($index + 1)}}</div>
-  <div class="list-body">
-    <div class="task-item" ng-repeat="task in list.tasks">
-        <task-view task="task" edited="updateTask(task)" deleted="deleteTask(task)">
-        </task-view>
+    <div class="list-title">
+        <span ng-if="!editing && !deleting">{{list.title || 'Todo list ' + ($index + 1)}}</span>
+        <span ng-if="!editing && !deleting" class="control-container">
+            <button ng-click="startListDelete()" class="slide-out delete icon"><span class="lnr lnr-cross"></span></button>
+            <button ng-click="toggleListEdit()" class="slide-out icon"><span class="lnr lnr-pencil"></span></button>
+        </span>
+        <form ng-if="editing" name="listUpdate" ng-submit="updateList()">
+          <input type="text" ng-model="list.name" placeholder="List name" />
+          <input type="submit" class="button" value="Update" />
+        </form>
     </div>
-    <p class="empty-notification" ng-if="!list.tasks.length">No todos to be done</p>
-  </div>
+    <div class="list-body">
+        <div class="task-item" ng-repeat="task in list.tasks">
+            <task-view task="task" edited="updateTask(task)" deleted="deleteTask(task)">
+            </task-view>
+        </div>
+        <p class="empty-notification" ng-if="!list.tasks.length">No todos to be done</p>
+    </div>
 </div>

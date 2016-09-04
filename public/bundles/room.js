@@ -43825,12 +43825,11 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var RoomCtrl = (function () {
-	    function RoomCtrl(Notification, TasksService, SocketsService, RoomService, TodoListsService, $scope, $rootScope) {
+	    function RoomCtrl(Notification, SocketsService, RoomService, TodoListsService, $scope, $rootScope) {
 	        _classCallCheck(this, RoomCtrl);
 
 	        // Dependencies
 	        this.Notification = Notification;
-	        this.TasksService = TasksService;
 	        this.SocketsService = SocketsService;
 	        this.RoomService = RoomService;
 	        this.TodoListsService = TodoListsService;
@@ -44028,7 +44027,7 @@
 	    return RoomCtrl;
 	})();
 
-	RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', 'RoomService', 'TodoListsService', '$scope', '$rootScope'];
+	RoomCtrl.$inject = ['Notification', 'SocketsService', 'RoomService', 'TodoListsService', '$scope', '$rootScope'];
 
 	exports['default'] = RoomCtrl;
 	module.exports = exports['default'];
@@ -44563,7 +44562,16 @@
 	        },
 	        template: __webpack_require__(66),
 
-	        link: function link(scope, element, attrs) {}
+	        link: function link(scope, element, attrs) {
+
+	            scope.editing = false;
+
+	            scope.deleting = false;
+
+	            scope.toggleListEdit = function () {
+	                return scope.editing = !scope.editing;
+	            };
+	        }
 	    };
 	}
 
@@ -44574,7 +44582,7 @@
 /* 66 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class='todo-list thirds'>\n  <div class=\"list-title\">{{list.title || 'Todo list ' + ($index + 1)}}</div>\n  <div class=\"list-body\">\n    <div class=\"task-item\" ng-repeat=\"task in list.tasks\">\n        <task-view task=\"task\" edited=\"updateTask(task)\" deleted=\"deleteTask(task)\">\n        </task-view>\n    </div>\n    <p class=\"empty-notification\" ng-if=\"!list.tasks.length\">No todos to be done</p>\n  </div>\n</div>\n";
+	module.exports = "<div class='todo-list thirds'>\n    <div class=\"list-title\">\n        <span ng-if=\"!editing && !deleting\">{{list.title || 'Todo list ' + ($index + 1)}}</span>\n        <span ng-if=\"!editing && !deleting\" class=\"control-container\">\n            <button ng-click=\"startListDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n            <button ng-click=\"toggleListEdit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n        </span>\n        <form ng-if=\"editing\" name=\"listUpdate\" ng-submit=\"updateList()\">\n          <input type=\"text\" ng-model=\"list.name\" placeholder=\"List name\" />\n          <input type=\"submit\" class=\"button\" value=\"Update\" />\n        </form>\n    </div>\n    <div class=\"list-body\">\n        <div class=\"task-item\" ng-repeat=\"task in list.tasks\">\n            <task-view task=\"task\" edited=\"updateTask(task)\" deleted=\"deleteTask(task)\">\n            </task-view>\n        </div>\n        <p class=\"empty-notification\" ng-if=\"!list.tasks.length\">No todos to be done</p>\n    </div>\n</div>\n";
 
 /***/ },
 /* 67 */
