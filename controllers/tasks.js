@@ -71,11 +71,6 @@ router.get('/todo-count', function(req, res, next) {
             roomId: reqRoomId
         }
     }).then(function(c) {
-        if (!c) {
-            return res.json({
-                count: 0
-            });
-        }
         return res.json({
             count: c
         });
@@ -95,11 +90,6 @@ router.get('/completed-count', function(req, res, next) {
             roomId: reqRoomId
         }
     }).then(function(c) {
-        if (!c) {
-            return res.json({
-                count: 0
-            });
-        }
         return res.json({
             count: c
         });

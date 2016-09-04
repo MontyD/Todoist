@@ -13,60 +13,47 @@ class RoomCtrl {
 
         this.$rootScope.roomName = '';
         this.$rootScope.isAdmin = false;
-        this.isAdmin = false;
+        this.$rootScope.username = '';
 
-        // initial variables
+        // initial properties
         this.roomName = '';
-
+        this.isAdmin = false;
         this.username = '';
 
-        this.tasks = [];
+        this.lists = [];
 
-        this.newTask = {
-            status: 'Todo'
-        };
+        this.listsAmount = 9;
 
-        this.taskPageAmount = 10;
+        this.listsCurrentPage = 0;
 
-        this.taskPage = 0;
-
-        this.tasksTotal = 0;
+        this.listsTotal = 0;
 
         this.completedLastDay = 0;
 
-        this.cache = {};
-
         this.moving = false;
 
-        // get room info: username, roomname,
-        // admin status, and sockets echo that
-        // user is connected
-        this.RoomService.getInfo().then(
-            result => {
-                if (!this.$rootScope.roomName && !this.roomName) {
-                    this.$rootScope.roomName = result.data.roomName;
-                    this.roomName = result.data.roomName;
-                    this.$rootScope.isAdmin = result.data.isAdmin;
-                    this.isAdmin = result.data.isAdmin;
-                    this.username = result.data.username;
-                }
-            },
-            this.handleError.bind(this)
-        );
+        this.init();
+    }
+
+    init() {
+        if (!this.$rootScope.roomName) {
+            this.getRoomInfoFromServer();
+            this.getRoomInfoLocally();
+        }
+        this.getRoomInfoLocally();
+        this.initSockets();
 
         // read tasks from server
-        this.TasksService.read(undefined, undefined, this.taskAmount, 'Todo', true).then(
+        this.TodoListsService.read(undefined, undefined, this.listsAmount).then(
             result => {
-                this.tasks = result.data.tasks;
-                // connect to socket by room name
-                this.initSockets();
+                this.lists = result.data.lists;
             },
             this.handleError.bind(this)
         );
 
         // read todos count
-        this.TasksService.countTodos().then(
-            result => this.tasksTotal = result.data.count,
+        this.TodoListsService.countLists().then(
+            result => this.listsTotal = result.data.count,
             error => console.error(error)
         );
 
@@ -75,23 +62,25 @@ class RoomCtrl {
             result => this.completedLastDay = result.data.count,
             this.handleError.bind(this)
         );
-
     }
 
-    Notify(text, type) {
-        if (this.doNotNotify) {
-            return false;
-        }
-        switch (type) {
-            case 'Success':
-                this.Notification.success(text);
-                break;
-            case 'Error':
-                this.Notification.error(text);
-                break;
-            default:
-                this.Notification.info(text);
-        }
+    getRoomInfoFromServer() {
+        this.RoomService.getInfo().then(
+            result => {
+                if (!this.$rootScope.roomName && !this.roomName) {
+                    this.$rootScope.roomName = result.data.roomName;
+                    this.$rootScope.isAdmin = result.data.isAdmin;
+                    this.$rootScope.username = result.data.username;
+                }
+            },
+            this.handleError.bind(this)
+        );
+    }
+
+    getRoomInfoLocally() {
+        this.roomName = this.$rootScope.roomName;
+        this.isAdmin = this.$rootScope.isAdmin;
+        this.username = this.$rootScope.username;
     }
 
     initSockets() {
@@ -157,9 +146,8 @@ class RoomCtrl {
     }
 
 
-
     availablePages() {
-        return Math.ceil(this.tasksTotal / this.taskPageAmount);
+        return Math.ceil(this.listsTotal / this.listsAmount);
     }
 
     movePage(pageNumber) {
@@ -167,133 +155,47 @@ class RoomCtrl {
             return false;
         }
         this.moving = true;
-        let offset = pageNumber * this.taskPageAmount;
-        this.TasksService.read(undefined, offset, this.taskAmount, 'Todo').then(
+        let offset = pageNumber * this.listsAmount;
+        this.TodoListsService.read(undefined, offset, this.listsAmount, 'Todo').then(
             result => {
                 this.moving = false;
-                if (result.data.tasks.length === 0) {
+                if (result.data.lists.length === 0) {
                     return;
                 }
-                this.taskPage = pageNumber;
-                this.tasks = result.data.tasks;
-                this.username = result.data.username;
-                this.roomName = result.data.roomName;
+                this.listsCurrentPage = pageNumber;
+                this.lists = result.data.lists;
             },
             this.handleError.bind(this)
         );
     }
 
     pageBack() {
-        if (this.taskPage === 0) {
+        if (this.listsCurrentPage === 0) {
             return;
         }
-        return this.movePage(this.taskPage - 1);
+        return this.movePage(this.listsCurrentPage - 1);
     }
 
     pageForward() {
-        return this.movePage(this.taskPage + 1);
+        return this.movePage(this.listsCurrentPage + 1);
     }
 
-    // add task locally within js array.
-    addTaskLocally(newTask, username) {
-        if (this.taskPage === 0) {
-            this.tasks.unshift(newTask);
-            this.tasksTotal++;
-            // resize array if necessary
-            if (this.tasks.length > this.taskPageAmount) {
-                this.tasks.length = this.taskPageAmount;
-            }
-        } else {
-            this.appendTaskLocally();
+
+    Notify(text, type) {
+        if (this.doNotNotify) {
+            return false;
+        }
+        switch (type) {
+            case 'Success':
+                this.Notification.success(text);
+                break;
+            case 'Error':
+                this.Notification.error(text);
+                break;
+            default:
+                this.Notification.info(text);
         }
     }
-
-    // update task locally within js array.
-    // includes remove
-    updateTaskLocally(reqTask, remove) {
-        let destroy = reqTask.status !== 'Todo' || remove;
-        let found = false;
-        if (reqTask.status === 'Complete') {
-            this.completedLastDay++;
-        }
-        if (destroy) {
-            this.tasksTotal--;
-        }
-        this.tasks.forEach(function(task, i) {
-            if (task.id === reqTask.id) {
-                found = true;
-                if (destroy) {
-                    this.tasks.splice(i, 1);
-                    this.appendTaskLocally(true);
-                } else {
-                    this.tasks[i] = reqTask;
-                }
-                return;
-            }
-        }, this);
-        // remove from previous
-        if (!found && destroy) {
-            let before = this.tasks[0].id < reqTask.id;
-            if (before) {
-                // remove first task, and add one on from server.
-                this.tasks.shift();
-                this.appendTaskLocally(true);
-            }
-        }
-    }
-
-    appendTaskLocally(end) {
-        let offset = end ? (this.taskPage * this.taskPageAmount) + this.tasks.length : this.taskPage * this.taskPageAmount;
-        this.TasksService.read(undefined, offset, 1, 'Todo').then(
-            result => {
-                if (result.data.tasks.length) {
-                    this.tasks.push(result.data.tasks[0]);
-                }
-                if (this.tasks.length > this.taskPageAmount) {
-                    this.tasks.length = this.taskPageAmount;
-                } else if (this.tasks.length === 0) {
-                    this.pageBack();
-                }
-            },
-            this.handleError.bind(this)
-        );
-    }
-
-    // <---- SERVER SIDE INTERACTIONS:
-    createTask() {
-        this.TasksService.create(this.newTask, this.$rootScope.hash).then(
-            result => {
-                this.newTask = {
-                    status: 'Todo'
-                };
-                this.addTaskLocally(result.data);
-            },
-            this.handleError.bind(this)
-        );
-
-    }
-
-    updateTask(task) {
-        if (!task) {
-            return;
-        }
-        this.TasksService.update(task.id, task, this.$rootScope.hash).then(
-            result => this.updateTaskLocally(result.data),
-            this.handleError.bind(this)
-        );
-    }
-
-    deleteTask(task) {
-            if (!task) {
-                return;
-            }
-            this.TasksService.destroy(task.id, this.$rootScope.hash).then(
-                result => this.updateTaskLocally(task, true),
-                this.handleError.bind(this)
-            );
-        }
-        // ---->
-
 
     handleError(error) {
         if (error.status === 401 || error.status === 403) {

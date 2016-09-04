@@ -46,6 +46,10 @@ class TodoListsService {
         return this.$http.delete(this.urlBase + reqTaskId + '?hash=' + hash);
     }
 
+    countLists() {
+      return this.$http.get(this.urlBase + 'count-all');
+    }
+
 }
 
 

@@ -31,6 +31,20 @@ router.get('/', function(req, res, next) {
 
 });
 
+router.get('/count-all', function(req, res, next) {
+    models.todoLists.count({
+        where: {
+            roomId: req.room.id
+        }
+    }).then(function(c) {
+        return res.json({
+            count: c
+        });
+    }).catch(function(err) {
+        return handleError(err, next);
+    });
+});
+
 router.get('/:ID', function(req, res, next) {
 
     models.todoLists.findById(req.params.ID).then(function(list) {
