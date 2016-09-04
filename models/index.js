@@ -36,13 +36,13 @@ db.Sequelize = Sequelize;
 
 // Relationships
 db.tasks.belongsTo(db.todoLists);
-db.todoLists.hasMany(db.tasks);
+db.todoLists.hasMany(db.tasks, { onDelete: 'cascade' });
 
-db.rooms.hasMany(db.tasks);
+db.rooms.hasMany(db.tasks, { onDelete: 'cascade' });
 db.tasks.belongsTo(db.rooms);
 
 db.todoLists.belongsTo(db.rooms);
-db.rooms.hasMany(db.todoLists);
+db.rooms.hasMany(db.todoLists, { onDelete: 'cascade' });
 
 
 module.exports = db;

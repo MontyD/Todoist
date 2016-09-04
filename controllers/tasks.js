@@ -4,8 +4,6 @@ var express = require('express'),
     router = express.Router(),
     path = require('path'),
     models = require(path.join(__dirname, '..', 'models')),
-    respondsToJSON = require(path.join(__dirname, '..', 'middlewares', 'respondsJSON')),
-    checkRoom = require(path.join(__dirname, '..', 'middlewares', 'checkRoom')),
     handleError = require(path.join(__dirname, '..', 'middlewares', 'handleError'));
 
 // GET ALL
@@ -216,6 +214,49 @@ router.post('/', function(req, res, next) {
 
 });
 
+router.post('/todo-list', function(req, res, next) {
+    models.todoLists.create(req.body).then(function(newList) {
+        return res.json(newList);
+    }).catch(function(err) {
+        return handleError(err, next);
+    });
+
+});
+
+router.put('/todo-list/:ID', function(req, res, next) {
+  if (isNaN(req.params.ID) || !req.body.name) {
+      var error = new Error('Bad put data');
+      error.status = 400;
+      return next(error);
+  }
+
+  models.tasks.findById(req.params.taskID).then(function(task) {
+      if (!task) {
+          return next();
+      } else {
+          if (task.roomId === req.room.id) {
+              task.update(req.body.task).then(function(updatedTask) {
+                  res.io.to(req.room.name).emit('UpdatedTask', {
+                      task: updatedTask,
+                      username: req.session.username,
+                      hash: req.body.hash
+                  });
+                  res.json(updatedTask);
+              }).catch(function(err) {
+                  return handleError(err, next);
+              });
+          } else {
+              var error = new Error('Unauthorised');
+              error.status = 403;
+              return next(error);
+          }
+      }
+  }).catch(function(err) {
+      return handleError(err, next);
+  });
+
+});
+
 
 // Update task by id
 router.put('/:taskID', function(req, res, next) {
@@ -278,7 +319,7 @@ router.delete('/delete-completed', function(req, res, next) {
 router.delete('/:taskID', function(req, res, next) {
 
     if (isNaN(req.params.taskID)) {
-        var error = new Error('Bad put data');
+        var error = new Error('Bad request');
         error.status = 400;
         return next(error);
     }

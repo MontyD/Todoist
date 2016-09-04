@@ -112,9 +112,7 @@ router.put('/update-admin-password', respondsToJSON, checkRoom, isAdmin, functio
 
 // Get home - render user home admin
 router.get('/new', function(req, res) {
-
     res.render('security/new');
-
 });
 
 router.delete('/', respondsToJSON, checkRoom, isAdmin, function(req, res, next) {
