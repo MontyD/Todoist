@@ -35,8 +35,14 @@ db.Sequelize = Sequelize;
 
 
 // Relationships
-db.tasks.belongsTo(db.rooms);
+db.tasks.belongsTo(db.todoLists);
+db.todoLists.hasMany(db.tasks);
+
 db.rooms.hasMany(db.tasks);
+db.tasks.belongsTo(db.rooms);
+
+db.todoLists.belongsTo(db.rooms);
+db.rooms.hasMany(db.todoLists);
 
 
 module.exports = db;

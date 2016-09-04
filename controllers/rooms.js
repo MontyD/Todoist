@@ -48,6 +48,7 @@ router.get('/login', function(req, res, next) {
 
 // Get - info about room logged into
 router.get('/info', respondsToJSON, checkRoom, function(req, res, next) {
+    res.io.to(req.room.name).emit('UserConnected', req.session.username + ' has joined!');
     return res.json({
         roomName: req.room.name,
         isAdmin: req.room.isAdmin,
@@ -67,7 +68,11 @@ router.post('/new', function(req, res, next) {
         return handleError(error, next);
     }
     models.rooms.create(req.body).then(function(room) {
+      models.todoLists.create({roomId: req.body.room.id}).then(function(todoList){
         authenticateRoom(req, res, next);
+      }).catch(function(err){
+        return handleError(error, next);
+      });
     }).catch(function(error) {
         return handleError(error, next);
     });

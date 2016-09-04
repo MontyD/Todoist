@@ -13,7 +13,6 @@ router.get('/', function(req, res, next) {
 
     var start = parseInt(req.query.start) || 0;
     var limit = parseInt(req.query.limit) || 10;
-    var initial = !!req.query.initial;
     var query = {
         roomId: req.room.id
     };
@@ -30,13 +29,33 @@ router.get('/', function(req, res, next) {
         limit: limit,
         offset: start
     }).then(function(tasks) {
-        // emit socket that new user has joined
-        if (initial) {
-            res.io.to(req.room.name).emit('UserConnected', req.session.username + ' has joined!');
-        }
+
         return res.json({
             tasks: tasks
         });
+    }).catch(function(err) {
+        return handleError(err, next);
+    });
+
+});
+
+router.get('/todo-lists', function(req, res, next) {
+
+    var start = parseInt(req.query.start) || 0;
+    var limit = parseInt(req.query.limit) || 10;
+
+    // FETCH ALL
+    models.todoLists.findAll({
+        where: {
+            roomId: req.room.id
+        },
+        order: [
+            ['createdAt', 'DESC'],
+        ],
+        limit: limit,
+        offset: start
+    }).then(function(lists) {
+        return res.json(lists);
     }).catch(function(err) {
         return handleError(err, next);
     });
