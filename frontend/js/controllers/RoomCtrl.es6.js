@@ -126,6 +126,15 @@ class RoomCtrl {
             this.$scope.$apply();
         }).bind(this));
 
+        this.SocketsService.on('DeletedList', (function(data) {
+            if (this.$rootScope.hash === data.hash) {
+                return;
+            }
+            this.deleteListLocally(data.list.id);
+            // force view to update;
+            this.$scope.$apply();
+        }).bind(this));
+
         this.SocketsService.on('DeletedAllComplete', (function(data) {
             this.completedLastDay = 0;
             this.Notify(data.username + ' cleared all completed todos');
@@ -187,13 +196,27 @@ class RoomCtrl {
         }
     }
 
+    deleteListLocally(id) {
+        for (let i = 0; i < this.lists.length; i++) {
+            if (this.lists[i].id === id) {
+                this.lists.splice(i, 1);
+            }
+        }
+    }
+
+    deleteList(id) {
+        this.TodoListsService.destroy(id, this.$rootScope.hash).then(
+            result => this.deleteListLocally(id),
+            this.handleError.bind(this)
+        );
+    }
+
     editList(id, newName) {
         this.TodoListsService.update(id, newName, this.$rootScope.hash).then(
             result => this.updateListLocally(id, newName),
             this.handleError.bind(this)
         );
     }
-
 
     Notify(text, type) {
         if (this.doNotNotify) {

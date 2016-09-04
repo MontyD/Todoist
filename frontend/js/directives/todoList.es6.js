@@ -26,6 +26,8 @@ function todoList() {
             scope.toggleListEdit();
           };
 
+          scope.toggleListDelete = () => scope.deleting = !scope.deleting;
+
         }
     };
 }

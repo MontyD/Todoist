@@ -10,9 +10,8 @@
     </div>
 </nav>
 <main class="container">
-    <todo-list ng-repeat="list in home.lists" list="list" index="$index" createtask="home.newTask" edittask="home.editTask" deletetask="home.deleteTask" editlist="home.editList(list.id, list.name)" deletelist="home.deleteList(list)">
+    <todo-list ng-repeat="list in home.lists" list="list" index="$index" createtask="home.newTask" edittask="home.editTask" deletetask="home.deleteTask" editlist="home.editList(list.id, list.name)" deletelist="home.deleteList(list.id)">
     </todo-list>
-    <p class="todo-list thirds" ng-if="home.lists.length === 0">No lists!</p>
     <p class="todo-list-new thirds" ng-click="home.newList()">
         <i class="lnr lnr-plus-circle"></i> Add new list
     </p>

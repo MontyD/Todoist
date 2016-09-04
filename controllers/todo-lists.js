@@ -25,8 +25,10 @@ router.get('/', function(req, res, next) {
         limit: limit,
         offset: start,
         include: [{
-            model:  models.tasks,
-            where: { status: 'Todo' },
+            model: models.tasks,
+            where: {
+                status: 'Todo'
+            },
             required: false
         }]
     }).then(function(lists) {
@@ -119,7 +121,7 @@ router.put('/:ID', function(req, res, next) {
 
 // DELETE all completed - by room id
 router.delete('/:ID', function(req, res, next) {
-    if (isNaN(req.params.ID) || !req.body.name) {
+    if (isNaN(req.params.ID)) {
         var error = new Error('Bad request');
         error.status = 400;
         return next(error);
@@ -136,7 +138,9 @@ router.delete('/:ID', function(req, res, next) {
             }
             list.destroy().then(function() {
                 res.io.to(req.room.name).emit('DeletedList', {
-                    listId: req.params.id,
+                    list: {
+                        id: req.params.id
+                    },
                     hash: req.query.hash
                 });
                 res.sendStatus(200);

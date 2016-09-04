@@ -38,6 +38,7 @@
     form {
         margin: 0 auto;
         width : 90%;
+
         input[type="text"] {
             font-size    : 1em;
             width        : 100%;
@@ -124,34 +125,41 @@
         font-size    : 1.2em;
         font-weight  : bold;
         border-bottom: 2px solid $colorGrey;
+
         span {
-          vertical-align: middle;
+            vertical-align: middle;
         }
+
         .control-container {
-          display: inline-block;
-          margin: 0.7em 0;
-          opacity: 0;
-          transition: opacity 0.2s ease;
-          font-size: 0.6em;
-          * {
-            padding: 0 0.1em;
-          }
-          .delete:hover {
-            color: $colorError;
-          }
+            display   : inline-block;
+            margin    : 0.7em 0;
+            opacity   : 0;
+            transition: opacity 0.2s ease;
+            font-size : 0.6em;
+
+            * {
+                padding: 0 0.1em;
+            }
+
+            .delete:hover {
+                color: $colorError;
+            }
         }
+
         input[type="text"] {
-          margin-bottom: 0;
-          font-size: 0.9em;
+            margin-bottom: 0;
+            font-size    : 0.9em;
         }
+
         form {
-          font-size: 0.8em;
-          text-align: center;
+            font-size : 0.8em;
+            text-align: center;
         }
+
         &:hover {
-          .control-container {
-            opacity: 1;
-          }
+            .control-container {
+                opacity: 1;
+            }
         }
     }
 
