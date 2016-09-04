@@ -113,6 +113,8 @@
 .todo-list {
     position      : relative;
     padding-bottom: 1em;
+    margin-top    : 0.5em;
+    margin-bottom : 0.5em;
     max-width     : 600px;
     box-shadow    : 0 1.5px 4px rgba(0,0,0,.24),0 1.5px 6px rgba(0,0,0,.12);
     border-radius : 0.3em;
@@ -166,6 +168,8 @@
     &-new {
         position      : relative;
         padding-bottom: 1.8em;
+        margin-top    : 0.5em;
+        margin-bottom : 0.5em;
         max-width     : 600px;
         box-shadow    : 0 1.5px 4px rgba(0,0,0,.24),0 1.5px 6px rgba(0,0,0,.12);
         border-radius : 0.3em;
@@ -174,7 +178,6 @@
         text-align    : center;
         padding-bottom: 1em;
         cursor        : pointer;
-        margin-top    : 0;
         color         : $colorDarkGrey;
         @extend .light;
 

@@ -1,6 +1,6 @@
 <div class='todo-list thirds'>
     <div class="list-title">
-        <span ng-if="!editing && !deleting">{{list.name || 'Todo list ' + ($index + 1)}}</span>
+        <span ng-if="!editing && !deleting">{{list.name || 'Todo list ' + (index + 1)}}</span>
         <span ng-if="!editing && !deleting" class="control-container">
             <button ng-click="toggleListDelete()" class="slide-out delete icon"><span class="lnr lnr-cross"></span></button>
             <button ng-click="toggleListEdit()" class="slide-out icon"><span class="lnr lnr-pencil"></span></button>

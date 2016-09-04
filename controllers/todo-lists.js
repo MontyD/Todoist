@@ -74,7 +74,7 @@ router.post('/', function(req, res, next) {
         roomId: req.room.id
     };
     models.todoLists.create(newList).then(function(createdList) {
-        res.io.to(req.room.name).emit('newTodoList', {
+        res.io.to(req.room.name).emit('NewTodoList', {
             list: createdList,
             username: req.session.username,
             hash: req.body.hash
@@ -139,9 +139,10 @@ router.delete('/:ID', function(req, res, next) {
             list.destroy().then(function() {
                 res.io.to(req.room.name).emit('DeletedList', {
                     list: {
-                        id: req.params.id
+                        id: list.id
                     },
-                    hash: req.query.hash
+                    hash: req.query.hash,
+                    username: req.session.username
                 });
                 res.sendStatus(200);
             }).catch(function(err) {
