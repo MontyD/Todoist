@@ -84,31 +84,35 @@
 
 	var _directivesTaskViewEs6Js2 = _interopRequireDefault(_directivesTaskViewEs6Js);
 
+	var _directivesTodoListEs6Js = __webpack_require__(65);
+
+	var _directivesTodoListEs6Js2 = _interopRequireDefault(_directivesTodoListEs6Js);
+
 	//Vendor imports
 
-	var _angularUiNotification = __webpack_require__(65);
+	var _angularUiNotification = __webpack_require__(67);
 
 	var _angularUiNotification2 = _interopRequireDefault(_angularUiNotification);
 
-	var _servicesTasksEs6Js = __webpack_require__(67);
+	var _servicesTasksEs6Js = __webpack_require__(69);
 
 	var _servicesTasksEs6Js2 = _interopRequireDefault(_servicesTasksEs6Js);
 
-	var _servicesSocketsEs6Js = __webpack_require__(68);
+	var _servicesSocketsEs6Js = __webpack_require__(70);
 
 	var _servicesSocketsEs6Js2 = _interopRequireDefault(_servicesSocketsEs6Js);
 
-	var _servicesRoomEs6Js = __webpack_require__(69);
+	var _servicesRoomEs6Js = __webpack_require__(71);
 
 	var _servicesRoomEs6Js2 = _interopRequireDefault(_servicesRoomEs6Js);
 
-	var _servicesTodolistsEs6Js = __webpack_require__(70);
+	var _servicesTodolistsEs6Js = __webpack_require__(72);
 
 	var _servicesTodolistsEs6Js2 = _interopRequireDefault(_servicesTodolistsEs6Js);
 
 	window.io = _socketIoClient2['default'];
 
-	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).controller('OverviewCtrl', _controllersOverviewCtrlEs6Js2['default']).controller('SettingsCtrl', _controllersSettingsCtrlEs6Js2['default']).directive('newTask', _directivesNewTaskEs6Js2['default']).directive('taskView', _directivesTaskViewEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketsService', _servicesSocketsEs6Js2['default']).service('RoomService', _servicesRoomEs6Js2['default']).service('TodoListsService', _servicesTodolistsEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
+	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).controller('OverviewCtrl', _controllersOverviewCtrlEs6Js2['default']).controller('SettingsCtrl', _controllersSettingsCtrlEs6Js2['default']).directive('newTask', _directivesNewTaskEs6Js2['default']).directive('taskView', _directivesTaskViewEs6Js2['default']).directive('todoList', _directivesTodoListEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketsService', _servicesSocketsEs6Js2['default']).service('RoomService', _servicesRoomEs6Js2['default']).service('TodoListsService', _servicesTodolistsEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -43792,7 +43796,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n    <section class=\"transparent\">\n      <article class=\"thirds two\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n      </article>\n      <article class=\"thirds one nopad\">\n        <div class=\"stats-container first\">\n            <div class=\"large-number\">{{home.tasksTotal}}</div>\n            Todos to do\n        </div>\n        <div class=\"stats-container\">\n            <div class=\"large-number\">{{home.completedLastDay}}</div>\n            Todos done today\n        </div>\n      </article>\n    </section>\n    <section class=\"lists-container\">\n        <article ng-if=\"home.lists.length !== 0\">\n            <todo-list class=\"todo-list\" ng-repeat=\"list in home.lists\">\n              List {{$index}}\n            </todo-list>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.lists.length === 0\">No lists!</p>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n    <section class=\"transparent\">\n        <article class=\"thirds two\">\n            <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        </article>\n        <article class=\"thirds one nopad\">\n            <div class=\"stats-container first\">\n                <div class=\"large-number\">{{home.tasksTotal}}</div>\n                Todos to do\n            </div>\n            <div class=\"stats-container\">\n                <div class=\"large-number\">{{home.completedLastDay}}</div>\n                Todos done today\n            </div>\n        </article>\n    </section>\n    <section class=\"lists-container\">\n        <todo-list ng-repeat=\"list in home.lists\" index=\"$index\" createTask=\"home.newTask\" editTask=\"home.editTask\" deleteTask=\"home.deleteTask\" editList=\"home.editList(list)\" deleteList=\"home.deleteList(list)\">\n        </todo-list>\n        <p class=\"todo-list thirds\" ng-if=\"home.lists.length === 0\">No lists!</p>\n        <p class=\"todo-list thirds\" ng-click=\"home.newList()\">\n            <i class=\"lnr lnr-plus-circle\"></i> Add new list\n        </p>\n    </section>\n</main>\n";
 
 /***/ },
 /* 56 */
@@ -43844,7 +43848,7 @@
 
 	        this.lists = [];
 
-	        this.listsAmount = 9;
+	        this.listsAmount = 8;
 
 	        this.listsCurrentPage = 0;
 
@@ -44435,32 +44439,32 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	    value: true
 	});
 	function newTask() {
-	  'use strict';
-	  return {
-	    restrict: 'E',
-	    scope: {
-	      task: '=',
-	      createTask: '&'
-	    },
-	    template: __webpack_require__(62),
+	    'use strict';
+	    return {
+	        restrict: 'E',
+	        scope: {
+	            task: '=',
+	            createTask: '&'
+	        },
+	        template: __webpack_require__(62),
 
-	    link: function link(scope, element, attrs) {
+	        link: function link(scope, element, attrs) {
 
-	      scope.attemptedSubmit = false;
+	            scope.attemptedSubmit = false;
 
-	      scope.submitForm = function (valid) {
-	        if (!valid) {
-	          scope.attemptedSubmit = true;
-	          return;
+	            scope.submitForm = function (valid) {
+	                if (!valid) {
+	                    scope.attemptedSubmit = true;
+	                    return;
+	                }
+	                scope.attemptedSubmit = false;
+	                scope.createTask();
+	            };
 	        }
-	        scope.attemptedSubmit = false;
-	        scope.createTask();
-	      };
-	    }
-	  };
+	    };
 	}
 
 	exports['default'] = newTask;
@@ -44552,14 +44556,51 @@
 /* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Created by alex_crack on 20.11.15.
-	 */
-	__webpack_require__(66);
-	module.exports = 'ui-notification';
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+	function todoList() {
+	    'use strict';
+	    return {
+	        restrict: 'E',
+	        scope: {
+	            index: '=',
+	            list: '=',
+	            createTask: '=',
+	            editTask: '=',
+	            deleteTask: '=',
+	            editList: '&',
+	            deleteList: '&'
+	        },
+	        template: __webpack_require__(66),
+
+	        link: function link(scope, element, attrs) {}
+	    };
+	}
+
+	exports['default'] = todoList;
+	module.exports = exports['default'];
 
 /***/ },
 /* 66 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class='todo-list thirds'>\n  <h3>Hello from list!</h3>\n</div>\n";
+
+/***/ },
+/* 67 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by alex_crack on 20.11.15.
+	 */
+	__webpack_require__(68);
+	module.exports = 'ui-notification';
+
+/***/ },
+/* 68 */
 /***/ function(module, exports) {
 
 	/**
@@ -44791,7 +44832,7 @@
 	angular.module("ui-notification").run(["$templateCache", function($templateCache) {$templateCache.put("angular-ui-notification.html","<div class=\"ui-notification\"><h3 ng-show=\"title\" ng-bind-html=\"title\"></h3><div class=\"message\" ng-bind-html=\"message\"></div></div>");}]);
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -44892,7 +44933,7 @@
 	module.exports = TasksService;
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -44941,7 +44982,7 @@
 	module.exports = SocketsService;
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -44993,7 +45034,7 @@
 	module.exports = RoomService;
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports) {
 
 	'use strict';

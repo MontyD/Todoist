@@ -11,24 +11,26 @@
 </nav>
 <main class="container">
     <section class="transparent">
-      <article class="thirds two">
-        <h2 class="subtle-subtitle left-aligned">Hi {{home.username}}</h2>
-      </article>
-      <article class="thirds one nopad">
-        <div class="stats-container first">
-            <div class="large-number">{{home.tasksTotal}}</div>
-            Todos to do
-        </div>
-        <div class="stats-container">
-            <div class="large-number">{{home.completedLastDay}}</div>
-            Todos done today
-        </div>
-      </article>
+        <article class="thirds two">
+            <h2 class="subtle-subtitle left-aligned">Hi {{home.username}}</h2>
+        </article>
+        <article class="thirds one nopad">
+            <div class="stats-container first">
+                <div class="large-number">{{home.tasksTotal}}</div>
+                Todos to do
+            </div>
+            <div class="stats-container">
+                <div class="large-number">{{home.completedLastDay}}</div>
+                Todos done today
+            </div>
+        </article>
     </section>
     <section class="lists-container">
-        <article ng-if="home.lists.length !== 0">
-            <todo-list class="todo-list" ng-repeat="list in home.lists"></todo-list>
-        </article>
-        <p class="empty-notification" ng-if="home.lists.length === 0">No lists!</p>
+        <todo-list ng-repeat="list in home.lists" index="$index" createTask="home.newTask" editTask="home.editTask" deleteTask="home.deleteTask" editList="home.editList(list)" deleteList="home.deleteList(list)">
+        </todo-list>
+        <p class="todo-list thirds" ng-if="home.lists.length === 0">No lists!</p>
+        <p class="todo-list thirds" ng-click="home.newList()">
+            <i class="lnr lnr-plus-circle"></i> Add new list
+        </p>
     </section>
 </main>

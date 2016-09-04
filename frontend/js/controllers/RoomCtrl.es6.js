@@ -23,7 +23,7 @@ class RoomCtrl {
 
         this.lists = [];
 
-        this.listsAmount = 9;
+        this.listsAmount = 8;
 
         this.listsCurrentPage = 0;
 
