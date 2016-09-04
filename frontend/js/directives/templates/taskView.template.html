@@ -1,13 +1,13 @@
 <div class="task-description">
     <p ng-if="!editing" class="task-title">{{task.title}}</p>
     <p ng-if="!editing" class="task-details">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>
-    <form ng-if="editing" ng-submit="save()">
-        <input type="text" ng-model="task.title" />
-    </form>
-    <div class="button-group" ng-if="editing && !deleting">
-        <button ng-click="cancelEdit()" class="button secondary">Cancel</button>
-        <button ng-click="save()" class="button primary">Save</button>
-    </div>
+</div>
+<form ng-if="editing" ng-submit="save()">
+    <input type="text" ng-model="task.title" />
+</form>
+<div class="button-group" ng-if="editing && !deleting">
+    <button ng-click="cancelEdit()" class="button secondary">Cancel</button>
+    <button ng-click="save()" class="button primary">Save</button>
 </div>
 <div ng-if="!editing && !deleting" class="control-container">
     <button ng-click="startDelete()" class="slide-out delete icon"><span class="lnr lnr-cross"></span></button>

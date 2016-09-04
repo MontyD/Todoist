@@ -29,10 +29,6 @@ class RoomCtrl {
 
         this.listsTotal = 0;
 
-        this.completedLastDay = 0;
-
-        this.tasksTotal = 0;
-
         this.moving = false;
 
         this.init();
@@ -56,17 +52,6 @@ class RoomCtrl {
         this.TodoListsService.countLists().then(
             result => this.listsTotal = result.data.count,
             error => console.error(error)
-        );
-
-        // read completed count for last day
-        this.TasksService.countCompletedLastDay().then(
-            result => this.completedLastDay = result.data.count,
-            this.handleError.bind(this)
-        );
-
-        this.TasksService.countTodos().then(
-            result => this.tasksTotal = result.data.count,
-            this.handleError.bind(this)
         );
 
         this.initSockets();

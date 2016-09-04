@@ -36,8 +36,10 @@
     }
 
     form {
+        margin: 0 auto;
+        width : 90%;
         input[type="text"] {
-            font-size    : 1.2em;
+            font-size    : 1em;
             width        : 100%;
             margin-bottom: 0.1em;
         }
@@ -109,7 +111,7 @@
 
 .todo-list {
     position      : relative;
-    padding-bottom: 1.8em;
+    padding-bottom: 1em;
     max-width     : 600px;
     box-shadow    : 0 1.5px 4px rgba(0,0,0,.24),0 1.5px 6px rgba(0,0,0,.12);
     border-radius : 0.3em;
@@ -117,10 +119,11 @@
     text-align    : left;
 
     .list-title {
-        text-align : left;
-        padding    : 1em 0.1em;
-        font-size  : 1.2em;
-        font-weight: bold;
+        text-align   : left;
+        padding      : 1em 0.1em 0.5em;
+        font-size    : 1.2em;
+        font-weight  : bold;
+        border-bottom: 2px solid $colorGrey;
     }
 
     &-new {
@@ -140,7 +143,7 @@
 
         .lnr {
             display      : block;
-            font-size    : 3.5em;
+            font-size    : 3em;
             margin-bottom: 0.2em;
         }
     }
