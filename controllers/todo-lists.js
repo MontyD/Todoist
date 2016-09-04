@@ -52,6 +52,11 @@ router.post('/', function(req, res, next) {
         roomId: req.room.id
     };
     models.todoLists.create(newList).then(function(createdList) {
+        res.io.to(req.room.name).emit('newTodoList', {
+            list: createdList,
+            username: req.session.username,
+            hash: req.body.hash
+        });
         return res.json(createdList);
     }).catch(function(err) {
         return handleError(err, next);
@@ -94,31 +99,34 @@ router.put('/:ID', function(req, res, next) {
 
 // DELETE all completed - by room id
 router.delete('/:ID', function(req, res, next) {
-  if (isNaN(req.params.ID) || !req.body.name) {
-      var error = new Error('Bad request');
-      error.status = 400;
-      return next(error);
-  }
+    if (isNaN(req.params.ID) || !req.body.name) {
+        var error = new Error('Bad request');
+        error.status = 400;
+        return next(error);
+    }
 
-  models.todoLists.findById(req.params.ID).then(function(list) {
-      if (!list) {
-          return next();
-      } else {
-          if (list.roomId !== req.room.id) {
-              var error = new Error('Unauthorised');
-              error.status = 403;
-              return next(error);
-          }
-          list.destroy().then(function() {
-              res.io.to(req.room.name).emit('DeletedList', req.params.id);
-              res.sendStatus(200);
-          }).catch(function(err) {
-              return handleError(err, next);
-          });
-      }
-  }).catch(function(err) {
-      return handleError(err, next);
-  });
+    models.todoLists.findById(req.params.ID).then(function(list) {
+        if (!list) {
+            return next();
+        } else {
+            if (list.roomId !== req.room.id) {
+                var error = new Error('Unauthorised');
+                error.status = 403;
+                return next(error);
+            }
+            list.destroy().then(function() {
+                res.io.to(req.room.name).emit('DeletedList', {
+                    listId: req.params.id,
+                    hash: req.query.hash
+                });
+                res.sendStatus(200);
+            }).catch(function(err) {
+                return handleError(err, next);
+            });
+        }
+    }).catch(function(err) {
+        return handleError(err, next);
+    });
 });
 
 

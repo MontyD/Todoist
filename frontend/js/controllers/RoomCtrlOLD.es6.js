@@ -20,13 +20,13 @@ class RoomCtrl {
 
         this.username = '';
 
-        this.tasks = [];
+        this.lists = [];
 
         this.newTask = {
             status: 'Todo'
         };
 
-        this.taskPageAmount = 10;
+        this.listsAmount = 9;
 
         this.taskPage = 0;
 
@@ -55,9 +55,9 @@ class RoomCtrl {
         );
 
         // read tasks from server
-        this.TasksService.read(undefined, undefined, this.taskAmount, 'Todo', true).then(
+        this.TasksService.read(undefined, undefined, this.listsAmount).then(
             result => {
-                this.tasks = result.data.tasks;
+                this.lists = result.data.lists;
                 // connect to socket by room name
                 this.initSockets();
             },
