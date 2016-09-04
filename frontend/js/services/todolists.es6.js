@@ -35,9 +35,11 @@ class TodoListsService {
         return this.$http.get(requestURL);
     }
 
-    update(reqTaskId, reqTask, hash) {
-        return this.$http.put(this.urlBase + reqTaskId, {
-            task: reqTask,
+    update(reqListId, reqName, hash) {
+        return this.$http.put(this.urlBase + reqListId, {
+            todoList: {
+              name: reqName
+            },
             hash: hash
         });
     }

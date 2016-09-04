@@ -85,7 +85,7 @@ router.post('/', function(req, res, next) {
 });
 
 router.put('/:ID', function(req, res, next) {
-    if (isNaN(req.params.ID) || !req.body.name) {
+    if (isNaN(req.params.ID) || !req.body.todoList) {
         var error = new Error('Bad put data');
         error.status = 400;
         return next(error);
@@ -100,7 +100,7 @@ router.put('/:ID', function(req, res, next) {
                 error.status = 403;
                 return next(error);
             }
-            list.update(req.body).then(function(updatedList) {
+            list.update(req.body.todoList).then(function(updatedList) {
                 res.io.to(req.room.name).emit('UpdatedList', {
                     list: updatedList,
                     username: req.session.username,

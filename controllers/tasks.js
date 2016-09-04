@@ -37,29 +37,6 @@ router.get('/', function(req, res, next) {
 
 });
 
-router.get('/todo-lists', function(req, res, next) {
-
-    var start = parseInt(req.query.start) || 0;
-    var limit = parseInt(req.query.limit) || 10;
-
-    // FETCH ALL
-    models.todoLists.findAll({
-        where: {
-            roomId: req.room.id
-        },
-        order: [
-            ['createdAt', 'DESC'],
-        ],
-        limit: limit,
-        offset: start
-    }).then(function(lists) {
-        return res.json(lists);
-    }).catch(function(err) {
-        return handleError(err, next);
-    });
-
-});
-
 // GET count of tasks - status Todo
 router.get('/todo-count', function(req, res, next) {
 
@@ -203,50 +180,6 @@ router.post('/', function(req, res, next) {
     });
 
 });
-
-router.post('/todo-list', function(req, res, next) {
-    models.todoLists.create(req.body).then(function(newList) {
-        return res.json(newList);
-    }).catch(function(err) {
-        return handleError(err, next);
-    });
-
-});
-
-router.put('/todo-list/:ID', function(req, res, next) {
-  if (isNaN(req.params.ID) || !req.body.name) {
-      var error = new Error('Bad put data');
-      error.status = 400;
-      return next(error);
-  }
-
-  models.tasks.findById(req.params.taskID).then(function(task) {
-      if (!task) {
-          return next();
-      } else {
-          if (task.roomId === req.room.id) {
-              task.update(req.body.task).then(function(updatedTask) {
-                  res.io.to(req.room.name).emit('UpdatedTask', {
-                      task: updatedTask,
-                      username: req.session.username,
-                      hash: req.body.hash
-                  });
-                  res.json(updatedTask);
-              }).catch(function(err) {
-                  return handleError(err, next);
-              });
-          } else {
-              var error = new Error('Unauthorised');
-              error.status = 403;
-              return next(error);
-          }
-      }
-  }).catch(function(err) {
-      return handleError(err, next);
-  });
-
-});
-
 
 // Update task by id
 router.put('/:taskID', function(req, res, next) {

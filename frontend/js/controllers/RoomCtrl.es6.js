@@ -113,9 +113,16 @@ class RoomCtrl {
                 return;
             }
             this.updateTaskLocally(data.task, true);
-            this.Notify(data.username + ' removed a new todo');
+            this.Notify(data.username + ' removed a todo');
             // force view to update;
             this.$scope.$apply();
+        }).bind(this));
+
+        this.SocketsService.on('UpdatedList', (function(data){
+          if (this.$rootScope.hash === data.hash) {
+              return;
+          }
+          this.updateListLocally(data.list.id, data.list.name);
         }).bind(this));
 
         this.SocketsService.on('DeletedAllComplete', (function(data) {
@@ -129,7 +136,6 @@ class RoomCtrl {
             window.location = '/rooms/login?kicked=true';
         }).bind(this));
         // ----->
-
 
         // create hash and make sockets as initialised.
         this.$rootScope.hash = Math.random().toString(36).substring(7);
@@ -169,6 +175,22 @@ class RoomCtrl {
 
     pageForward() {
         return this.movePage(this.listsCurrentPage + 1);
+    }
+
+    updateListLocally(id, newName) {
+      for (let i = 0; i < this.lists.length; i++) {
+        if (this.lists[i].id === id) {
+          this.lists[i].name = newName;
+          return;
+        }
+      }
+    }
+
+    editList(id, newName) {
+      this.TodoListsService.update(id, newName, this.$rootScope.hash).then(
+        result => this.updateListLocally(id, newName),
+        this.handleError.bind(this)
+      );
     }
 
 

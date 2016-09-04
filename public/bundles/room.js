@@ -43796,7 +43796,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n    <todo-list ng-repeat=\"list in home.lists\" list=\"list\" index=\"$index\" createTask=\"home.newTask\" editTask=\"home.editTask\" deleteTask=\"home.deleteTask\" editList=\"home.editList(list)\" deleteList=\"home.deleteList(list)\">\n    </todo-list>\n    <p class=\"todo-list thirds\" ng-if=\"home.lists.length === 0\">No lists!</p>\n    <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n        <i class=\"lnr lnr-plus-circle\"></i> Add new list\n    </p>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n    <todo-list ng-repeat=\"list in home.lists\" list=\"list\" index=\"$index\" createtask=\"home.newTask\" edittask=\"home.editTask\" deletetask=\"home.deleteTask\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list)\">\n    </todo-list>\n    <p class=\"todo-list thirds\" ng-if=\"home.lists.length === 0\">No lists!</p>\n    <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n        <i class=\"lnr lnr-plus-circle\"></i> Add new list\n    </p>\n</main>\n";
 
 /***/ },
 /* 56 */
@@ -43939,9 +43939,16 @@
 	                    return;
 	                }
 	                this.updateTaskLocally(data.task, true);
-	                this.Notify(data.username + ' removed a new todo');
+	                this.Notify(data.username + ' removed a todo');
 	                // force view to update;
 	                this.$scope.$apply();
+	            }).bind(this));
+
+	            this.SocketsService.on('UpdatedList', (function (data) {
+	                if (this.$rootScope.hash === data.hash) {
+	                    return;
+	                }
+	                this.updateListLocally(data.list.id, data.list.name);
 	            }).bind(this));
 
 	            this.SocketsService.on('DeletedAllComplete', (function (data) {
@@ -43995,6 +44002,25 @@
 	        key: 'pageForward',
 	        value: function pageForward() {
 	            return this.movePage(this.listsCurrentPage + 1);
+	        }
+	    }, {
+	        key: 'updateListLocally',
+	        value: function updateListLocally(id, newName) {
+	            for (var i = 0; i < this.lists.length; i++) {
+	                if (this.lists[i].id === id) {
+	                    this.lists[i].name = newName;
+	                    return;
+	                }
+	            }
+	        }
+	    }, {
+	        key: 'editList',
+	        value: function editList(id, newName) {
+	            var _this4 = this;
+
+	            this.TodoListsService.update(id, newName, this.$rootScope.hash).then(function (result) {
+	                return _this4.updateListLocally(id, newName);
+	            }, this.handleError.bind(this));
 	        }
 	    }, {
 	        key: 'Notify',
@@ -44554,11 +44580,11 @@
 	        scope: {
 	            index: '=',
 	            list: '=',
-	            createTask: '=',
-	            editTask: '=',
-	            deleteTask: '=',
-	            editList: '&',
-	            deleteList: '&'
+	            createTask: '=createtask',
+	            editTask: '=edittask',
+	            deleteTask: '=deletetask',
+	            editList: '&editlist',
+	            deleteList: '&deletelist'
 	        },
 	        template: __webpack_require__(66),
 
@@ -44571,6 +44597,11 @@
 	            scope.toggleListEdit = function () {
 	                return scope.editing = !scope.editing;
 	            };
+
+	            scope.submitListEdit = function () {
+	                scope.editList();
+	                scope.toggleListEdit();
+	            };
 	        }
 	    };
 	}
@@ -44582,7 +44613,7 @@
 /* 66 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class='todo-list thirds'>\n    <div class=\"list-title\">\n        <span ng-if=\"!editing && !deleting\">{{list.title || 'Todo list ' + ($index + 1)}}</span>\n        <span ng-if=\"!editing && !deleting\" class=\"control-container\">\n            <button ng-click=\"startListDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n            <button ng-click=\"toggleListEdit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n        </span>\n        <form ng-if=\"editing\" name=\"listUpdate\" ng-submit=\"updateList()\">\n          <input type=\"text\" ng-model=\"list.name\" placeholder=\"List name\" />\n          <input type=\"submit\" class=\"button\" value=\"Update\" />\n        </form>\n    </div>\n    <div class=\"list-body\">\n        <div class=\"task-item\" ng-repeat=\"task in list.tasks\">\n            <task-view task=\"task\" edited=\"updateTask(task)\" deleted=\"deleteTask(task)\">\n            </task-view>\n        </div>\n        <p class=\"empty-notification\" ng-if=\"!list.tasks.length\">No todos to be done</p>\n    </div>\n</div>\n";
+	module.exports = "<div class='todo-list thirds'>\n    <div class=\"list-title\">\n        <span ng-if=\"!editing && !deleting\">{{list.name || 'Todo list ' + ($index + 1)}}</span>\n        <span ng-if=\"!editing && !deleting\" class=\"control-container\">\n            <button ng-click=\"startListDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n            <button ng-click=\"toggleListEdit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n        </span>\n        <form ng-if=\"editing\" name=\"listUpdate\" ng-submit=\"submitListEdit()\">\n          <input type=\"text\" ng-model=\"list.name\" placeholder=\"List name\" />\n          <input type=\"submit\" class=\"button\" value=\"Update\" />\n        </form>\n    </div>\n    <div class=\"list-body\">\n        <div class=\"task-item\" ng-repeat=\"task in list.tasks\">\n            <task-view task=\"task\" edited=\"updateTask(task)\" deleted=\"deleteTask(task)\">\n            </task-view>\n        </div>\n        <p class=\"empty-notification\" ng-if=\"!list.tasks.length\">No todos to be done</p>\n    </div>\n</div>\n";
 
 /***/ },
 /* 67 */
@@ -45078,9 +45109,11 @@
 	        }
 	    }, {
 	        key: 'update',
-	        value: function update(reqTaskId, reqTask, hash) {
-	            return this.$http.put(this.urlBase + reqTaskId, {
-	                task: reqTask,
+	        value: function update(reqListId, reqName, hash) {
+	            return this.$http.put(this.urlBase + reqListId, {
+	                todoList: {
+	                    name: reqName
+	                },
 	                hash: hash
 	            });
 	        }

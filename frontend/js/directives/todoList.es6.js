@@ -5,11 +5,11 @@ function todoList() {
         scope: {
             index: '=',
             list: '=',
-            createTask: '=',
-            editTask: '=',
-            deleteTask: '=',
-            editList: '&',
-            deleteList: '&'
+            createTask: '=createtask',
+            editTask: '=edittask',
+            deleteTask: '=deletetask',
+            editList: '&editlist',
+            deleteList: '&deletelist'
         },
         template: require('./templates/todoList.template.html'),
 
@@ -20,6 +20,11 @@ function todoList() {
           scope.deleting = false;
 
           scope.toggleListEdit = () => scope.editing = !scope.editing;
+
+          scope.submitListEdit = () => {
+            scope.editList();
+            scope.toggleListEdit();
+          };
 
         }
     };
