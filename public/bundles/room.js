@@ -44662,6 +44662,11 @@
 	            scope.toggleListDelete = function () {
 	                return scope.deleting = !scope.deleting;
 	            };
+
+	            scope.removeList = function () {
+	                scope.toggleListDelete();
+	                scope.deleteList();
+	            };
 	        }
 	    };
 	}
@@ -44673,7 +44678,7 @@
 /* 66 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class='todo-list thirds'>\n    <div class=\"list-title\">\n        <span ng-if=\"!editing && !deleting\">{{list.name || 'Todo list ' + (index + 1)}}</span>\n        <span ng-if=\"!editing && !deleting\" class=\"control-container\">\n            <button ng-click=\"toggleListDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n            <button ng-click=\"toggleListEdit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n        </span>\n        <form ng-if=\"editing\" name=\"listUpdate\" ng-submit=\"submitListEdit()\">\n          <input type=\"text\" ng-model=\"list.name\" placeholder=\"List name\" />\n          <input type=\"submit\" class=\"button\" value=\"Update\" />\n        </form>\n        <div ng-if=\"deleting\" class=\"button-group\">\n          <button ng-click=\"toggleListDelete()\" class=\"button secondary\">Cancel</button>\n          <button ng-click=\"deleteList()\" class=\"button danger\">Delete</button>\n        </div>\n    </div>\n    <div class=\"list-body\">\n        <div class=\"task-item\" ng-repeat=\"task in list.tasks\">\n            <task-view task=\"task\" edited=\"updateTask(task)\" deleted=\"deleteTask(task)\">\n            </task-view>\n        </div>\n        <p class=\"empty-notification\" ng-if=\"!list.tasks.length\">No todos to be done</p>\n    </div>\n</div>\n";
+	module.exports = "<div class='todo-list thirds'>\n    <div class=\"list-title\">\n        <span ng-if=\"!editing && !deleting\">{{list.name || 'Todo list ' + (index + 1)}}</span>\n        <span ng-if=\"!editing && !deleting\" class=\"control-container\">\n            <button ng-click=\"toggleListDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n            <button ng-click=\"toggleListEdit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n        </span>\n        <form ng-if=\"editing\" name=\"listUpdate\" ng-submit=\"submitListEdit()\">\n          <input type=\"text\" ng-model=\"list.name\" placeholder=\"List name\" />\n          <input type=\"submit\" class=\"button\" value=\"Update\" />\n        </form>\n        <div ng-if=\"deleting\" class=\"button-group\">\n          <button ng-click=\"toggleListDelete()\" class=\"button secondary\">Cancel</button>\n          <button ng-click=\"removeList()\" class=\"button danger\">Delete</button>\n        </div>\n    </div>\n    <div class=\"list-body\">\n        <div class=\"task-item\" ng-repeat=\"task in list.tasks\">\n            <task-view task=\"task\" edited=\"updateTask(task)\" deleted=\"deleteTask(task)\">\n            </task-view>\n        </div>\n        <p class=\"empty-notification\" ng-if=\"!list.tasks.length\">No todos to be done</p>\n    </div>\n</div>\n";
 
 /***/ },
 /* 67 */

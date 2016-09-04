@@ -28,6 +28,11 @@ function todoList() {
 
           scope.toggleListDelete = () => scope.deleting = !scope.deleting;
 
+          scope.removeList = () => {
+            scope.toggleListDelete();
+            scope.deleteList();
+          };
+
         }
     };
 }
