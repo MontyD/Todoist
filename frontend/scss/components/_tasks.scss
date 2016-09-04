@@ -7,45 +7,47 @@
     max-width: none;
     display  : inline-block;
     @media(max-width: $mediumBP) {
-      display: block;
+        display: block;
     }
 }
 
 .task-item {
-    display   : block;
-    padding-top: 0.5em;
+    display       : block;
+    padding-top   : 0.5em;
     padding-bottom: 0.5em;
-    text-align: center;
-    clear     : both;
-    border-top: 2px solid $colorGrey;
-    transition: background 0.2s ease;
+    text-align    : center;
+    clear         : both;
+    border-top    : 2px solid $colorGrey;
+    transition    : background 0.2s ease;
 
     .task-description {
         display       : inline-block;
         width         : 55%;
         vertical-align: middle;
         color         : $colorDarkGrey;
-        text-align: left;
+        text-align    : left;
+        font-size     : 0.8em;
 
         .button-group {
-          display: block;
-          margin: 0 auto;
-          text-align: center;
+            display   : block;
+            margin    : 0 auto;
+            text-align: center;
         }
     }
 
     form {
-      textarea, input[type="text"] {
-        width: 100%;
-      }
+        input[type="text"] {
+            font-size    : 1.2em;
+            width        : 100%;
+            margin-bottom: 0.1em;
+        }
     }
 
     .task-title {
-        color        : $colorDark;
-        font-weight  : bold;
-        font-size    : 1.5em;
+        font-size    : 1.2em;
+        color        : $colorBlack;
         margin-bottom: 0;
-        text-align: left;
+        text-align   : left;
     }
 
     .control-container {
@@ -59,16 +61,18 @@
         }
 
         p {
-            width     : 100%;
-            color     : $colorDarkGrey;
-            font-size : 0.9em;
+            width    : 100%;
+            color    : $colorDarkGrey;
+            font-size: 0.9em;
         }
     }
 
     button.icon {
+        font-size: 1.5em;
+
         &.done {
             color    : $colorBlack;
-            font-size: 2.5em;
+            font-size: 1.8em;
 
             &:hover {
                 color: $colorMain;
@@ -103,8 +107,48 @@
     }
 }
 
+.todo-list {
+    position      : relative;
+    padding-bottom: 1.8em;
+    max-width     : 600px;
+    box-shadow    : 0 1.5px 4px rgba(0,0,0,.24),0 1.5px 6px rgba(0,0,0,.12);
+    border-radius : 0.3em;
+    @extend .light;
+    text-align    : left;
+
+    .list-title {
+        text-align : left;
+        padding    : 1em 0.1em;
+        font-size  : 1.2em;
+        font-weight: bold;
+    }
+
+    &-new {
+        position      : relative;
+        padding-bottom: 1.8em;
+        max-width     : 600px;
+        box-shadow    : 0 1.5px 4px rgba(0,0,0,.24),0 1.5px 6px rgba(0,0,0,.12);
+        border-radius : 0.3em;
+        padding-top   : 1em;
+        font-size     : 1.2em;
+        text-align    : center;
+        padding-bottom: 1em;
+        cursor        : pointer;
+        margin-top    : 0;
+        color         : $colorDarkGrey;
+        @extend .light;
+
+        .lnr {
+            display      : block;
+            font-size    : 3.5em;
+            margin-bottom: 0.2em;
+        }
+    }
+}
+
 .empty-notification {
-    margin   : 4em;
-    font-size: 1.2em;
-    color    : $colorDarkGrey;
+    margin    : 1.5em 0.5em;
+    font-size : 1em;
+    text-align: center;
+    color     : $colorDarkGrey;
 }

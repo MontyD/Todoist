@@ -775,7 +775,7 @@ button.icon {
   background: #004D40;
   color: #FAFAFA; }
 
-.light, .tasks-container {
+.light, .tasks-container, .todo-list, .todo-list-new {
   background: #FAFAFA;
   color: #212121; }
 
@@ -990,9 +990,9 @@ input[type="checkbox"] {
       border-top-color: transparent;
       border-right-color: transparent;
       margin-bottom: 0.3em; }
-  input[type="checkbox"].light + label:before, input[type="checkbox"].tasks-container + label:before {
+  input[type="checkbox"].light + label:before, input[type="checkbox"].tasks-container + label:before, input[type="checkbox"].todo-list + label:before, input[type="checkbox"].todo-list-new + label:before {
     border-color: #FAFAFA; }
-  input[type="checkbox"].light:checked + label:before, input[type="checkbox"].tasks-container:checked + label:before {
+  input[type="checkbox"].light:checked + label:before, input[type="checkbox"].tasks-container:checked + label:before, input[type="checkbox"].todo-list:checked + label:before, input[type="checkbox"].todo-list-new:checked + label:before {
     border-top-color: transparent;
     border-right-color: transparent; }
   input[type="checkbox"].large + label:before {
@@ -1025,9 +1025,9 @@ input[type="radio"] {
       height: 0.9em;
       width: 0.9em;
       margin-bottom: -0.1em; }
-  input[type="radio"].light + label:before, input[type="radio"].tasks-container + label:before {
+  input[type="radio"].light + label:before, input[type="radio"].tasks-container + label:before, input[type="radio"].todo-list + label:before, input[type="radio"].todo-list-new + label:before {
     border-color: #FAFAFA; }
-  input[type="radio"].light:checked + label:before, input[type="radio"].tasks-container:checked + label:before {
+  input[type="radio"].light:checked + label:before, input[type="radio"].tasks-container:checked + label:before, input[type="radio"].todo-list:checked + label:before, input[type="radio"].todo-list-new:checked + label:before {
     background: #FAFAFA; }
 
 form.inline {
@@ -1834,7 +1834,7 @@ button.icon {
   background: #004D40;
   color: #FAFAFA; }
 
-.light, .tasks-container {
+.light, .tasks-container, .todo-list, .todo-list-new {
   background: #FAFAFA;
   color: #212121; }
 
@@ -2781,7 +2781,7 @@ button.icon {
   background: #004D40;
   color: #FAFAFA; }
 
-.light, .tasks-container {
+.light, .tasks-container, .todo-list, .todo-list-new {
   background: #FAFAFA;
   color: #212121; }
 
@@ -2890,17 +2890,19 @@ button.icon {
     width: 55%;
     vertical-align: middle;
     color: #6f6f6f;
-    text-align: left; }
+    text-align: left;
+    font-size: 0.8em; }
     .task-item .task-description .button-group {
       display: block;
       margin: 0 auto;
       text-align: center; }
-  .task-item form textarea, .task-item form input[type="text"] {
-    width: 100%; }
+  .task-item form input[type="text"] {
+    font-size: 1.2em;
+    width: 100%;
+    margin-bottom: 0.1em; }
   .task-item .task-title {
-    color: #004D40;
-    font-weight: bold;
-    font-size: 1.5em;
+    font-size: 1.2em;
+    color: #212121;
     margin-bottom: 0;
     text-align: left; }
   .task-item .control-container {
@@ -2914,21 +2916,54 @@ button.icon {
       width: 100%;
       color: #6f6f6f;
       font-size: 0.9em; }
-  .task-item button.icon.done {
-    color: #212121;
-    font-size: 2.5em; }
-    .task-item button.icon.done:hover {
-      color: #009688; }
-  .task-item button.icon.delete:hover {
-    color: #E64A19; }
-  .task-item button.icon:first-child {
-    transition-delay: 0.05s; }
+  .task-item button.icon {
+    font-size: 1.5em; }
+    .task-item button.icon.done {
+      color: #212121;
+      font-size: 1.8em; }
+      .task-item button.icon.done:hover {
+        color: #009688; }
+    .task-item button.icon.delete:hover {
+      color: #E64A19; }
+    .task-item button.icon:first-child {
+      transition-delay: 0.05s; }
   .task-item:hover {
     background: #F1F1F1; }
   .task-item:first-child {
     border-top: none; }
 
+.todo-list {
+  position: relative;
+  padding-bottom: 1.8em;
+  max-width: 600px;
+  box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+  border-radius: 0.3em;
+  text-align: left; }
+  .todo-list .list-title {
+    text-align: left;
+    padding: 1em 0.1em;
+    font-size: 1.2em;
+    font-weight: bold; }
+  .todo-list-new {
+    position: relative;
+    padding-bottom: 1.8em;
+    max-width: 600px;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+    border-radius: 0.3em;
+    padding-top: 1em;
+    font-size: 1.2em;
+    text-align: center;
+    padding-bottom: 1em;
+    cursor: pointer;
+    margin-top: 0;
+    color: #6f6f6f; }
+    .todo-list-new .lnr {
+      display: block;
+      font-size: 3.5em;
+      margin-bottom: 0.2em; }
+
 .empty-notification {
-  margin: 4em;
-  font-size: 1.2em;
+  margin: 1.5em 0.5em;
+  font-size: 1em;
+  text-align: center;
   color: #6f6f6f; }

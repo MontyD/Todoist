@@ -1,3 +1,10 @@
 <div class='todo-list thirds'>
-  <h3>Hello from list!</h3>
+  <div class="list-title">{{list.title || 'Todo list ' + ($index + 1)}}</div>
+  <div class="list-body">
+    <div class="task-item" ng-repeat="task in list.tasks">
+        <task-view task="task" edited="updateTask(task)" deleted="deleteTask(task)">
+        </task-view>
+    </div>
+    <p class="empty-notification" ng-if="!list.tasks.length">No todos to be done</p>
+  </div>
 </div>

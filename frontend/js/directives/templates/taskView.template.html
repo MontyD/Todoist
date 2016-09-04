@@ -1,12 +1,8 @@
 <div class="task-description">
     <p ng-if="!editing" class="task-title">{{task.title}}</p>
-    <p ng-if="!editing">{{task.description}}</p>
     <p ng-if="!editing" class="task-details">Created by {{task.username}} on {{task.createdAt | date : longDate}}</p>
     <form ng-if="editing" ng-submit="save()">
-        <label class="first">Thing to be done</label>
         <input type="text" ng-model="task.title" />
-        <label>Notes</label>
-        <textarea class="last" ng-model="task.description"></textarea>
     </form>
     <div class="button-group" ng-if="editing && !deleting">
         <button ng-click="cancelEdit()" class="button secondary">Cancel</button>
