@@ -42,6 +42,12 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         hooks: {
             beforeCreate: function(room, options, cb) {
+                if (room.passcode === room.adminPassword) {
+                    cb({
+                        message: 'Validation error: Passcode cannot be the same as the admin password',
+                        name: 'Sequelize'
+                    }, options);
+                }
                 room.generatePasswordHashes(room, options, cb);
             },
             beforeUpdate: function(room, options, cb) {
@@ -87,17 +93,32 @@ module.exports = function(sequelize, DataTypes) {
                 });
             },
             generateAdminPasswordHash: function(room, complete, error) {
-              // compare with passcode first
-                bcrypt.hash(room.adminPassword, room.passcodeSalt, function(err, hash) {
-                    if (err) {
-                        return error(err);
-                    }
-                    if (hash === room.passcode) {
-                        return error({
-                            message: 'Admin password cannot be the same as room passcode',
-                            status: 400
+                // compare with passcode first - exists
+                if (room.passcode && room.passcodeSalt) {
+                    bcrypt.hash(room.adminPassword, room.passcodeSalt, function(err, hash) {
+                        if (err) {
+                            return error(err);
+                        }
+                        if (hash === room.passcode) {
+                            return error({
+                                message: 'Validation error: Admin password cannot be the same as room passcode'
+                            });
+                        }
+                        bcrypt.genSalt(12, function(err, salt) {
+                            if (err) {
+                                return error(err);
+                            }
+                            bcrypt.hash(room.adminPassword, salt, function(err, hash) {
+                                if (err) {
+                                    return error(err);
+                                }
+                                room.adminPassword = hash;
+                                room.adminSalt = salt;
+                                return complete();
+                            });
                         });
-                    }
+                    });
+                } else {
                     bcrypt.genSalt(12, function(err, salt) {
                         if (err) {
                             return error(err);
@@ -111,7 +132,7 @@ module.exports = function(sequelize, DataTypes) {
                             return complete();
                         });
                     });
-                });
+                }
             },
             updateAdminPassword: function(passwords, cb) {
                 if (!passwords || passwords.new !== passwords.confirm) {

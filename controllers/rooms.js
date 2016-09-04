@@ -62,17 +62,14 @@ router.post('/login', authenticateRoom);
 
 // Post register
 router.post('/new', function(req, res, next) {
-    if (req.body.passcode === req.body.adminPassword) {
-        var error = new Error('Passcode cannot be the same as the admin password');
-        error.status = 401;
-        return handleError(error, next);
-    }
     models.rooms.create(req.body).then(function(room) {
-      models.todoLists.create({roomId: req.body.room.id}).then(function(todoList){
-        authenticateRoom(req, res, next);
-      }).catch(function(err){
-        return handleError(error, next);
-      });
+        models.todoLists.create({
+            roomId: room.id
+        }).then(function(todoList) {
+            authenticateRoom(req, res, next);
+        }).catch(function(err) {
+            return handleError(err, next);
+        });
     }).catch(function(error) {
         return handleError(error, next);
     });

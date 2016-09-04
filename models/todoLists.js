@@ -2,10 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
     var todoList = sequelize.define('todoLists', {
-        name: {
-            type: DataTypes.TEXT,
-            allowNull: false
-        }
+        name: DataTypes.TEXT,
     });
     return todoList;
 };
