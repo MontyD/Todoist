@@ -8,6 +8,7 @@ class RoomCtrl {
         this.TasksService = TasksService;
         this.SocketsService = SocketsService;
         this.RoomService = RoomService;
+        this.TodoListsService = TodoListsService;
         this.$scope = $scope;
         this.$rootScope = $rootScope;
 
@@ -30,6 +31,8 @@ class RoomCtrl {
 
         this.completedLastDay = 0;
 
+        this.tasksTotal = 0;
+
         this.moving = false;
 
         this.init();
@@ -38,15 +41,13 @@ class RoomCtrl {
     init() {
         if (!this.$rootScope.roomName) {
             this.getRoomInfoFromServer();
+        } else {
             this.getRoomInfoLocally();
         }
-        this.getRoomInfoLocally();
-        this.initSockets();
-
         // read tasks from server
         this.TodoListsService.read(undefined, undefined, this.listsAmount).then(
             result => {
-                this.lists = result.data.lists;
+                this.lists = result.data;
             },
             this.handleError.bind(this)
         );
@@ -62,16 +63,22 @@ class RoomCtrl {
             result => this.completedLastDay = result.data.count,
             this.handleError.bind(this)
         );
+
+        this.TasksService.countTodos().then(
+            result => this.tasksTotal = result.data.count,
+            this.handleError.bind(this)
+        );
+
+        this.initSockets();
     }
 
     getRoomInfoFromServer() {
         this.RoomService.getInfo().then(
             result => {
-                if (!this.$rootScope.roomName && !this.roomName) {
-                    this.$rootScope.roomName = result.data.roomName;
-                    this.$rootScope.isAdmin = result.data.isAdmin;
-                    this.$rootScope.username = result.data.username;
-                }
+                this.$rootScope.roomName = result.data.roomName;
+                this.$rootScope.isAdmin = result.data.isAdmin;
+                this.$rootScope.username = result.data.username;
+                this.getRoomInfoLocally();
             },
             this.handleError.bind(this)
         );

@@ -18,7 +18,7 @@ import uiNotification from 'angular-ui-notification';
 import TasksService from './services/tasks.es6.js';
 import SocketsService from './services/sockets.es6.js';
 import RoomService from './services/room.es6.js';
-import TodoListsService from './services/todo-lists.js';
+import TodoListsService from './services/todolists.es6.js';
 
 window.io = io;
 
@@ -31,5 +31,5 @@ angular.module('app', [uiRouter, 'ui-notification'])
     .service('TasksService', TasksService)
     .service('SocketsService', SocketsService)
     .service('RoomService', RoomService)
-    .todoListsService('TodoListsService', TodoListsService)
+    .service('TodoListsService', TodoListsService)
     .config(RoomConfig);

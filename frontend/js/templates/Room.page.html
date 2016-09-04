@@ -14,7 +14,7 @@
       <article class="thirds two">
         <h2 class="subtle-subtitle left-aligned">Hi {{home.username}}</h2>
       </article>
-      <article class="thirds one">
+      <article class="thirds one nopad">
         <div class="stats-container first">
             <div class="large-number">{{home.tasksTotal}}</div>
             Todos to do
@@ -27,9 +27,7 @@
     </section>
     <section class="lists-container">
         <article ng-if="home.lists.length !== 0">
-            <div class="task-item" ng-repeat="list in home.lists">
-              List {{$index}}
-            </div>
+            <todo-list class="todo-list" ng-repeat="list in home.lists"></todo-list>
         </article>
         <p class="empty-notification" ng-if="home.lists.length === 0">No lists!</p>
     </section>

@@ -102,9 +102,13 @@
 
 	var _servicesRoomEs6Js2 = _interopRequireDefault(_servicesRoomEs6Js);
 
+	var _servicesTodolistsEs6Js = __webpack_require__(70);
+
+	var _servicesTodolistsEs6Js2 = _interopRequireDefault(_servicesTodolistsEs6Js);
+
 	window.io = _socketIoClient2['default'];
 
-	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).controller('OverviewCtrl', _controllersOverviewCtrlEs6Js2['default']).controller('SettingsCtrl', _controllersSettingsCtrlEs6Js2['default']).directive('newTask', _directivesNewTaskEs6Js2['default']).directive('taskView', _directivesTaskViewEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketsService', _servicesSocketsEs6Js2['default']).service('RoomService', _servicesRoomEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
+	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).controller('OverviewCtrl', _controllersOverviewCtrlEs6Js2['default']).controller('SettingsCtrl', _controllersSettingsCtrlEs6Js2['default']).directive('newTask', _directivesNewTaskEs6Js2['default']).directive('taskView', _directivesTaskViewEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketsService', _servicesSocketsEs6Js2['default']).service('RoomService', _servicesRoomEs6Js2['default']).service('TodoListsService', _servicesTodolistsEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -43788,7 +43792,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n    <section class=\"thirds one  transparent\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n        <new-task create-task=\"home.createTask(newTask)\" task=\"home.newTask\" class=\"transparent left-aligned\"></new-task>\n        <article class=\"stats-container first\">\n            <div class=\"large-number\">{{home.tasksTotal}}</div>\n            Todos to do\n        </article>\n        <article class=\"stats-container\">\n            <div class=\"large-number\">{{home.completedLastDay}}</div>\n            Todos done today\n        </article>\n    </section>\n    <section class=\"thirds two tasks-container\">\n        <article ng-if=\"home.tasks.length !== 0\">\n            <div class=\"task-item\" ng-repeat=\"task in home.tasks\">\n                <task-view task=\"task\" edited=\"home.updateTask(task)\" deleted=\"home.deleteTask(task)\">\n                </task-view>\n            </div>\n            <div class=\"pagination-controls\" ng-if=\"home.availablePages() > 1\">\n                <button class=\"icon back\" ng-if=\"home.taskPage > 0\" ng-click=\"home.pageBack()\"><span class=\"lnr lnr-arrow-left\"></span></button>\n                <span class=\"page-number transparent\">Page {{home.taskPage + 1}} of {{home.availablePages()}}</span>\n                <button class=\"icon forward\" ng-if=\"home.availablePages() !== (home.taskPage + 1)\" ng-click=\"home.pageForward()\"><span class=\"lnr lnr-arrow-right\"></span></button>\n            </div>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.tasks.length === 0\">No todos to be done</p>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n    <section class=\"transparent\">\n      <article class=\"thirds two\">\n        <h2 class=\"subtle-subtitle left-aligned\">Hi {{home.username}}</h2>\n      </article>\n      <article class=\"thirds one nopad\">\n        <div class=\"stats-container first\">\n            <div class=\"large-number\">{{home.tasksTotal}}</div>\n            Todos to do\n        </div>\n        <div class=\"stats-container\">\n            <div class=\"large-number\">{{home.completedLastDay}}</div>\n            Todos done today\n        </div>\n      </article>\n    </section>\n    <section class=\"lists-container\">\n        <article ng-if=\"home.lists.length !== 0\">\n            <todo-list class=\"todo-list\" ng-repeat=\"list in home.lists\">\n              List {{$index}}\n            </todo-list>\n        </article>\n        <p class=\"empty-notification\" ng-if=\"home.lists.length === 0\">No lists!</p>\n    </section>\n</main>\n";
 
 /***/ },
 /* 56 */
@@ -43817,9 +43821,7 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var RoomCtrl = (function () {
-	    function RoomCtrl(Notification, TasksService, SocketsService, RoomService, $scope, $rootScope) {
-	        var _this = this;
-
+	    function RoomCtrl(Notification, TasksService, SocketsService, RoomService, TodoListsService, $scope, $rootScope) {
 	        _classCallCheck(this, RoomCtrl);
 
 	        // Dependencies
@@ -43827,83 +43829,87 @@
 	        this.TasksService = TasksService;
 	        this.SocketsService = SocketsService;
 	        this.RoomService = RoomService;
+	        this.TodoListsService = TodoListsService;
 	        this.$scope = $scope;
 	        this.$rootScope = $rootScope;
 
 	        this.$rootScope.roomName = '';
 	        this.$rootScope.isAdmin = false;
-	        this.isAdmin = false;
+	        this.$rootScope.username = '';
 
-	        // initial variables
+	        // initial properties
 	        this.roomName = '';
-
+	        this.isAdmin = false;
 	        this.username = '';
 
-	        this.tasks = [];
+	        this.lists = [];
 
-	        this.newTask = {
-	            status: 'Todo'
-	        };
+	        this.listsAmount = 9;
 
-	        this.taskPageAmount = 10;
+	        this.listsCurrentPage = 0;
 
-	        this.taskPage = 0;
-
-	        this.tasksTotal = 0;
+	        this.listsTotal = 0;
 
 	        this.completedLastDay = 0;
 
-	        this.cache = {};
+	        this.tasksTotal = 0;
 
 	        this.moving = false;
 
-	        // get room info: username, roomname,
-	        // admin status, and sockets echo that
-	        // user is connected
-	        this.RoomService.getInfo().then(function (result) {
-	            _this.$rootScope.roomName = result.data.roomName;
-	            _this.roomName = result.data.roomName;
-	            _this.$rootScope.isAdmin = result.data.isAdmin;
-	            _this.isAdmin = result.data.isAdmin;
-	            _this.username = result.data.username;
-	        }, this.handleError.bind(this));
-
-	        // read tasks from server
-	        this.TasksService.read(undefined, undefined, this.taskAmount, 'Todo', true).then(function (result) {
-	            _this.tasks = result.data.tasks;
-	            // connect to socket by room name
-	            _this.initSockets();
-	        }, this.handleError.bind(this));
-
-	        // read todos count
-	        this.TasksService.countTodos().then(function (result) {
-	            return _this.tasksTotal = result.data.count;
-	        }, function (error) {
-	            return console.error(error);
-	        });
-
-	        // read completed count for last day
-	        this.TasksService.countCompletedLastDay().then(function (result) {
-	            return _this.completedLastDay = result.data.count;
-	        }, this.handleError.bind(this));
+	        this.init();
 	    }
 
 	    _createClass(RoomCtrl, [{
-	        key: 'Notify',
-	        value: function Notify(text, type) {
-	            if (this.doNotNotify) {
-	                return false;
+	        key: 'init',
+	        value: function init() {
+	            var _this = this;
+
+	            if (!this.$rootScope.roomName) {
+	                this.getRoomInfoFromServer();
+	            } else {
+	                this.getRoomInfoLocally();
 	            }
-	            switch (type) {
-	                case 'Success':
-	                    this.Notification.success(text);
-	                    break;
-	                case 'Error':
-	                    this.Notification.error(text);
-	                    break;
-	                default:
-	                    this.Notification.info(text);
-	            }
+	            // read tasks from server
+	            this.TodoListsService.read(undefined, undefined, this.listsAmount).then(function (result) {
+	                _this.lists = result.data;
+	            }, this.handleError.bind(this));
+
+	            // read todos count
+	            this.TodoListsService.countLists().then(function (result) {
+	                return _this.listsTotal = result.data.count;
+	            }, function (error) {
+	                return console.error(error);
+	            });
+
+	            // read completed count for last day
+	            this.TasksService.countCompletedLastDay().then(function (result) {
+	                return _this.completedLastDay = result.data.count;
+	            }, this.handleError.bind(this));
+
+	            this.TasksService.countTodos().then(function (result) {
+	                return _this.tasksTotal = result.data.count;
+	            }, this.handleError.bind(this));
+
+	            this.initSockets();
+	        }
+	    }, {
+	        key: 'getRoomInfoFromServer',
+	        value: function getRoomInfoFromServer() {
+	            var _this2 = this;
+
+	            this.RoomService.getInfo().then(function (result) {
+	                _this2.$rootScope.roomName = result.data.roomName;
+	                _this2.$rootScope.isAdmin = result.data.isAdmin;
+	                _this2.$rootScope.username = result.data.username;
+	                _this2.getRoomInfoLocally();
+	            }, this.handleError.bind(this));
+	        }
+	    }, {
+	        key: 'getRoomInfoLocally',
+	        value: function getRoomInfoLocally() {
+	            this.roomName = this.$rootScope.roomName;
+	            this.isAdmin = this.$rootScope.isAdmin;
+	            this.username = this.$rootScope.username;
 	        }
 	    }, {
 	        key: 'initSockets',
@@ -43966,152 +43972,57 @@
 	    }, {
 	        key: 'availablePages',
 	        value: function availablePages() {
-	            return Math.ceil(this.tasksTotal / this.taskPageAmount);
+	            return Math.ceil(this.listsTotal / this.listsAmount);
 	        }
 	    }, {
 	        key: 'movePage',
 	        value: function movePage(pageNumber) {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            if (this.moving) {
 	                return false;
 	            }
 	            this.moving = true;
-	            var offset = pageNumber * this.taskPageAmount;
-	            this.TasksService.read(undefined, offset, this.taskAmount, 'Todo').then(function (result) {
-	                _this2.moving = false;
-	                if (result.data.tasks.length === 0) {
+	            var offset = pageNumber * this.listsAmount;
+	            this.TodoListsService.read(undefined, offset, this.listsAmount, 'Todo').then(function (result) {
+	                _this3.moving = false;
+	                if (result.data.lists.length === 0) {
 	                    return;
 	                }
-	                _this2.taskPage = pageNumber;
-	                _this2.tasks = result.data.tasks;
-	                _this2.username = result.data.username;
-	                _this2.roomName = result.data.roomName;
+	                _this3.listsCurrentPage = pageNumber;
+	                _this3.lists = result.data.lists;
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
 	        key: 'pageBack',
 	        value: function pageBack() {
-	            if (this.taskPage === 0) {
+	            if (this.listsCurrentPage === 0) {
 	                return;
 	            }
-	            return this.movePage(this.taskPage - 1);
+	            return this.movePage(this.listsCurrentPage - 1);
 	        }
 	    }, {
 	        key: 'pageForward',
 	        value: function pageForward() {
-	            return this.movePage(this.taskPage + 1);
-	        }
-
-	        // add task locally within js array.
-	    }, {
-	        key: 'addTaskLocally',
-	        value: function addTaskLocally(newTask, username) {
-	            if (this.taskPage === 0) {
-	                this.tasks.unshift(newTask);
-	                this.tasksTotal++;
-	                // resize array if necessary
-	                if (this.tasks.length > this.taskPageAmount) {
-	                    this.tasks.length = this.taskPageAmount;
-	                }
-	            } else {
-	                this.appendTaskLocally();
-	            }
-	        }
-
-	        // update task locally within js array.
-	        // includes remove
-	    }, {
-	        key: 'updateTaskLocally',
-	        value: function updateTaskLocally(reqTask, remove) {
-	            var destroy = reqTask.status !== 'Todo' || remove;
-	            var found = false;
-	            if (reqTask.status === 'Complete') {
-	                this.completedLastDay++;
-	            }
-	            if (destroy) {
-	                this.tasksTotal--;
-	            }
-	            this.tasks.forEach(function (task, i) {
-	                if (task.id === reqTask.id) {
-	                    found = true;
-	                    if (destroy) {
-	                        this.tasks.splice(i, 1);
-	                        this.appendTaskLocally(true);
-	                    } else {
-	                        this.tasks[i] = reqTask;
-	                    }
-	                    return;
-	                }
-	            }, this);
-	            // remove from previous
-	            if (!found && destroy) {
-	                var before = this.tasks[0].id < reqTask.id;
-	                if (before) {
-	                    // remove first task, and add one on from server.
-	                    this.tasks.shift();
-	                    this.appendTaskLocally(true);
-	                }
-	            }
+	            return this.movePage(this.listsCurrentPage + 1);
 	        }
 	    }, {
-	        key: 'appendTaskLocally',
-	        value: function appendTaskLocally(end) {
-	            var _this3 = this;
-
-	            var offset = end ? this.taskPage * this.taskPageAmount + this.tasks.length : this.taskPage * this.taskPageAmount;
-	            this.TasksService.read(undefined, offset, 1, 'Todo').then(function (result) {
-	                if (result.data.tasks.length) {
-	                    _this3.tasks.push(result.data.tasks[0]);
-	                }
-	                if (_this3.tasks.length > _this3.taskPageAmount) {
-	                    _this3.tasks.length = _this3.taskPageAmount;
-	                } else if (_this3.tasks.length === 0) {
-	                    _this3.pageBack();
-	                }
-	            }, this.handleError.bind(this));
-	        }
-
-	        // <---- SERVER SIDE INTERACTIONS:
-	    }, {
-	        key: 'createTask',
-	        value: function createTask() {
-	            var _this4 = this;
-
-	            this.TasksService.create(this.newTask, this.$rootScope.hash).then(function (result) {
-	                _this4.newTask = {
-	                    status: 'Todo'
-	                };
-	                _this4.addTaskLocally(result.data);
-	            }, this.handleError.bind(this));
-	        }
-	    }, {
-	        key: 'updateTask',
-	        value: function updateTask(task) {
-	            var _this5 = this;
-
-	            if (!task) {
-	                return;
+	        key: 'Notify',
+	        value: function Notify(text, type) {
+	            if (this.doNotNotify) {
+	                return false;
 	            }
-	            this.TasksService.update(task.id, task, this.$rootScope.hash).then(function (result) {
-	                return _this5.updateTaskLocally(result.data);
-	            }, this.handleError.bind(this));
-	        }
-	    }, {
-	        key: 'deleteTask',
-	        value: function deleteTask(task) {
-	            var _this6 = this;
-
-	            if (!task) {
-	                return;
+	            switch (type) {
+	                case 'Success':
+	                    this.Notification.success(text);
+	                    break;
+	                case 'Error':
+	                    this.Notification.error(text);
+	                    break;
+	                default:
+	                    this.Notification.info(text);
 	            }
-	            this.TasksService.destroy(task.id, this.$rootScope.hash).then(function (result) {
-	                return _this6.updateTaskLocally(task, true);
-	            }, this.handleError.bind(this));
 	        }
-
-	        // ---->
-
 	    }, {
 	        key: 'handleError',
 	        value: function handleError(error) {
@@ -44126,7 +44037,7 @@
 	    return RoomCtrl;
 	})();
 
-	RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', 'RoomService', '$scope', '$rootScope'];
+	RoomCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', 'RoomService', 'TodoListsService', '$scope', '$rootScope'];
 
 	exports['default'] = RoomCtrl;
 	module.exports = exports['default'];
@@ -45080,6 +44991,81 @@
 	RoomService.$inject = ['$http'];
 
 	module.exports = RoomService;
+
+/***/ },
+/* 70 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var TodoListsService = (function () {
+	    function TodoListsService($http) {
+	        _classCallCheck(this, TodoListsService);
+
+	        this.$http = $http;
+	        this.urlBase = '/todo-lists/';
+	    }
+
+	    _createClass(TodoListsService, [{
+	        key: 'create',
+	        value: function create(name, hash) {
+	            return this.$http.post(this.urlBase, {
+	                name: name,
+	                hash: hash
+	            });
+	        }
+	    }, {
+	        key: 'read',
+	        value: function read(id, start, limit) {
+	            var requestURL = this.urlBase;
+	            // ID is not part of query sting
+	            if (typeof id === 'number') {
+	                requestURL += id;
+	            }
+	            // begin query string
+	            requestURL += '?';
+	            if (start) {
+	                requestURL += 'start=' + start + '&';
+	            }
+	            if (limit) {
+	                requestURL += 'limit=' + limit + '&';
+	            }
+	            if (requestURL.substr(requestURL.length - 1) === '&' || requestURL.substr(requestURL.length - 1) === '?') {
+	                requestURL = requestURL.substr(0, requestURL.length - 1);
+	            }
+
+	            return this.$http.get(requestURL);
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update(reqTaskId, reqTask, hash) {
+	            return this.$http.put(this.urlBase + reqTaskId, {
+	                task: reqTask,
+	                hash: hash
+	            });
+	        }
+	    }, {
+	        key: 'destroy',
+	        value: function destroy(reqTaskId, hash) {
+	            return this.$http['delete'](this.urlBase + reqTaskId + '?hash=' + hash);
+	        }
+	    }, {
+	        key: 'countLists',
+	        value: function countLists() {
+	            return this.$http.get(this.urlBase + 'count-all');
+	        }
+	    }]);
+
+	    return TodoListsService;
+	})();
+
+	TodoListsService.$inject = ['$http'];
+
+	module.exports = TodoListsService;
 
 /***/ }
 /******/ ]);

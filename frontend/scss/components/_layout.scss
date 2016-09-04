@@ -332,15 +332,15 @@ main.full-height {
     width     : 100%;
     max-width : $containerWidth;
 }
-
+.nopad {
+  padding: 0;
+}
 .left-aligned {
     text-align: left;
 }
-
 .right-aligned {
     text-align: right;
 }
-
 .center {
     text-align: center;
 }
