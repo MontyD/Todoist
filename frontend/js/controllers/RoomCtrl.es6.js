@@ -52,8 +52,6 @@ class RoomCtrl {
             result => this.listsTotal = result.data.count,
             error => console.error(error)
         );
-
-        this.initSockets();
     }
 
     getRoomInfoFromServer() {
@@ -72,6 +70,7 @@ class RoomCtrl {
         this.roomName = this.$rootScope.roomName;
         this.isAdmin = this.$rootScope.isAdmin;
         this.username = this.$rootScope.username;
+        this.initSockets();
     }
 
     initSockets() {
@@ -118,11 +117,13 @@ class RoomCtrl {
             this.$scope.$apply();
         }).bind(this));
 
-        this.SocketsService.on('UpdatedList', (function(data){
-          if (this.$rootScope.hash === data.hash) {
-              return;
-          }
-          this.updateListLocally(data.list.id, data.list.name);
+        this.SocketsService.on('UpdatedList', (function(data) {
+            if (this.$rootScope.hash === data.hash) {
+                return;
+            }
+            this.updateListLocally(data.list.id, data.list.name);
+            // force view to update;
+            this.$scope.$apply();
         }).bind(this));
 
         this.SocketsService.on('DeletedAllComplete', (function(data) {
@@ -178,19 +179,19 @@ class RoomCtrl {
     }
 
     updateListLocally(id, newName) {
-      for (let i = 0; i < this.lists.length; i++) {
-        if (this.lists[i].id === id) {
-          this.lists[i].name = newName;
-          return;
+        for (let i = 0; i < this.lists.length; i++) {
+            if (this.lists[i].id === id) {
+                this.lists[i].name = newName;
+                return;
+            }
         }
-      }
     }
 
     editList(id, newName) {
-      this.TodoListsService.update(id, newName, this.$rootScope.hash).then(
-        result => this.updateListLocally(id, newName),
-        this.handleError.bind(this)
-      );
+        this.TodoListsService.update(id, newName, this.$rootScope.hash).then(
+            result => this.updateListLocally(id, newName),
+            this.handleError.bind(this)
+        );
     }
 
 

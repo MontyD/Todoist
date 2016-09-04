@@ -124,7 +124,12 @@
         font-size    : 1.2em;
         font-weight  : bold;
         border-bottom: 2px solid $colorGrey;
+        span {
+          vertical-align: middle;
+        }
         .control-container {
+          display: inline-block;
+          margin: 0.7em 0;
           opacity: 0;
           transition: opacity 0.2s ease;
           font-size: 0.6em;

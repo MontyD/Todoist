@@ -43879,8 +43879,6 @@
 	            }, function (error) {
 	                return console.error(error);
 	            });
-
-	            this.initSockets();
 	        }
 	    }, {
 	        key: 'getRoomInfoFromServer',
@@ -43900,6 +43898,7 @@
 	            this.roomName = this.$rootScope.roomName;
 	            this.isAdmin = this.$rootScope.isAdmin;
 	            this.username = this.$rootScope.username;
+	            this.initSockets();
 	        }
 	    }, {
 	        key: 'initSockets',
@@ -43949,6 +43948,8 @@
 	                    return;
 	                }
 	                this.updateListLocally(data.list.id, data.list.name);
+	                // force view to update;
+	                this.$scope.$apply();
 	            }).bind(this));
 
 	            this.SocketsService.on('DeletedAllComplete', (function (data) {

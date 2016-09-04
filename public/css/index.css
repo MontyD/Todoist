@@ -2948,7 +2948,11 @@ button.icon {
     font-size: 1.2em;
     font-weight: bold;
     border-bottom: 2px solid #E0E0E0; }
+    .todo-list .list-title span {
+      vertical-align: middle; }
     .todo-list .list-title .control-container {
+      display: inline-block;
+      margin: 0.7em 0;
       opacity: 0;
       transition: opacity 0.2s ease;
       font-size: 0.6em; }
