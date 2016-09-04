@@ -3,6 +3,7 @@
 var express = require('express'),
     router = express.Router(),
     path = require('path'),
+    sequelize = require('sequelize'),
     models = require(path.join(__dirname, '..', 'models')),
     handleError = require(path.join(__dirname, '..', 'middlewares', 'handleError'));
 
@@ -22,7 +23,12 @@ router.get('/', function(req, res, next) {
             ['createdAt', 'DESC'],
         ],
         limit: limit,
-        offset: start
+        offset: start,
+        include: [{
+            model:  models.tasks,
+            where: { status: 'Todo' },
+            required: false
+        }]
     }).then(function(lists) {
         return res.json(lists);
     }).catch(function(err) {
