@@ -163,39 +163,14 @@ class RoomCtrl {
 
     }
 
-
-    availablePages() {
-        return Math.ceil(this.listsTotal / this.listsAmount);
-    }
-
-    movePage(pageNumber) {
-        if (this.moving) {
-            return false;
-        }
-        this.moving = true;
-        let offset = pageNumber * this.listsAmount;
-        this.TodoListsService.read(undefined, offset, this.listsAmount, 'Todo').then(
-            result => {
-                this.moving = false;
-                if (result.data.lists.length === 0) {
-                    return;
-                }
-                this.listsCurrentPage = pageNumber;
-                this.lists = result.data.lists;
-            },
-            this.handleError.bind(this)
-        );
-    }
-
-    pageBack() {
-        if (this.listsCurrentPage === 0) {
-            return;
-        }
-        return this.movePage(this.listsCurrentPage - 1);
-    }
-
-    pageForward() {
-        return this.movePage(this.listsCurrentPage + 1);
+    changePage(number) {
+      let offset = (number - 1) * this.listsAmount;
+      this.TodoListsService.read(undefined, offset, this.listsAmount).then(
+          result => {
+              this.lists = result.data;
+          },
+          this.handleError.bind(this)
+      );
     }
 
     addListLocally(list) {
