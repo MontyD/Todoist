@@ -16,13 +16,14 @@ import todoList from './directives/todoList.es6.js';
 
 //Vendor imports
 import uiNotification from 'angular-ui-notification';
+import dirPagination from 'angular-utils-pagination';
 
 import TasksService from './services/tasks.es6.js';
 import SocketsService from './services/sockets.es6.js';
 import RoomService from './services/room.es6.js';
 import TodoListsService from './services/todolists.es6.js';
 
-angular.module('app', [uiRouter, 'ui-notification'])
+angular.module('app', [uiRouter, 'ui-notification', 'dirPagination'])
     .controller('RoomCtrl', RoomCtrl)
     .controller('OverviewCtrl', OverviewCtrl)
     .controller('SettingsCtrl', SettingsCtrl)
