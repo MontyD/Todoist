@@ -98,9 +98,9 @@ module.exports = function(grunt) {
                 files: ['frontend/js/**/*.js', 'frontend/js/**/*.html'],
                 tasks: ['webpack']
             },
-            options: {
-                livereload: true,
-            },
+            // options: {
+            //     livereload: true,
+            // },
         },
         nodemon: {
             dev: {
@@ -115,7 +115,7 @@ module.exports = function(grunt) {
             options: {
                 logConcurrentOutput: true
             },
-            tasks: ['nodemon', 'watch']
+            tasks: [/*'nodemon',*/ 'watch']
         }
     });
 
