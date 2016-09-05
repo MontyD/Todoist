@@ -23,7 +23,7 @@ import SocketsService from './services/sockets.es6.js';
 import RoomService from './services/room.es6.js';
 import TodoListsService from './services/todolists.es6.js';
 
-angular.module('app', [uiRouter, 'ui-notification', 'dirPagination'])
+angular.module('app', [uiRouter, 'ui-notification', 'angularUtils.directives.dirPagination'])
     .controller('RoomCtrl', RoomCtrl)
     .controller('OverviewCtrl', OverviewCtrl)
     .controller('SettingsCtrl', SettingsCtrl)
