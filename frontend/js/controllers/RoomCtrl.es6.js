@@ -50,6 +50,7 @@ class RoomCtrl {
     }
 
     changePage(number) {
+        this.listsCurrentPage = number;
         let offset = (number - 1) * this.listsAmount;
         this.TodoListsService.read(undefined, offset, this.listsAmount).then(
             result => (this.lists = result.data),
@@ -57,9 +58,13 @@ class RoomCtrl {
         );
     }
 
+
+    /*
+    <--------- LOCAL STORAGE FUNCTIONS
+    */
     addListLocally(list) {
         this.listsTotal++;
-        if (this.listsCurrentPage === 0) {
+        if (this.listsCurrentPage === 1) {
             this.lists.unshift(list);
             if (this.lists.length > this.listsAmount) {
                 this.lists.length = this.listsAmount;
@@ -77,13 +82,25 @@ class RoomCtrl {
     }
 
     deleteListLocally(id) {
+      this.listsTotal--;
         for (let i = 0; i < this.lists.length; i++) {
             if (this.lists[i].id === id) {
                 this.lists.splice(i, 1);
             }
         }
+      if ((this.listsCurrentPage - 1) < (Math.floor(this.listsTotal / this.listsAmount))) {
+        this.appendListEndOfPage();
+      }
     }
+    /*
+    --------->
+    */
 
+
+
+    /*
+    <--------- SERVER FUNCTIONS
+    */
     newList() {
         this.TodoListsService.create(undefined, this.hash).then(
             result => this.addListLocally(result.data),
@@ -104,6 +121,20 @@ class RoomCtrl {
             this.handleError.bind(this)
         );
     }
+
+    appendListEndOfPage() {
+      let offset = ((this.listsCurrentPage - 1) * this.listsAmount) + (this.listsAmount - 1);
+      this.TodoListsService.read(undefined, offset, 1).then(
+        result => this.lists.push(result.data[0]),
+        this.handleError.bind(this)
+      );
+    }
+
+
+    /*
+    --------->
+    */
+
 
     Notify(text, type) {
         if (this.doNotNotify) {

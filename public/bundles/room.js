@@ -43800,7 +43800,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmount\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n    <todo-list list=\"list\" createtask=\"home.newTask\" edittask=\"home.editTask\" deletetask=\"home.deleteTask\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n    </todo-list>\n  </article>\n  <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n  <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n      <i class=\"lnr lnr-plus-circle\"></i> Add new list\n  </p>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmount\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n    <todo-list list=\"list\" createtask=\"home.newTask\" edittask=\"home.editTask\" deletetask=\"home.deleteTask\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n    </todo-list>\n  </article>\n  <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n\n  <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n      <i class=\"lnr lnr-plus-circle\"></i> Add new list\n  </p>\n</main>\n";
 
 /***/ },
 /* 56 */
@@ -43882,16 +43882,21 @@
 	        value: function changePage(number) {
 	            var _this2 = this;
 
+	            this.listsCurrentPage = number;
 	            var offset = (number - 1) * this.listsAmount;
 	            this.TodoListsService.read(undefined, offset, this.listsAmount).then(function (result) {
 	                return _this2.lists = result.data;
 	            }, this.handleError.bind(this));
 	        }
+
+	        /*
+	        <--------- LOCAL STORAGE FUNCTIONS
+	        */
 	    }, {
 	        key: 'addListLocally',
 	        value: function addListLocally(list) {
 	            this.listsTotal++;
-	            if (this.listsCurrentPage === 0) {
+	            if (this.listsCurrentPage === 1) {
 	                this.lists.unshift(list);
 	                if (this.lists.length > this.listsAmount) {
 	                    this.lists.length = this.listsAmount;
@@ -43911,12 +43916,24 @@
 	    }, {
 	        key: 'deleteListLocally',
 	        value: function deleteListLocally(id) {
+	            this.listsTotal--;
 	            for (var i = 0; i < this.lists.length; i++) {
 	                if (this.lists[i].id === id) {
 	                    this.lists.splice(i, 1);
 	                }
 	            }
+	            if (this.listsCurrentPage - 1 < Math.floor(this.listsTotal / this.listsAmount)) {
+	                this.appendListEndOfPage();
+	            }
 	        }
+
+	        /*
+	        --------->
+	        */
+
+	        /*
+	        <--------- SERVER FUNCTIONS
+	        */
 	    }, {
 	        key: 'newList',
 	        value: function newList() {
@@ -43944,6 +43961,21 @@
 	                return _this5.updateListLocally(id, newName);
 	            }, this.handleError.bind(this));
 	        }
+	    }, {
+	        key: 'appendListEndOfPage',
+	        value: function appendListEndOfPage() {
+	            var _this6 = this;
+
+	            var offset = (this.listsCurrentPage - 1) * this.listsAmount + (this.listsAmount - 1);
+	            this.TodoListsService.read(undefined, offset, 1).then(function (result) {
+	                return _this6.lists.push(result.data[0]);
+	            }, this.handleError.bind(this));
+	        }
+
+	        /*
+	        --------->
+	        */
+
 	    }, {
 	        key: 'Notify',
 	        value: function Notify(text, type) {
