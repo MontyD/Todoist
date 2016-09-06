@@ -105,10 +105,11 @@ p.slight {
     font-weight   : normal;
     padding-bottom: 1em;
 }
+
 .explaination-text {
-  display: block;
-  font-size: 0.9em;
-  color: $colorDarkGrey;
+    display  : block;
+    font-size: 0.9em;
+    color    : $colorDarkGrey;
 }
 
 .button,
@@ -172,10 +173,11 @@ p.slight {
 }
 
 .settings-article {
-  border-bottom: 2px solid $colorGrey;
-  &:last-child {
-    border-bottom: none;
-  }
+    border-bottom: 2px solid $colorGrey;
+
+    &:last-child {
+        border-bottom: none;
+    }
 }
 
 button.icon {
@@ -254,5 +256,66 @@ button.icon {
 
     span {
         color: rgb(60, 78, 109);
+    }
+}
+
+.pagination {
+    display      : block;
+    padding-left : 0;
+    margin-top   : 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+
+    li {
+        display: inline;
+    }
+
+    li:first-child .page-link {
+        margin-left              : 0;
+        border-bottom-left-radius: 0.25rem;
+        border-top-left-radius   : 0.25rem;
+    }
+
+    li:last-child .page-link {
+        border-bottom-right-radius: 0.25rem;
+        border-top-right-radius   : 0.25rem;
+    }
+
+    li.active .page-link,
+    li.active .page-link:focus,
+    li.active .page-link:hover {
+        z-index         : 2;
+        color           : #fff;
+        cursor          : default;
+        background-color: #0275d8;
+        border-color    : #0275d8;
+    }
+
+    li.disabled .page-link,
+    li.disabled .page-link:focus,
+    li.disabled .page-link:hover {
+        color           : #818a91;
+        pointer-events  : none;
+        cursor          : not-allowed;
+        background-color: #fff;
+        border-color    : #ddd;
+    }
+
+    a {
+        position        : relative;
+        float           : left;
+        padding         : 0.5rem 0.75rem;
+        margin-left     : -1px;
+        color           : #0275d8;
+        text-decoration : none;
+        background-color: #fff;
+        border          : 1px solid #ddd;
+    }
+
+    a:focus,
+    a:hover {
+        color           : #014c8c;
+        background-color: #eceeef;
+        border-color    : #ddd;
     }
 }

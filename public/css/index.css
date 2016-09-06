@@ -399,15 +399,18 @@ main.full-height {
   display: inline-block;
   margin: 0 auto;
   font-size: 0; }
-  .button-group button, .button-group a {
+  .button-group a,
+  .button-group button {
     font-size: initial;
     margin: 0.4em -1px 0.4em 0;
     border-radius: 0;
     min-width: 75px; }
-    .button-group button:first-child, .button-group a:first-child {
+    .button-group a:first-child,
+    .button-group button:first-child {
       border-top-left-radius: 0.3em;
       border-bottom-left-radius: 0.3em; }
-    .button-group button:last-child, .button-group a:last-child {
+    .button-group a:last-child,
+    .button-group button:last-child {
       border-top-right-radius: 0.3em;
       border-bottom-right-radius: 0.3em; }
 
@@ -602,7 +605,7 @@ main.full-height {
     padding: 0 1em;
     box-sizing: border-box; }
 
-.container, .tasks-container {
+.container {
   display: block;
   position: relative;
   margin: 0 auto;
@@ -809,6 +812,52 @@ button.icon {
   background: rgba(68, 138, 255, 0.5); }
 .week-graph span {
   color: #3c4e6d; }
+
+.pagination {
+  display: block;
+  padding-left: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem; }
+  .pagination li {
+    display: inline; }
+  .pagination li:first-child .page-link {
+    margin-left: 0;
+    border-bottom-left-radius: 0.25rem;
+    border-top-left-radius: 0.25rem; }
+  .pagination li:last-child .page-link {
+    border-bottom-right-radius: 0.25rem;
+    border-top-right-radius: 0.25rem; }
+  .pagination li.active .page-link,
+  .pagination li.active .page-link:focus,
+  .pagination li.active .page-link:hover {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #0275d8;
+    border-color: #0275d8; }
+  .pagination li.disabled .page-link,
+  .pagination li.disabled .page-link:focus,
+  .pagination li.disabled .page-link:hover {
+    color: #818a91;
+    pointer-events: none;
+    cursor: not-allowed;
+    background-color: #fff;
+    border-color: #ddd; }
+  .pagination a {
+    position: relative;
+    float: left;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    color: #0275d8;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd; }
+  .pagination a:focus,
+  .pagination a:hover {
+    color: #014c8c;
+    background-color: #eceeef;
+    border-color: #ddd; }
 
 form {
   padding: 0 0 1em; }
@@ -1456,15 +1505,18 @@ main.full-height {
   display: inline-block;
   margin: 0 auto;
   font-size: 0; }
-  .button-group button, .button-group a {
+  .button-group a,
+  .button-group button {
     font-size: initial;
     margin: 0.4em -1px 0.4em 0;
     border-radius: 0;
     min-width: 75px; }
-    .button-group button:first-child, .button-group a:first-child {
+    .button-group a:first-child,
+    .button-group button:first-child {
       border-top-left-radius: 0.3em;
       border-bottom-left-radius: 0.3em; }
-    .button-group button:last-child, .button-group a:last-child {
+    .button-group a:last-child,
+    .button-group button:last-child {
       border-top-right-radius: 0.3em;
       border-bottom-right-radius: 0.3em; }
 
@@ -1659,7 +1711,7 @@ main.full-height {
     padding: 0 1em;
     box-sizing: border-box; }
 
-.container, .tasks-container {
+.container {
   display: block;
   position: relative;
   margin: 0 auto;
@@ -1867,6 +1919,52 @@ button.icon {
 .week-graph span {
   color: #3c4e6d; }
 
+.pagination {
+  display: block;
+  padding-left: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem; }
+  .pagination li {
+    display: inline; }
+  .pagination li:first-child .page-link {
+    margin-left: 0;
+    border-bottom-left-radius: 0.25rem;
+    border-top-left-radius: 0.25rem; }
+  .pagination li:last-child .page-link {
+    border-bottom-right-radius: 0.25rem;
+    border-top-right-radius: 0.25rem; }
+  .pagination li.active .page-link,
+  .pagination li.active .page-link:focus,
+  .pagination li.active .page-link:hover {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #0275d8;
+    border-color: #0275d8; }
+  .pagination li.disabled .page-link,
+  .pagination li.disabled .page-link:focus,
+  .pagination li.disabled .page-link:hover {
+    color: #818a91;
+    pointer-events: none;
+    cursor: not-allowed;
+    background-color: #fff;
+    border-color: #ddd; }
+  .pagination a {
+    position: relative;
+    float: left;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    color: #0275d8;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd; }
+  .pagination a:focus,
+  .pagination a:hover {
+    color: #014c8c;
+    background-color: #eceeef;
+    border-color: #ddd; }
+
 body {
   margin: 0 0 130px; }
 
@@ -1884,7 +1982,7 @@ nav.top {
     left: 0;
     background: transparent;
     z-index: 10; }
-  nav.top .container, nav.top .tasks-container {
+  nav.top .container {
     margin: 0 auto;
     padding: 0; }
   nav.top .home-link {
@@ -1929,7 +2027,7 @@ footer {
   box-sizing: border-box;
   text-align: center;
   font-size: 0.8em; }
-  footer .container, footer .tasks-container {
+  footer .container {
     padding: 0; }
   footer h3 {
     margin: 0.6em 0 0;
@@ -2401,15 +2499,18 @@ main.full-height {
   display: inline-block;
   margin: 0 auto;
   font-size: 0; }
-  .button-group button, .button-group a {
+  .button-group a,
+  .button-group button {
     font-size: initial;
     margin: 0.4em -1px 0.4em 0;
     border-radius: 0;
     min-width: 75px; }
-    .button-group button:first-child, .button-group a:first-child {
+    .button-group a:first-child,
+    .button-group button:first-child {
       border-top-left-radius: 0.3em;
       border-bottom-left-radius: 0.3em; }
-    .button-group button:last-child, .button-group a:last-child {
+    .button-group a:last-child,
+    .button-group button:last-child {
       border-top-right-radius: 0.3em;
       border-bottom-right-radius: 0.3em; }
 
@@ -2604,7 +2705,7 @@ main.full-height {
     padding: 0 1em;
     box-sizing: border-box; }
 
-.container, .tasks-container {
+.container {
   display: block;
   position: relative;
   margin: 0 auto;
@@ -2812,6 +2913,52 @@ button.icon {
 .week-graph span {
   color: #3c4e6d; }
 
+.pagination {
+  display: block;
+  padding-left: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem; }
+  .pagination li {
+    display: inline; }
+  .pagination li:first-child .page-link {
+    margin-left: 0;
+    border-bottom-left-radius: 0.25rem;
+    border-top-left-radius: 0.25rem; }
+  .pagination li:last-child .page-link {
+    border-bottom-right-radius: 0.25rem;
+    border-top-right-radius: 0.25rem; }
+  .pagination li.active .page-link,
+  .pagination li.active .page-link:focus,
+  .pagination li.active .page-link:hover {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #0275d8;
+    border-color: #0275d8; }
+  .pagination li.disabled .page-link,
+  .pagination li.disabled .page-link:focus,
+  .pagination li.disabled .page-link:hover {
+    color: #818a91;
+    pointer-events: none;
+    cursor: not-allowed;
+    background-color: #fff;
+    border-color: #ddd; }
+  .pagination a {
+    position: relative;
+    float: left;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    color: #0275d8;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd; }
+  .pagination a:focus,
+  .pagination a:hover {
+    color: #014c8c;
+    background-color: #eceeef;
+    border-color: #ddd; }
+
 .bounce {
   -webkit-animation-name: bounce;
           animation-name: bounce;
@@ -2863,9 +3010,6 @@ button.icon {
   -webkit-transform: translateX(0);
       -ms-transform: translateX(0);
           transform: translateX(0); }
-
-.tasks-container {
-  text-align: center; }
 
 .task-item {
   display: block;

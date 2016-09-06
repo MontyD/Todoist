@@ -46,7 +46,8 @@ main.full-height {
     margin   : 0 auto;
     font-size: 0;
 
-    button, a {
+    a,
+    button {
         font-size    : initial;
         margin       : 0.4em -1px 0.4em 0;
         border-radius: 0;
@@ -279,31 +280,31 @@ main.full-height {
         }
 
         &.zero {
-            right           : 1%;
+            right: 1%;
         }
 
         &.one {
-            right           : 15%;
+            right: 15%;
         }
 
         &.two {
-            right           : 29%;
+            right: 29%;
         }
 
         &.three {
-            right           : 43%;
+            right: 43%;
         }
 
         &.four {
-            right           : 57%;
+            right: 57%;
         }
 
         &.five {
-            right           : 71%;
+            right: 71%;
         }
 
         &.six {
-            right           : 85%;
+            right: 85%;
         }
     }
 
@@ -315,12 +316,13 @@ main.full-height {
 }
 
 .settings-article {
-  display: block;
-  padding: 1.5em 0;
-  p {
-    padding: 0 1em;
-    box-sizing: border-box;
-  }
+    display: block;
+    padding: 1.5em 0;
+
+    p {
+        padding   : 0 1em;
+        box-sizing: border-box;
+    }
 }
 
 .container {
@@ -332,21 +334,27 @@ main.full-height {
     width     : 100%;
     max-width : $containerWidth;
 }
+
 .nopad {
-  padding: 0;
+    padding: 0;
 }
+
 .left-aligned {
     text-align: left;
 }
+
 .right-aligned {
     text-align: right;
 }
+
 .center {
     text-align: center;
 }
+
 .vertical-middle {
-  vertical-align: middle;
+    vertical-align: middle;
 }
+
 .vertically-center {
     position : absolute;
     margin   : 0 auto;

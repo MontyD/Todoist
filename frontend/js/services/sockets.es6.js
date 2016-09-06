@@ -5,11 +5,12 @@ class SocketsService {
     constructor($window) {
         this.socket = $window.io.connect($window.location.origin);
         this.subscriptions = [];
-        this.hash = Math.random().toString(36).substring(12);
+        this.hash = '';
     }
 
     init(roomName) {
       this.emit('room', roomName);
+      this.hash = Math.random().toString(36).substring(12);
       return this.hash;
     }
 
@@ -20,12 +21,12 @@ class SocketsService {
       } else {
         this.socket.off(eventName);
       }
-      this.socket.on(eventName, function(data) {
+      this.socket.on(eventName, (function(data) {
         if (data.hash === this.hash) {
           return;
         }
         return callback(data);
-      });
+      }).bind(this));
     }
 
     emit(eventName, data, callback) {

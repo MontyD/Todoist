@@ -9,13 +9,13 @@
         </ul>
     </div>
 </nav>
-<main class="tasks-container">
+<main class="container">
   <article class="todo-list thirds" dir-paginate="list in home.lists | itemsPerPage: home.listsAmount" total-items="home.listsTotal" current-page="home.listsCurrentPage">
     <todo-list list="list" createtask="home.newTask" edittask="home.editTask" deletetask="home.deleteTask" editlist="home.editList(list.id, list.name)" deletelist="home.deleteList(list.id)">
     </todo-list>
   </article>
   <dir-pagination-controls on-page-change="home.changePage(newPageNumber)"></dir-pagination-controls>
-    <p class="todo-list-new thirds" ng-click="home.newList()">
-        <i class="lnr lnr-plus-circle"></i> Add new list
-    </p>
+  <p class="todo-list-new thirds" ng-click="home.newList()">
+      <i class="lnr lnr-plus-circle"></i> Add new list
+  </p>
 </main>

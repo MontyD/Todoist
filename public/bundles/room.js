@@ -43800,7 +43800,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"tasks-container\">\n  <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmount\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n    <todo-list list=\"list\" createtask=\"home.newTask\" edittask=\"home.editTask\" deletetask=\"home.deleteTask\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n    </todo-list>\n  </article>\n  <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n    <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n        <i class=\"lnr lnr-plus-circle\"></i> Add new list\n    </p>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmount\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n    <todo-list list=\"list\" createtask=\"home.newTask\" edittask=\"home.editTask\" deletetask=\"home.deleteTask\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n    </todo-list>\n  </article>\n  <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n  <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n      <i class=\"lnr lnr-plus-circle\"></i> Add new list\n  </p>\n</main>\n";
 
 /***/ },
 /* 56 */
@@ -43847,7 +43847,7 @@
 
 	        this.lists = [];
 
-	        this.listsAmount = 8;
+	        this.listsAmount = 9;
 
 	        this.listsCurrentPage = 0;
 
@@ -43866,65 +43866,16 @@
 	                var _this = this;
 
 	                this.room = roomInfo;
-
 	                // read todos count
 	                this.TodoListsService.countLists().then(function (result) {
 	                    _this.hash = _this.SocketsService.init(_this.room.name);
 	                    _this.listsTotal = result.data.count;
+	                    // set sockets listeners
+	                    _this.placeSocketEventListners();
 	                    // get fist page of todos
 	                    _this.changePage(1);
 	                }, this.handleError.bind(this));
 	            }).bind(this), this.handleError.bind(this));
-	        }
-	    }, {
-	        key: 'placeSocketEventListners',
-	        value: function placeSocketEventListners() {
-
-	            this.SocketsService.on('NewTask', (function (data) {
-	                this.addTaskLocally(data.task, data.username);
-	                this.Notify(data.username + ' added a todo', 'Success');
-	                this.$scope.$apply();
-	            }).bind(this));
-
-	            this.SocketsService.on('UpdatedTask', (function (data) {
-	                this.updateTaskLocally(data.task);
-	                if (data.task.status === 'Complete') {
-	                    this.Notify(data.username + ' completed a todo', 'Success');
-	                }
-	                this.$scope.$apply();
-	            }).bind(this));
-
-	            this.SocketsService.on('DeletedTask', (function (data) {
-	                this.updateTaskLocally(data.task, true);
-	                this.Notify(data.username + ' removed a todo');
-	                this.$scope.$apply();
-	            }).bind(this));
-
-	            this.SocketsService.on('NewTodoList', (function (data) {
-	                this.addListLocally(data.list);
-	                this.Notify(data.username + ' added a new list!', 'Success');
-	                this.$scope.$apply();
-	            }).bind(this));
-
-	            this.SocketsService.on('UpdatedList', (function (data) {
-	                this.updateListLocally(data.list.id, data.list.name);
-	                this.$scope.$apply();
-	            }).bind(this));
-
-	            this.SocketsService.on('DeletedList', (function (data) {
-	                this.deleteListLocally(data.list.id);
-	                this.Notify(data.username + ' deleted a list!', 'Error');
-	                this.$scope.$apply();
-	            }).bind(this));
-
-	            this.SocketsService.on('DeletedAllComplete', (function (data) {
-	                this.Notify(data.username + ' cleared all completed todos');
-	                this.$scope.$apply();
-	            }).bind(this));
-
-	            this.SocketsService.on('logAllOut', (function (data) {
-	                window.location = '/rooms/login?kicked=true';
-	            }).bind(this));
 	        }
 	    }, {
 	        key: 'changePage',
@@ -43939,9 +43890,12 @@
 	    }, {
 	        key: 'addListLocally',
 	        value: function addListLocally(list) {
-	            this.lists.unshift(list);
-	            if (this.lists.length > this.listsAmount) {
-	                this.lists.length = this.listsAmount;
+	            this.listsTotal++;
+	            if (this.listsCurrentPage === 0) {
+	                this.lists.unshift(list);
+	                if (this.lists.length > this.listsAmount) {
+	                    this.lists.length = this.listsAmount;
+	                }
 	            }
 	        }
 	    }, {
@@ -44006,6 +43960,56 @@
 	                default:
 	                    this.Notification.info(text);
 	            }
+	        }
+	    }, {
+	        key: 'placeSocketEventListners',
+	        value: function placeSocketEventListners() {
+
+	            this.SocketsService.on('NewTask', (function (data) {
+	                this.addTaskLocally(data.task, data.username);
+	                this.Notify(data.username + ' added a todo', 'Success');
+	                this.$scope.$apply();
+	            }).bind(this));
+
+	            this.SocketsService.on('UpdatedTask', (function (data) {
+	                this.updateTaskLocally(data.task);
+	                if (data.task.status === 'Complete') {
+	                    this.Notify(data.username + ' completed a todo', 'Success');
+	                }
+	                this.$scope.$apply();
+	            }).bind(this));
+
+	            this.SocketsService.on('DeletedTask', (function (data) {
+	                this.updateTaskLocally(data.task, true);
+	                this.Notify(data.username + ' removed a todo');
+	                this.$scope.$apply();
+	            }).bind(this));
+
+	            this.SocketsService.on('NewTodoList', (function (data) {
+	                this.addListLocally(data.list);
+	                this.Notify(data.username + ' added a new list!', 'Success');
+	                this.$scope.$apply();
+	            }).bind(this));
+
+	            this.SocketsService.on('UpdatedList', (function (data) {
+	                this.updateListLocally(data.list.id, data.list.name);
+	                this.$scope.$apply();
+	            }).bind(this));
+
+	            this.SocketsService.on('DeletedList', (function (data) {
+	                this.deleteListLocally(data.list.id);
+	                this.Notify(data.username + ' deleted a list!', 'Error');
+	                this.$scope.$apply();
+	            }).bind(this));
+
+	            this.SocketsService.on('DeletedAllComplete', (function (data) {
+	                this.Notify(data.username + ' cleared all completed todos');
+	                this.$scope.$apply();
+	            }).bind(this));
+
+	            this.SocketsService.on('logAllOut', (function (data) {
+	                window.location = '/rooms/login?kicked=true';
+	            }).bind(this));
 	        }
 	    }, {
 	        key: 'handleError',
@@ -45604,13 +45608,14 @@
 
 	    this.socket = $window.io.connect($window.location.origin);
 	    this.subscriptions = [];
-	    this.hash = Math.random().toString(36).substring(12);
+	    this.hash = '';
 	  }
 
 	  _createClass(SocketsService, [{
 	    key: 'init',
 	    value: function init(roomName) {
 	      this.emit('room', roomName);
+	      this.hash = Math.random().toString(36).substring(12);
 	      return this.hash;
 	    }
 	  }, {
@@ -45622,12 +45627,12 @@
 	      } else {
 	        this.socket.off(eventName);
 	      }
-	      this.socket.on(eventName, function (data) {
+	      this.socket.on(eventName, (function (data) {
 	        if (data.hash === this.hash) {
 	          return;
 	        }
 	        return callback(data);
-	      });
+	      }).bind(this));
 	    }
 	  }, {
 	    key: 'emit',

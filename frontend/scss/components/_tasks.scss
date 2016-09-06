@@ -1,10 +1,6 @@
 @import '_styling';
 @import '_animation';
 
-.tasks-container {
-    @extend .container;
-    text-align: center;
-}
 
 .task-item {
     display       : block;
