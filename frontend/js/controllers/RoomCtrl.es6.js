@@ -69,6 +69,8 @@ class RoomCtrl {
             if (this.lists.length > this.listsAmount) {
                 this.lists.length = this.listsAmount;
             }
+        } else {
+            this.appendListBeginningOfPage();
         }
     }
 
@@ -82,19 +84,22 @@ class RoomCtrl {
     }
 
     deleteListLocally(id) {
-      this.listsTotal--;
-        for (let i = 0; i < this.lists.length; i++) {
-            if (this.lists[i].id === id) {
-                this.lists.splice(i, 1);
+            this.listsTotal--;
+            let found = false;
+            for (let i = 0; i < this.lists.length; i++) {
+                if (this.lists[i].id === id) {
+                    this.lists.splice(i, 1);
+                    found = true;
+                }
             }
+            if ((this.listsCurrentPage - 1) < (Math.floor(this.listsTotal / this.listsAmount))) {
+                this.appendListEndOfPage();
+            }
+            //TODO!
         }
-      if ((this.listsCurrentPage - 1) < (Math.floor(this.listsTotal / this.listsAmount))) {
-        this.appendListEndOfPage();
-      }
-    }
-    /*
-    --------->
-    */
+        /*
+        --------->
+        */
 
 
 
@@ -122,12 +127,25 @@ class RoomCtrl {
         );
     }
 
+    appendListBeginningOfPage() {
+        let offset = ((this.listsCurrentPage - 1) * this.listsAmount);
+        this.TodoListsService.read(undefined, offset, 1).then(
+            result => {
+                this.lists.unshift(result.data[0]);
+                if (this.lists.length > this.listsAmount) {
+                    this.lists.length = this.listsAmount;
+                }
+            },
+            this.handleError.bind(this)
+        );
+    }
+
     appendListEndOfPage() {
-      let offset = ((this.listsCurrentPage - 1) * this.listsAmount) + (this.listsAmount - 1);
-      this.TodoListsService.read(undefined, offset, 1).then(
-        result => this.lists.push(result.data[0]),
-        this.handleError.bind(this)
-      );
+        let offset = ((this.listsCurrentPage - 1) * this.listsAmount) + (this.listsAmount - 1);
+        this.TodoListsService.read(undefined, offset, 1).then(
+            result => this.lists.push(result.data[0]),
+            this.handleError.bind(this)
+        );
     }
 
 

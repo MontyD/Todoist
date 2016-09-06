@@ -43901,6 +43901,8 @@
 	                if (this.lists.length > this.listsAmount) {
 	                    this.lists.length = this.listsAmount;
 	                }
+	            } else {
+	                this.appendListBeginningOfPage();
 	            }
 	        }
 	    }, {
@@ -43962,13 +43964,26 @@
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
+	        key: 'appendListBeginningOfPage',
+	        value: function appendListBeginningOfPage() {
+	            var _this6 = this;
+
+	            var offset = (this.listsCurrentPage - 1) * this.listsAmount;
+	            this.TodoListsService.read(undefined, offset, 1).then(function (result) {
+	                _this6.lists.unshift(result.data[0]);
+	                if (_this6.lists.length > _this6.listsAmount) {
+	                    _this6.lists.length = _this6.listsAmount;
+	                }
+	            }, this.handleError.bind(this));
+	        }
+	    }, {
 	        key: 'appendListEndOfPage',
 	        value: function appendListEndOfPage() {
-	            var _this6 = this;
+	            var _this7 = this;
 
 	            var offset = (this.listsCurrentPage - 1) * this.listsAmount + (this.listsAmount - 1);
 	            this.TodoListsService.read(undefined, offset, 1).then(function (result) {
-	                return _this6.lists.push(result.data[0]);
+	                return _this7.lists.push(result.data[0]);
 	            }, this.handleError.bind(this));
 	        }
 
