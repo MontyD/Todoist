@@ -2,10 +2,14 @@
 
 class SocketsService {
 
-    constructor($window, $rootScope) {
+    constructor($window) {
         this.socket = $window.io.connect($window.location.origin);
-        this.$rootScope = $rootScope;
         this.subscriptions = [];
+        this.hash = Math.random().toString(36).substring(12);
+    }
+
+    getHash() {
+      return this.hash;
     }
 
     on(eventName, callback) {
@@ -15,7 +19,12 @@ class SocketsService {
       } else {
         this.socket.off(eventName);
       }
-      this.socket.on(eventName, callback);
+      this.socket.on(eventName, function(data) {
+        if (data.hash === this.hash) {
+          return;
+        }
+        return callback(data);
+      });
     }
 
     emit(eventName, data, callback) {
@@ -28,6 +37,6 @@ class SocketsService {
     }
 }
 
-SocketsService.$inject = ['$window', '$rootScope'];
+SocketsService.$inject = ['$window'];
 
 module.exports = SocketsService;
