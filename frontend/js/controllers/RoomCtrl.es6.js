@@ -2,18 +2,13 @@
 
 class RoomCtrl {
 
-    constructor(Notification, SocketsService, RoomService, TodoListsService, $scope, $rootScope) {
+    constructor(Notification, SocketsService, RoomService, TodoListsService, $scope) {
         // Dependencies
         this.Notification = Notification;
         this.SocketsService = SocketsService;
         this.RoomService = RoomService;
         this.TodoListsService = TodoListsService;
         this.$scope = $scope;
-        this.$rootScope = $rootScope;
-
-        this.$rootScope.roomName = '';
-        this.$rootScope.isAdmin = false;
-        this.$rootScope.username = '';
 
         // initial properties
         this.roomName = '';
@@ -39,19 +34,16 @@ class RoomCtrl {
         } else {
             this.getRoomInfoLocally();
         }
-        // read tasks from server
-        this.TodoListsService.read(undefined, undefined, this.listsAmount).then(
+        // read todos count
+        this.TodoListsService.countLists().then(
             result => {
-                this.lists = result.data;
+              this.listsTotal = result.data.count;
+              // get fist page of todos
+              this.changePage(1);
             },
             this.handleError.bind(this)
         );
 
-        // read todos count
-        this.TodoListsService.countLists().then(
-            result => this.listsTotal = result.data.count,
-            error => console.error(error)
-        );
     }
 
     getRoomInfoFromServer() {
@@ -73,102 +65,60 @@ class RoomCtrl {
         this.initSockets();
     }
 
-    initSockets() {
-        // echo room name
-        this.SocketsService.emit('room', this.roomName);
+    placeSocketEventListners() {
 
-        // Socket events config
-        this.SocketsService.on('UserConnected', (function(data) {
-
-        }).bind(this));
-
-
-        // <--- Actual Event Listeners
         this.SocketsService.on('NewTask', (function(data) {
-
-            if (this.$rootScope.hash === data.hash) {
-                return;
-            }
             this.addTaskLocally(data.task, data.username);
             this.Notify(data.username + ' added a todo', 'Success');
-            // force view to update;
             this.$scope.$apply();
         }).bind(this));
 
         this.SocketsService.on('UpdatedTask', (function(data) {
-            if (this.$rootScope.hash === data.hash) {
-                return;
-            }
             this.updateTaskLocally(data.task);
             if (data.task.status === 'Complete') {
                 this.Notify(data.username + ' completed a todo', 'Success');
             }
-            // force view to update;
             this.$scope.$apply();
         }).bind(this));
 
         this.SocketsService.on('DeletedTask', (function(data) {
-            if (this.$rootScope.hash === data.hash) {
-                return;
-            }
             this.updateTaskLocally(data.task, true);
             this.Notify(data.username + ' removed a todo');
-            // force view to update;
             this.$scope.$apply();
         }).bind(this));
 
         this.SocketsService.on('NewTodoList', (function(data) {
-            if (this.$rootScope.hash === data.hash) {
-                return;
-            }
             this.addListLocally(data.list);
             this.Notify(data.username + ' added a new list!', 'Success');
-            // force view to update;
             this.$scope.$apply();
         }).bind(this));
 
         this.SocketsService.on('UpdatedList', (function(data) {
-            if (this.$rootScope.hash === data.hash) {
-                return;
-            }
             this.updateListLocally(data.list.id, data.list.name);
-            // force view to update;
             this.$scope.$apply();
         }).bind(this));
 
         this.SocketsService.on('DeletedList', (function(data) {
-            if (this.$rootScope.hash === data.hash) {
-                return;
-            }
             this.deleteListLocally(data.list.id);
             this.Notify(data.username + ' deleted a list!', 'Error');
-            // force view to update;
             this.$scope.$apply();
         }).bind(this));
 
         this.SocketsService.on('DeletedAllComplete', (function(data) {
-            this.completedLastDay = 0;
             this.Notify(data.username + ' cleared all completed todos');
-            // force view to update;
             this.$scope.$apply();
         }).bind(this));
 
         this.SocketsService.on('logAllOut', (function(data) {
             window.location = '/rooms/login?kicked=true';
         }).bind(this));
-        // ----->
-
-        // create hash and make sockets as initialised.
-        this.$rootScope.hash = Math.random().toString(36).substring(7);
 
     }
 
     changePage(number) {
       let offset = (number - 1) * this.listsAmount;
       this.TodoListsService.read(undefined, offset, this.listsAmount).then(
-          result => {
-              this.lists = result.data;
-          },
+          result => (this.lists = result.data),
           this.handleError.bind(this)
       );
     }
@@ -244,6 +194,6 @@ class RoomCtrl {
 
 }
 
-RoomCtrl.$inject = ['Notification', 'SocketsService', 'RoomService', 'TodoListsService', '$scope', '$rootScope'];
+RoomCtrl.$inject = ['Notification', 'SocketsService', 'RoomService', 'TodoListsService', '$scope'];
 
 export default RoomCtrl;

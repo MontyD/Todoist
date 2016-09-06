@@ -8,6 +8,10 @@ class SocketsService {
         this.hash = Math.random().toString(36).substring(12);
     }
 
+    init(roomName) {
+      this.emit('room', roomName);
+    }
+
     getHash() {
       return this.hash;
     }
