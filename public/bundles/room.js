@@ -43800,7 +43800,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmount\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n    <todo-list list=\"list\" createtask=\"home.newTask\" edittask=\"home.editTask\" deletetask=\"home.deleteTask\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n    </todo-list>\n  </article>\n  <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n    <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n        <i class=\"lnr lnr-plus-circle\"></i> Add new list\n    </p>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmount\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n    <todo-list list=\"list\" createtask=\"home.newTask\" edittask=\"home.editTask\" deletetask=\"home.deleteTask\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n    </todo-list>\n  </article>\n  <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n    <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n        <i class=\"lnr lnr-plus-circle\"></i> Add new list\n    </p>\n</main>\n";
 
 /***/ },
 /* 56 */
@@ -43829,7 +43829,7 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var RoomCtrl = (function () {
-	    function RoomCtrl(Notification, SocketsService, RoomService, TodoListsService, $scope, $rootScope) {
+	    function RoomCtrl(Notification, SocketsService, RoomService, TodoListsService, $scope) {
 	        _classCallCheck(this, RoomCtrl);
 
 	        // Dependencies
@@ -43838,16 +43838,12 @@
 	        this.RoomService = RoomService;
 	        this.TodoListsService = TodoListsService;
 	        this.$scope = $scope;
-	        this.$rootScope = $rootScope;
 
-	        this.$rootScope.roomName = '';
-	        this.$rootScope.isAdmin = false;
-	        this.$rootScope.username = '';
-
-	        // initial properties
-	        this.roomName = '';
-	        this.isAdmin = false;
-	        this.username = '';
+	        this.room = {
+	            name: '',
+	            isAdmin: false,
+	            username: ''
+	        };
 
 	        this.lists = [];
 
@@ -43865,140 +43861,79 @@
 	    _createClass(RoomCtrl, [{
 	        key: 'init',
 	        value: function init() {
-	            var _this = this;
+	            // get info about room
+	            this.RoomService.getInfo((function (roomInfo) {
+	                var _this = this;
 
-	            if (!this.$rootScope.roomName) {
-	                this.getRoomInfoFromServer();
-	            } else {
-	                this.getRoomInfoLocally();
-	            }
-	            // read tasks from server
-	            this.TodoListsService.read(undefined, undefined, this.listsAmount).then(function (result) {
-	                _this.lists = result.data;
-	            }, this.handleError.bind(this));
+	                this.room = roomInfo;
 
-	            // read todos count
-	            this.TodoListsService.countLists().then(function (result) {
-	                return _this.listsTotal = result.data.count;
-	            }, function (error) {
-	                return console.error(error);
-	            });
+	                // read todos count
+	                this.TodoListsService.countLists().then(function (result) {
+	                    _this.hash = _this.SocketsService.init(_this.room.name);
+	                    _this.listsTotal = result.data.count;
+	                    // get fist page of todos
+	                    _this.changePage(1);
+	                }, this.handleError.bind(this));
+	            }).bind(this), this.handleError.bind(this));
 	        }
 	    }, {
-	        key: 'getRoomInfoFromServer',
-	        value: function getRoomInfoFromServer() {
-	            var _this2 = this;
+	        key: 'placeSocketEventListners',
+	        value: function placeSocketEventListners() {
 
-	            this.RoomService.getInfo().then(function (result) {
-	                _this2.$rootScope.roomName = result.data.roomName;
-	                _this2.$rootScope.isAdmin = result.data.isAdmin;
-	                _this2.$rootScope.username = result.data.username;
-	                _this2.getRoomInfoLocally();
-	            }, this.handleError.bind(this));
-	        }
-	    }, {
-	        key: 'getRoomInfoLocally',
-	        value: function getRoomInfoLocally() {
-	            this.roomName = this.$rootScope.roomName;
-	            this.isAdmin = this.$rootScope.isAdmin;
-	            this.username = this.$rootScope.username;
-	            this.initSockets();
-	        }
-	    }, {
-	        key: 'initSockets',
-	        value: function initSockets() {
-	            // echo room name
-	            this.SocketsService.emit('room', this.roomName);
-
-	            // Socket events config
-	            this.SocketsService.on('UserConnected', (function (data) {}).bind(this));
-
-	            // <--- Actual Event Listeners
 	            this.SocketsService.on('NewTask', (function (data) {
-
-	                if (this.$rootScope.hash === data.hash) {
-	                    return;
-	                }
 	                this.addTaskLocally(data.task, data.username);
 	                this.Notify(data.username + ' added a todo', 'Success');
-	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
 
 	            this.SocketsService.on('UpdatedTask', (function (data) {
-	                if (this.$rootScope.hash === data.hash) {
-	                    return;
-	                }
 	                this.updateTaskLocally(data.task);
 	                if (data.task.status === 'Complete') {
 	                    this.Notify(data.username + ' completed a todo', 'Success');
 	                }
-	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
 
 	            this.SocketsService.on('DeletedTask', (function (data) {
-	                if (this.$rootScope.hash === data.hash) {
-	                    return;
-	                }
 	                this.updateTaskLocally(data.task, true);
 	                this.Notify(data.username + ' removed a todo');
-	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
 
 	            this.SocketsService.on('NewTodoList', (function (data) {
-	                if (this.$rootScope.hash === data.hash) {
-	                    return;
-	                }
 	                this.addListLocally(data.list);
 	                this.Notify(data.username + ' added a new list!', 'Success');
-	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
 
 	            this.SocketsService.on('UpdatedList', (function (data) {
-	                if (this.$rootScope.hash === data.hash) {
-	                    return;
-	                }
 	                this.updateListLocally(data.list.id, data.list.name);
-	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
 
 	            this.SocketsService.on('DeletedList', (function (data) {
-	                if (this.$rootScope.hash === data.hash) {
-	                    return;
-	                }
 	                this.deleteListLocally(data.list.id);
 	                this.Notify(data.username + ' deleted a list!', 'Error');
-	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
 
 	            this.SocketsService.on('DeletedAllComplete', (function (data) {
-	                this.completedLastDay = 0;
 	                this.Notify(data.username + ' cleared all completed todos');
-	                // force view to update;
 	                this.$scope.$apply();
 	            }).bind(this));
 
 	            this.SocketsService.on('logAllOut', (function (data) {
 	                window.location = '/rooms/login?kicked=true';
 	            }).bind(this));
-	            // ----->
-
-	            // create hash and make sockets as initialised.
-	            this.$rootScope.hash = Math.random().toString(36).substring(7);
 	        }
 	    }, {
 	        key: 'changePage',
 	        value: function changePage(number) {
-	            var _this3 = this;
+	            var _this2 = this;
 
 	            var offset = (number - 1) * this.listsAmount;
 	            this.TodoListsService.read(undefined, offset, this.listsAmount).then(function (result) {
-	                _this3.lists = result.data;
+	                return _this2.lists = result.data;
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
@@ -44031,28 +43966,28 @@
 	    }, {
 	        key: 'newList',
 	        value: function newList() {
-	            var _this4 = this;
+	            var _this3 = this;
 
-	            this.TodoListsService.create(undefined, this.$rootScope.hash).then(function (result) {
-	                return _this4.addListLocally(result.data);
+	            this.TodoListsService.create(undefined, this.hash).then(function (result) {
+	                return _this3.addListLocally(result.data);
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
 	        key: 'deleteList',
 	        value: function deleteList(id) {
-	            var _this5 = this;
+	            var _this4 = this;
 
-	            this.TodoListsService.destroy(id, this.$rootScope.hash).then(function (result) {
-	                return _this5.deleteListLocally(id);
+	            this.TodoListsService.destroy(id, this.hash).then(function (result) {
+	                return _this4.deleteListLocally(id);
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
 	        key: 'editList',
 	        value: function editList(id, newName) {
-	            var _this6 = this;
+	            var _this5 = this;
 
-	            this.TodoListsService.update(id, newName, this.$rootScope.hash).then(function (result) {
-	                return _this6.updateListLocally(id, newName);
+	            this.TodoListsService.update(id, newName, this.hash).then(function (result) {
+	                return _this5.updateListLocally(id, newName);
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
@@ -44086,7 +44021,7 @@
 	    return RoomCtrl;
 	})();
 
-	RoomCtrl.$inject = ['Notification', 'SocketsService', 'RoomService', 'TodoListsService', '$scope', '$rootScope'];
+	RoomCtrl.$inject = ['Notification', 'SocketsService', 'RoomService', 'TodoListsService', '$scope'];
 
 	exports['default'] = RoomCtrl;
 	module.exports = exports['default'];
@@ -45664,41 +45599,52 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var SocketsService = (function () {
-	    function SocketsService($window, $rootScope) {
-	        _classCallCheck(this, SocketsService);
+	  function SocketsService($window) {
+	    _classCallCheck(this, SocketsService);
 
-	        this.socket = $window.io.connect($window.location.origin);
-	        this.$rootScope = $rootScope;
-	        this.subscriptions = [];
+	    this.socket = $window.io.connect($window.location.origin);
+	    this.subscriptions = [];
+	    this.hash = Math.random().toString(36).substring(12);
+	  }
+
+	  _createClass(SocketsService, [{
+	    key: 'init',
+	    value: function init(roomName) {
+	      this.emit('room', roomName);
+	      return this.hash;
 	    }
-
-	    _createClass(SocketsService, [{
-	        key: 'on',
-	        value: function on(eventName, callback) {
-	            var alreadySubscribed = this.subscriptions.indexOf(eventName) > -1;
-	            if (!alreadySubscribed) {
-	                this.subscriptions.push(eventName);
-	            } else {
-	                this.socket.off(eventName);
-	            }
-	            this.socket.on(eventName, callback);
+	  }, {
+	    key: 'on',
+	    value: function on(eventName, callback) {
+	      var alreadySubscribed = this.subscriptions.indexOf(eventName) > -1;
+	      if (!alreadySubscribed) {
+	        this.subscriptions.push(eventName);
+	      } else {
+	        this.socket.off(eventName);
+	      }
+	      this.socket.on(eventName, function (data) {
+	        if (data.hash === this.hash) {
+	          return;
 	        }
-	    }, {
-	        key: 'emit',
-	        value: function emit(eventName, data, callback) {
-	            this.socket.emit(eventName, data, function () {
-	                var args = arguments;
-	                if (callback) {
-	                    callback.apply(this.socket, args);
-	                }
-	            });
+	        return callback(data);
+	      });
+	    }
+	  }, {
+	    key: 'emit',
+	    value: function emit(eventName, data, callback) {
+	      this.socket.emit(eventName, data, function () {
+	        var args = arguments;
+	        if (callback) {
+	          callback.apply(this.socket, args);
 	        }
-	    }]);
+	      });
+	    }
+	  }]);
 
-	    return SocketsService;
+	  return SocketsService;
 	})();
 
-	SocketsService.$inject = ['$window', '$rootScope'];
+	SocketsService.$inject = ['$window'];
 
 	module.exports = SocketsService;
 
@@ -45718,12 +45664,31 @@
 
 	    this.$http = $http;
 	    this.urlBase = '/rooms/';
+
+	    this.roomInfo = {
+	      name: '',
+	      isAdmin: false,
+	      username: ''
+	    };
+
+	    this.cached = false;
 	  }
 
 	  _createClass(RoomService, [{
 	    key: 'getInfo',
-	    value: function getInfo() {
-	      return this.$http.get(this.urlBase + 'info');
+	    value: function getInfo(callbackSuccess, callbackError) {
+	      var _this = this;
+
+	      if (this.cached) {
+	        return callbackSuccess(this.roomInfo);
+	      }
+	      this.$http.get(this.urlBase + 'info').then(function (result) {
+	        _this.roomInfo = result.data;
+	        _this.cached = true;
+	        return callbackSuccess(_this.roomInfo);
+	      }, function (error) {
+	        return callbackError(error);
+	      });
 	    }
 	  }, {
 	    key: 'logAllOut',

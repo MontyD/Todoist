@@ -5,10 +5,28 @@ class RoomService {
     constructor($http) {
         this.$http = $http;
         this.urlBase = '/rooms/';
+
+        this.roomInfo = {
+          name: '',
+          isAdmin: false,
+          username: ''
+        };
+
+        this.cached = false;
     }
 
-    getInfo() {
-      return this.$http.get(this.urlBase + 'info');
+    getInfo(callbackSuccess, callbackError) {
+      if (this.cached) {
+        return callbackSuccess(this.roomInfo);
+      }
+      this.$http.get(this.urlBase + 'info').then(
+        result => {
+          this.roomInfo = result.data;
+          this.cached = true;
+          return callbackSuccess(this.roomInfo);
+        },
+        error => callbackError(error)
+      );
     }
 
     logAllOut() {

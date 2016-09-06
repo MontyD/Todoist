@@ -10,9 +10,6 @@ class SocketsService {
 
     init(roomName) {
       this.emit('room', roomName);
-    }
-
-    getHash() {
       return this.hash;
     }
 

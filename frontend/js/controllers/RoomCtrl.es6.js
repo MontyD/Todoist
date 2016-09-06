@@ -10,10 +10,11 @@ class RoomCtrl {
         this.TodoListsService = TodoListsService;
         this.$scope = $scope;
 
-        // initial properties
-        this.roomName = '';
-        this.isAdmin = false;
-        this.username = '';
+        this.room = {
+            name: '',
+            isAdmin: false,
+            username: ''
+        };
 
         this.lists = [];
 
@@ -29,40 +30,22 @@ class RoomCtrl {
     }
 
     init() {
-        if (!this.$rootScope.roomName) {
-            this.getRoomInfoFromServer();
-        } else {
-            this.getRoomInfoLocally();
-        }
+      // get info about room
+      this.RoomService.getInfo((function(roomInfo) {
+        this.room = roomInfo;
+
         // read todos count
         this.TodoListsService.countLists().then(
             result => {
-              this.listsTotal = result.data.count;
-              // get fist page of todos
-              this.changePage(1);
+                this.hash = this.SocketsService.init(this.room.name);
+                this.listsTotal = result.data.count;
+                // get fist page of todos
+                this.changePage(1);
             },
             this.handleError.bind(this)
         );
+      }).bind(this), this.handleError.bind(this));
 
-    }
-
-    getRoomInfoFromServer() {
-        this.RoomService.getInfo().then(
-            result => {
-                this.$rootScope.roomName = result.data.roomName;
-                this.$rootScope.isAdmin = result.data.isAdmin;
-                this.$rootScope.username = result.data.username;
-                this.getRoomInfoLocally();
-            },
-            this.handleError.bind(this)
-        );
-    }
-
-    getRoomInfoLocally() {
-        this.roomName = this.$rootScope.roomName;
-        this.isAdmin = this.$rootScope.isAdmin;
-        this.username = this.$rootScope.username;
-        this.initSockets();
     }
 
     placeSocketEventListners() {
@@ -116,18 +99,18 @@ class RoomCtrl {
     }
 
     changePage(number) {
-      let offset = (number - 1) * this.listsAmount;
-      this.TodoListsService.read(undefined, offset, this.listsAmount).then(
-          result => (this.lists = result.data),
-          this.handleError.bind(this)
-      );
+        let offset = (number - 1) * this.listsAmount;
+        this.TodoListsService.read(undefined, offset, this.listsAmount).then(
+            result => (this.lists = result.data),
+            this.handleError.bind(this)
+        );
     }
 
     addListLocally(list) {
-      this.lists.unshift(list);
-      if (this.lists.length > this.listsAmount) {
-        this.lists.length = this.listsAmount;
-      }
+        this.lists.unshift(list);
+        if (this.lists.length > this.listsAmount) {
+            this.lists.length = this.listsAmount;
+        }
     }
 
     updateListLocally(id, newName) {
@@ -148,21 +131,21 @@ class RoomCtrl {
     }
 
     newList() {
-      this.TodoListsService.create(undefined, this.$rootScope.hash).then(
-        result => this.addListLocally(result.data),
-        this.handleError.bind(this)
-      );
+        this.TodoListsService.create(undefined, this.hash).then(
+            result => this.addListLocally(result.data),
+            this.handleError.bind(this)
+        );
     }
 
     deleteList(id) {
-        this.TodoListsService.destroy(id, this.$rootScope.hash).then(
+        this.TodoListsService.destroy(id, this.hash).then(
             result => this.deleteListLocally(id),
             this.handleError.bind(this)
         );
     }
 
     editList(id, newName) {
-        this.TodoListsService.update(id, newName, this.$rootScope.hash).then(
+        this.TodoListsService.update(id, newName, this.hash).then(
             result => this.updateListLocally(id, newName),
             this.handleError.bind(this)
         );

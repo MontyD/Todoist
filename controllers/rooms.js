@@ -50,7 +50,7 @@ router.get('/login', function(req, res, next) {
 router.get('/info', respondsToJSON, checkRoom, function(req, res, next) {
     res.io.to(req.room.name).emit('UserConnected', req.session.username + ' has joined!');
     return res.json({
-        roomName: req.room.name,
+        name: req.room.name,
         isAdmin: req.room.isAdmin,
         username: req.session.username
     });
