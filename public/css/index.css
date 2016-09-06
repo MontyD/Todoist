@@ -466,7 +466,7 @@ main.full-height {
       .thirds.two {
         width: 90%; } }
 
-.modal, .tasks-container {
+.modal {
   position: relative;
   display: block;
   margin: 0 auto;
@@ -475,15 +475,13 @@ main.full-height {
   padding: 1.6em 1em;
   box-sizing: border-box;
   text-align: center; }
-  .modal.main, .main.tasks-container {
+  .modal.main {
     margin: 5% auto; }
-  .modal.full-width, .full-width.tasks-container {
+  .modal.full-width {
     max-width: none; }
-  .modal h1, .tasks-container h1,
+  .modal h1,
   .modal h2,
-  .tasks-container h2,
-  .modal h3,
-  .tasks-container h3 {
+  .modal h3 {
     margin-top: 0; }
 
 .pagination-controls {
@@ -604,7 +602,7 @@ main.full-height {
     padding: 0 1em;
     box-sizing: border-box; }
 
-.container {
+.container, .tasks-container {
   display: block;
   position: relative;
   margin: 0 auto;
@@ -643,7 +641,7 @@ ui-view {
   background: #E0E0E0;
   color: #212121; }
 
-.modal, .tasks-container {
+.modal {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
   border-radius: 0.3em; }
 
@@ -775,7 +773,7 @@ button.icon {
   background: #004D40;
   color: #FAFAFA; }
 
-.light, .tasks-container, .todo-list, .todo-list-new {
+.light, .todo-list, .todo-list-new {
   background: #FAFAFA;
   color: #212121; }
 
@@ -990,9 +988,9 @@ input[type="checkbox"] {
       border-top-color: transparent;
       border-right-color: transparent;
       margin-bottom: 0.3em; }
-  input[type="checkbox"].light + label:before, input[type="checkbox"].tasks-container + label:before, input[type="checkbox"].todo-list + label:before, input[type="checkbox"].todo-list-new + label:before {
+  input[type="checkbox"].light + label:before, input[type="checkbox"].todo-list + label:before, input[type="checkbox"].todo-list-new + label:before {
     border-color: #FAFAFA; }
-  input[type="checkbox"].light:checked + label:before, input[type="checkbox"].tasks-container:checked + label:before, input[type="checkbox"].todo-list:checked + label:before, input[type="checkbox"].todo-list-new:checked + label:before {
+  input[type="checkbox"].light:checked + label:before, input[type="checkbox"].todo-list:checked + label:before, input[type="checkbox"].todo-list-new:checked + label:before {
     border-top-color: transparent;
     border-right-color: transparent; }
   input[type="checkbox"].large + label:before {
@@ -1025,9 +1023,9 @@ input[type="radio"] {
       height: 0.9em;
       width: 0.9em;
       margin-bottom: -0.1em; }
-  input[type="radio"].light + label:before, input[type="radio"].tasks-container + label:before, input[type="radio"].todo-list + label:before, input[type="radio"].todo-list-new + label:before {
+  input[type="radio"].light + label:before, input[type="radio"].todo-list + label:before, input[type="radio"].todo-list-new + label:before {
     border-color: #FAFAFA; }
-  input[type="radio"].light:checked + label:before, input[type="radio"].tasks-container:checked + label:before, input[type="radio"].todo-list:checked + label:before, input[type="radio"].todo-list-new:checked + label:before {
+  input[type="radio"].light:checked + label:before, input[type="radio"].todo-list:checked + label:before, input[type="radio"].todo-list-new:checked + label:before {
     background: #FAFAFA; }
 
 form.inline {
@@ -1525,7 +1523,7 @@ main.full-height {
       .thirds.two {
         width: 90%; } }
 
-.modal, .tasks-container {
+.modal {
   position: relative;
   display: block;
   margin: 0 auto;
@@ -1534,15 +1532,13 @@ main.full-height {
   padding: 1.6em 1em;
   box-sizing: border-box;
   text-align: center; }
-  .modal.main, .main.tasks-container {
+  .modal.main {
     margin: 5% auto; }
-  .modal.full-width, .full-width.tasks-container {
+  .modal.full-width {
     max-width: none; }
-  .modal h1, .tasks-container h1,
+  .modal h1,
   .modal h2,
-  .tasks-container h2,
-  .modal h3,
-  .tasks-container h3 {
+  .modal h3 {
     margin-top: 0; }
 
 .pagination-controls {
@@ -1663,7 +1659,7 @@ main.full-height {
     padding: 0 1em;
     box-sizing: border-box; }
 
-.container {
+.container, .tasks-container {
   display: block;
   position: relative;
   margin: 0 auto;
@@ -1702,7 +1698,7 @@ ui-view {
   background: #E0E0E0;
   color: #212121; }
 
-.modal, .tasks-container {
+.modal {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
   border-radius: 0.3em; }
 
@@ -1834,7 +1830,7 @@ button.icon {
   background: #004D40;
   color: #FAFAFA; }
 
-.light, .tasks-container, .todo-list, .todo-list-new {
+.light, .todo-list, .todo-list-new {
   background: #FAFAFA;
   color: #212121; }
 
@@ -1888,7 +1884,7 @@ nav.top {
     left: 0;
     background: transparent;
     z-index: 10; }
-  nav.top .container {
+  nav.top .container, nav.top .tasks-container {
     margin: 0 auto;
     padding: 0; }
   nav.top .home-link {
@@ -1933,7 +1929,7 @@ footer {
   box-sizing: border-box;
   text-align: center;
   font-size: 0.8em; }
-  footer .container {
+  footer .container, footer .tasks-container {
     padding: 0; }
   footer h3 {
     margin: 0.6em 0 0;
@@ -2472,7 +2468,7 @@ main.full-height {
       .thirds.two {
         width: 90%; } }
 
-.modal, .tasks-container {
+.modal {
   position: relative;
   display: block;
   margin: 0 auto;
@@ -2481,15 +2477,13 @@ main.full-height {
   padding: 1.6em 1em;
   box-sizing: border-box;
   text-align: center; }
-  .modal.main, .main.tasks-container {
+  .modal.main {
     margin: 5% auto; }
-  .modal.full-width, .full-width.tasks-container {
+  .modal.full-width {
     max-width: none; }
-  .modal h1, .tasks-container h1,
+  .modal h1,
   .modal h2,
-  .tasks-container h2,
-  .modal h3,
-  .tasks-container h3 {
+  .modal h3 {
     margin-top: 0; }
 
 .pagination-controls {
@@ -2610,7 +2604,7 @@ main.full-height {
     padding: 0 1em;
     box-sizing: border-box; }
 
-.container {
+.container, .tasks-container {
   display: block;
   position: relative;
   margin: 0 auto;
@@ -2649,7 +2643,7 @@ ui-view {
   background: #E0E0E0;
   color: #212121; }
 
-.modal, .tasks-container {
+.modal {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
   border-radius: 0.3em; }
 
@@ -2781,7 +2775,7 @@ button.icon {
   background: #004D40;
   color: #FAFAFA; }
 
-.light, .tasks-container, .todo-list, .todo-list-new {
+.light, .todo-list, .todo-list-new {
   background: #FAFAFA;
   color: #212121; }
 
@@ -2871,11 +2865,7 @@ button.icon {
           transform: translateX(0); }
 
 .tasks-container {
-  max-width: none;
-  display: inline-block; }
-  @media (max-width: 900px) {
-    .tasks-container {
-      display: block; } }
+  text-align: center; }
 
 .task-item {
   display: block;
@@ -2938,12 +2928,14 @@ button.icon {
 .todo-list {
   position: relative;
   padding-bottom: 1em;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin: 0.5em 0.3em;
   max-width: 600px;
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
   border-radius: 0.3em;
   text-align: left; }
+  @media (max-width: 900px) {
+    .todo-list {
+      margin: 0.6em auto; } }
   .todo-list .list-title {
     text-align: left;
     padding: 1em 0.1em 0.5em;

@@ -2,13 +2,8 @@
 @import '_animation';
 
 .tasks-container {
-    @extend .modal;
-    @extend .light;
-    max-width: none;
-    display  : inline-block;
-    @media(max-width: $mediumBP) {
-        display: block;
-    }
+    @extend .container;
+    text-align: center;
 }
 
 .task-item {
@@ -113,13 +108,15 @@
 .todo-list {
     position      : relative;
     padding-bottom: 1em;
-    margin-top    : 0.5em;
-    margin-bottom : 0.5em;
+    margin        : 0.5em 0.3em;
     max-width     : 600px;
     box-shadow    : 0 1.5px 4px rgba(0,0,0,.24),0 1.5px 6px rgba(0,0,0,.12);
     border-radius : 0.3em;
     @extend .light;
     text-align    : left;
+    @media(max-width: $mediumBP) {
+        margin: 0.6em auto;
+    }
 
     .list-title {
         text-align   : left;
