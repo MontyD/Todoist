@@ -43919,14 +43919,17 @@
 	        key: 'deleteListLocally',
 	        value: function deleteListLocally(id) {
 	            this.listsTotal--;
+	            var found = false;
 	            for (var i = 0; i < this.lists.length; i++) {
 	                if (this.lists[i].id === id) {
 	                    this.lists.splice(i, 1);
+	                    found = true;
 	                }
 	            }
 	            if (this.listsCurrentPage - 1 < Math.floor(this.listsTotal / this.listsAmount)) {
 	                this.appendListEndOfPage();
 	            }
+	            //TODO!
 	        }
 
 	        /*
