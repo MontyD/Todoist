@@ -62,6 +62,12 @@ class RoomCtrl {
 
     }
 
+
+    /*
+    <--------- PAGE TRACKING
+    */
+
+
     // takes page number as argument (starting at 1, instead of 0)
     // transforms this.lists to that page number of lists
     changePage(number) {
@@ -78,6 +84,11 @@ class RoomCtrl {
             this.handleError.bind(this)
         );
     }
+
+    /*
+    ------------>
+    */
+
 
 
     /*
@@ -121,31 +132,41 @@ class RoomCtrl {
     // TODO - test!
     // attempt to find list in array and delete,
     // appending one from server so that the page is full.
-    // if not found, remove one from current page, and append another
+    // if not found, remove [0] from current page, and append another
     // at bottom, if id is greater than first on current page
     // this keeps the lists in sync between pages.
     deleteListLocally(id) {
-          this.listsTotal--;
-          for (let i = 0; i < this.lists.length; i++) {
-              if (this.lists[i].id === id) {
+        this.listsTotal--;
+        for (let i = 0; i < this.lists.length; i++) {
+            if (this.lists[i].id === id) {
                 // found, remove
-                  this.lists.splice(i, 1);
+                this.lists.splice(i, 1);
 
                   // We're missing a list - so add one from server.
                   // return to stop code below executing.
                   return this.appendListEndOfPage();
-              }
-          }
-          // before current page
-          // will only run if not found
-          if (id > this.lists[0].id) {
-              this.lists.splice(0, 1);
-              return this.appendListEndOfPage();
-          }
-      }
-        /*
-        --------->
-        */
+            }
+        }
+        // before current page
+        // will only run if not found
+        if (id > this.lists[0].id) {
+            this.lists.splice(0, 1);
+            return this.appendListEndOfPage();
+        }
+    }
+
+    // makes sure that lists length does go
+    // over the designated length
+    trimLists() {
+        if (this.lists.length > this.listsAmountPerPage) {
+            this.lists.length = this.listsAmountPerPage;
+        }
+    }
+
+
+    /*
+    --------->
+    */
 
 
 
@@ -179,9 +200,7 @@ class RoomCtrl {
             result => {
                 if (result.data.length > 0) {
                     this.lists.unshift(result.data[0]);
-                    if (this.lists.length > this.listsAmountPerPage) {
-                        this.lists.length = this.listsAmountPerPage;
-                    }
+                    return this.trimLists();
                 }
             },
             this.handleError.bind(this)
@@ -191,7 +210,11 @@ class RoomCtrl {
     appendListEndOfPage() {
         let offset = ((this.listsCurrentPage - 1) * this.listsAmountPerPage) + (this.listsAmountPerPage - 1);
         this.TodoListsService.read(undefined, offset, 1).then(
-            result => this.lists.push(result.data[0]),
+            result => {
+                if (result.data.length > 0) {
+                    this.lists.push(result.data[0]);
+                }
+            },
             this.handleError.bind(this)
         );
     }

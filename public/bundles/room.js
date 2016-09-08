@@ -43800,7 +43800,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmount\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n    <todo-list list=\"list\" createtask=\"home.newTask\" edittask=\"home.editTask\" deletetask=\"home.deleteTask\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n    </todo-list>\n  </article>\n  <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n\n  <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n      <i class=\"lnr lnr-plus-circle\"></i> Add new list\n  </p>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmountPerPage\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n    <todo-list list=\"list\" createtask=\"home.newTask\" edittask=\"home.editTask\" deletetask=\"home.deleteTask\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n    </todo-list>\n  </article>\n  <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n\n  <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n      <i class=\"lnr lnr-plus-circle\"></i> Add new list\n  </p>\n</main>\n";
 
 /***/ },
 /* 56 */
@@ -43839,22 +43839,28 @@
 	        this.TodoListsService = TodoListsService;
 	        this.$scope = $scope;
 
+	        // room information
+	        // synced with room service on init();
 	        this.room = {
 	            name: '',
 	            isAdmin: false,
 	            username: ''
 	        };
 
+	        // lists object (only current page)
 	        this.lists = [];
 
-	        this.listsAmount = 9;
+	        // amount on page
+	        this.listsAmountPerPage = 6;
 
+	        // current page
 	        this.listsCurrentPage = 0;
 
+	        // total amount of lists,
+	        // pulled from server on init();
 	        this.listsTotal = 0;
 
-	        this.moving = false;
-
+	        // run initial functions
 	        this.init();
 	    }
 
@@ -43862,49 +43868,89 @@
 	        key: 'init',
 	        value: function init() {
 	            // get info about room
+	            // takes cb with room info - as success,
+	            // second arg cb with error - as failure
+	            // must be bound to this.
 	            this.RoomService.getInfo((function (roomInfo) {
 	                var _this = this;
 
 	                this.room = roomInfo;
-	                // read todos count
+	                // read todos count - returns promise of count
 	                this.TodoListsService.countLists().then(function (result) {
+	                    // init sockets, which returns the hash for this session
 	                    _this.hash = _this.SocketsService.init(_this.room.name);
+	                    // set total
 	                    _this.listsTotal = result.data.count;
 	                    // set sockets listeners
 	                    _this.placeSocketEventListners();
-	                    // get fist page of todos
+	                    // display first page of todos
+	                    // this pulls this page from server
 	                    _this.changePage(1);
-	                }, this.handleError.bind(this));
+	                },
+	                // handle any errors
+	                this.handleError.bind(this));
 	            }).bind(this), this.handleError.bind(this));
 	        }
+
+	        /*
+	        <--------- PAGE TRACKING
+	        */
+
+	        // takes page number as argument (starting at 1, instead of 0)
+	        // transforms this.lists to that page number of lists
 	    }, {
 	        key: 'changePage',
 	        value: function changePage(number) {
 	            var _this2 = this;
 
+	            // set current page - for checking if at the last page by functions below
 	            this.listsCurrentPage = number;
-	            var offset = (number - 1) * this.listsAmount;
-	            this.TodoListsService.read(undefined, offset, this.listsAmount).then(function (result) {
+
+	            // calculate the amount of lists to skip in db
+	            var offset = (number - 1) * this.listsAmountPerPage;
+
+	            // read from server and return to this.lists,
+	            // if error - handle
+	            this.TodoListsService.read(undefined, offset, this.listsAmountPerPage).then(function (result) {
 	                return _this2.lists = result.data;
 	            }, this.handleError.bind(this));
 	        }
 
 	        /*
+	        ------------>
+	        */
+
+	        /*
 	        <--------- LOCAL STORAGE FUNCTIONS
 	        */
+
+	        // takes a list and adds it to the relevant page
 	    }, {
 	        key: 'addListLocally',
 	        value: function addListLocally(list) {
+	            // increment total lists amount
+	            // must be done for pagination
 	            this.listsTotal++;
+	            // if first page
 	            if (this.listsCurrentPage === 1) {
+	                // add list to this.lists
+	                // and trim the amount of lists
 	                this.lists.unshift(list);
-	                if (this.lists.length > this.listsAmount) {
-	                    this.lists.length = this.listsAmount;
+	                if (this.lists.length > this.listsAmountPerPage) {
+	                    this.lists.length = this.listsAmountPerPage;
 	                }
 	            } else {
+	                // not on first page, so append the last list
+	                // on the previous page, pushing lists down,
+	                // this keeps pages in sync
 	                this.appendListBeginningOfPage();
 	            }
 	        }
+
+	        // attempt to find list by id,
+	        // and then update list name.
+	        // if list is not found do nothing as
+	        // the lists are pulled from server on page change.
 	    }, {
 	        key: 'updateListLocally',
 	        value: function updateListLocally(id, newName) {
@@ -43915,21 +43961,43 @@
 	                }
 	            }
 	        }
+
+	        // TODO - test!
+	        // attempt to find list in array and delete,
+	        // appending one from server so that the page is full.
+	        // if not found, remove [0] from current page, and append another
+	        // at bottom, if id is greater than first on current page
+	        // this keeps the lists in sync between pages.
 	    }, {
 	        key: 'deleteListLocally',
 	        value: function deleteListLocally(id) {
 	            this.listsTotal--;
-	            var found = false;
 	            for (var i = 0; i < this.lists.length; i++) {
 	                if (this.lists[i].id === id) {
+	                    // found, remove
 	                    this.lists.splice(i, 1);
-	                    found = true;
+
+	                    // We're missing a list - so add one from server.
+	                    // return to stop code below executing.
+	                    return this.appendListEndOfPage();
 	                }
 	            }
-	            if (this.listsCurrentPage - 1 < Math.floor(this.listsTotal / this.listsAmount)) {
-	                this.appendListEndOfPage();
+	            // before current page
+	            // will only run if not found
+	            if (id > this.lists[0].id) {
+	                this.lists.splice(0, 1);
+	                return this.appendListEndOfPage();
 	            }
-	            //TODO!
+	        }
+
+	        // makes sure that lists length does go
+	        // over the designated length
+	    }, {
+	        key: 'trimLists',
+	        value: function trimLists() {
+	            if (this.lists.length > this.listsAmountPerPage) {
+	                this.lists.length = this.listsAmountPerPage;
+	            }
 	        }
 
 	        /*
@@ -43971,11 +44039,11 @@
 	        value: function appendListBeginningOfPage() {
 	            var _this6 = this;
 
-	            var offset = (this.listsCurrentPage - 1) * this.listsAmount;
+	            var offset = (this.listsCurrentPage - 1) * this.listsAmountPerPage;
 	            this.TodoListsService.read(undefined, offset, 1).then(function (result) {
-	                _this6.lists.unshift(result.data[0]);
-	                if (_this6.lists.length > _this6.listsAmount) {
-	                    _this6.lists.length = _this6.listsAmount;
+	                if (result.data.length > 0) {
+	                    _this6.lists.unshift(result.data[0]);
+	                    return _this6.trimLists();
 	                }
 	            }, this.handleError.bind(this));
 	        }
@@ -43984,9 +44052,11 @@
 	        value: function appendListEndOfPage() {
 	            var _this7 = this;
 
-	            var offset = (this.listsCurrentPage - 1) * this.listsAmount + (this.listsAmount - 1);
+	            var offset = (this.listsCurrentPage - 1) * this.listsAmountPerPage + (this.listsAmountPerPage - 1);
 	            this.TodoListsService.read(undefined, offset, 1).then(function (result) {
-	                return _this7.lists.push(result.data[0]);
+	                if (result.data.length > 0) {
+	                    _this7.lists.push(result.data[0]);
+	                }
 	            }, this.handleError.bind(this));
 	        }
 
@@ -44054,7 +44124,6 @@
 
 	            this.SocketsService.on('DeletedAllComplete', (function (data) {
 	                this.Notify(data.username + ' cleared all completed todos');
-	                this.$scope.$apply();
 	            }).bind(this));
 
 	            this.SocketsService.on('logAllOut', (function (data) {
