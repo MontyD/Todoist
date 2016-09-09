@@ -129,7 +129,6 @@ class RoomCtrl {
         }
     }
 
-    // TODO - test!
     // attempt to find list in array and delete,
     // appending one from server so that the page is full.
     // if not found, remove [0] from current page, and append another

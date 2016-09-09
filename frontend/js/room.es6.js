@@ -10,7 +10,6 @@ import RoomCtrl from './controllers/RoomCtrl.es6.js';
 import OverviewCtrl from './controllers/OverviewCtrl.es6.js';
 import SettingsCtrl from './controllers/SettingsCtrl.es6.js';
 
-import newTask from './directives/newTask.es6.js';
 import taskView from './directives/taskView.es6.js';
 import todoList from './directives/todoList.es6.js';
 
@@ -27,7 +26,6 @@ angular.module('app', [uiRouter, 'ui-notification', 'angularUtils.directives.dir
     .controller('RoomCtrl', RoomCtrl)
     .controller('OverviewCtrl', OverviewCtrl)
     .controller('SettingsCtrl', SettingsCtrl)
-    .directive('newTask', newTask)
     .directive('taskView', taskView)
     .directive('todoList', todoList)
     .service('TasksService', TasksService)

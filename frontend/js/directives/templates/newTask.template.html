@@ -1,7 +1,0 @@
-<form name="newTaskForm" ng-submit="submitForm(newTaskForm.$valid)" ng-class="{'attempted-submit': attemptedSubmit}" novalidate="novalidate">
-    <label for="newTaskTitle" class="required">Thing to be done</label>
-    <input type="text" id="newTaskTitle" name="title" ng-model="task.title" required="required">
-    <label for="newTaskDescription">Notes</label>
-    <textarea id="newTaskDescription" ng-model="task.description" name="description"></textarea>
-    <input type="submit" class="button" value="Create">
-</form>
