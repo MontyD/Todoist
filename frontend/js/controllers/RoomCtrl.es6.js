@@ -142,9 +142,9 @@ class RoomCtrl {
                 // found, remove
                 this.lists.splice(i, 1);
 
-                  // We're missing a list - so add one from server.
-                  // return to stop code below executing.
-                  return this.appendListEndOfPage();
+                // We're missing a list - so add one from server.
+                // return to stop code below executing.
+                return this.appendListEndOfPage();
             }
         }
         // before current page
@@ -208,7 +208,7 @@ class RoomCtrl {
     }
 
     appendListEndOfPage() {
-        let offset = ((this.listsCurrentPage - 1) * this.listsAmountPerPage) + (this.listsAmountPerPage - 1);
+        let offset = ((this.listsCurrentPage - 1) * this.listsAmountPerPage) + this.lists.length;
         this.TodoListsService.read(undefined, offset, 1).then(
             result => {
                 if (result.data.length > 0) {
