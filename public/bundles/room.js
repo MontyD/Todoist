@@ -43836,65 +43836,43 @@
 	        this.TodoListsService = TodoListsService;
 	        this.$scope = $scope;
 
-	        // room information
-	        // synced with room service on init();
 	        this.room = {
 	            name: '',
 	            isAdmin: false,
 	            username: ''
 	        };
 
-	        // lists object (only current page)
 	        this.lists = [];
 
-	        // amount on page
 	        this.listsAmountPerPage = 6;
 
-	        // current page
 	        this.listsCurrentPage = 0;
 
-	        // total amount of lists,
-	        // pulled from server on init();
 	        this.listsTotal = 0;
 
-	        // amount of todos that are shown
-	        // per list by default
 	        this.todosPerList = 8;
 
-	        // random identifier, to stop
-	        // socket events being duplicated
-	        // set from sockets service on init();
 	        this.hash = '';
 
-	        // run initial functions
 	        this.init();
 	    }
 
 	    _createClass(RoomCtrl, [{
 	        key: 'init',
 	        value: function init() {
-	            // get info about room
-	            // takes cb with room info - as success,
-	            // second arg cb with error - as failure
-	            // must be bound to this.
 	            this.RoomService.getInfo((function (roomInfo) {
 	                var _this = this;
 
 	                this.room = roomInfo;
-	                // read todos count - returns promise of count
 	                this.TodoListsService.countLists().then(function (result) {
-	                    // init sockets, which returns the hash for this session
 	                    _this.hash = _this.SocketsService.init(_this.room.name);
-	                    // set total
+
 	                    _this.listsTotal = result.data.count;
-	                    // set sockets listeners
+
 	                    _this.placeSocketEventListners();
-	                    // display first page of todos
-	                    // this pulls this page from server
+
 	                    _this.changePage(1);
-	                },
-	                // handle any errors
-	                this.handleError.bind(this));
+	                }, this.handleError.bind(this));
 	            }).bind(this), this.handleError.bind(this));
 	        }
 
@@ -43902,47 +43880,29 @@
 	        <--------- PAGE TRACKING
 	        */
 
-	        // takes page number as argument (starting at 1, instead of 0)
-	        // transforms this.lists to that page number of lists
 	    }, {
 	        key: 'changePage',
 	        value: function changePage(number) {
 	            var _this2 = this;
 
-	            // set current page - for checking if at the last page by functions below
 	            this.listsCurrentPage = number;
 
-	            // calculate the amount of lists to skip in db
 	            var offset = (number - 1) * this.listsAmountPerPage;
 
-	            // read from server and return to this.lists,
-	            // if error - handle
 	            this.TodoListsService.read(undefined, offset, this.listsAmountPerPage).then(function (result) {
 	                return _this2.lists = result.data;
 	            }, this.handleError.bind(this));
 	        }
 
 	        /*
-	        ------------>
-	        */
-
-	        /*
 	        <--------- LOCAL STORAGE FUNCTIONS
 	        */
 
-	        // takes a list and adds it to the relevant page
 	    }, {
 	        key: 'addListLocally',
 	        value: function addListLocally(list) {
-	            // increment total lists amount
-	            // must be done for pagination
 	            this.listsTotal++;
-	            // if first page
 	            if (this.listsCurrentPage === 1) {
-	                // add list to this.lists
-	                // and trim the amount of lists
-
-	                //first append empty array of tasks, if not present.
 	                if (typeof list.tasks === 'undefined') {
 	                    list.tasks = [];
 	                }
@@ -43951,17 +43911,9 @@
 	                    this.lists.length = this.listsAmountPerPage;
 	                }
 	            } else {
-	                // not on first page, so append the last list
-	                // on the previous page, pushing lists down,
-	                // this keeps pages in sync
 	                this.appendListBeginningOfPage();
 	            }
 	        }
-
-	        // attempt to find list by id,
-	        // and then update list name.
-	        // if list is not found do nothing as
-	        // the lists are pulled from server on page change.
 	    }, {
 	        key: 'updateListLocally',
 	        value: function updateListLocally(id, newName) {
@@ -43972,36 +43924,21 @@
 	                }
 	            }
 	        }
-
-	        // attempt to find list in array and delete,
-	        // appending one from server so that the page is full.
-	        // if not found, remove [0] from current page, and append another
-	        // at bottom, if id is greater than first on current page
-	        // this keeps the lists in sync between pages.
 	    }, {
 	        key: 'deleteListLocally',
 	        value: function deleteListLocally(id) {
 	            this.listsTotal--;
 	            for (var i = 0; i < this.lists.length; i++) {
 	                if (this.lists[i].id === id) {
-	                    // found, remove
 	                    this.lists.splice(i, 1);
-
-	                    // We're missing a list - so add one from server.
-	                    // return to stop code below executing.
 	                    return this.appendListEndOfPage();
 	                }
 	            }
-	            // before current page
-	            // will only run if not found
 	            if (id > this.lists[0].id) {
 	                this.lists.splice(0, 1);
 	                return this.appendListEndOfPage();
 	            }
 	        }
-
-	        // makes sure that lists length does go
-	        // over the designated length
 	    }, {
 	        key: 'trimLists',
 	        value: function trimLists() {
@@ -44016,8 +43953,6 @@
 	                todoArray.length = this.todosPerList;
 	            }
 	        }
-
-	        // add todo to relevant list
 	    }, {
 	        key: 'addTodoLocally',
 	        value: function addTodoLocally(todo) {
@@ -44062,10 +43997,6 @@
 	                };
 	            }
 	        }
-
-	        /*
-	        --------->
-	        */
 
 	        /*
 	        <--------- SERVER FUNCTIONS
@@ -44156,9 +44087,6 @@
 	            var _this10 = this;
 
 	            this.TasksService.update(task.id, task, this.hash).then(function (result) {
-	                // no need to call update unless task is complete,
-	                // as task will be updated automatically by two way binding
-	                // call updatelocally when complete in order to remove task
 	                if (result.data.status === 'Complete') {
 	                    return _this10.updateTaskLocally(result.data);
 	                }
@@ -44714,7 +44642,7 @@
 /* 62 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-if=\"!editing\" class=\"task-description\">\n    <p class=\"task-title\">{{task.title}}</p>\n    <p class=\"task-details\">{{task.username}} on {{task.createdAt | date : longDate}}</p>\n</div>\n<form ng-if=\"editing\" class=\"inline\" ng-submit=\"save()\">\n    <label>Edit todo</label>\n    <input type=\"text\" ng-model=\"task.title\" /><input type=\"submit\" class=\"button\" value=\"&#43;\"/>\n</form>\n<div ng-if=\"!editing && !deleting\" class=\"control-container\">\n    <button ng-click=\"startDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n    <button ng-click=\"edit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n    <button ng-click=\"completed()\" class=\"done icon\" title=\"Mark as complete\"><span class=\"lnr lnr-checkmark-circle\"></span></button>\n</div>\n<div class=\"control-container\" ng-if=\"deleting\">\n    <div class=\"button-group small\">\n        <button ng-click=\"cancelDelete()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"deleted()\" class=\"button danger\">Delete</button>\n    </div>\n</div>\n";
+	module.exports = "<div ng-if=\"!editing\" class=\"task-description\">\n    <p class=\"task-title\">{{task.title}}</p>\n    <p class=\"task-details\">{{task.username}} on {{task.createdAt | date : longDate}}</p>\n</div>\n<form ng-if=\"editing\" class=\"inline\" ng-submit=\"save()\">\n    <input type=\"text\" ng-model=\"task.title\" /><input type=\"submit\" class=\"button\" value=\"&#43;\"/>\n</form>\n<div ng-if=\"!editing && !deleting\" class=\"control-container\">\n    <button ng-click=\"startDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n    <button ng-click=\"edit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n    <button ng-click=\"completed()\" class=\"done icon\" title=\"Mark as complete\"><span class=\"lnr lnr-checkmark-circle\"></span></button>\n</div>\n<div class=\"control-container\" ng-if=\"deleting\">\n    <div class=\"button-group small\">\n        <button ng-click=\"cancelDelete()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"deleted()\" class=\"button danger\">Delete</button>\n    </div>\n</div>\n";
 
 /***/ },
 /* 63 */
@@ -44795,7 +44723,7 @@
 /* 64 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"list-title\">\n    <span ng-if=\"!editing && !deleting\">{{list.name || 'Todo list'}}</span>\n    <span ng-if=\"!editing && !deleting\" class=\"control-container\">\n            <button ng-click=\"toggleListDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n    <button ng-click=\"toggleListEdit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n    </span>\n    <form ng-if=\"editing\" name=\"listUpdate\" class=\"inline\" ng-submit=\"submitListEdit()\">\n        <input type=\"text\" ng-model=\"list.name\" placeholder=\"List name\" /><input type=\"submit\" class=\"button\" value=\"&#43;\" />\n    </form>\n    <div ng-if=\"deleting\" class=\"button-group\">\n        <button ng-click=\"toggleListDelete()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"removeList()\" class=\"button danger\">Delete</button>\n    </div>\n</div>\n<div class=\"list-body\">\n    <div class=\"task-item\" ng-repeat=\"task in list.tasks\">\n        <task-view task=\"task\" edited=\"updateTask(task)\" deleted=\"deleteTask(task)\">\n        </task-view>\n    </div>\n    <p class=\"empty-notification\" ng-if=\"!list.tasks.length\">No todos to be done</p>\n</div>\n<form class=\"add-task inline\" ng-class=\"{'attempted-submit': attemptedSubmit}\" name=\"add\" novalidate=\"novalidate\" ng-submit=\"addTask(add.$valid)\">\n  <input type=\"text\" id=\"{{'new' + list.id}}\" ng-model=\"list.newTask.title\" placeholder=\"New Todo\" required=\"required\" /><input type=\"submit\" class=\"button primary\" value=\"&#43;\" />\n</form>\n";
+	module.exports = "<div class=\"list-title\">\n    <span ng-if=\"!editing && !deleting\">{{list.name || 'Todo list'}}</span>\n    <span ng-if=\"!editing && !deleting\" class=\"control-container\">\n    <button ng-click=\"toggleListEdit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n    <button ng-click=\"toggleListDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n    </span>\n    <form ng-if=\"editing\" name=\"listUpdate\" class=\"inline\" ng-submit=\"submitListEdit()\">\n        <input type=\"text\" ng-model=\"list.name\" placeholder=\"List name\" /><input type=\"submit\" class=\"button secondary\" value=\"&#43;\" />\n    </form>\n    <div ng-if=\"deleting\" class=\"button-group\">\n        <button ng-click=\"toggleListDelete()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"removeList()\" class=\"button danger\">Delete</button>\n    </div>\n</div>\n<div class=\"list-body\">\n    <div class=\"task-item\" ng-repeat=\"task in list.tasks\">\n        <task-view task=\"task\" edited=\"updateTask(task)\" deleted=\"deleteTask(task)\">\n        </task-view>\n    </div>\n    <p class=\"empty-notification\" ng-if=\"!list.tasks.length\">No todos to be done</p>\n</div>\n<form class=\"add-task inline\" ng-class=\"{'attempted-submit': attemptedSubmit}\" name=\"add\" novalidate=\"novalidate\" ng-submit=\"addTask(add.$valid)\">\n  <input type=\"text\" id=\"{{'new' + list.id}}\" ng-model=\"list.newTask.title\" placeholder=\"New Todo\" required=\"required\" /><input type=\"submit\" class=\"button primary\" value=\"&#43;\" />\n</form>\n";
 
 /***/ },
 /* 65 */

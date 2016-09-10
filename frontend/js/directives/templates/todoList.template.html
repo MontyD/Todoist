@@ -1,11 +1,11 @@
 <div class="list-title">
     <span ng-if="!editing && !deleting">{{list.name || 'Todo list'}}</span>
     <span ng-if="!editing && !deleting" class="control-container">
-            <button ng-click="toggleListDelete()" class="slide-out delete icon"><span class="lnr lnr-cross"></span></button>
     <button ng-click="toggleListEdit()" class="slide-out icon"><span class="lnr lnr-pencil"></span></button>
+    <button ng-click="toggleListDelete()" class="slide-out delete icon"><span class="lnr lnr-cross"></span></button>
     </span>
     <form ng-if="editing" name="listUpdate" class="inline" ng-submit="submitListEdit()">
-        <input type="text" ng-model="list.name" placeholder="List name" /><input type="submit" class="button" value="&#43;" />
+        <input type="text" ng-model="list.name" placeholder="List name" /><input type="submit" class="button secondary" value="&#43;" />
     </form>
     <div ng-if="deleting" class="button-group">
         <button ng-click="toggleListDelete()" class="button secondary">Cancel</button>
