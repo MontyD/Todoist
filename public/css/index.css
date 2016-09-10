@@ -1078,9 +1078,10 @@ input[type="radio"] {
     background: #FAFAFA; }
 
 form.inline {
-  padding: 0 1em;
+  padding: 1em;
   box-sizing: border-box;
-  text-align: center; }
+  text-align: center;
+  border-top: 2px solid #E0E0E0; }
   form.inline * {
     vertical-align: middle; }
   form.inline input[type="currency"],
@@ -1088,9 +1089,7 @@ form.inline {
   form.inline input[type="email"],
   form.inline input[type="number"],
   form.inline input[type="password"],
-  form.inline input[type="text"],
-  form.inline label,
-  form.inline textarea {
+  form.inline input[type="text"] {
     display: inline-block;
     margin: 0;
     width: 84%;

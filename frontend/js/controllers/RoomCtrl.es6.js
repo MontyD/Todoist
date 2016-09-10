@@ -2,11 +2,12 @@
 
 class RoomCtrl {
 
-    constructor(Notification, SocketsService, RoomService, TodoListsService, $scope) {
+    constructor(Notification, SocketsService, RoomService, TasksService, TodoListsService, $scope) {
         // Dependencies
         this.Notification = Notification;
         this.SocketsService = SocketsService;
         this.RoomService = RoomService;
+        this.TasksService = TasksService;
         this.TodoListsService = TodoListsService;
         this.$scope = $scope;
 
@@ -30,6 +31,12 @@ class RoomCtrl {
         // total amount of lists,
         // pulled from server on init();
         this.listsTotal = 0;
+
+
+        // random identifier, to stop
+        // socket events being duplicated
+        // set from sockets service on init();
+        this.hash = '';
 
         // run initial functions
         this.init();
@@ -218,6 +225,15 @@ class RoomCtrl {
         );
     }
 
+    createTodo(listID, todo) {
+      let newTodo = todo;
+      todo.todoListId = listID;
+      this.TasksService.create(newTodo, this.hash).then(
+        result => console.log(result),
+        this.handleError.bind(this)
+      );
+    }
+
 
     /*
     --------->
@@ -300,6 +316,6 @@ class RoomCtrl {
 
 }
 
-RoomCtrl.$inject = ['Notification', 'SocketsService', 'RoomService', 'TodoListsService', '$scope'];
+RoomCtrl.$inject = ['Notification', 'SocketsService', 'RoomService', 'TasksService', 'TodoListsService', '$scope'];
 
 export default RoomCtrl;

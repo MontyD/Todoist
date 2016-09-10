@@ -238,9 +238,10 @@ input[type="radio"] {
 }
 
 form.inline {
-    padding   : 0 1em;
+    padding   : 1em;
     box-sizing: border-box;
     text-align: center;
+    border-top: 2px solid $colorGrey;
 
     * {
         vertical-align: middle;
@@ -251,9 +252,7 @@ form.inline {
     input[type="email"],
     input[type="number"],
     input[type="password"],
-    input[type="text"],
-    label,
-    textarea {
+    input[type="text"] {
         display                   : inline-block;
         margin                    : 0;
         width                     : 84%;

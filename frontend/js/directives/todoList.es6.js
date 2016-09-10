@@ -5,7 +5,7 @@ function todoList() {
         scope: {
             index: '=',
             list: '=',
-            createTask: '=createtask',
+            createTodo: '=createtodo',
             editTask: '=edittask',
             deleteTask: '=deletetask',
             editList: '&editlist',
@@ -31,6 +31,23 @@ function todoList() {
           scope.removeList = () => {
             scope.toggleListDelete();
             scope.deleteList();
+          };
+
+          scope.attemptedSubmit = false;
+
+          scope.newTask = {
+            title: '',
+            status: 'Todo'
+          };
+
+          scope.addTask = valid => {
+            if (!valid) {
+              scope.attemptedSubmit = true;
+              return;
+            }
+            scope.createTodo(scope.list.id, scope.newTask);
+            scope.newTask.title = '';
+            return;
           };
 
         }
