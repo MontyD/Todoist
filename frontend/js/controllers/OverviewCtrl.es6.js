@@ -90,9 +90,6 @@ class OverviewCtrl {
         }).bind(this));
 
         this.SocketsService.on('DeletedAllComplete', (function(data) {
-          if (this.$rootScope.hash === data.hash) {
-            return;
-          }
           this.completed = 0;
           this.completedWeek = [0, 0, 0, 0, 0, 0, 0];
           this.confirmingDelete = false;

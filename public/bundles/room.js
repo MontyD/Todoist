@@ -47953,19 +47953,19 @@
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmountPerPage\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n    <todo-list list=\"list\" createtodo=\"home.createTodo(list.id, list.newTask)\" edittask=\"home.editTask(task)\" deletetask=\"home.deleteTask(task)\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n    </todo-list>\n  </article>\n  <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n\n  <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n      <i class=\"lnr lnr-plus-circle\"></i> Add new list\n  </p>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.room.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmountPerPage\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n    <todo-list list=\"list\" createtodo=\"home.createTodo(list.id, list.newTask)\" edittask=\"home.editTask(task)\" deletetask=\"home.deleteTask(task)\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n    </todo-list>\n  </article>\n  <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n\n  <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n      <i class=\"lnr lnr-plus-circle\"></i> Add new list\n  </p>\n</main>\n";
 
 /***/ },
 /* 58 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{overview.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li ng-if=\"overview.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"full-height\">\n    <section class=\"graphs\" ng-class=\"{'weekly': overview.showWeeklyGraph}\">\n        <div class=\"graph main-graph\" ng-style=\"{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform() }\"></div>\n        <div class=\"week-graph six\">\n            <div class=\"graph\" ng-if=\"overview.completedWeek[5]\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[6]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[6]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[6]}}</span> completed on {{overview.daysOfTheWeek[6]}}</span>\n        </div>\n        <div class=\"week-graph five\">\n            <div ng-if=\"overview.completedWeek[5]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[5]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[5]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[5]}}</span> completed on {{overview.daysOfTheWeek[5]}}</span>\n        </div>\n        <div class=\"week-graph four\">\n            <div ng-if=\"overview.completedWeek[4]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[4]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[4]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[4]}}</span> completed on {{overview.daysOfTheWeek[4]}}</span>\n        </div>\n        <div class=\"week-graph three\">\n            <div ng-if=\"overview.completedWeek[3]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[3]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[3]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[3]}}</span> completed on {{overview.daysOfTheWeek[3]}}</span>\n        </div>\n        <div class=\"week-graph two\">\n            <div ng-if=\"overview.completedWeek[2]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[2]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[2]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[2]}}</span> completed on {{overview.daysOfTheWeek[2]}}</span>\n        </div>\n        <div class=\"week-graph one\">\n            <div ng-if=\"overview.completedWeek[1]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[1]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[1]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[1]}}</span> completed yesterday</span>\n        </div>\n        <div class=\"week-graph zero\">\n            <div ng-if=\"overview.completedWeek[0]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[0]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[0]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[0]}}</span> completed today</span>\n        </div>\n    </section>\n    <section class=\"vertically-center modal light transparent center\" ng-class=\"{'opacity': overview.showWeeklyGraph}\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container\">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todos done\n            </article>\n            <button class=\"button secondary\" ng-if=\"overview.completed > 0\" ng-click=\"overview.toggleWeeklygraph()\">Toggle weekly graph</button>\n        </div>\n    </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{overview.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li ng-if=\"overview.room.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"full-height\">\n    <section class=\"graphs\" ng-class=\"{'weekly': overview.showWeeklyGraph}\">\n        <div class=\"graph main-graph\" ng-style=\"{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform() }\"></div>\n        <div class=\"week-graph six\">\n            <div class=\"graph\" ng-if=\"overview.completedWeek[5]\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[6]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[6]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[6]}}</span> completed on {{overview.daysOfTheWeek[6]}}</span>\n        </div>\n        <div class=\"week-graph five\">\n            <div ng-if=\"overview.completedWeek[5]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[5]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[5]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[5]}}</span> completed on {{overview.daysOfTheWeek[5]}}</span>\n        </div>\n        <div class=\"week-graph four\">\n            <div ng-if=\"overview.completedWeek[4]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[4]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[4]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[4]}}</span> completed on {{overview.daysOfTheWeek[4]}}</span>\n        </div>\n        <div class=\"week-graph three\">\n            <div ng-if=\"overview.completedWeek[3]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[3]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[3]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[3]}}</span> completed on {{overview.daysOfTheWeek[3]}}</span>\n        </div>\n        <div class=\"week-graph two\">\n            <div ng-if=\"overview.completedWeek[2]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[2]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[2]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[2]}}</span> completed on {{overview.daysOfTheWeek[2]}}</span>\n        </div>\n        <div class=\"week-graph one\">\n            <div ng-if=\"overview.completedWeek[1]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[1]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[1]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[1]}}</span> completed yesterday</span>\n        </div>\n        <div class=\"week-graph zero\">\n            <div ng-if=\"overview.completedWeek[0]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[0]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[0]) }\"></div>\n            <span><span class=\"big-number\">{{overview.completedWeek[0]}}</span> completed today</span>\n        </div>\n    </section>\n    <section class=\"vertically-center modal light transparent center\" ng-class=\"{'opacity': overview.showWeeklyGraph}\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">of all Todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container\">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todos done\n            </article>\n            <button class=\"button secondary\" ng-if=\"overview.completed > 0\" ng-click=\"overview.toggleWeeklygraph()\">Toggle weekly graph</button>\n        </div>\n    </section>\n</main>\n";
 
 /***/ },
 /* 59 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{settings.roomName}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\" class=\"current\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <section class=\"modal light\">\n    <h2>{{settings.roomName}} Settings</h2>\n    <article class=\"settings-article\" ng-if=\"settings.completed\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Remove completed todos:\n        <span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingDeleteTasks\" class=\"button danger\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Remove Completed</button>\n        <div ng-if=\"settings.confirmingDeleteTasks\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Cancel</button>\n          <button class=\"button danger\" ng-click=\"settings.deleteCompletedTasks()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Log out all members of this room:<span class=\"explaination-text\">You will also be logged out</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingLogOut\" class=\"button secondary\" ng-click=\"settings.toggleConfirmingLogOut()\">Log all out</button>\n        <div ng-if=\"settings.confirmingLogOut\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingLogOut()\">Cancel</button>\n          <button class=\"button primary\" ng-click=\"settings.logAllOut()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the passcode for access to this room:\n        <span class=\"explaination-text\">Passcode must be between five and seventy characters long</span>\n      </p>\n      <form class=\"inline\" name=\"passcodeForm\" ng-class=\"{'attempted-submit': settings.passcodeAttemptedSubmit}\" ng-submit=\"settings.changePasscode(passcodeForm.$valid)\" novalidate=\"novalidate\">\n        <label for=\"passcode\">New passcode:</label>\n        <input type=\"text\" id=\"passcode\" name=\"passcode\" pattern=\".{5,70}\" ng-model=\"settings.newPassCode\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change passcode\" />\n      </form>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the admin password for this room:\n        <span class=\"explaination-text\">Password must be between five and seventy characters long</span>\n      </p>\n      <form class=\"inline\" name=\"passwordForm\" ng-class=\"{'attempted-submit': settings.passwordAttemptedSubmit}\" ng-submit=\"settings.changeAdminPassword(passwordForm.$valid)\" novalidate=\"novalidate\">\n        <label for=\"current-password\">Current password:</label>\n        <input type=\"password\" pattern=\".{5,70}\" ng-model=\"settings.passwords.old\" id=\"current-password\" name=\"current-password\" required=\"requied\" />\n        <label for=\"password\">New password:</label>\n        <input type=\"password\" pattern=\".{5,70}\" ng-model=\"settings.passwords.new\" id=\"password\" name=\"password\" required=\"requied\" />\n        <label for=\"password-confirm\" >Confirm password:</label>\n        <input type=\"password\" pattern=\".{5,70}\" ng-model=\"settings.passwords.confirm\" id=\"password-confirm\" name=\"password-confirm\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change Password\" />\n      </form>\n    </article>\n\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Delete this room completely:<span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingDeleteRooms\" class=\"button danger\" ng-click=\"settings.toggleConfirmingDeleteRoom()\">Delete this room</button>\n        <div ng-if=\"settings.confirmingDeleteRooms\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingDeleteRoom()\">Cancel</button>\n          <button class=\"button danger\" ng-click=\"settings.deleteRoom()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n  </section>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{settings.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\" class=\"current\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <section class=\"modal light\">\n    <h2>{{settings.roomName}} Settings</h2>\n    <article class=\"settings-article\" ng-if=\"settings.completed\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Remove completed todos:\n        <span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingDeleteTasks\" class=\"button danger\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Remove Completed</button>\n        <div ng-if=\"settings.confirmingDeleteTasks\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Cancel</button>\n          <button class=\"button danger\" ng-click=\"settings.deleteCompletedTasks()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Log out all members of this room:<span class=\"explaination-text\">You will also be logged out</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingLogOut\" class=\"button secondary\" ng-click=\"settings.toggleConfirmingLogOut()\">Log all out</button>\n        <div ng-if=\"settings.confirmingLogOut\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingLogOut()\">Cancel</button>\n          <button class=\"button primary\" ng-click=\"settings.logAllOut()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the passcode for access to this room:\n        <span class=\"explaination-text\">Passcode must be between five and seventy characters long</span>\n      </p>\n      <form class=\"inline\" name=\"passcodeForm\" ng-class=\"{'attempted-submit': settings.passcodeAttemptedSubmit}\" ng-submit=\"settings.changePasscode(passcodeForm.$valid)\" novalidate=\"novalidate\">\n        <label for=\"passcode\">New passcode:</label>\n        <input type=\"text\" id=\"passcode\" name=\"passcode\" pattern=\".{5,70}\" ng-model=\"settings.newPassCode\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change passcode\" />\n      </form>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the admin password for this room:\n        <span class=\"explaination-text\">Password must be between five and seventy characters long</span>\n      </p>\n      <form class=\"inline\" name=\"passwordForm\" ng-class=\"{'attempted-submit': settings.passwordAttemptedSubmit}\" ng-submit=\"settings.changeAdminPassword(passwordForm.$valid)\" novalidate=\"novalidate\">\n        <label for=\"current-password\">Current password:</label>\n        <input type=\"password\" pattern=\".{5,70}\" ng-model=\"settings.passwords.old\" id=\"current-password\" name=\"current-password\" required=\"requied\" />\n        <label for=\"password\">New password:</label>\n        <input type=\"password\" pattern=\".{5,70}\" ng-model=\"settings.passwords.new\" id=\"password\" name=\"password\" required=\"requied\" />\n        <label for=\"password-confirm\" >Confirm password:</label>\n        <input type=\"password\" pattern=\".{5,70}\" ng-model=\"settings.passwords.confirm\" id=\"password-confirm\" name=\"password-confirm\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change Password\" />\n      </form>\n    </article>\n\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Delete this room completely:<span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingDeleteRooms\" class=\"button danger\" ng-click=\"settings.toggleConfirmingDeleteRoom()\">Delete this room</button>\n        <div ng-if=\"settings.confirmingDeleteRooms\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingDeleteRoom()\">Cancel</button>\n          <button class=\"button danger\" ng-click=\"settings.deleteRoom()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n  </section>\n</main>\n";
 
 /***/ },
 /* 60 */
@@ -48003,7 +48003,7 @@
 
 	        this.listsAmountPerPage = 6;
 
-	        this.listsCurrentPage = 0;
+	        this.listsCurrentPage = 1;
 
 	        this.listsTotal = 0;
 
@@ -48452,9 +48452,6 @@
 	            }).bind(this));
 
 	            this.SocketsService.on('DeletedAllComplete', (function (data) {
-	                if (this.$rootScope.hash === data.hash) {
-	                    return;
-	                }
 	                this.completed = 0;
 	                this.completedWeek = [0, 0, 0, 0, 0, 0, 0];
 	                this.confirmingDelete = false;
@@ -48570,7 +48567,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	    value: true
+	  value: true
 	});
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -48578,165 +48575,176 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var SettingsCtrl = (function () {
-	    function SettingsCtrl(Notification, TasksService, SocketsService, RoomService, $scope, $rootScope) {
-	        var _this = this;
+	  function SettingsCtrl(Notification, TasksService, SocketsService, RoomService) {
+	    var _this = this;
 
-	        _classCallCheck(this, SettingsCtrl);
+	    _classCallCheck(this, SettingsCtrl);
 
-	        // Dependencies
-	        this.Notification = Notification;
-	        this.TasksService = TasksService;
-	        this.SocketsService = SocketsService;
-	        this.RoomService = RoomService;
-	        this.$scope = $scope;
-	        this.$rootScope = $rootScope;
+	    // Dependencies
+	    this.Notification = Notification;
+	    this.TasksService = TasksService;
+	    this.SocketsService = SocketsService;
+	    this.RoomService = RoomService;
 
-	        this.completed = false;
+	    this.room = {
+	      name: '',
+	      isAdmin: false,
+	      username: ''
+	    };
 
-	        this.roomName = this.$rootScope.roomName;
+	    this.hash = '';
 
-	        this.confirmingDeleteTasks = false;
-	        this.confirmingLogOut = false;
+	    this.completed = false;
 
-	        this.passwordAttemptedSubmit = false;
-	        this.passwords = {
-	            old: '',
-	            'new': '',
-	            confirm: ''
-	        };
+	    this.confirmingDeleteTasks = false;
+	    this.confirmingLogOut = false;
 
-	        this.passcodeAttemptedSubmit = false;
-	        this.newPassCode = '';
+	    this.passwordAttemptedSubmit = false;
+	    this.passwords = {
+	      old: '',
+	      'new': '',
+	      confirm: ''
+	    };
 
-	        this.confirmingDeleteRooms = false;
+	    this.passcodeAttemptedSubmit = false;
+	    this.newPassCode = '';
 
-	        this.TasksService.countCompleted().then(function (result) {
-	            return _this.completed = result.data.count > 0 ? true : false;
-	        }, this.handleError.bind(this));
+	    this.confirmingDeleteRooms = false;
 
-	        this.initSockets();
+	    this.TasksService.countCompleted().then(function (result) {
+	      return _this.completed = result.data.count > 0 ? true : false;
+	    }, this.handleError.bind(this));
+
+	    this.RoomService.getInfo((function (roomInfo) {
+	      _this.room = roomInfo;
+	      _this.hash = _this.SocketsService.init(roomInfo.name);
+	    }).bind(this), this.handleError.bind(this));
+
+	    this.initSockets();
+
+	    document.body.className = 'loaded';
+	  }
+
+	  _createClass(SettingsCtrl, [{
+	    key: 'Notify',
+	    value: function Notify(text, type) {
+	      if (this.doNotNotify) {
+	        return false;
+	      }
+	      switch (type) {
+	        case 'Success':
+	          this.Notification.success(text);
+	          break;
+	        case 'Error':
+	          this.Notification.error(text);
+	          break;
+	        default:
+	          this.Notification.info(text);
+	      }
 	    }
+	  }, {
+	    key: 'initSockets',
+	    value: function initSockets() {
+	      // echo room name
+	      this.SocketsService.emit('room', this.roomName);
 
-	    _createClass(SettingsCtrl, [{
-	        key: 'Notify',
-	        value: function Notify(text, type) {
-	            if (this.doNotNotify) {
-	                return false;
-	            }
-	            switch (type) {
-	                case 'Success':
-	                    this.Notification.success(text);
-	                    break;
-	                case 'Error':
-	                    this.Notification.error(text);
-	                    break;
-	                default:
-	                    this.Notification.info(text);
-	            }
-	        }
-	    }, {
-	        key: 'initSockets',
-	        value: function initSockets() {
-	            // echo room name
-	            this.SocketsService.emit('room', this.roomName);
+	      this.SocketsService.on('logAllOut', (function (data) {
+	        window.location = '/rooms/login?kicked=true';
+	      }).bind(this));
+	    }
+	  }, {
+	    key: 'toggleConfirmingDeleteTasks',
+	    value: function toggleConfirmingDeleteTasks() {
+	      this.confirmingDeleteTasks = !this.confirmingDeleteTasks;
+	    }
+	  }, {
+	    key: 'deleteCompletedTasks',
+	    value: function deleteCompletedTasks() {
+	      var _this2 = this;
 
-	            this.SocketsService.on('logAllOut', (function (data) {
-	                window.location = '/rooms/login?kicked=true';
-	            }).bind(this));
-	        }
-	    }, {
-	        key: 'toggleConfirmingDeleteTasks',
-	        value: function toggleConfirmingDeleteTasks() {
-	            this.confirmingDeleteTasks = !this.confirmingDeleteTasks;
-	        }
-	    }, {
-	        key: 'deleteCompletedTasks',
-	        value: function deleteCompletedTasks() {
-	            var _this2 = this;
+	      this.TasksService.clearCompleted(this.hash).then(function (result) {
+	        return _this2.completed = false;
+	      }, this.handleError.bind(this));
+	    }
+	  }, {
+	    key: 'toggleConfirmingLogOut',
+	    value: function toggleConfirmingLogOut() {
+	      this.confirmingLogOut = !this.confirmingLogOut;
+	    }
+	  }, {
+	    key: 'logAllOut',
+	    value: function logAllOut() {
+	      this.RoomService.logAllOut().then(function (result) {
+	        return window.location = '/rooms/login?kicked=true';
+	      }, this.handleError.bind(this));
+	    }
+	  }, {
+	    key: 'changePasscode',
+	    value: function changePasscode(valid) {
+	      var _this3 = this;
 
-	            this.TasksService.clearCompleted(this.$rootScope.hash).then(function (result) {
-	                return _this2.completed = false;
-	            }, this.handleError.bind(this));
-	        }
-	    }, {
-	        key: 'toggleConfirmingLogOut',
-	        value: function toggleConfirmingLogOut() {
-	            this.confirmingLogOut = !this.confirmingLogOut;
-	        }
-	    }, {
-	        key: 'logAllOut',
-	        value: function logAllOut() {
-	            this.RoomService.logAllOut().then(function (result) {
-	                return window.location = '/rooms/login?kicked=true';
-	            }, this.handleError.bind(this));
-	        }
-	    }, {
-	        key: 'changePasscode',
-	        value: function changePasscode(valid) {
-	            var _this3 = this;
+	      if (!valid) {
+	        this.passcodeAttemptedSubmit = true;
+	        return;
+	      }
+	      this.RoomService.updatePasscode({ passcode: this.newPassCode }).then(function (result) {
+	        _this3.Notify('Passcode sucessfully changed!', 'Success');
+	        _this3.newPassCode = '';
+	        _this3.passcodeAttemptedSubmit = false;
+	      }, this.handleError.bind(this));
+	    }
+	  }, {
+	    key: 'changeAdminPassword',
+	    value: function changeAdminPassword(valid) {
+	      var _this4 = this;
 
-	            if (!valid) {
-	                this.passcodeAttemptedSubmit = true;
-	                return;
-	            }
-	            this.RoomService.updatePasscode({ passcode: this.newPassCode }).then(function (result) {
-	                _this3.Notify('Passcode sucessfully changed!', 'Success');
-	                _this3.newPassCode = '';
-	                _this3.passcodeAttemptedSubmit = false;
-	            }, this.handleError.bind(this));
-	        }
-	    }, {
-	        key: 'changeAdminPassword',
-	        value: function changeAdminPassword(valid) {
-	            var _this4 = this;
+	      if (!valid) {
+	        this.passwordAttemptedSubmit = true;
+	        return;
+	      }
+	      if (this.passwords['new'] !== this.passwords.confirm) {
+	        this.passwordAttemptedSubmit = true;
+	        this.Notify('Passwords do not match', 'Error');
+	        return;
+	      }
+	      this.RoomService.updateAdminPassword(this.passwords).then(function (result) {
+	        _this4.Notify('Admin password sucessfully changed!', 'Success');
+	        _this4.passwords = { old: '', 'new': '', confirm: '' };
+	        _this4.passwordAttemptedSubmit = false;
+	      }, this.handleError.bind(this));
+	    }
+	  }, {
+	    key: 'toggleConfirmingDeleteRoom',
+	    value: function toggleConfirmingDeleteRoom() {
+	      this.confirmingDeleteRooms = !this.confirmingDeleteRooms;
+	    }
+	  }, {
+	    key: 'deleteRoom',
+	    value: function deleteRoom() {
+	      this.RoomService.deleteRoom().then(function (result) {
+	        return window.location = '/rooms/login';
+	      }, this.handleError.bind(this));
+	    }
+	  }, {
+	    key: 'handleError',
+	    value: function handleError(error) {
+	      if (error.status === 401 || error.status === 403) {
+	        window.location = '/rooms/login?timeout=true';
+	        return;
+	      }
+	      if (error.status === 400) {
+	        this.Notify(error.data, 'Error');
+	        return;
+	      }
+	      console.error(error);
+	      this.Notify('Error communicating with server', 'Error');
+	    }
+	  }]);
 
-	            if (!valid) {
-	                this.passwordAttemptedSubmit = true;
-	                return;
-	            }
-	            if (this.passwords['new'] !== this.passwords.confirm) {
-	                this.passwordAttemptedSubmit = true;
-	                this.Notify('Passwords do not match', 'Error');
-	                return;
-	            }
-	            this.RoomService.updateAdminPassword(this.passwords).then(function (result) {
-	                _this4.Notify('Admin password sucessfully changed!', 'Success');
-	                _this4.passwords = { old: '', 'new': '', confirm: '' };
-	                _this4.passwordAttemptedSubmit = false;
-	            }, this.handleError.bind(this));
-	        }
-	    }, {
-	        key: 'toggleConfirmingDeleteRoom',
-	        value: function toggleConfirmingDeleteRoom() {
-	            this.confirmingDeleteRooms = !this.confirmingDeleteRooms;
-	        }
-	    }, {
-	        key: 'deleteRoom',
-	        value: function deleteRoom() {
-	            this.RoomService.deleteRoom().then(function (result) {
-	                return window.location = '/rooms/login';
-	            }, this.handleError.bind(this));
-	        }
-	    }, {
-	        key: 'handleError',
-	        value: function handleError(error) {
-	            if (error.status === 401 || error.status === 403) {
-	                window.location = '/rooms/login?timeout=true';
-	                return;
-	            }
-	            if (error.status === 400) {
-	                this.Notify(error.data, 'Error');
-	                return;
-	            }
-	            console.error(error);
-	            this.Notify('Error communicating with server', 'Error');
-	        }
-	    }]);
-
-	    return SettingsCtrl;
+	  return SettingsCtrl;
 	})();
 
-	SettingsCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', 'RoomService', '$scope', '$rootScope'];
+	SettingsCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', 'RoomService'];
 
 	exports['default'] = SettingsCtrl;
 	module.exports = exports['default'];

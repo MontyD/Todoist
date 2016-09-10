@@ -21,7 +21,7 @@ class RoomCtrl {
 
         this.listsAmountPerPage = 6;
 
-        this.listsCurrentPage = 0;
+        this.listsCurrentPage = 1;
 
         this.listsTotal = 0;
 

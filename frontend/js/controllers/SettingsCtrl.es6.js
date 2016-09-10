@@ -2,18 +2,22 @@
 
 class SettingsCtrl {
 
-    constructor(Notification, TasksService, SocketsService, RoomService, $scope, $rootScope) {
+    constructor(Notification, TasksService, SocketsService, RoomService) {
         // Dependencies
         this.Notification = Notification;
         this.TasksService = TasksService;
         this.SocketsService = SocketsService;
         this.RoomService = RoomService;
-        this.$scope = $scope;
-        this.$rootScope = $rootScope;
+
+        this.room = {
+            name: '',
+            isAdmin: false,
+            username: ''
+        };
+
+        this.hash = '';
 
         this.completed = false;
-
-        this.roomName = this.$rootScope.roomName;
 
         this.confirmingDeleteTasks = false;
         this.confirmingLogOut = false;
@@ -35,7 +39,17 @@ class SettingsCtrl {
             this.handleError.bind(this)
         );
 
+        this.RoomService.getInfo(
+          roomInfo => {
+            this.room = roomInfo;
+            this.hash = this.SocketsService.init(roomInfo.name);
+          }.bind(this),
+          this.handleError.bind(this)
+        );
+
         this.initSockets();
+
+        document.body.className = 'loaded';
     }
 
     Notify(text, type) {
@@ -68,7 +82,7 @@ class SettingsCtrl {
     }
 
     deleteCompletedTasks() {
-        this.TasksService.clearCompleted(this.$rootScope.hash).then(
+        this.TasksService.clearCompleted(this.hash).then(
             result => this.completed = false,
             this.handleError.bind(this)
         );
@@ -146,6 +160,6 @@ class SettingsCtrl {
 
 }
 
-SettingsCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', 'RoomService', '$scope', '$rootScope'];
+SettingsCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', 'RoomService'];
 
 export default SettingsCtrl;
