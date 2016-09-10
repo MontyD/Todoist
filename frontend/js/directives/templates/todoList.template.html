@@ -21,7 +21,6 @@
     <p class="empty-notification" ng-if="!list.tasks.length">No todos to be done</p>
 </div>
 <form class="add-task inline" name="add">
-  <h3>New Todo</h3>
-  <input type="text" ng-model="newTask" />
-  <input type="submit" value="&#43;" />
+  <label for="{{'new' + list.id}}">New Todo</label>
+  <input type="text" id="{{'new' + list.id}}" ng-model="newTask" /><input type="submit" class="button primary" value="&#43;" />
 </form>

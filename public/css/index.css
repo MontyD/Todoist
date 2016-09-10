@@ -1081,27 +1081,36 @@ form.inline {
   padding: 0 1em;
   box-sizing: border-box;
   text-align: center; }
+  form.inline * {
+    vertical-align: middle; }
+  form.inline input[type="currency"],
   form.inline input[type="date"],
   form.inline input[type="email"],
   form.inline input[type="number"],
   form.inline input[type="password"],
   form.inline input[type="text"],
-  form.inline label, form.inline input[type="currency"],
+  form.inline label,
   form.inline textarea {
     display: inline-block;
-    width: 49%; }
-    @media (max-width: 550px) {
-      form.inline input[type="date"],
-      form.inline input[type="email"],
-      form.inline input[type="number"],
-      form.inline input[type="password"],
-      form.inline input[type="text"],
-      form.inline label, form.inline input[type="currency"],
-      form.inline textarea {
-        display: block;
-        margin: 0 auto;
-        width: 95%; } }
+    margin: 0;
+    width: 84%;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 32px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none; }
+  form.inline input[type="submit"] {
+    width: 15%;
+    margin: 0;
+    padding: 0;
+    font-size: 1.8em;
+    line-height: 90%;
+    height: 32px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0; }
   form.inline label {
+    display: block;
     text-align: left; }
 
 /*! normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css */

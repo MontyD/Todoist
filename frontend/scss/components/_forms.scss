@@ -242,22 +242,42 @@ form.inline {
     box-sizing: border-box;
     text-align: center;
 
+    * {
+        vertical-align: middle;
+    }
+
+    input[type="currency"],
     input[type="date"],
     input[type="email"],
     input[type="number"],
     input[type="password"],
     input[type="text"],
-    label, input[type="currency"],
+    label,
     textarea {
-        display: inline-block;
-        width  : 49%;
-        @media(max-width: $smallBP) {
-            display: block;
-            margin : 0 auto;
-            width  : 95%;
-        }
+        display                   : inline-block;
+        margin                    : 0;
+        width                     : 84%;
+        padding-top               : 0;
+        padding-bottom            : 0;
+        height                    : 32px;
+        border-top-right-radius   : 0;
+        border-bottom-right-radius: 0;
+        border-right              : none;
     }
+
+    input[type="submit"] {
+        width                    : 15%;
+        margin                   : 0;
+        padding                  : 0;
+        font-size                : 1.8em;
+        line-height              : 90%;
+        height                   : 32px;
+        border-top-left-radius   : 0;
+        border-bottom-left-radius: 0;
+    }
+
     label {
-      text-align: left;
+        display   : block;
+        text-align: left;
     }
 }
