@@ -22,5 +22,5 @@
 </div>
 <form class="add-task inline" ng-class="{'attempted-submit': attemptedSubmit}" name="add" novalidate="novalidate" ng-submit="addTask(add.$valid)">
   <label for="{{'new' + list.id}}">New Todo</label>
-  <input type="text" id="{{'new' + list.id}}" ng-model="newTask.title" required="required" /><input type="submit" class="button primary" value="&#43;" />
+  <input type="text" id="{{'new' + list.id}}" ng-model="list.newTask.title" required="required" /><input type="submit" class="button primary" value="&#43;" />
 </form>

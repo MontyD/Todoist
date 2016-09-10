@@ -5,9 +5,9 @@ function todoList() {
         scope: {
             index: '=',
             list: '=',
-            createTodo: '=createtodo',
-            editTask: '=edittask',
-            deleteTask: '=deletetask',
+            createTodo: '&createtodo',
+            editTask: '&edittask',
+            deleteTask: '&deletetask',
             editList: '&editlist',
             deleteList: '&deletelist'
         },
@@ -35,7 +35,7 @@ function todoList() {
 
           scope.attemptedSubmit = false;
 
-          scope.newTask = {
+          scope.list.newTask = {
             title: '',
             status: 'Todo'
           };
@@ -45,8 +45,7 @@ function todoList() {
               scope.attemptedSubmit = true;
               return;
             }
-            scope.createTodo(scope.list.id, scope.newTask);
-            scope.newTask.title = '';
+            scope.createTodo();
             return;
           };
 

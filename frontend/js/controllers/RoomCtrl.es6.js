@@ -32,6 +32,9 @@ class RoomCtrl {
         // pulled from server on init();
         this.listsTotal = 0;
 
+        // amount of todos that are shown
+        // per list by default
+        this.todosPerList = 8;
 
         // random identifier, to stop
         // socket events being duplicated
@@ -169,6 +172,34 @@ class RoomCtrl {
         }
     }
 
+    trimTodosInList(todoArray) {
+        if (todoArray.length > this.todosPerList) {
+            todoArray.length = this.todosPerList;
+        }
+    }
+
+    // add todo to relevant list
+    addTodoLocally(todo) {
+        for (let i = 0; i < this.lists.length; i++) {
+            if (this.lists[i].id === todo.todoListId) {
+                this.lists[i].tasks.unshift(todo);
+                return this.trimTodosInList(this.lists[i].tasks);
+            }
+        }
+    }
+
+    resetNewTodo(id) {
+        for (let i = 0; i < this.lists.length; i++) {
+            if (this.lists[i].id === id) {
+                this.lists[i].newTask = {
+                    title: '',
+                    status: 'Todo'
+                };
+                return;
+            }
+        }
+    }
+
 
     /*
     --------->
@@ -225,15 +256,17 @@ class RoomCtrl {
         );
     }
 
-    createTodo(listID, todo) {
-      let newTodo = todo;
-      todo.todoListId = listID;
-      this.TasksService.create(newTodo, this.hash).then(
-        result => console.log(result),
-        this.handleError.bind(this)
-      );
+    createTodo(task, listID) {
+        let newTodo = task;
+        newTodo.todoListId = listID;
+        this.TasksService.create(task, this.hash).then(
+            result => {
+                this.addTodoLocally(result.data);
+                this.resetNewTodo(result.data.todoListId);
+            },
+            this.handleError.bind(this)
+        );
     }
-
 
     /*
     --------->
