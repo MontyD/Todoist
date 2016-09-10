@@ -254,7 +254,7 @@ form.inline {
     input[type="text"] {
         display                   : inline-block;
         margin                    : 0;
-        width                     : 84%;
+        width                     : 80%;
         padding-top               : 0;
         padding-bottom            : 0;
         height                    : 32px;
@@ -264,14 +264,15 @@ form.inline {
     }
 
     input[type="submit"] {
-        width                    : 15%;
+        width                    : 20%;
         margin                   : 0;
         padding                  : 0;
-        font-size                : 1.8em;
+        font-size                : 1.2rem;
         line-height              : 90%;
         height                   : 32px;
         border-top-left-radius   : 0;
         border-bottom-left-radius: 0;
+        font-weight: normal;
     }
 
     label {

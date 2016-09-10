@@ -1091,7 +1091,7 @@ form.inline {
   form.inline input[type="text"] {
     display: inline-block;
     margin: 0;
-    width: 84%;
+    width: 80%;
     padding-top: 0;
     padding-bottom: 0;
     height: 32px;
@@ -1099,14 +1099,15 @@ form.inline {
     border-bottom-right-radius: 0;
     border-right: none; }
   form.inline input[type="submit"] {
-    width: 15%;
+    width: 20%;
     margin: 0;
     padding: 0;
-    font-size: 1.8em;
+    font-size: 1.2rem;
     line-height: 90%;
     height: 32px;
     border-top-left-radius: 0;
-    border-bottom-left-radius: 0; }
+    border-bottom-left-radius: 0;
+    font-weight: normal; }
   form.inline label {
     display: block;
     text-align: left; }
@@ -3045,7 +3046,7 @@ button.icon {
       width: 100%;
       margin-bottom: 0.1em; }
   .task-item .task-title {
-    font-size: 1.2em;
+    font-size: 1em;
     color: #212121;
     margin-bottom: 0;
     text-align: left; }

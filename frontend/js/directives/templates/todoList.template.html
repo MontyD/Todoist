@@ -5,7 +5,7 @@
     <button ng-click="toggleListEdit()" class="slide-out icon"><span class="lnr lnr-pencil"></span></button>
     </span>
     <form ng-if="editing" name="listUpdate" class="inline" ng-submit="submitListEdit()">
-        <input type="text" ng-model="list.name" placeholder="List name" /><input type="submit" class="button" value="&#10003;" />
+        <input type="text" ng-model="list.name" placeholder="List name" /><input type="submit" class="button" value="done" />
     </form>
     <div ng-if="deleting" class="button-group">
         <button ng-click="toggleListDelete()" class="button secondary">Cancel</button>
