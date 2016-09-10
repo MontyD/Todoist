@@ -880,7 +880,7 @@ button.icon {
   visibility: visible;
   opacity: 1;
   transition: visibility 0.2s, opacity 0.2s;
-  transition-delay: 2.5s; }
+  transition-delay: 2s; }
   .loading-view * {
     position: absolute;
     top: 50%;
@@ -905,7 +905,7 @@ button.icon {
       transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
       transition: transform 0.6s ease-out, opacity 0.6s ease-out;
       transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition-delay: 1.6s;
+      transition-delay: 1s;
       background: #E0E0E0;
       opacity: 0.5; }
     .loading-view .circle.circle-2 {
@@ -915,7 +915,7 @@ button.icon {
       transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
       transition: transform 0.6s ease-out, opacity 0.6s ease-out;
       transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition-delay: 1.6s;
+      transition-delay: 1s;
       background: #448AFF;
       opacity: 0.4; }
   .loading-view .text-container {
@@ -923,7 +923,7 @@ button.icon {
     overflow: hidden;
     display: inline-block;
     width: 100%;
-    height: 6rem; }
+    height: 7rem; }
     .loading-view .text-container span {
       transition: -webkit-transform 0.5s ease-out;
       transition: transform 0.5s ease-out;
@@ -931,7 +931,7 @@ button.icon {
       -webkit-transform: translateY(-50%);
           -ms-transform: translateY(-50%);
               transform: translateY(-50%);
-      transition-delay: 1s; }
+      transition-delay: 1.3s; }
 
 .loaded .text-container span {
   -webkit-transform: translateY(50%);
@@ -2086,7 +2086,7 @@ button.icon {
   visibility: visible;
   opacity: 1;
   transition: visibility 0.2s, opacity 0.2s;
-  transition-delay: 2.5s; }
+  transition-delay: 2s; }
   .loading-view * {
     position: absolute;
     top: 50%;
@@ -2111,7 +2111,7 @@ button.icon {
       transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
       transition: transform 0.6s ease-out, opacity 0.6s ease-out;
       transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition-delay: 1.6s;
+      transition-delay: 1s;
       background: #E0E0E0;
       opacity: 0.5; }
     .loading-view .circle.circle-2 {
@@ -2121,7 +2121,7 @@ button.icon {
       transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
       transition: transform 0.6s ease-out, opacity 0.6s ease-out;
       transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition-delay: 1.6s;
+      transition-delay: 1s;
       background: #448AFF;
       opacity: 0.4; }
   .loading-view .text-container {
@@ -2129,7 +2129,7 @@ button.icon {
     overflow: hidden;
     display: inline-block;
     width: 100%;
-    height: 6rem; }
+    height: 7rem; }
     .loading-view .text-container span {
       transition: -webkit-transform 0.5s ease-out;
       transition: transform 0.5s ease-out;
@@ -2137,7 +2137,7 @@ button.icon {
       -webkit-transform: translateY(-50%);
           -ms-transform: translateY(-50%);
               transform: translateY(-50%);
-      transition-delay: 1s; }
+      transition-delay: 1.3s; }
 
 .loaded .text-container span {
   -webkit-transform: translateY(50%);
@@ -3172,7 +3172,7 @@ button.icon {
   visibility: visible;
   opacity: 1;
   transition: visibility 0.2s, opacity 0.2s;
-  transition-delay: 2.5s; }
+  transition-delay: 2s; }
   .loading-view * {
     position: absolute;
     top: 50%;
@@ -3197,7 +3197,7 @@ button.icon {
       transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
       transition: transform 0.6s ease-out, opacity 0.6s ease-out;
       transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition-delay: 1.6s;
+      transition-delay: 1s;
       background: #E0E0E0;
       opacity: 0.5; }
     .loading-view .circle.circle-2 {
@@ -3207,7 +3207,7 @@ button.icon {
       transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
       transition: transform 0.6s ease-out, opacity 0.6s ease-out;
       transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition-delay: 1.6s;
+      transition-delay: 1s;
       background: #448AFF;
       opacity: 0.4; }
   .loading-view .text-container {
@@ -3215,7 +3215,7 @@ button.icon {
     overflow: hidden;
     display: inline-block;
     width: 100%;
-    height: 6rem; }
+    height: 7rem; }
     .loading-view .text-container span {
       transition: -webkit-transform 0.5s ease-out;
       transition: transform 0.5s ease-out;
@@ -3223,7 +3223,7 @@ button.icon {
       -webkit-transform: translateY(-50%);
           -ms-transform: translateY(-50%);
               transform: translateY(-50%);
-      transition-delay: 1s; }
+      transition-delay: 1.3s; }
 
 .loaded .text-container span {
   -webkit-transform: translateY(50%);

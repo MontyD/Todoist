@@ -93,7 +93,7 @@ if (config.env === 'development') {
             if (/json/gi.test(req.get('accept'))) {
                 return res.send('Unauthorised');
             }
-            return res.render('login', {
+            return res.render('security/login', {
                 originalURL: req.originalUrl
             });
         }
@@ -118,7 +118,7 @@ app.use(function(err, req, res, next) {
         if (/json/gi.test(req.get('accept'))) {
             return res.send('Unauthorised');
         }
-        return res.render('login', {
+        return res.render('security/login', {
             originalURL: req.originalUrl
         });
     }

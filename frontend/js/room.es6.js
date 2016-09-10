@@ -1,5 +1,6 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
+import ngAnimate from 'angular-animate';
 
 import io from 'socket.io-client';
 window.io = io;

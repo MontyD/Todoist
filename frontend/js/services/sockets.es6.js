@@ -9,24 +9,26 @@ class SocketsService {
     }
 
     init(roomName) {
-      this.emit('room', roomName);
-      this.hash = Math.random().toString(36).substring(12);
-      return this.hash;
+        this.emit('room', roomName);
+        if (this.hash.length === 0) {
+            this.hash = Math.random().toString(36).substring(12);
+        }
+        return this.hash;
     }
 
     on(eventName, callback) {
-      let alreadySubscribed = this.subscriptions.indexOf(eventName) > -1;
-      if (!alreadySubscribed) {
-        this.subscriptions.push(eventName);
-      } else {
-        this.socket.off(eventName);
-      }
-      this.socket.on(eventName, (function(data) {
-        if (data.hash === this.hash) {
-          return;
+        let alreadySubscribed = this.subscriptions.indexOf(eventName) > -1;
+        if (!alreadySubscribed) {
+            this.subscriptions.push(eventName);
+        } else {
+            this.socket.off(eventName);
         }
-        return callback(data);
-      }).bind(this));
+        this.socket.on(eventName, (function(data) {
+            if (data.hash === this.hash) {
+                return;
+            }
+            return callback(data);
+        }).bind(this));
     }
 
     emit(eventName, data, callback) {

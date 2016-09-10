@@ -2,20 +2,19 @@
 
 class OverviewCtrl {
 
-    constructor(Notification, TasksService, SocketsService, $scope, $rootScope) {
+    constructor(Notification, TasksService, SocketsService, RoomService, $scope) {
         // Dependencies
         this.Notification = Notification;
         this.TasksService = TasksService;
         this.SocketsService = SocketsService;
+        this.RoomService = RoomService;
         this.$scope = $scope;
-        this.$rootScope = $rootScope;
 
-        this.isAdmin = this.$rootScope.isAdmin;
-
-        // initial variables
-        this.roomName = this.$rootScope.roomName;
-        this.completed = 0;
-        this.todo = 0;
+        this.room = {
+            name: '',
+            isAdmin: false,
+            username: ''
+        };
 
         this.showWeeklyGraph = false;
 
@@ -32,7 +31,7 @@ class OverviewCtrl {
         // read todos count
         this.TasksService.countTodos().then(
             result => this.todo = result.data.count,
-            error => console.error(error)
+            this.handleError.bind(this)
         );
 
         // read completed count
@@ -49,7 +48,16 @@ class OverviewCtrl {
             this.handleError.bind(this)
         );
 
+        this.RoomService.getInfo(
+          roomInfo => {
+            this.room = roomInfo;
+          }.bind(this),
+          this.handleError.bind(this)
+        );
+
         this.calculateDaysOfTheWeek();
+
+        document.body.className = 'loaded';
 
     }
 
@@ -177,6 +185,6 @@ class OverviewCtrl {
 
 }
 
-OverviewCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', '$scope', '$rootScope'];
+OverviewCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', 'RoomService', '$scope'];
 
 export default OverviewCtrl;

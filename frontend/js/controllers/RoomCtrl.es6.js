@@ -33,7 +33,8 @@ class RoomCtrl {
     }
 
     init() {
-        this.RoomService.getInfo((function(roomInfo) {
+        this.RoomService.getInfo(
+          roomInfo => {
             this.room = roomInfo;
             this.TodoListsService.countLists().then(
                 result => {
@@ -49,7 +50,7 @@ class RoomCtrl {
                 },
                 this.handleError.bind(this)
             );
-        }).bind(this), this.handleError.bind(this));
+        }.bind(this), this.handleError.bind(this));
 
     }
 
