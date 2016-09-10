@@ -1,21 +1,18 @@
-<div class="task-description">
-    <p ng-if="!editing" class="task-title">{{task.title}}</p>
-    <p ng-if="!editing" class="task-details">{{task.username}} on {{task.createdAt | date : longDate}}</p>
+<div ng-if="!editing" class="task-description">
+    <p class="task-title">{{task.title}}</p>
+    <p class="task-details">{{task.username}} on {{task.createdAt | date : longDate}}</p>
 </div>
-<form ng-if="editing" ng-submit="save()">
-    <input type="text" ng-model="task.title" />
+<form ng-if="editing" class="inline" ng-submit="save()">
+    <label>Edit todo</label>
+    <input type="text" ng-model="task.title" /><input type="submit" class="button" value="&#43;"/>
 </form>
-<div class="button-group" ng-if="editing && !deleting">
-    <button ng-click="cancelEdit()" class="button secondary">Cancel</button>
-    <button ng-click="save()" class="button primary">Save</button>
-</div>
 <div ng-if="!editing && !deleting" class="control-container">
     <button ng-click="startDelete()" class="slide-out delete icon"><span class="lnr lnr-cross"></span></button>
     <button ng-click="edit()" class="slide-out icon"><span class="lnr lnr-pencil"></span></button>
     <button ng-click="completed()" class="done icon" title="Mark as complete"><span class="lnr lnr-checkmark-circle"></span></button>
 </div>
 <div class="control-container" ng-if="deleting">
-    <div class="button-group">
+    <div class="button-group small">
         <button ng-click="cancelDelete()" class="button secondary">Cancel</button>
         <button ng-click="deleted()" class="button danger">Delete</button>
     </div>
