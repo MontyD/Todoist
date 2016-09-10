@@ -14,7 +14,7 @@ class TasksService {
         });
     }
 
-    read(id, start, limit, status, initial) {
+    read(id, start, limit, status, todoList) {
         let requestURL = this.urlBase;
         // ID is not part of query sting
         if (typeof id === 'number') {
@@ -22,8 +22,8 @@ class TasksService {
         }
         // begin query string
         requestURL += '?';
-        if (initial) {
-            requestURL += 'initial=true&';
+        if (todoList) {
+            requestURL += 'todoList=' + todoList + '&';
         }
         if (start) {
             requestURL += 'start=' + start + '&';

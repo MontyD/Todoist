@@ -203,12 +203,12 @@ class RoomCtrl {
                 if (list.tasks[i].id === todo.id) {
                     if (todo.status === 'Complete' || remove) {
                         list.tasks.splice(i, 1);
-                        this.appendTodoAtEndOfList(list.id);
+                        this.appendTodoAtEndOfList(list.id, list.tasks.length);
                     } else {
                         list.tasks[i] = todo;
                     }
+                    return false;
                 }
-                return false;
             }
         }
     }
@@ -281,8 +281,21 @@ class RoomCtrl {
         );
     }
 
-    appendTodoAtEndOfList(id) {
-      console.log(id);
+    appendTodoAtEndOfList(id, offset) {
+        this.TasksService.read(undefined, offset, 1, 'Todo', id).then(
+            result => {
+                if (result.data.tasks.length > 0) {
+                    let list = this.tasks.find(function(el) {
+                        return el.id === id;
+                    }, this);
+                    if (list) {
+                        list.tasks.push(result.data.tasks[0]);
+                    }
+                }
+            },
+            this.handleError.bind(this)
+        );
+
     }
 
     createTodo(listID, task) {

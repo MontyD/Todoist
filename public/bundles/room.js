@@ -44040,12 +44040,12 @@
 	                    if (list.tasks[i].id === todo.id) {
 	                        if (todo.status === 'Complete' || remove) {
 	                            list.tasks.splice(i, 1);
-	                            this.appendTodoAtEndOfList(list.id);
+	                            this.appendTodoAtEndOfList(list.id, list.tasks.length);
 	                        } else {
 	                            list.tasks[i] = todo;
 	                        }
+	                        return false;
 	                    }
-	                    return false;
 	                }
 	            }
 	        }
@@ -44124,32 +44124,43 @@
 	        }
 	    }, {
 	        key: 'appendTodoAtEndOfList',
-	        value: function appendTodoAtEndOfList(id) {
-	            console.log(id);
+	        value: function appendTodoAtEndOfList(id, offset) {
+	            var _this8 = this;
+
+	            this.TasksService.read(undefined, offset, 1, 'Todo', id).then(function (result) {
+	                if (result.data.tasks.length > 0) {
+	                    var list = _this8.tasks.find(function (el) {
+	                        return el.id === id;
+	                    }, _this8);
+	                    if (list) {
+	                        list.tasks.push(result.data.tasks[0]);
+	                    }
+	                }
+	            }, this.handleError.bind(this));
 	        }
 	    }, {
 	        key: 'createTodo',
 	        value: function createTodo(listID, task) {
-	            var _this8 = this;
+	            var _this9 = this;
 
 	            var newTodo = task;
 	            newTodo.todoListId = listID;
 	            this.TasksService.create(task, this.hash).then(function (result) {
-	                _this8.addTodoLocally(result.data);
-	                _this8.resetNewTodo(result.data.todoListId);
+	                _this9.addTodoLocally(result.data);
+	                _this9.resetNewTodo(result.data.todoListId);
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
 	        key: 'editTask',
 	        value: function editTask(task) {
-	            var _this9 = this;
+	            var _this10 = this;
 
 	            this.TasksService.update(task.id, task, this.hash).then(function (result) {
 	                // no need to call update unless task is complete,
 	                // as task will be updated automatically by two way binding
 	                // call updatelocally when complete in order to remove task
 	                if (result.data.status === 'Complete') {
-	                    return _this9.updateTaskLocally(result.data);
+	                    return _this10.updateTaskLocally(result.data);
 	                }
 	            }, this.handleError.bind(this));
 	        }
@@ -45709,7 +45720,7 @@
 	        }
 	    }, {
 	        key: 'read',
-	        value: function read(id, start, limit, status, initial) {
+	        value: function read(id, start, limit, status, todoList) {
 	            var requestURL = this.urlBase;
 	            // ID is not part of query sting
 	            if (typeof id === 'number') {
@@ -45717,8 +45728,8 @@
 	            }
 	            // begin query string
 	            requestURL += '?';
-	            if (initial) {
-	                requestURL += 'initial=true&';
+	            if (todoList) {
+	                requestURL += 'todoList=' + todoList + '&';
 	            }
 	            if (start) {
 	                requestURL += 'start=' + start + '&';

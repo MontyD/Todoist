@@ -11,11 +11,15 @@ router.get('/', function(req, res, next) {
 
     var start = parseInt(req.query.start) || 0;
     var limit = parseInt(req.query.limit) || 10;
+    var todoList = parseInt(req.query.todoList);
     var query = {
         roomId: req.room.id
     };
     if (req.query.status) {
         query.status = req.query.status;
+    }
+    if (todoList) {
+      query.todoListId = todoList;
     }
 
     // FETCH ALL
