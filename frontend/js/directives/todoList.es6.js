@@ -50,6 +50,10 @@ function todoList() {
             return;
           };
 
+          scope.updateTask = task => {
+            return scope.editTask({task: task});
+          };
+
         }
     };
 }

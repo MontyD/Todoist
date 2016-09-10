@@ -114,6 +114,11 @@ class RoomCtrl {
         if (this.listsCurrentPage === 1) {
             // add list to this.lists
             // and trim the amount of lists
+
+            //first append empty array of tasks, if not present.
+            if (typeof list.tasks === 'undefined') {
+                list.tasks = [];
+            }
             this.lists.unshift(list);
             if (this.lists.length > this.listsAmountPerPage) {
                 this.lists.length = this.listsAmountPerPage;
@@ -180,23 +185,43 @@ class RoomCtrl {
 
     // add todo to relevant list
     addTodoLocally(todo) {
-        for (let i = 0; i < this.lists.length; i++) {
-            if (this.lists[i].id === todo.todoListId) {
-                this.lists[i].tasks.unshift(todo);
-                return this.trimTodosInList(this.lists[i].tasks);
+        let list = this.lists.find(function(el) {
+            return el.id === todo.todoListId;
+        });
+        if (list) {
+            list.tasks.unshift(todo);
+            this.trimTodosInList(list);
+        }
+    }
+
+    updateTaskLocally(todo, remove) {
+        let list = this.lists.find(function(el) {
+            return el.id === todo.todoListId;
+        });
+        if (list) {
+            for (let i = 0; i < list.tasks.length; i++) {
+                if (list.tasks[i].id === todo.id) {
+                    if (todo.status === 'Complete' || remove) {
+                        list.tasks.splice(i, 1);
+                        this.appendTodoAtEndOfList(list.id);
+                    } else {
+                        list.tasks[i] = todo;
+                    }
+                }
+                return false;
             }
         }
     }
 
     resetNewTodo(id) {
-        for (let i = 0; i < this.lists.length; i++) {
-            if (this.lists[i].id === id) {
-                this.lists[i].newTask = {
-                    title: '',
-                    status: 'Todo'
-                };
-                return;
-            }
+        let list = this.lists.find(function(el) {
+            return el.id === id;
+        }, this);
+        if (list) {
+            list.newTask = {
+                title: '',
+                status: 'Todo'
+            };
         }
     }
 
@@ -256,13 +281,31 @@ class RoomCtrl {
         );
     }
 
-    createTodo(task, listID) {
+    appendTodoAtEndOfList(id) {
+      console.log(id);
+    }
+
+    createTodo(listID, task) {
         let newTodo = task;
         newTodo.todoListId = listID;
         this.TasksService.create(task, this.hash).then(
             result => {
                 this.addTodoLocally(result.data);
                 this.resetNewTodo(result.data.todoListId);
+            },
+            this.handleError.bind(this)
+        );
+    }
+
+    editTask(task) {
+        this.TasksService.update(task.id, task, this.hash).then(
+            result => {
+                // no need to call update unless task is complete,
+                // as task will be updated automatically by two way binding
+                // call updatelocally when complete in order to remove task
+                if (result.data.status === 'Complete') {
+                    return this.updateTaskLocally(result.data);
+                }
             },
             this.handleError.bind(this)
         );

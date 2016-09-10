@@ -11,7 +11,7 @@
 </nav>
 <main class="container">
   <article class="todo-list thirds" dir-paginate="list in home.lists | itemsPerPage: home.listsAmountPerPage" total-items="home.listsTotal" current-page="home.listsCurrentPage">
-    <todo-list list="list" createtodo="home.createTodo(list.newTask, list.id)" edittask="home.editTask" deletetask="home.deleteTask" editlist="home.editList(list.id, list.name)" deletelist="home.deleteList(list.id)">
+    <todo-list list="list" createtodo="home.createTodo(list.id, list.newTask)" edittask="home.editTask(task)" deletetask="home.deleteTask" editlist="home.editList(list.id, list.name)" deletelist="home.deleteList(list.id)">
     </todo-list>
   </article>
   <dir-pagination-controls on-page-change="home.changePage(newPageNumber)"></dir-pagination-controls>

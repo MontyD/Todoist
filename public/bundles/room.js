@@ -43796,7 +43796,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmountPerPage\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n    <todo-list list=\"list\" createtodo=\"home.createTodo(list.newTask, list.id)\" edittask=\"home.editTask\" deletetask=\"home.deleteTask\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n    </todo-list>\n  </article>\n  <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n\n  <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n      <i class=\"lnr lnr-plus-circle\"></i> Add new list\n  </p>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmountPerPage\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n    <todo-list list=\"list\" createtodo=\"home.createTodo(list.id, list.newTask)\" edittask=\"home.editTask(task)\" deletetask=\"home.deleteTask\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n    </todo-list>\n  </article>\n  <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n\n  <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n      <i class=\"lnr lnr-plus-circle\"></i> Add new list\n  </p>\n</main>\n";
 
 /***/ },
 /* 56 */
@@ -43941,6 +43941,11 @@
 	            if (this.listsCurrentPage === 1) {
 	                // add list to this.lists
 	                // and trim the amount of lists
+
+	                //first append empty array of tasks, if not present.
+	                if (typeof list.tasks === 'undefined') {
+	                    list.tasks = [];
+	                }
 	                this.lists.unshift(list);
 	                if (this.lists.length > this.listsAmountPerPage) {
 	                    this.lists.length = this.listsAmountPerPage;
@@ -44016,24 +44021,45 @@
 	    }, {
 	        key: 'addTodoLocally',
 	        value: function addTodoLocally(todo) {
-	            for (var i = 0; i < this.lists.length; i++) {
-	                if (this.lists[i].id === todo.todoListId) {
-	                    this.lists[i].tasks.unshift(todo);
-	                    return this.trimTodosInList(this.lists[i].tasks);
+	            var list = this.lists.find(function (el) {
+	                return el.id === todo.todoListId;
+	            });
+	            if (list) {
+	                list.tasks.unshift(todo);
+	                this.trimTodosInList(list);
+	            }
+	        }
+	    }, {
+	        key: 'updateTaskLocally',
+	        value: function updateTaskLocally(todo, remove) {
+	            var list = this.lists.find(function (el) {
+	                return el.id === todo.todoListId;
+	            });
+	            if (list) {
+	                for (var i = 0; i < list.tasks.length; i++) {
+	                    if (list.tasks[i].id === todo.id) {
+	                        if (todo.status === 'Complete' || remove) {
+	                            list.tasks.splice(i, 1);
+	                            this.appendTodoAtEndOfList(list.id);
+	                        } else {
+	                            list.tasks[i] = todo;
+	                        }
+	                    }
+	                    return false;
 	                }
 	            }
 	        }
 	    }, {
 	        key: 'resetNewTodo',
 	        value: function resetNewTodo(id) {
-	            for (var i = 0; i < this.lists.length; i++) {
-	                if (this.lists[i].id === id) {
-	                    this.lists[i].newTask = {
-	                        title: '',
-	                        status: 'Todo'
-	                    };
-	                    return;
-	                }
+	            var list = this.lists.find(function (el) {
+	                return el.id === id;
+	            }, this);
+	            if (list) {
+	                list.newTask = {
+	                    title: '',
+	                    status: 'Todo'
+	                };
 	            }
 	        }
 
@@ -44097,8 +44123,13 @@
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
+	        key: 'appendTodoAtEndOfList',
+	        value: function appendTodoAtEndOfList(id) {
+	            console.log(id);
+	        }
+	    }, {
 	        key: 'createTodo',
-	        value: function createTodo(task, listID) {
+	        value: function createTodo(listID, task) {
 	            var _this8 = this;
 
 	            var newTodo = task;
@@ -44106,6 +44137,20 @@
 	            this.TasksService.create(task, this.hash).then(function (result) {
 	                _this8.addTodoLocally(result.data);
 	                _this8.resetNewTodo(result.data.todoListId);
+	            }, this.handleError.bind(this));
+	        }
+	    }, {
+	        key: 'editTask',
+	        value: function editTask(task) {
+	            var _this9 = this;
+
+	            this.TasksService.update(task.id, task, this.hash).then(function (result) {
+	                // no need to call update unless task is complete,
+	                // as task will be updated automatically by two way binding
+	                // call updatelocally when complete in order to remove task
+	                if (result.data.status === 'Complete') {
+	                    return _this9.updateTaskLocally(result.data);
+	                }
 	            }, this.handleError.bind(this));
 	        }
 
@@ -44723,6 +44768,10 @@
 	        scope.attemptedSubmit = false;
 	        scope.createTodo();
 	        return;
+	      };
+
+	      scope.updateTask = function (task) {
+	        return scope.editTask({ task: task });
 	      };
 	    }
 	  };
