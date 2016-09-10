@@ -293,7 +293,7 @@ class RoomCtrl {
     placeSocketEventListners() {
 
         this.SocketsService.on('NewTask', (function(data) {
-            this.addTaskLocally(data.task, data.username);
+            this.addTodoLocally(data.task, data.username);
             this.Notify(data.username + ' added a todo', 'Success');
             this.$scope.$apply();
         }).bind(this));
