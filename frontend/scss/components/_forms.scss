@@ -1,13 +1,13 @@
 @import '_styling';
 
 form {
-    padding: 0 0 1em;
+    padding: 0 0 1rem;
 
     h3 {
-        margin     : 1em 0;
-        padding    : 0.6em 0;
+        margin     : 1rem 0;
+        padding    : 0.6rem 0;
         background : $colorWhite;
-        font-size  : 1.8em;
+        font-size  : 1.8rem;
         font-weight: normal;
         font-family: $sans-serif;
     }
@@ -22,14 +22,14 @@ form {
 label {
     &.checkbox {
         display     : inline-block;
-        margin-right: 0.2em;
+        margin-right: 0.2rem;
     }
 
     &.required::after {
         content       : '*';
         font-weight   : normal;
-        font-size     : 0.8em;
-        margin        : 0 0.1em;
+        font-size     : 0.8rem;
+        margin        : 0 0.1rem;
         color         : $colorDark;
         vertical-align: top;
     }
@@ -43,14 +43,14 @@ input[type="password"],
 input[type="text"],
 textarea {
     display      : block;
-    padding      : 0.6em 0.4em;
-    margin       : 0.2em auto 1.4em;
-    border-radius: 0.3em;
+    padding      : 0.6rem 0.4rem;
+    margin       : 0.2rem auto 1.4rem;
+    border-radius: 0.3rem;
     border       : 1px solid $colorMain;
     box-sizing   : border-box;
     resize       : none;
     width        : 90%;
-    font-size    : 0.8em;
+    font-size    : 0.8rem;
 
     &:active,
     &:focus {
@@ -72,7 +72,7 @@ textarea {
         }
 
         &.editable {
-            padding  : 0.2em 0.5em;
+            padding  : 0.2rem 0.5rem;
             font-size: 90%;
         }
     }
@@ -100,7 +100,7 @@ textarea {
 select {
     margin-left  : auto;
     margin-right : auto;
-    margin-bottom: 0.8em;
+    margin-bottom: 0.8rem;
 }
 
 .transparent {
@@ -125,7 +125,7 @@ select {
         background  : rgba(255,255,255, 0.8);
         border-color: $colorDarkGrey;
         color       : $colorDarkGrey;
-        margin      : 0.4em auto;
+        margin      : 0.4rem auto;
 
         &:hover {
             @include shadow(1);
@@ -143,11 +143,11 @@ input[type="checkbox"] {
     & + label:before {
         display       : inline-block;
         content       : ' ';
-        width         : 1em;
-        height        : 1em;
-        margin        : 0 0.3em;
+        width         : 1rem;
+        height        : 1rem;
+        margin        : 0 0.3rem;
         vertical-align: middle;
-        border-radius : 0.2em;
+        border-radius : 0.2rem;
         border        : 1px solid $colorDark;
         color         : $colorWhite;
         cursor        : pointer;
@@ -159,14 +159,14 @@ input[type="checkbox"] {
         color: $colorDark;
 
         &:before {
-            height            : 0.5em;
-            width             : 1.2em;
+            height            : 0.5rem;
+            width             : 1.2rem;
             border-radius     : 0;
             -webkit-transform : rotate(-45deg);
             transform         : rotate(-45deg);
             border-top-color  : transparent;
             border-right-color: transparent;
-            margin-bottom     : 0.3em;
+            margin-bottom     : 0.3rem;
         }
     }
 
@@ -183,13 +183,13 @@ input[type="checkbox"] {
 
     &.large {
         & + label:before {
-            width : 1.5em;
-            height: 1.5em;
+            width : 1.5rem;
+            height: 1.5rem;
         }
 
         &:checked + label:before {
-            height: 0.9em;
-            width : 2.5em;
+            height: 0.9rem;
+            width : 2.5rem;
         }
     }
 }
@@ -204,9 +204,9 @@ input[type="radio"] {
     & + label:before {
         display      : inline-block;
         content      : ' ';
-        width        : 1em;
-        height       : 1em;
-        margin       : 0 0.3em -0.15em;
+        width        : 1rem;
+        height       : 1rem;
+        margin       : 0 0.3rem -0.15rem;
         border-radius: 50%;
         background   : transparent;
         border       : 1px solid $colorDark;
@@ -220,9 +220,9 @@ input[type="radio"] {
 
         &:before {
             background   : $colorDark;
-            height       : 0.9em;
-            width        : 0.9em;
-            margin-bottom: -0.1em;
+            height       : 0.9rem;
+            width        : 0.9rem;
+            margin-bottom: -0.1rem;
         }
     }
 
@@ -238,7 +238,7 @@ input[type="radio"] {
 }
 
 form.inline {
-    padding   : 1em;
+    padding   : 1rem;
     box-sizing: border-box;
     text-align: center;
 

@@ -22,7 +22,7 @@ ui-view {
 
 main.full-height {
     position  : relative;
-    min-height: calc(100% - 3.8em);
+    min-height: calc(100% - 3.8rem);
 }
 
 .halfWidth {
@@ -49,18 +49,18 @@ main.full-height {
     a,
     button {
         font-size    : initial;
-        margin       : 0.4em -1px 0.4em 0;
+        margin       : 0.4rem -1px 0.4rem 0;
         border-radius: 0;
         min-width    : 75px;
 
         &:first-child {
-            border-top-left-radius   : 0.3em;
-            border-bottom-left-radius: 0.3em;
+            border-top-left-radius   : 0.3rem;
+            border-bottom-left-radius: 0.3rem;
         }
 
         &:last-child {
-            border-top-right-radius   : 0.3em;
-            border-bottom-right-radius: 0.3em;
+            border-top-right-radius   : 0.3rem;
+            border-bottom-right-radius: 0.3rem;
         }
     }
 }
@@ -68,7 +68,7 @@ main.full-height {
 .halves {
     display       : inline-block;
     width         : 49%;
-    padding       : 0 1em;
+    padding       : 0 1rem;
     box-sizing    : border-box;
     margin-left   : 0;
     margin-right  : 0;
@@ -76,19 +76,19 @@ main.full-height {
 
     p {
         padding       : 0;
-        margin        : 1em auto;
+        margin        : 1rem auto;
         vertical-align: top;
         width         : 100%;
     }
 
     h3 {
         margin-top: 0;
-        font-size : 2.2em;
+        font-size : 2.2rem;
     }
     @media(max-width: $mediumBP) {
         display: block;
         width  : 90%;
-        margin : 1em auto 3.5em;
+        margin : 1rem auto 3.5rem;
     }
     @media(max-width: $smallBP) {
         width: 98%;
@@ -110,7 +110,7 @@ main.full-height {
 .thirds {
     display       : inline-block;
     width         : 32%;
-    padding       : 0 1em;
+    padding       : 0 1rem;
     box-sizing    : border-box;
     margin-left   : 0;
     margin-right  : 0;
@@ -127,7 +127,7 @@ main.full-height {
 
     h3 {
         margin   : 0 auto;
-        font-size: 2.2em;
+        font-size: 2.2rem;
     }
     @media(max-width: $mediumBP) {
         &.two {
@@ -135,7 +135,7 @@ main.full-height {
         }
         display: block;
         width  : 90%;
-        margin : 0.5em auto 1em;
+        margin : 0.5rem auto 1rem;
     }
 }
 
@@ -145,7 +145,7 @@ main.full-height {
     margin    : 0 auto;
     width     : 90%;
     max-width : 600px;
-    padding   : 1.6em 1em;
+    padding   : 1.6rem 1rem;
     box-sizing: border-box;
     text-align: center;
 
@@ -174,12 +174,12 @@ main.full-height {
     }
 
     .icon {
-        font-size: 2.2em;
+        font-size: 2.2rem;
     }
 
     .page-number {
         display    : block;
-        padding-top: 1.5em;
+        padding-top: 1.5rem;
     }
 
     .back {
@@ -197,19 +197,19 @@ main.full-height {
 
 .stats-container {
     display   : inline-block;
-    margin    : 0.6em 0;
+    margin    : 0.6rem 0;
     position  : relative;
     width     : 49%;
     box-sizing: border-box;
-    padding   : 1em 0.4em;
+    padding   : 1rem 0.4rem;
     text-align: center;
-    font-size : 0.9em;
+    font-size : 0.9rem;
 
     .large-number {
         display    : block;
         width      : 100%;
         font-family: $serif;
-        font-size  : 5.5em;
+        font-size  : 5.5rem;
         line-height: 90%;
     }
 }
@@ -217,9 +217,9 @@ main.full-height {
 .overview-percentage {
     margin     : 0;
     line-height: 90%;
-    font-size  : 8em;
+    font-size  : 8rem;
     @media(max-width: $mediumBP) {
-        font-size: 5em;
+        font-size: 5rem;
     }
 }
 
@@ -254,19 +254,19 @@ main.full-height {
 
         span {
             position  : absolute;
-            bottom    : 1em;
+            bottom    : 1rem;
             width     : 100%;
             left      : 0;
             box-sizing: border-box;
-            padding   : 0 0.5em;
+            padding   : 0 0.5rem;
             transition: opacity 0.2s ease;
             opacity   : 0;
-            font-size : 0.8em;
+            font-size : 0.8rem;
         }
 
         .big-number {
             font-family: $serif;
-            font-size  : 4em;
+            font-size  : 4rem;
             line-height: 90%;
         }
 
@@ -317,10 +317,10 @@ main.full-height {
 
 .settings-article {
     display: block;
-    padding: 1.5em 0;
+    padding: 1.5rem 0;
 
     p {
-        padding   : 0 1em;
+        padding   : 0 1rem;
         box-sizing: border-box;
     }
 }
@@ -330,7 +330,7 @@ main.full-height {
     position  : relative;
     margin    : 0 auto;
     box-sizing: border-box;
-    padding   : 1em 0;
+    padding   : 1rem 0;
     width     : 100%;
     max-width : $containerWidth;
 }

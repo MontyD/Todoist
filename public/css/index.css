@@ -379,7 +379,7 @@ ui-view {
 
 main.full-height {
   position: relative;
-  min-height: calc(100% - 3.8em); }
+  min-height: calc(100% - 3.8rem); }
 
 .halfWidth {
   display: inline-block;
@@ -402,39 +402,39 @@ main.full-height {
   .button-group a,
   .button-group button {
     font-size: initial;
-    margin: 0.4em -1px 0.4em 0;
+    margin: 0.4rem -1px 0.4rem 0;
     border-radius: 0;
     min-width: 75px; }
     .button-group a:first-child,
     .button-group button:first-child {
-      border-top-left-radius: 0.3em;
-      border-bottom-left-radius: 0.3em; }
+      border-top-left-radius: 0.3rem;
+      border-bottom-left-radius: 0.3rem; }
     .button-group a:last-child,
     .button-group button:last-child {
-      border-top-right-radius: 0.3em;
-      border-bottom-right-radius: 0.3em; }
+      border-top-right-radius: 0.3rem;
+      border-bottom-right-radius: 0.3rem; }
 
 .halves {
   display: inline-block;
   width: 49%;
-  padding: 0 1em;
+  padding: 0 1rem;
   box-sizing: border-box;
   margin-left: 0;
   margin-right: 0;
   vertical-align: top; }
   .halves p {
     padding: 0;
-    margin: 1em auto;
+    margin: 1rem auto;
     vertical-align: top;
     width: 100%; }
   .halves h3 {
     margin-top: 0;
-    font-size: 2.2em; }
+    font-size: 2.2rem; }
   @media (max-width: 900px) {
     .halves {
       display: block;
       width: 90%;
-      margin: 1em auto 3.5em; } }
+      margin: 1rem auto 3.5rem; } }
   @media (max-width: 550px) {
     .halves {
       width: 98%; }
@@ -448,7 +448,7 @@ main.full-height {
 .thirds {
   display: inline-block;
   width: 32%;
-  padding: 0 1em;
+  padding: 0 1rem;
   box-sizing: border-box;
   margin-left: 0;
   margin-right: 0;
@@ -460,12 +460,12 @@ main.full-height {
     vertical-align: middle; }
   .thirds h3 {
     margin: 0 auto;
-    font-size: 2.2em; }
+    font-size: 2.2rem; }
   @media (max-width: 900px) {
     .thirds {
       display: block;
       width: 90%;
-      margin: 0.5em auto 1em; }
+      margin: 0.5rem auto 1rem; }
       .thirds.two {
         width: 90%; } }
 
@@ -475,7 +475,7 @@ main.full-height {
   margin: 0 auto;
   width: 90%;
   max-width: 600px;
-  padding: 1.6em 1em;
+  padding: 1.6rem 1rem;
   box-sizing: border-box;
   text-align: center; }
   .modal.main {
@@ -494,10 +494,10 @@ main.full-height {
   .pagination-controls * {
     vertical-align: middle; }
   .pagination-controls .icon {
-    font-size: 2.2em; }
+    font-size: 2.2rem; }
   .pagination-controls .page-number {
     display: block;
-    padding-top: 1.5em; }
+    padding-top: 1.5rem; }
   .pagination-controls .back {
     position: absolute;
     left: 0;
@@ -509,27 +509,27 @@ main.full-height {
 
 .stats-container {
   display: inline-block;
-  margin: 0.6em 0;
+  margin: 0.6rem 0;
   position: relative;
   width: 49%;
   box-sizing: border-box;
-  padding: 1em 0.4em;
+  padding: 1rem 0.4rem;
   text-align: center;
-  font-size: 0.9em; }
+  font-size: 0.9rem; }
   .stats-container .large-number {
     display: block;
     width: 100%;
     font-family: "butlerbold", serif;
-    font-size: 5.5em;
+    font-size: 5.5rem;
     line-height: 90%; }
 
 .overview-percentage {
   margin: 0;
   line-height: 90%;
-  font-size: 8em; }
+  font-size: 8rem; }
   @media (max-width: 900px) {
     .overview-percentage {
-      font-size: 5em; } }
+      font-size: 5rem; } }
 
 .graphs {
   position: absolute;
@@ -562,17 +562,17 @@ main.full-height {
     top: 0; }
     .graphs .week-graph span {
       position: absolute;
-      bottom: 1em;
+      bottom: 1rem;
       width: 100%;
       left: 0;
       box-sizing: border-box;
-      padding: 0 0.5em;
+      padding: 0 0.5rem;
       transition: opacity 0.2s ease;
       opacity: 0;
-      font-size: 0.8em; }
+      font-size: 0.8rem; }
     .graphs .week-graph .big-number {
       font-family: "butlerbold", serif;
-      font-size: 4em;
+      font-size: 4rem;
       line-height: 90%; }
     .graphs .week-graph .graph {
       position: absolute;
@@ -600,9 +600,9 @@ main.full-height {
 
 .settings-article {
   display: block;
-  padding: 1.5em 0; }
+  padding: 1.5rem 0; }
   .settings-article p {
-    padding: 0 1em;
+    padding: 0 1rem;
     box-sizing: border-box; }
 
 .container {
@@ -610,7 +610,7 @@ main.full-height {
   position: relative;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 1em 0;
+  padding: 1rem 0;
   width: 100%;
   max-width: 1000px; }
 
@@ -646,26 +646,26 @@ ui-view {
 
 .modal {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
-  border-radius: 0.3em; }
+  border-radius: 0.3rem; }
 
 h1 {
   font-family: "butlerbold", serif;
-  font-size: 5em; }
+  font-size: 5rem; }
   h1.shadow {
     text-shadow: 5px 5px 0 #004D40; }
 
 h2 {
   font-family: "Droid Sans", sans-serif;
-  font-size: 2em; }
+  font-size: 2rem; }
   h2.shadow {
     text-shadow: 5px 5px 0 #004D40; }
   h2.serif {
-    font-size: 3em;
+    font-size: 3rem;
     font-family: "butlerbold", serif; }
 
 h3 {
   font-family: "Droid Sans", sans-serif;
-  font-size: 1.6em; }
+  font-size: 1.6rem; }
   h3.shadow {
     text-shadow: 5px 5px 0 #004D40; }
 
@@ -689,20 +689,20 @@ p.slight {
   font-style: italic;
   color: #E0E0E0;
   font-weight: normal;
-  padding-bottom: 1em; }
+  padding-bottom: 1rem; }
 
 .explaination-text {
   display: block;
-  font-size: 0.9em;
+  font-size: 0.9rem;
   color: #6f6f6f; }
 
 .button,
 .fake-button {
   display: inline-block;
-  padding: 0.6em 0.8em;
-  margin: 0.4em;
+  padding: 0.6rem 0.8rem;
+  margin: 0.4rem;
   border: 1px solid #009688;
-  border-radius: 0.2em;
+  border-radius: 0.2rem;
   background: #009688;
   color: #FAFAFA;
   cursor: pointer;
@@ -758,8 +758,8 @@ p.slight {
     border-bottom: none; }
 
 button.icon {
-  padding: 0.2em 0.2em 0.3em 0.3em;
-  font-size: 1.8em;
+  padding: 0.2rem 0.2rem 0.3rem 0.3rem;
+  font-size: 1.4rem;
   cursor: pointer;
   background: transparent;
   border: none;
@@ -860,12 +860,12 @@ button.icon {
     border-color: #ddd; }
 
 form {
-  padding: 0 0 1em; }
+  padding: 0 0 1rem; }
   form h3 {
-    margin: 1em 0;
-    padding: 0.6em 0;
+    margin: 1rem 0;
+    padding: 0.6rem 0;
     background: #FAFAFA;
-    font-size: 1.8em;
+    font-size: 1.8rem;
     font-weight: normal;
     font-family: "Droid Sans", sans-serif; }
   form.attempted-submit input.ng-invalid {
@@ -873,12 +873,12 @@ form {
 
 label.checkbox {
   display: inline-block;
-  margin-right: 0.2em; }
+  margin-right: 0.2rem; }
 label.required::after {
   content: '*';
   font-weight: normal;
-  font-size: 0.8em;
-  margin: 0 0.1em;
+  font-size: 0.8rem;
+  margin: 0 0.1rem;
   color: #004D40;
   vertical-align: top; }
 
@@ -890,14 +890,14 @@ input[type="password"],
 input[type="text"],
 textarea {
   display: block;
-  padding: 0.6em 0.4em;
-  margin: 0.2em auto 1.4em;
-  border-radius: 0.3em;
+  padding: 0.6rem 0.4rem;
+  margin: 0.2rem auto 1.4rem;
+  border-radius: 0.3rem;
   border: 1px solid #009688;
   box-sizing: border-box;
   resize: none;
   width: 90%;
-  font-size: 0.8em; }
+  font-size: 0.8rem; }
   input[type="currency"]:active, input[type="currency"]:focus,
   input[type="date"]:active,
   input[type="date"]:focus,
@@ -947,7 +947,7 @@ textarea {
     input[type="password"].outline.editable,
     input[type="text"].outline.editable,
     textarea.outline.editable {
-      padding: 0.2em 0.5em;
+      padding: 0.2rem 0.5rem;
       font-size: 90%; }
   input[type="currency"].error,
   input[type="date"].error,
@@ -986,7 +986,7 @@ textarea {
 select {
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 0.8em; }
+  margin-bottom: 0.8rem; }
 
 .transparent input,
 .transparent textarea {
@@ -1004,7 +1004,7 @@ select {
   background: rgba(255, 255, 255, 0.8);
   border-color: #6f6f6f;
   color: #6f6f6f;
-  margin: 0.4em auto; }
+  margin: 0.4rem auto; }
   .left-aligned input[type="submit"]:hover {
     box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
 
@@ -1015,11 +1015,11 @@ input[type="checkbox"] {
   input[type="checkbox"] + label:before {
     display: inline-block;
     content: ' ';
-    width: 1em;
-    height: 1em;
-    margin: 0 0.3em;
+    width: 1rem;
+    height: 1rem;
+    margin: 0 0.3rem;
     vertical-align: middle;
-    border-radius: 0.2em;
+    border-radius: 0.2rem;
     border: 1px solid #004D40;
     color: #FAFAFA;
     cursor: pointer;
@@ -1028,26 +1028,26 @@ input[type="checkbox"] {
   input[type="checkbox"]:checked + label {
     color: #004D40; }
     input[type="checkbox"]:checked + label:before {
-      height: 0.5em;
-      width: 1.2em;
+      height: 0.5rem;
+      width: 1.2rem;
       border-radius: 0;
       -webkit-transform: rotate(-45deg);
       -ms-transform: rotate(-45deg);
           transform: rotate(-45deg);
       border-top-color: transparent;
       border-right-color: transparent;
-      margin-bottom: 0.3em; }
+      margin-bottom: 0.3rem; }
   input[type="checkbox"].light + label:before, input[type="checkbox"].todo-list + label:before, input[type="checkbox"].todo-list-new + label:before {
     border-color: #FAFAFA; }
   input[type="checkbox"].light:checked + label:before, input[type="checkbox"].todo-list:checked + label:before, input[type="checkbox"].todo-list-new:checked + label:before {
     border-top-color: transparent;
     border-right-color: transparent; }
   input[type="checkbox"].large + label:before {
-    width: 1.5em;
-    height: 1.5em; }
+    width: 1.5rem;
+    height: 1.5rem; }
   input[type="checkbox"].large:checked + label:before {
-    height: 0.9em;
-    width: 2.5em; }
+    height: 0.9rem;
+    width: 2.5rem; }
 
 input[type="radio"] {
   display: none; }
@@ -1056,9 +1056,9 @@ input[type="radio"] {
   input[type="radio"] + label:before {
     display: inline-block;
     content: ' ';
-    width: 1em;
-    height: 1em;
-    margin: 0 0.3em -0.15em;
+    width: 1rem;
+    height: 1rem;
+    margin: 0 0.3rem -0.15rem;
     border-radius: 50%;
     background: transparent;
     border: 1px solid #004D40;
@@ -1069,16 +1069,16 @@ input[type="radio"] {
     color: #004D40; }
     input[type="radio"]:checked + label:before {
       background: #004D40;
-      height: 0.9em;
-      width: 0.9em;
-      margin-bottom: -0.1em; }
+      height: 0.9rem;
+      width: 0.9rem;
+      margin-bottom: -0.1rem; }
   input[type="radio"].light + label:before, input[type="radio"].todo-list + label:before, input[type="radio"].todo-list-new + label:before {
     border-color: #FAFAFA; }
   input[type="radio"].light:checked + label:before, input[type="radio"].todo-list:checked + label:before, input[type="radio"].todo-list-new:checked + label:before {
     background: #FAFAFA; }
 
 form.inline {
-  padding: 1em;
+  padding: 1rem;
   box-sizing: border-box;
   text-align: center; }
   form.inline * {
@@ -1493,7 +1493,7 @@ ui-view {
 
 main.full-height {
   position: relative;
-  min-height: calc(100% - 3.8em); }
+  min-height: calc(100% - 3.8rem); }
 
 .halfWidth {
   display: inline-block;
@@ -1516,39 +1516,39 @@ main.full-height {
   .button-group a,
   .button-group button {
     font-size: initial;
-    margin: 0.4em -1px 0.4em 0;
+    margin: 0.4rem -1px 0.4rem 0;
     border-radius: 0;
     min-width: 75px; }
     .button-group a:first-child,
     .button-group button:first-child {
-      border-top-left-radius: 0.3em;
-      border-bottom-left-radius: 0.3em; }
+      border-top-left-radius: 0.3rem;
+      border-bottom-left-radius: 0.3rem; }
     .button-group a:last-child,
     .button-group button:last-child {
-      border-top-right-radius: 0.3em;
-      border-bottom-right-radius: 0.3em; }
+      border-top-right-radius: 0.3rem;
+      border-bottom-right-radius: 0.3rem; }
 
 .halves {
   display: inline-block;
   width: 49%;
-  padding: 0 1em;
+  padding: 0 1rem;
   box-sizing: border-box;
   margin-left: 0;
   margin-right: 0;
   vertical-align: top; }
   .halves p {
     padding: 0;
-    margin: 1em auto;
+    margin: 1rem auto;
     vertical-align: top;
     width: 100%; }
   .halves h3 {
     margin-top: 0;
-    font-size: 2.2em; }
+    font-size: 2.2rem; }
   @media (max-width: 900px) {
     .halves {
       display: block;
       width: 90%;
-      margin: 1em auto 3.5em; } }
+      margin: 1rem auto 3.5rem; } }
   @media (max-width: 550px) {
     .halves {
       width: 98%; }
@@ -1562,7 +1562,7 @@ main.full-height {
 .thirds {
   display: inline-block;
   width: 32%;
-  padding: 0 1em;
+  padding: 0 1rem;
   box-sizing: border-box;
   margin-left: 0;
   margin-right: 0;
@@ -1574,12 +1574,12 @@ main.full-height {
     vertical-align: middle; }
   .thirds h3 {
     margin: 0 auto;
-    font-size: 2.2em; }
+    font-size: 2.2rem; }
   @media (max-width: 900px) {
     .thirds {
       display: block;
       width: 90%;
-      margin: 0.5em auto 1em; }
+      margin: 0.5rem auto 1rem; }
       .thirds.two {
         width: 90%; } }
 
@@ -1589,7 +1589,7 @@ main.full-height {
   margin: 0 auto;
   width: 90%;
   max-width: 600px;
-  padding: 1.6em 1em;
+  padding: 1.6rem 1rem;
   box-sizing: border-box;
   text-align: center; }
   .modal.main {
@@ -1608,10 +1608,10 @@ main.full-height {
   .pagination-controls * {
     vertical-align: middle; }
   .pagination-controls .icon {
-    font-size: 2.2em; }
+    font-size: 2.2rem; }
   .pagination-controls .page-number {
     display: block;
-    padding-top: 1.5em; }
+    padding-top: 1.5rem; }
   .pagination-controls .back {
     position: absolute;
     left: 0;
@@ -1623,27 +1623,27 @@ main.full-height {
 
 .stats-container {
   display: inline-block;
-  margin: 0.6em 0;
+  margin: 0.6rem 0;
   position: relative;
   width: 49%;
   box-sizing: border-box;
-  padding: 1em 0.4em;
+  padding: 1rem 0.4rem;
   text-align: center;
-  font-size: 0.9em; }
+  font-size: 0.9rem; }
   .stats-container .large-number {
     display: block;
     width: 100%;
     font-family: "butlerbold", serif;
-    font-size: 5.5em;
+    font-size: 5.5rem;
     line-height: 90%; }
 
 .overview-percentage {
   margin: 0;
   line-height: 90%;
-  font-size: 8em; }
+  font-size: 8rem; }
   @media (max-width: 900px) {
     .overview-percentage {
-      font-size: 5em; } }
+      font-size: 5rem; } }
 
 .graphs {
   position: absolute;
@@ -1676,17 +1676,17 @@ main.full-height {
     top: 0; }
     .graphs .week-graph span {
       position: absolute;
-      bottom: 1em;
+      bottom: 1rem;
       width: 100%;
       left: 0;
       box-sizing: border-box;
-      padding: 0 0.5em;
+      padding: 0 0.5rem;
       transition: opacity 0.2s ease;
       opacity: 0;
-      font-size: 0.8em; }
+      font-size: 0.8rem; }
     .graphs .week-graph .big-number {
       font-family: "butlerbold", serif;
-      font-size: 4em;
+      font-size: 4rem;
       line-height: 90%; }
     .graphs .week-graph .graph {
       position: absolute;
@@ -1714,9 +1714,9 @@ main.full-height {
 
 .settings-article {
   display: block;
-  padding: 1.5em 0; }
+  padding: 1.5rem 0; }
   .settings-article p {
-    padding: 0 1em;
+    padding: 0 1rem;
     box-sizing: border-box; }
 
 .container {
@@ -1724,7 +1724,7 @@ main.full-height {
   position: relative;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 1em 0;
+  padding: 1rem 0;
   width: 100%;
   max-width: 1000px; }
 
@@ -1760,26 +1760,26 @@ ui-view {
 
 .modal {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
-  border-radius: 0.3em; }
+  border-radius: 0.3rem; }
 
 h1 {
   font-family: "butlerbold", serif;
-  font-size: 5em; }
+  font-size: 5rem; }
   h1.shadow {
     text-shadow: 5px 5px 0 #004D40; }
 
 h2 {
   font-family: "Droid Sans", sans-serif;
-  font-size: 2em; }
+  font-size: 2rem; }
   h2.shadow {
     text-shadow: 5px 5px 0 #004D40; }
   h2.serif {
-    font-size: 3em;
+    font-size: 3rem;
     font-family: "butlerbold", serif; }
 
 h3 {
   font-family: "Droid Sans", sans-serif;
-  font-size: 1.6em; }
+  font-size: 1.6rem; }
   h3.shadow {
     text-shadow: 5px 5px 0 #004D40; }
 
@@ -1803,20 +1803,20 @@ p.slight {
   font-style: italic;
   color: #E0E0E0;
   font-weight: normal;
-  padding-bottom: 1em; }
+  padding-bottom: 1rem; }
 
 .explaination-text {
   display: block;
-  font-size: 0.9em;
+  font-size: 0.9rem;
   color: #6f6f6f; }
 
 .button,
 .fake-button {
   display: inline-block;
-  padding: 0.6em 0.8em;
-  margin: 0.4em;
+  padding: 0.6rem 0.8rem;
+  margin: 0.4rem;
   border: 1px solid #009688;
-  border-radius: 0.2em;
+  border-radius: 0.2rem;
   background: #009688;
   color: #FAFAFA;
   cursor: pointer;
@@ -1872,8 +1872,8 @@ p.slight {
     border-bottom: none; }
 
 button.icon {
-  padding: 0.2em 0.2em 0.3em 0.3em;
-  font-size: 1.8em;
+  padding: 0.2rem 0.2rem 0.3rem 0.3rem;
+  font-size: 1.4rem;
   cursor: pointer;
   background: transparent;
   border: none;
@@ -1980,9 +1980,9 @@ nav.top {
   position: relative;
   margin: 0;
   width: 100%;
-  height: 3.8em;
+  height: 3.8rem;
   box-sizing: border-box;
-  padding: 0.6em 0.2em;
+  padding: 0.6rem 0.2rem;
   background: #004D40; }
   nav.top.absolute {
     position: absolute;
@@ -1997,7 +1997,7 @@ nav.top {
     display: inline-block;
     vertical-align: middle;
     color: #FAFAFA;
-    font-size: 2em;
+    font-size: 2rem;
     font-weight: normal;
     padding: 0; }
     nav.top .home-link:hover {
@@ -2006,7 +2006,7 @@ nav.top {
     position: absolute;
     right: 0;
     top: 0;
-    padding: 0.6em 0;
+    padding: 0.6rem 0;
     display: inline-block;
     margin: auto;
     height: 100%; }
@@ -2017,11 +2017,11 @@ nav.top {
     margin: 0; }
   nav.top a {
     color: #FAFAFA;
-    padding: 0.6em 0.8em;
+    padding: 0.6rem 0.8rem;
     background: transparent;
     transition: background-color 0.2s;
-    border-radius: 0.2em;
-    margin: 0 0.5em; }
+    border-radius: 0.2rem;
+    margin: 0 0.5rem; }
     nav.top a:hover {
       background-color: rgba(0, 0, 0, 0.3); }
 
@@ -2034,12 +2034,12 @@ footer {
   margin: 0;
   box-sizing: border-box;
   text-align: center;
-  font-size: 0.8em; }
+  font-size: 0.8rem; }
   footer .container {
     padding: 0; }
   footer h3 {
-    margin: 0.6em 0 0;
-    font-size: 1.8em; }
+    margin: 0.6rem 0 0;
+    font-size: 1.8rem; }
 
 /**
  * angular-ui-notification - Angular.js service providing simple notifications using Bootstrap 3 styles with css transitions for animating
@@ -2487,7 +2487,7 @@ ui-view {
 
 main.full-height {
   position: relative;
-  min-height: calc(100% - 3.8em); }
+  min-height: calc(100% - 3.8rem); }
 
 .halfWidth {
   display: inline-block;
@@ -2510,39 +2510,39 @@ main.full-height {
   .button-group a,
   .button-group button {
     font-size: initial;
-    margin: 0.4em -1px 0.4em 0;
+    margin: 0.4rem -1px 0.4rem 0;
     border-radius: 0;
     min-width: 75px; }
     .button-group a:first-child,
     .button-group button:first-child {
-      border-top-left-radius: 0.3em;
-      border-bottom-left-radius: 0.3em; }
+      border-top-left-radius: 0.3rem;
+      border-bottom-left-radius: 0.3rem; }
     .button-group a:last-child,
     .button-group button:last-child {
-      border-top-right-radius: 0.3em;
-      border-bottom-right-radius: 0.3em; }
+      border-top-right-radius: 0.3rem;
+      border-bottom-right-radius: 0.3rem; }
 
 .halves {
   display: inline-block;
   width: 49%;
-  padding: 0 1em;
+  padding: 0 1rem;
   box-sizing: border-box;
   margin-left: 0;
   margin-right: 0;
   vertical-align: top; }
   .halves p {
     padding: 0;
-    margin: 1em auto;
+    margin: 1rem auto;
     vertical-align: top;
     width: 100%; }
   .halves h3 {
     margin-top: 0;
-    font-size: 2.2em; }
+    font-size: 2.2rem; }
   @media (max-width: 900px) {
     .halves {
       display: block;
       width: 90%;
-      margin: 1em auto 3.5em; } }
+      margin: 1rem auto 3.5rem; } }
   @media (max-width: 550px) {
     .halves {
       width: 98%; }
@@ -2556,7 +2556,7 @@ main.full-height {
 .thirds {
   display: inline-block;
   width: 32%;
-  padding: 0 1em;
+  padding: 0 1rem;
   box-sizing: border-box;
   margin-left: 0;
   margin-right: 0;
@@ -2568,12 +2568,12 @@ main.full-height {
     vertical-align: middle; }
   .thirds h3 {
     margin: 0 auto;
-    font-size: 2.2em; }
+    font-size: 2.2rem; }
   @media (max-width: 900px) {
     .thirds {
       display: block;
       width: 90%;
-      margin: 0.5em auto 1em; }
+      margin: 0.5rem auto 1rem; }
       .thirds.two {
         width: 90%; } }
 
@@ -2583,7 +2583,7 @@ main.full-height {
   margin: 0 auto;
   width: 90%;
   max-width: 600px;
-  padding: 1.6em 1em;
+  padding: 1.6rem 1rem;
   box-sizing: border-box;
   text-align: center; }
   .modal.main {
@@ -2602,10 +2602,10 @@ main.full-height {
   .pagination-controls * {
     vertical-align: middle; }
   .pagination-controls .icon {
-    font-size: 2.2em; }
+    font-size: 2.2rem; }
   .pagination-controls .page-number {
     display: block;
-    padding-top: 1.5em; }
+    padding-top: 1.5rem; }
   .pagination-controls .back {
     position: absolute;
     left: 0;
@@ -2617,27 +2617,27 @@ main.full-height {
 
 .stats-container {
   display: inline-block;
-  margin: 0.6em 0;
+  margin: 0.6rem 0;
   position: relative;
   width: 49%;
   box-sizing: border-box;
-  padding: 1em 0.4em;
+  padding: 1rem 0.4rem;
   text-align: center;
-  font-size: 0.9em; }
+  font-size: 0.9rem; }
   .stats-container .large-number {
     display: block;
     width: 100%;
     font-family: "butlerbold", serif;
-    font-size: 5.5em;
+    font-size: 5.5rem;
     line-height: 90%; }
 
 .overview-percentage {
   margin: 0;
   line-height: 90%;
-  font-size: 8em; }
+  font-size: 8rem; }
   @media (max-width: 900px) {
     .overview-percentage {
-      font-size: 5em; } }
+      font-size: 5rem; } }
 
 .graphs {
   position: absolute;
@@ -2670,17 +2670,17 @@ main.full-height {
     top: 0; }
     .graphs .week-graph span {
       position: absolute;
-      bottom: 1em;
+      bottom: 1rem;
       width: 100%;
       left: 0;
       box-sizing: border-box;
-      padding: 0 0.5em;
+      padding: 0 0.5rem;
       transition: opacity 0.2s ease;
       opacity: 0;
-      font-size: 0.8em; }
+      font-size: 0.8rem; }
     .graphs .week-graph .big-number {
       font-family: "butlerbold", serif;
-      font-size: 4em;
+      font-size: 4rem;
       line-height: 90%; }
     .graphs .week-graph .graph {
       position: absolute;
@@ -2708,9 +2708,9 @@ main.full-height {
 
 .settings-article {
   display: block;
-  padding: 1.5em 0; }
+  padding: 1.5rem 0; }
   .settings-article p {
-    padding: 0 1em;
+    padding: 0 1rem;
     box-sizing: border-box; }
 
 .container {
@@ -2718,7 +2718,7 @@ main.full-height {
   position: relative;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 1em 0;
+  padding: 1rem 0;
   width: 100%;
   max-width: 1000px; }
 
@@ -2754,26 +2754,26 @@ ui-view {
 
 .modal {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
-  border-radius: 0.3em; }
+  border-radius: 0.3rem; }
 
 h1 {
   font-family: "butlerbold", serif;
-  font-size: 5em; }
+  font-size: 5rem; }
   h1.shadow {
     text-shadow: 5px 5px 0 #004D40; }
 
 h2 {
   font-family: "Droid Sans", sans-serif;
-  font-size: 2em; }
+  font-size: 2rem; }
   h2.shadow {
     text-shadow: 5px 5px 0 #004D40; }
   h2.serif {
-    font-size: 3em;
+    font-size: 3rem;
     font-family: "butlerbold", serif; }
 
 h3 {
   font-family: "Droid Sans", sans-serif;
-  font-size: 1.6em; }
+  font-size: 1.6rem; }
   h3.shadow {
     text-shadow: 5px 5px 0 #004D40; }
 
@@ -2797,20 +2797,20 @@ p.slight {
   font-style: italic;
   color: #E0E0E0;
   font-weight: normal;
-  padding-bottom: 1em; }
+  padding-bottom: 1rem; }
 
 .explaination-text {
   display: block;
-  font-size: 0.9em;
+  font-size: 0.9rem;
   color: #6f6f6f; }
 
 .button,
 .fake-button {
   display: inline-block;
-  padding: 0.6em 0.8em;
-  margin: 0.4em;
+  padding: 0.6rem 0.8rem;
+  margin: 0.4rem;
   border: 1px solid #009688;
-  border-radius: 0.2em;
+  border-radius: 0.2rem;
   background: #009688;
   color: #FAFAFA;
   cursor: pointer;
@@ -2866,8 +2866,8 @@ p.slight {
     border-bottom: none; }
 
 button.icon {
-  padding: 0.2em 0.2em 0.3em 0.3em;
-  font-size: 1.8em;
+  padding: 0.2rem 0.2rem 0.3rem 0.3rem;
+  font-size: 1.4rem;
   cursor: pointer;
   background: transparent;
   border: none;
@@ -3021,8 +3021,8 @@ button.icon {
 
 .task-item {
   display: block;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   text-align: center;
   clear: both;
   border-top: 2px solid #E0E0E0;
@@ -3033,7 +3033,7 @@ button.icon {
     vertical-align: middle;
     color: #6f6f6f;
     text-align: left;
-    font-size: 0.8em; }
+    font-size: 0.8rem; }
     .task-item .task-description .button-group {
       display: block;
       margin: 0 auto;
@@ -3042,11 +3042,11 @@ button.icon {
     margin: 0 auto;
     width: 90%; }
     .task-item form input[type="text"] {
-      font-size: 1em;
+      font-size: 1rem;
       width: 100%;
-      margin-bottom: 0.1em; }
+      margin-bottom: 0.1rem; }
   .task-item .task-title {
-    font-size: 1em;
+    font-size: 1rem;
     color: #212121;
     margin-bottom: 0;
     text-align: left; }
@@ -3060,12 +3060,12 @@ button.icon {
     .task-item .control-container p {
       width: 100%;
       color: #6f6f6f;
-      font-size: 0.9em; }
+      font-size: 0.9rem; }
   .task-item button.icon {
-    font-size: 1.5em; }
+    font-size: 1.2rem; }
     .task-item button.icon.done {
       color: #212121;
-      font-size: 1.8em; }
+      font-size: 1.4rem; }
       .task-item button.icon.done:hover {
         color: #009688; }
     .task-item button.icon.delete:hover {
@@ -3079,62 +3079,62 @@ button.icon {
 
 .todo-list {
   position: relative;
-  padding-bottom: 1em;
-  margin: 0.5em 0.3em;
+  padding-bottom: 1rem;
+  margin: 0.5rem 0.3rem;
   max-width: 600px;
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
-  border-radius: 0.3em;
+  border-radius: 0.3rem;
   text-align: left; }
   @media (max-width: 900px) {
     .todo-list {
-      margin: 0.6em auto; } }
+      margin: 0.6rem auto; } }
   .todo-list .list-title {
     text-align: left;
-    padding: 1em 0.1em 0.5em;
-    font-size: 1.2em;
+    padding: 1rem 0.1rem 0.5rem;
+    font-size: 1.2rem;
     font-weight: bold;
     border-bottom: 2px solid #E0E0E0; }
     .todo-list .list-title span {
       vertical-align: middle; }
     .todo-list .list-title .control-container {
       display: inline-block;
-      margin: 0.7em 0;
+      margin: 0.7rem 0;
       opacity: 0;
       transition: opacity 0.2s ease;
-      font-size: 0.6em; }
+      font-size: 0.6rem; }
       .todo-list .list-title .control-container * {
-        padding: 0 0.1em; }
+        padding: 0 0.1rem; }
       .todo-list .list-title .control-container .delete:hover {
         color: #E64A19; }
     .todo-list .list-title input[type="text"] {
       margin-bottom: 0;
-      font-size: 0.9em; }
+      font-size: 0.9rem; }
     .todo-list .list-title form {
-      font-size: 0.8em;
+      font-size: 0.8rem;
       text-align: center; }
     .todo-list .list-title:hover .control-container {
       opacity: 1; }
   .todo-list-new {
     position: relative;
-    padding-bottom: 1.8em;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+    padding-bottom: 1.8rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     max-width: 600px;
     box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
-    border-radius: 0.3em;
-    padding-top: 1em;
-    font-size: 1.2em;
+    border-radius: 0.3rem;
+    padding-top: 1rem;
+    font-size: 1.2rem;
     text-align: center;
-    padding-bottom: 1em;
+    padding-bottom: 1rem;
     cursor: pointer;
     color: #6f6f6f; }
     .todo-list-new .lnr {
       display: block;
-      font-size: 3em;
-      margin-bottom: 0.2em; }
+      font-size: 3rem;
+      margin-bottom: 0.2rem; }
 
 .empty-notification {
-  margin: 1.5em 0.5em;
-  font-size: 1em;
+  margin: 1.5rem 0.5rem;
+  font-size: 1rem;
   text-align: center;
   color: #6f6f6f; }

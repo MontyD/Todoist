@@ -44,12 +44,12 @@ ui-view {
 
 .modal {
     @include shadow(1);
-    border-radius: 0.3em;
+    border-radius: 0.3rem;
 }
 
 h1 {
     font-family: $serif;
-    font-size  : 5em;
+    font-size  : 5rem;
 
     &.shadow {
         text-shadow: 5px 5px 0 $colorDark;
@@ -58,21 +58,21 @@ h1 {
 
 h2 {
     font-family: $sans-serif;
-    font-size  : 2em;
+    font-size  : 2rem;
 
     &.shadow {
         text-shadow: 5px 5px 0 $colorDark;
     }
 
     &.serif {
-        font-size  : 3em;
+        font-size  : 3rem;
         font-family: $serif;
     }
 }
 
 h3 {
     font-family: $sans-serif;
-    font-size  : 1.6em;
+    font-size  : 1.6rem;
 
     &.shadow {
         text-shadow: 5px 5px 0 $colorDark;
@@ -103,22 +103,22 @@ p.slight {
     font-style    : italic;
     color         : $colorGrey;
     font-weight   : normal;
-    padding-bottom: 1em;
+    padding-bottom: 1rem;
 }
 
 .explaination-text {
     display  : block;
-    font-size: 0.9em;
+    font-size: 0.9rem;
     color    : $colorDarkGrey;
 }
 
 .button,
 .fake-button {
     display        : inline-block;
-    padding        : 0.6em 0.8em;
-    margin         : 0.4em;
+    padding        : 0.6rem 0.8rem;
+    margin         : 0.4rem;
     border         : 1px solid $colorMain;
-    border-radius  : 0.2em;
+    border-radius  : 0.2rem;
     background     : $colorMain;
     color          : $colorWhite;
     cursor         : pointer;
@@ -181,8 +181,8 @@ p.slight {
 }
 
 button.icon {
-    padding   : 0.2em 0.2em 0.3em 0.3em;
-    font-size : 1.8em;
+    padding   : 0.2rem 0.2rem 0.3rem 0.3rem;
+    font-size : 1.4rem;
     cursor    : pointer;
     background: transparent;
     border    : none;
