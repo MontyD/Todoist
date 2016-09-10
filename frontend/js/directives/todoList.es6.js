@@ -45,6 +45,7 @@ function todoList() {
               scope.attemptedSubmit = true;
               return;
             }
+            scope.attemptedSubmit = false;
             scope.createTodo();
             return;
           };

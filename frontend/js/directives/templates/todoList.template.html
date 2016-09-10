@@ -4,9 +4,8 @@
             <button ng-click="toggleListDelete()" class="slide-out delete icon"><span class="lnr lnr-cross"></span></button>
     <button ng-click="toggleListEdit()" class="slide-out icon"><span class="lnr lnr-pencil"></span></button>
     </span>
-    <form ng-if="editing" name="listUpdate" ng-submit="submitListEdit()">
-        <input type="text" ng-model="list.name" placeholder="List name" />
-        <input type="submit" class="button" value="Update" />
+    <form ng-if="editing" name="listUpdate" class="inline" ng-submit="submitListEdit()">
+        <input type="text" ng-model="list.name" placeholder="List name" /><input type="submit" class="button" value="&#10003;" />
     </form>
     <div ng-if="deleting" class="button-group">
         <button ng-click="toggleListDelete()" class="button secondary">Cancel</button>
@@ -21,6 +20,5 @@
     <p class="empty-notification" ng-if="!list.tasks.length">No todos to be done</p>
 </div>
 <form class="add-task inline" ng-class="{'attempted-submit': attemptedSubmit}" name="add" novalidate="novalidate" ng-submit="addTask(add.$valid)">
-  <label for="{{'new' + list.id}}">New Todo</label>
-  <input type="text" id="{{'new' + list.id}}" ng-model="list.newTask.title" required="required" /><input type="submit" class="button primary" value="&#43;" />
+  <input type="text" id="{{'new' + list.id}}" ng-model="list.newTask.title" placeholder="New Todo" required="required" /><input type="submit" class="button primary" value="&#43;" />
 </form>

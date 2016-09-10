@@ -1080,8 +1080,7 @@ input[type="radio"] {
 form.inline {
   padding: 1em;
   box-sizing: border-box;
-  text-align: center;
-  border-top: 2px solid #E0E0E0; }
+  text-align: center; }
   form.inline * {
     vertical-align: middle; }
   form.inline input[type="currency"],
