@@ -48044,8 +48044,6 @@
 	        value: function changePage(number, cb) {
 	            var _this2 = this;
 
-	            this.listsCurrentPage = number;
-
 	            var offset = (number - 1) * this.listsAmountPerPage;
 
 	            this.TodoListsService.read(undefined, offset, this.listsAmountPerPage).then(function (result) {

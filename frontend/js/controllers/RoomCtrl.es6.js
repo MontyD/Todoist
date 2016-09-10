@@ -34,23 +34,23 @@ class RoomCtrl {
 
     init() {
         this.RoomService.getInfo(
-          roomInfo => {
-            this.room = roomInfo;
-            this.TodoListsService.countLists().then(
-                result => {
-                    this.hash = this.SocketsService.init(this.room.name);
+            roomInfo => {
+                this.room = roomInfo;
+                this.TodoListsService.countLists().then(
+                    result => {
+                        this.hash = this.SocketsService.init(this.room.name);
 
-                    this.listsTotal = result.data.count;
+                        this.listsTotal = result.data.count;
 
-                    this.placeSocketEventListners();
+                        this.placeSocketEventListners();
 
-                    this.changePage(1, function() {
-                        document.body.className = 'loaded';
-                    });
-                },
-                this.handleError.bind(this)
-            );
-        }.bind(this), this.handleError.bind(this));
+                        this.changePage(1, function() {
+                            document.body.className = 'loaded';
+                        });
+                    },
+                    this.handleError.bind(this)
+                );
+            }.bind(this), this.handleError.bind(this));
 
     }
 
@@ -60,8 +60,6 @@ class RoomCtrl {
     */
 
     changePage(number, cb) {
-        this.listsCurrentPage = number;
-
         let offset = (number - 1) * this.listsAmountPerPage;
 
         this.TodoListsService.read(undefined, offset, this.listsAmountPerPage).then(
