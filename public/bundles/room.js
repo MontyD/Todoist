@@ -43871,7 +43871,9 @@
 
 	                    _this.placeSocketEventListners();
 
-	                    _this.changePage(1);
+	                    _this.changePage(1, function () {
+	                        document.body.className = 'loaded';
+	                    });
 	                }, this.handleError.bind(this));
 	            }).bind(this), this.handleError.bind(this));
 	        }
@@ -43882,7 +43884,7 @@
 
 	    }, {
 	        key: 'changePage',
-	        value: function changePage(number) {
+	        value: function changePage(number, cb) {
 	            var _this2 = this;
 
 	            this.listsCurrentPage = number;
@@ -43890,7 +43892,10 @@
 	            var offset = (number - 1) * this.listsAmountPerPage;
 
 	            this.TodoListsService.read(undefined, offset, this.listsAmountPerPage).then(function (result) {
-	                return _this2.lists = result.data;
+	                _this2.lists = result.data;
+	                if (typeof cb === 'function') {
+	                    cb();
+	                }
 	            }, this.handleError.bind(this));
 	        }
 

@@ -43,7 +43,9 @@ class RoomCtrl {
 
                     this.placeSocketEventListners();
 
-                    this.changePage(1);
+                    this.changePage(1, function() {
+                        document.body.className = 'loaded';
+                    });
                 },
                 this.handleError.bind(this)
             );
@@ -56,13 +58,18 @@ class RoomCtrl {
     <--------- PAGE TRACKING
     */
 
-    changePage(number) {
+    changePage(number, cb) {
         this.listsCurrentPage = number;
 
         let offset = (number - 1) * this.listsAmountPerPage;
 
         this.TodoListsService.read(undefined, offset, this.listsAmountPerPage).then(
-            result => (this.lists = result.data),
+            result => {
+                this.lists = result.data;
+                if (typeof cb === 'function') {
+                    cb();
+                }
+            },
             this.handleError.bind(this)
         );
     }
@@ -252,10 +259,10 @@ class RoomCtrl {
     }
 
     deleteTask(task) {
-      this.TasksService.destroy(task.id, this.hash).then(
-        result => this.updateTaskLocally(task, true),
-        this.handleError.bind(this)
-      );
+        this.TasksService.destroy(task.id, this.hash).then(
+            result => this.updateTaskLocally(task, true),
+            this.handleError.bind(this)
+        );
     }
 
     /*

@@ -1,5 +1,10 @@
 extends layouts/base
 block content
-  body(ng-app="app")
+  body(ng-app="app" class="loading")
     ui-view
+    .loading-view
+      .circle.circle-1
+      .circle.circle-2
+      .text-container
+        span Loading
     script(src="/bundles/room.js")
