@@ -3041,7 +3041,7 @@ button.icon {
   transition: background 0.2s ease; }
   .task-item .task-description {
     display: inline-block;
-    width: 55%;
+    width: 60%;
     vertical-align: middle;
     color: #6f6f6f;
     text-align: left;

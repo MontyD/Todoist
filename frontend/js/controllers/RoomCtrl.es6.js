@@ -156,7 +156,8 @@ class RoomCtrl {
         if (list) {
             list.newTask = {
                 title: '',
-                status: 'Todo'
+                status: 'Todo',
+                todoListId: list.id
             };
         }
     }
@@ -248,6 +249,13 @@ class RoomCtrl {
             },
             this.handleError.bind(this)
         );
+    }
+
+    deleteTask(task) {
+      this.TasksService.destroy(task.id, this.hash).then(
+        result => this.updateTaskLocally(task, true),
+        this.handleError.bind(this)
+      );
     }
 
     /*

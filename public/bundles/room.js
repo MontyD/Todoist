@@ -43796,7 +43796,7 @@
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmountPerPage\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n    <todo-list list=\"list\" createtodo=\"home.createTodo(list.id, list.newTask)\" edittask=\"home.editTask(task)\" deletetask=\"home.deleteTask\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n    </todo-list>\n  </article>\n  <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n\n  <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n      <i class=\"lnr lnr-plus-circle\"></i> Add new list\n  </p>\n</main>\n";
+	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" target=\"_self\" href=\"/\" title=\"Home\">Todoist | {{home.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n    </div>\n</nav>\n<main class=\"container\">\n  <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmountPerPage\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n    <todo-list list=\"list\" createtodo=\"home.createTodo(list.id, list.newTask)\" edittask=\"home.editTask(task)\" deletetask=\"home.deleteTask(task)\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n    </todo-list>\n  </article>\n  <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n\n  <p class=\"todo-list-new thirds\" ng-click=\"home.newList()\">\n      <i class=\"lnr lnr-plus-circle\"></i> Add new list\n  </p>\n</main>\n";
 
 /***/ },
 /* 56 */
@@ -43993,7 +43993,8 @@
 	            if (list) {
 	                list.newTask = {
 	                    title: '',
-	                    status: 'Todo'
+	                    status: 'Todo',
+	                    todoListId: list.id
 	                };
 	            }
 	        }
@@ -44090,6 +44091,15 @@
 	                if (result.data.status === 'Complete') {
 	                    return _this10.updateTaskLocally(result.data);
 	                }
+	            }, this.handleError.bind(this));
+	        }
+	    }, {
+	        key: 'deleteTask',
+	        value: function deleteTask(task) {
+	            var _this11 = this;
+
+	            this.TasksService.destroy(task.id, this.hash).then(function (result) {
+	                return _this11.updateTaskLocally(task, true);
 	            }, this.handleError.bind(this));
 	        }
 
@@ -44696,7 +44706,8 @@
 
 	      scope.list.newTask = {
 	        title: '',
-	        status: 'Todo'
+	        status: 'Todo',
+	        todoListId: scope.list.id
 	      };
 
 	      scope.addTask = function (valid) {
@@ -44712,6 +44723,10 @@
 	      scope.updateTask = function (task) {
 	        return scope.editTask({ task: task });
 	      };
+
+	      scope.removeTask = function (task) {
+	        return scope.deleteTask({ task: task });
+	      };
 	    }
 	  };
 	}
@@ -44723,7 +44738,7 @@
 /* 64 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"list-title\">\n    <span ng-if=\"!editing && !deleting\">{{list.name || 'Todo list'}}</span>\n    <span ng-if=\"!editing && !deleting\" class=\"control-container\">\n    <button ng-click=\"toggleListEdit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n    <button ng-click=\"toggleListDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n    </span>\n    <form ng-if=\"editing\" name=\"listUpdate\" class=\"inline\" ng-submit=\"submitListEdit()\">\n        <input type=\"text\" ng-model=\"list.name\" placeholder=\"List name\" /><input type=\"submit\" class=\"button secondary\" value=\"&#43;\" />\n    </form>\n    <div ng-if=\"deleting\" class=\"button-group\">\n        <button ng-click=\"toggleListDelete()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"removeList()\" class=\"button danger\">Delete</button>\n    </div>\n</div>\n<div class=\"list-body\">\n    <div class=\"task-item\" ng-repeat=\"task in list.tasks\">\n        <task-view task=\"task\" edited=\"updateTask(task)\" deleted=\"deleteTask(task)\">\n        </task-view>\n    </div>\n    <p class=\"empty-notification\" ng-if=\"!list.tasks.length\">No todos to be done</p>\n</div>\n<form class=\"add-task inline\" ng-class=\"{'attempted-submit': attemptedSubmit}\" name=\"add\" novalidate=\"novalidate\" ng-submit=\"addTask(add.$valid)\">\n  <input type=\"text\" id=\"{{'new' + list.id}}\" ng-model=\"list.newTask.title\" placeholder=\"New Todo\" required=\"required\" /><input type=\"submit\" class=\"button primary\" value=\"&#43;\" />\n</form>\n";
+	module.exports = "<div class=\"list-title\">\n    <span ng-if=\"!editing && !deleting\">{{list.name || 'Todo list'}}</span>\n    <span ng-if=\"!editing && !deleting\" class=\"control-container\">\n    <button ng-click=\"toggleListEdit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n    <button ng-click=\"toggleListDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n    </span>\n    <form ng-if=\"editing\" name=\"listUpdate\" class=\"inline\" ng-submit=\"submitListEdit()\">\n        <input type=\"text\" ng-model=\"list.name\" placeholder=\"List name\" /><input type=\"submit\" class=\"button secondary\" value=\"&#43;\" />\n    </form>\n    <div ng-if=\"deleting\" class=\"button-group\">\n        <button ng-click=\"toggleListDelete()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"removeList()\" class=\"button danger\">Delete</button>\n    </div>\n</div>\n<div class=\"list-body\">\n    <div class=\"task-item\" ng-repeat=\"task in list.tasks\">\n        <task-view task=\"task\" edited=\"updateTask(task)\" deleted=\"removeTask(task)\">\n        </task-view>\n    </div>\n    <p class=\"empty-notification\" ng-if=\"!list.tasks.length\">No todos to be done</p>\n</div>\n<form class=\"add-task inline\" ng-class=\"{'attempted-submit': attemptedSubmit}\" name=\"add\" novalidate=\"novalidate\" ng-submit=\"addTask(add.$valid)\">\n  <input type=\"text\" id=\"{{'new' + list.id}}\" ng-model=\"list.newTask.title\" placeholder=\"New Todo\" required=\"required\" /><input type=\"submit\" class=\"button primary\" value=\"&#43;\" />\n</form>\n";
 
 /***/ },
 /* 65 */

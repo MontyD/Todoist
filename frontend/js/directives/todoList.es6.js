@@ -37,7 +37,8 @@ function todoList() {
 
           scope.list.newTask = {
             title: '',
-            status: 'Todo'
+            status: 'Todo',
+            todoListId: scope.list.id
           };
 
           scope.addTask = valid => {
@@ -52,6 +53,10 @@ function todoList() {
 
           scope.updateTask = task => {
             return scope.editTask({task: task});
+          };
+
+          scope.removeTask = task => {
+            return scope.deleteTask({task: task});
           };
 
         }

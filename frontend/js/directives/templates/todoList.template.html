@@ -14,7 +14,7 @@
 </div>
 <div class="list-body">
     <div class="task-item" ng-repeat="task in list.tasks">
-        <task-view task="task" edited="updateTask(task)" deleted="deleteTask(task)">
+        <task-view task="task" edited="updateTask(task)" deleted="removeTask(task)">
         </task-view>
     </div>
     <p class="empty-notification" ng-if="!list.tasks.length">No todos to be done</p>
