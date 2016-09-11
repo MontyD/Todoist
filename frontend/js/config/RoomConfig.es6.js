@@ -13,17 +13,18 @@ function config($stateProvider, $urlRouterProvider, $locationProvider) {
             controllerAs: 'home'
         })
         .state('overview', {
-          url: '/overview',
-          template: require('../templates/Overview.page.html'),
-          controller: 'OverviewCtrl',
-          controllerAs: 'overview'
+            url: '/overview',
+            template: require('../templates/Overview.page.html'),
+            controller: 'OverviewCtrl',
+            controllerAs: 'overview'
         })
         .state('settings', {
-          url: '/settings',
-          template: require('../templates/Settings.page.html'),
-          controller: 'SettingsCtrl',
-          controllerAs: 'settings'
+            url: '/settings',
+            template: require('../templates/Settings.page.html'),
+            controller: 'SettingsCtrl',
+            controllerAs: 'settings'
         });
+
 }
 
 export default ['$stateProvider', '$urlRouterProvider', '$locationProvider', config];

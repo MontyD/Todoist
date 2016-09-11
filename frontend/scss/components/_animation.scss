@@ -8,24 +8,72 @@
     0% {
         transform: translateY(0);
     }
+
     33% {
         transform: translateY(-3px);
     }
+
     66% {
         transform: translateY(3px);
     }
+
     100% {
         transform: translateY(0);
     }
 }
 
 .slide-out.hidden {
-  opacity: 0;
-  transform: translateX(100%);
-  transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+    opacity   : 0;
+    transform : translateX(100%);
+    transition: opacity 0.2s ease-in, transform 0.2s ease-in;
 }
 
 .slide-out.active {
-  opacity: 1;
-  transform: translateX(0);
+    opacity  : 1;
+    transform: translateX(0);
+}
+
+.task-item.ng-enter {
+    transition: 0.8s linear all;
+    opacity   : 0;
+}
+/* The finishing CSS styles for the enter animation */
+.task-item.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+
+main {
+    transition: opacity 0.5s ease;
+}
+
+ui-view.ng-enter,
+ui-view.ng-leave {
+    position  : absolute;
+    left      : 0;
+    right     : 0;
+    transition: opacity 0.5s ease;
+}
+
+ui-view.ng-enter {
+    main {
+        opacity: 0;
+    }
+}
+
+ui-view.ng-enter-active {
+    main {
+        opacity: 1;
+    }
+}
+
+ui-view.ng-leave {
+    main {
+        opacity: 1;
+    }
+}
+
+ui-view.ng-leave-active {
+    main {
+        opacity: 0;
+    }
 }

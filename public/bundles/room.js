@@ -116,7 +116,7 @@
 
 	window.io = _socketIoClient2['default'];
 
-	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification', 'angularUtils.directives.dirPagination']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).controller('OverviewCtrl', _controllersOverviewCtrlEs6Js2['default']).controller('SettingsCtrl', _controllersSettingsCtrlEs6Js2['default']).directive('taskView', _directivesTaskViewEs6Js2['default']).directive('todoList', _directivesTodoListEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketsService', _servicesSocketsEs6Js2['default']).service('RoomService', _servicesRoomEs6Js2['default']).service('TodoListsService', _servicesTodolistsEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
+	_angular2['default'].module('app', [_angularUiRouter2['default'], 'ui-notification', 'angularUtils.directives.dirPagination', 'ngAnimate']).controller('RoomCtrl', _controllersRoomCtrlEs6Js2['default']).controller('OverviewCtrl', _controllersOverviewCtrlEs6Js2['default']).controller('SettingsCtrl', _controllersSettingsCtrlEs6Js2['default']).directive('taskView', _directivesTaskViewEs6Js2['default']).directive('todoList', _directivesTodoListEs6Js2['default']).service('TasksService', _servicesTasksEs6Js2['default']).service('SocketsService', _servicesSocketsEs6Js2['default']).service('RoomService', _servicesRoomEs6Js2['default']).service('TodoListsService', _servicesTodolistsEs6Js2['default']).config(_configRoomConfigEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -47921,29 +47921,29 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	    value: true
 	});
 	function config($stateProvider, $urlRouterProvider, $locationProvider) {
-	  $locationProvider.html5Mode(true);
+	    $locationProvider.html5Mode(true);
 
-	  $urlRouterProvider.otherwise('/');
+	    $urlRouterProvider.otherwise('/');
 
-	  $stateProvider.state('home', {
-	    url: '/',
-	    template: __webpack_require__(57),
-	    controller: 'RoomCtrl',
-	    controllerAs: 'home'
-	  }).state('overview', {
-	    url: '/overview',
-	    template: __webpack_require__(58),
-	    controller: 'OverviewCtrl',
-	    controllerAs: 'overview'
-	  }).state('settings', {
-	    url: '/settings',
-	    template: __webpack_require__(59),
-	    controller: 'SettingsCtrl',
-	    controllerAs: 'settings'
-	  });
+	    $stateProvider.state('home', {
+	        url: '/',
+	        template: __webpack_require__(57),
+	        controller: 'RoomCtrl',
+	        controllerAs: 'home'
+	    }).state('overview', {
+	        url: '/overview',
+	        template: __webpack_require__(58),
+	        controller: 'OverviewCtrl',
+	        controllerAs: 'overview'
+	    }).state('settings', {
+	        url: '/settings',
+	        template: __webpack_require__(59),
+	        controller: 'SettingsCtrl',
+	        controllerAs: 'settings'
+	    });
 	}
 
 	exports['default'] = ['$stateProvider', '$urlRouterProvider', '$locationProvider', config];
@@ -48125,9 +48125,6 @@
 	                    if (list.tasks[i].id === todo.id) {
 	                        if (todo.status === 'Complete' || remove) {
 	                            list.tasks.splice(i, 1);
-	                            if (!list.showAllTasks && list.tasks.length === 5) {
-	                                this.appendTodoAtEndOfList(list.id, list.tasks.length);
-	                            }
 	                        } else {
 	                            list.tasks[i] = todo;
 	                        }
@@ -48207,51 +48204,35 @@
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
-	        key: 'appendTodoAtEndOfList',
-	        value: function appendTodoAtEndOfList(id, offset) {
-	            var _this8 = this;
-
-	            this.TasksService.read(undefined, offset, 1, 'Todo', id).then(function (result) {
-	                if (result.data.tasks.length > 0) {
-	                    var list = _this8.lists.find(function (el) {
-	                        return el.id === id;
-	                    }, _this8);
-	                    if (list) {
-	                        list.tasks.push(result.data.tasks[0]);
-	                    }
-	                }
-	            }, this.handleError.bind(this));
-	        }
-	    }, {
 	        key: 'createTodo',
 	        value: function createTodo(listID, task) {
-	            var _this9 = this;
+	            var _this8 = this;
 
 	            var newTodo = task;
 	            newTodo.todoListId = listID;
 	            this.TasksService.create(task, this.hash).then(function (result) {
-	                _this9.addTodoLocally(result.data);
-	                _this9.resetNewTodo(result.data.todoListId);
+	                _this8.addTodoLocally(result.data);
+	                _this8.resetNewTodo(result.data.todoListId);
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
 	        key: 'editTask',
 	        value: function editTask(task) {
-	            var _this10 = this;
+	            var _this9 = this;
 
 	            this.TasksService.update(task.id, task, this.hash).then(function (result) {
 	                if (result.data.status === 'Complete') {
-	                    return _this10.updateTaskLocally(result.data);
+	                    return _this9.updateTaskLocally(result.data);
 	                }
 	            }, this.handleError.bind(this));
 	        }
 	    }, {
 	        key: 'deleteTask',
 	        value: function deleteTask(task) {
-	            var _this11 = this;
+	            var _this10 = this;
 
 	            this.TasksService.destroy(task.id, this.hash).then(function (result) {
-	                return _this11.updateTaskLocally(task, true);
+	                return _this10.updateTaskLocally(task, true);
 	            }, this.handleError.bind(this));
 	        }
 

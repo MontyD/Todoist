@@ -112,7 +112,7 @@ class RoomCtrl {
             return this.appendListEndOfPage();
         }
     }
-    
+
     trimLists() {
         if (this.lists.length > this.listsAmountPerPage) {
             this.lists.length = this.listsAmountPerPage;
@@ -137,9 +137,6 @@ class RoomCtrl {
                 if (list.tasks[i].id === todo.id) {
                     if (todo.status === 'Complete' || remove) {
                         list.tasks.splice(i, 1);
-                        if (!list.showAllTasks && list.tasks.length === 5) {
-                            this.appendTodoAtEndOfList(list.id, list.tasks.length);
-                        }
                     } else {
                         list.tasks[i] = todo;
                     }
@@ -209,23 +206,6 @@ class RoomCtrl {
             },
             this.handleError.bind(this)
         );
-    }
-
-    appendTodoAtEndOfList(id, offset) {
-        this.TasksService.read(undefined, offset, 1, 'Todo', id).then(
-            result => {
-                if (result.data.tasks.length > 0) {
-                    let list = this.lists.find(function(el) {
-                        return el.id === id;
-                    }, this);
-                    if (list) {
-                        list.tasks.push(result.data.tasks[0]);
-                    }
-                }
-            },
-            this.handleError.bind(this)
-        );
-
     }
 
     createTodo(listID, task) {
