@@ -476,7 +476,7 @@ main.full-height {
 .modal {
   position: relative;
   display: block;
-  margin: 0 auto;
+  margin: 2em auto;
   width: 90%;
   max-width: 600px;
   padding: 1.6rem 1rem;
@@ -1684,7 +1684,7 @@ main.full-height {
 .modal {
   position: relative;
   display: block;
-  margin: 0 auto;
+  margin: 2em auto;
   width: 90%;
   max-width: 600px;
   padding: 1.6rem 1rem;
@@ -2772,7 +2772,7 @@ main.full-height {
 .modal {
   position: relative;
   display: block;
-  margin: 0 auto;
+  margin: 2em auto;
   width: 90%;
   max-width: 600px;
   padding: 1.6rem 1rem;
