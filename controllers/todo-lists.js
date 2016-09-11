@@ -29,6 +29,7 @@ router.get('/', function(req, res, next) {
             where: {
                 status: 'Todo'
             },
+            limit: 6,
             required: false
         }]
     }).then(function(lists) {
