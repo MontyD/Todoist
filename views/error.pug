@@ -1,12 +1,11 @@
 extends layouts/base
 block content
-  body
+  body.slight-gradient.padded
+    .circle.circle-1.no-transition
+    .circle.circle-2.no-transition
     nav.top.absolute
       .container
         include ./includes/_headerLinks.pug
-    header.slightGradient
-      h1.shadow Oops! #{error.status}
-      p.white= message
-
-    main.container.center
-      pre #{error.stack}
+    .modal.vertically-center.light
+      h1 Oops! #{error.status}
+      p= message
