@@ -6,8 +6,6 @@ var path = require('path'),
 
 var authentication = new LocalStrategy(
     function(name, password, done) {
-      console.log(name);
-      console.log(password);
         models.rooms.findOne({
             where: {
                 'name': name

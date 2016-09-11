@@ -14,7 +14,6 @@ var express = require('express'),
 
 // Passport auth
 function authenticateRoom(req, res, next) {
-    console.log(req.body);
     if (req.body.name) {
         req.session.username = req.body.name;
     }
@@ -67,8 +66,8 @@ router.post('/new', function(req, res, next) {
         models.todoLists.create({
             roomId: room.id
         }).then(function(todoList) {
-          req.body.username = req.body.name;
-          req.body.password = req.body.adminPassword;
+            req.body.username = req.body.name;
+            req.body.password = req.body.adminPassword;
             authenticateRoom(req, res, next);
         }).catch(function(err) {
             return handleError(err, next);
@@ -117,6 +116,30 @@ router.put('/update-admin-password', respondsToJSON, checkRoom, isAdmin, functio
 router.get('/new', function(req, res) {
     res.render('security/new');
 });
+
+router.get('/is-unique', respondsToJSON, function(req, res, next) {
+    if (!req.query.name) {
+        var error = new Error('Bad get request');
+        error.status = 400;
+        return next(error);
+    }
+    models.rooms.find({
+        where: {
+            name: req.query.name
+        },
+        attributes: ['name']
+    }).then(function(room) {
+      if (room) {
+        res.json(false);
+      } else {
+        res.json(true);
+      }
+    }).catch(function(err) {
+      return handleError(err, next);
+    });
+});
+
+
 
 router.delete('/', respondsToJSON, checkRoom, isAdmin, function(req, res, next) {
     models.rooms.findById(req.room.id, {
