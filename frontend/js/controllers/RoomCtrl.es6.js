@@ -25,7 +25,7 @@ class RoomCtrl {
 
         this.listsTotal = 0;
 
-        this.todosPerList = 8;
+        this.todosPerList = 6;
 
         this.hash = '';
 
@@ -120,9 +120,14 @@ class RoomCtrl {
         }
     }
 
-    trimTodosInList(todoArray) {
-        if (todoArray.length > this.todosPerList) {
-            todoArray.length = this.todosPerList;
+    trimTodosInList(list) {
+        if (list.tasks.length > this.todosPerList) {
+            list.tasks.length = this.todosPerList;
+            list.overTasksLimit = true;
+            list.noMoreTasks = false;
+        } else {
+            list.overTasksLimit = false;
+            list.noMoreTasks = true;
         }
     }
 
@@ -221,7 +226,7 @@ class RoomCtrl {
         this.TasksService.read(undefined, offset, 1, 'Todo', id).then(
             result => {
                 if (result.data.tasks.length > 0) {
-                    let list = this.tasks.find(function(el) {
+                    let list = this.lists.find(function(el) {
                         return el.id === id;
                     }, this);
                     if (list) {
