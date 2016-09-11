@@ -18,7 +18,6 @@
         </task-view>
     </div>
     <p class="empty-notification" ng-if="!list.tasks.length">No todos to be done</p>
-    <button class="button secondary full-width" ng-if="(list.overTasksLimit || list.tasks.length === 6) && !list.noMoreTasks">Load all</button>
 </div>
 <form class="add-task inline" ng-class="{'attempted-submit': attemptedSubmit}" name="add" novalidate="novalidate" ng-submit="addTask(add.$valid)">
   <input type="text" id="{{'new' + list.id}}" ng-model="list.newTask.title" placeholder="New Todo" required="required" /><input type="submit" class="button primary" value="&#43;" />

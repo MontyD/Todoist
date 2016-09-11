@@ -48007,8 +48007,6 @@
 
 	        this.listsTotal = 0;
 
-	        this.todosPerList = 6;
-
 	        this.hash = '';
 
 	        this.init();
@@ -48107,18 +48105,6 @@
 	            }
 	        }
 	    }, {
-	        key: 'trimTodosInList',
-	        value: function trimTodosInList(list) {
-	            if (list.tasks.length >= this.todosPerList) {
-	                list.tasks.length = this.todosPerList;
-	                list.overTasksLimit = true;
-	                list.noMoreTasks = false;
-	            } else {
-	                list.overTasksLimit = false;
-	                list.noMoreTasks = true;
-	            }
-	        }
-	    }, {
 	        key: 'addTodoLocally',
 	        value: function addTodoLocally(todo) {
 	            var list = this.lists.find(function (el) {
@@ -48126,7 +48112,6 @@
 	            });
 	            if (list) {
 	                list.tasks.unshift(todo);
-	                this.trimTodosInList(list);
 	            }
 	        }
 	    }, {
@@ -48233,7 +48218,6 @@
 	                    }, _this8);
 	                    if (list) {
 	                        list.tasks.push(result.data.tasks[0]);
-	                        _this8.trimTodosInList(list);
 	                    }
 	                }
 	            }, this.handleError.bind(this));
@@ -48917,7 +48901,7 @@
 /* 66 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"list-title\">\n    <span ng-if=\"!editing && !deleting\">{{list.name || 'Todo list'}}</span>\n    <span ng-if=\"!editing && !deleting\" class=\"control-container\">\n    <button ng-click=\"toggleListEdit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n    <button ng-click=\"toggleListDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n    </span>\n    <form ng-if=\"editing\" name=\"listUpdate\" class=\"inline\" ng-submit=\"submitListEdit()\">\n        <input type=\"text\" ng-model=\"list.name\" placeholder=\"List name\" /><input type=\"submit\" class=\"button secondary\" value=\"&#43;\" />\n    </form>\n    <div ng-if=\"deleting\" class=\"button-group\">\n        <button ng-click=\"toggleListDelete()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"removeList()\" class=\"button danger\">Delete</button>\n    </div>\n</div>\n<div class=\"list-body\">\n    <div class=\"task-item\" ng-repeat=\"task in list.tasks\">\n        <task-view task=\"task\" edited=\"updateTask(task)\" deleted=\"removeTask(task)\">\n        </task-view>\n    </div>\n    <p class=\"empty-notification\" ng-if=\"!list.tasks.length\">No todos to be done</p>\n    <button class=\"button secondary full-width\" ng-if=\"(list.overTasksLimit || list.tasks.length === 6) && !list.noMoreTasks\">Load all</button>\n</div>\n<form class=\"add-task inline\" ng-class=\"{'attempted-submit': attemptedSubmit}\" name=\"add\" novalidate=\"novalidate\" ng-submit=\"addTask(add.$valid)\">\n  <input type=\"text\" id=\"{{'new' + list.id}}\" ng-model=\"list.newTask.title\" placeholder=\"New Todo\" required=\"required\" /><input type=\"submit\" class=\"button primary\" value=\"&#43;\" />\n</form>\n";
+	module.exports = "<div class=\"list-title\">\n    <span ng-if=\"!editing && !deleting\">{{list.name || 'Todo list'}}</span>\n    <span ng-if=\"!editing && !deleting\" class=\"control-container\">\n    <button ng-click=\"toggleListEdit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n    <button ng-click=\"toggleListDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n    </span>\n    <form ng-if=\"editing\" name=\"listUpdate\" class=\"inline\" ng-submit=\"submitListEdit()\">\n        <input type=\"text\" ng-model=\"list.name\" placeholder=\"List name\" /><input type=\"submit\" class=\"button secondary\" value=\"&#43;\" />\n    </form>\n    <div ng-if=\"deleting\" class=\"button-group\">\n        <button ng-click=\"toggleListDelete()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"removeList()\" class=\"button danger\">Delete</button>\n    </div>\n</div>\n<div class=\"list-body\">\n    <div class=\"task-item\" ng-repeat=\"task in list.tasks\">\n        <task-view task=\"task\" edited=\"updateTask(task)\" deleted=\"removeTask(task)\">\n        </task-view>\n    </div>\n    <p class=\"empty-notification\" ng-if=\"!list.tasks.length\">No todos to be done</p>\n</div>\n<form class=\"add-task inline\" ng-class=\"{'attempted-submit': attemptedSubmit}\" name=\"add\" novalidate=\"novalidate\" ng-submit=\"addTask(add.$valid)\">\n  <input type=\"text\" id=\"{{'new' + list.id}}\" ng-model=\"list.newTask.title\" placeholder=\"New Todo\" required=\"required\" /><input type=\"submit\" class=\"button primary\" value=\"&#43;\" />\n</form>\n";
 
 /***/ },
 /* 67 */

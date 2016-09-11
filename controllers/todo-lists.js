@@ -19,9 +19,6 @@ router.get('/', function(req, res, next) {
         where: {
             roomId: req.room.id
         },
-        order: [
-            ['createdAt', 'DESC'],
-        ],
         limit: limit,
         offset: start,
         include: [{
@@ -29,9 +26,23 @@ router.get('/', function(req, res, next) {
             where: {
                 status: 'Todo'
             },
-            limit: 6,
+            order: [
+                ['createdAt', 'DESC'],
+            ],
             required: false
-        }]
+        }],
+        order: [
+            [
+                'createdAt',
+                'DESC',
+            ],
+            [{
+                    model: models.tasks,
+                },
+                'createdAt',
+                'DESC',
+            ],
+        ],
     }).then(function(lists) {
         return res.json(lists);
     }).catch(function(err) {

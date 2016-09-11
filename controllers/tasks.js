@@ -31,7 +31,6 @@ router.get('/', function(req, res, next) {
         limit: limit,
         offset: start
     }).then(function(tasks) {
-
         return res.json({
             tasks: tasks
         });

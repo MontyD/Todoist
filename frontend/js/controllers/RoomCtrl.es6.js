@@ -25,8 +25,6 @@ class RoomCtrl {
 
         this.listsTotal = 0;
 
-        this.todosPerList = 6;
-
         this.hash = '';
 
         this.init();
@@ -114,20 +112,10 @@ class RoomCtrl {
             return this.appendListEndOfPage();
         }
     }
+    
     trimLists() {
         if (this.lists.length > this.listsAmountPerPage) {
             this.lists.length = this.listsAmountPerPage;
-        }
-    }
-
-    trimTodosInList(list) {
-        if (list.tasks.length > this.todosPerList) {
-            list.tasks.length = this.todosPerList;
-            list.overTasksLimit = true;
-            list.noMoreTasks = false;
-        } else {
-            list.overTasksLimit = false;
-            list.noMoreTasks = true;
         }
     }
 
@@ -137,7 +125,6 @@ class RoomCtrl {
         });
         if (list) {
             list.tasks.unshift(todo);
-            this.trimTodosInList(list);
         }
     }
 
@@ -233,7 +220,6 @@ class RoomCtrl {
                     }, this);
                     if (list) {
                         list.tasks.push(result.data.tasks[0]);
-                        this.trimTodosInList(list);
                     }
                 }
             },
