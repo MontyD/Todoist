@@ -1,27 +1,28 @@
 extends ../layouts/base
 block content
-  body.slight-gradient
-    nav.top.absolute
-      .container
-        include ../includes/_headerLinks.pug
-    header
-      section.modal.light
-        h1 Login
-        if badCredentials
-          p.error Incorrect login details
-        form(method="POST", action="/rooms/login")
-          label(for="name") Your name
-          if (userName)
-            input(type="text", name="name", id="name", autofocus="autofocus", required="required", value=userName)
-          else
-            input(type="text", name="name", id="name", autofocus="autofocus", required="required")
-          label(for="username") Room name
-          if (roomName)
-            input(type="text", name="username", id="username", required="required", value=roomName)
-          else
-            input(type="text", name="username", id="username", required="required")
-          label(for="password") Room password
-          input(type="password", name="password", id="password", required="required")
-          input(type="submit", value="Login").button.primary
-          if (originalURL)
-            input(type="text", value=originalURL, name="originalURL").hidden
+    body.slight-gradient
+      .circle.circle-1.no-transition
+      .circle.circle-2.no-transition
+      nav.top.absolute
+          .container
+              include ../includes/_headerLinks.pug
+      section.modal.light.vertically-center
+          h1 Login
+          if badCredentials
+              p.error-holder Incorrect login details
+          form(method="POST", action="/rooms/login")
+              label(for="name") Your name
+              if (userName)
+                  input(type="text", name="name", id="name", autofocus="autofocus", required="required", value=userName)
+              else
+                  input(type="text", name="name", id="name", autofocus="autofocus", required="required")
+              label(for="username") Room name
+              if (roomName)
+                  input(type="text", name="username", id="username", required="required", value=roomName)
+              else
+                  input(type="text", name="username", id="username", required="required")
+              label(for="password") Room password
+              input(type="password", name="password", id="password", required="required")
+              input(type="submit", value="Login").button.primary
+              if (originalURL)
+                  input(type="text", value=originalURL, name="originalURL").hidden

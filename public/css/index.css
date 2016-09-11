@@ -636,7 +636,7 @@ main.full-height {
 .vertically-center {
   position: absolute;
   margin: 0 auto;
-  top: 40%;
+  top: 48%;
   left: 0;
   right: 0;
   -webkit-transform: translateY(-50%);
@@ -804,7 +804,7 @@ button.icon {
 .transparent {
   color: #6f6f6f; }
 
-.slight-gradient {
+.slight-gradient, .loading-view {
   background: radial-gradient(#009688, #004D40); }
 
 .opacity {
@@ -864,6 +864,32 @@ button.icon {
     background-color: #eceeef;
     border-color: #ddd; }
 
+.circle {
+  position: fixed;
+  top: 50%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  border-radius: 50%;
+  height: 65vw;
+  width: 65vw;
+  -webkit-transform-origin: center center;
+      -ms-transform-origin: center center;
+          transform-origin: center center;
+  box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
+  .circle.circle-1 {
+    -webkit-transform: translateY(-49%) translateX(1%) scale(1.12);
+        -ms-transform: translateY(-49%) translateX(1%) scale(1.12);
+            transform: translateY(-49%) translateX(1%) scale(1.12);
+    background: #E0E0E0;
+    opacity: 0.5; }
+  .circle.circle-2 {
+    -webkit-transform: translateY(-51%) translateX(-1%) scale(1);
+        -ms-transform: translateY(-51%) translateX(-1%) scale(1);
+            transform: translateY(-51%) translateX(-1%) scale(1);
+    background: #448AFF;
+    opacity: 0.4; }
+
 .loading-view {
   display: block;
   position: fixed;
@@ -876,7 +902,6 @@ button.icon {
   text-align: center;
   font-family: "butlerbold", serif;
   font-size: 5rem;
-  background: #004D40;
   visibility: visible;
   opacity: 1;
   transition: visibility 0.2s, opacity 0.2s;
@@ -891,33 +916,10 @@ button.icon {
         -ms-transform: translateY(-50%);
             transform: translateY(-50%); }
   .loading-view .circle {
-    border-radius: 50%;
-    height: 65vw;
-    width: 65vw;
-    -webkit-transform-origin: center center;
-        -ms-transform-origin: center center;
-            transform-origin: center center;
-    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
-    .loading-view .circle.circle-1 {
-      -webkit-transform: translateY(-49%) translateX(1%) scale(1.12);
-          -ms-transform: translateY(-49%) translateX(1%) scale(1.12);
-              transform: translateY(-49%) translateX(1%) scale(1.12);
-      transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition: transform 0.6s ease-out, opacity 0.6s ease-out;
-      transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition-delay: 1s;
-      background: #E0E0E0;
-      opacity: 0.5; }
-    .loading-view .circle.circle-2 {
-      -webkit-transform: translateY(-51%) translateX(-1%) scale(1);
-          -ms-transform: translateY(-51%) translateX(-1%) scale(1);
-              transform: translateY(-51%) translateX(-1%) scale(1);
-      transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition: transform 0.6s ease-out, opacity 0.6s ease-out;
-      transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition-delay: 1s;
-      background: #448AFF;
-      opacity: 0.4; }
+    transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
+    transition-delay: 1s; }
   .loading-view .text-container {
     color: #FAFAFA;
     overflow: hidden;
@@ -933,23 +935,23 @@ button.icon {
               transform: translateY(-50%);
       transition-delay: 1.3s; }
 
-.loaded .text-container span {
-  -webkit-transform: translateY(50%);
-      -ms-transform: translateY(50%);
-          transform: translateY(50%); }
-.loaded .circle.circle-1 {
-  -webkit-transform: translateY(-49%) translateX(1%) scale(0);
-      -ms-transform: translateY(-49%) translateX(1%) scale(0);
-          transform: translateY(-49%) translateX(1%) scale(0);
-  opacity: 0; }
-.loaded .circle.circle-2 {
-  -webkit-transform: translateY(-51%) translateX(-1%) scale(0);
-      -ms-transform: translateY(-51%) translateX(-1%) scale(0);
-          transform: translateY(-51%) translateX(-1%) scale(0);
-  opacity: 0; }
 .loaded .loading-view {
   opacity: 0;
   visibility: hidden; }
+  .loaded .loading-view .text-container span {
+    -webkit-transform: translateY(50%);
+        -ms-transform: translateY(50%);
+            transform: translateY(50%); }
+  .loaded .loading-view .circle.circle-1 {
+    -webkit-transform: translateY(-49%) translateX(1%) scale(0);
+        -ms-transform: translateY(-49%) translateX(1%) scale(0);
+            transform: translateY(-49%) translateX(1%) scale(0);
+    opacity: 0; }
+  .loaded .loading-view .circle.circle-2 {
+    -webkit-transform: translateY(-51%) translateX(-1%) scale(0);
+        -ms-transform: translateY(-51%) translateX(-1%) scale(0);
+            transform: translateY(-51%) translateX(-1%) scale(0);
+    opacity: 0; }
 
 form {
   padding: 0 0 1rem; }
@@ -1842,7 +1844,7 @@ main.full-height {
 .vertically-center {
   position: absolute;
   margin: 0 auto;
-  top: 40%;
+  top: 48%;
   left: 0;
   right: 0;
   -webkit-transform: translateY(-50%);
@@ -2010,7 +2012,7 @@ button.icon {
 .transparent {
   color: #6f6f6f; }
 
-.slight-gradient {
+.slight-gradient, .loading-view {
   background: radial-gradient(#009688, #004D40); }
 
 .opacity {
@@ -2070,6 +2072,32 @@ button.icon {
     background-color: #eceeef;
     border-color: #ddd; }
 
+.circle {
+  position: fixed;
+  top: 50%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  border-radius: 50%;
+  height: 65vw;
+  width: 65vw;
+  -webkit-transform-origin: center center;
+      -ms-transform-origin: center center;
+          transform-origin: center center;
+  box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
+  .circle.circle-1 {
+    -webkit-transform: translateY(-49%) translateX(1%) scale(1.12);
+        -ms-transform: translateY(-49%) translateX(1%) scale(1.12);
+            transform: translateY(-49%) translateX(1%) scale(1.12);
+    background: #E0E0E0;
+    opacity: 0.5; }
+  .circle.circle-2 {
+    -webkit-transform: translateY(-51%) translateX(-1%) scale(1);
+        -ms-transform: translateY(-51%) translateX(-1%) scale(1);
+            transform: translateY(-51%) translateX(-1%) scale(1);
+    background: #448AFF;
+    opacity: 0.4; }
+
 .loading-view {
   display: block;
   position: fixed;
@@ -2082,7 +2110,6 @@ button.icon {
   text-align: center;
   font-family: "butlerbold", serif;
   font-size: 5rem;
-  background: #004D40;
   visibility: visible;
   opacity: 1;
   transition: visibility 0.2s, opacity 0.2s;
@@ -2097,33 +2124,10 @@ button.icon {
         -ms-transform: translateY(-50%);
             transform: translateY(-50%); }
   .loading-view .circle {
-    border-radius: 50%;
-    height: 65vw;
-    width: 65vw;
-    -webkit-transform-origin: center center;
-        -ms-transform-origin: center center;
-            transform-origin: center center;
-    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
-    .loading-view .circle.circle-1 {
-      -webkit-transform: translateY(-49%) translateX(1%) scale(1.12);
-          -ms-transform: translateY(-49%) translateX(1%) scale(1.12);
-              transform: translateY(-49%) translateX(1%) scale(1.12);
-      transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition: transform 0.6s ease-out, opacity 0.6s ease-out;
-      transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition-delay: 1s;
-      background: #E0E0E0;
-      opacity: 0.5; }
-    .loading-view .circle.circle-2 {
-      -webkit-transform: translateY(-51%) translateX(-1%) scale(1);
-          -ms-transform: translateY(-51%) translateX(-1%) scale(1);
-              transform: translateY(-51%) translateX(-1%) scale(1);
-      transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition: transform 0.6s ease-out, opacity 0.6s ease-out;
-      transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition-delay: 1s;
-      background: #448AFF;
-      opacity: 0.4; }
+    transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
+    transition-delay: 1s; }
   .loading-view .text-container {
     color: #FAFAFA;
     overflow: hidden;
@@ -2139,23 +2143,23 @@ button.icon {
               transform: translateY(-50%);
       transition-delay: 1.3s; }
 
-.loaded .text-container span {
-  -webkit-transform: translateY(50%);
-      -ms-transform: translateY(50%);
-          transform: translateY(50%); }
-.loaded .circle.circle-1 {
-  -webkit-transform: translateY(-49%) translateX(1%) scale(0);
-      -ms-transform: translateY(-49%) translateX(1%) scale(0);
-          transform: translateY(-49%) translateX(1%) scale(0);
-  opacity: 0; }
-.loaded .circle.circle-2 {
-  -webkit-transform: translateY(-51%) translateX(-1%) scale(0);
-      -ms-transform: translateY(-51%) translateX(-1%) scale(0);
-          transform: translateY(-51%) translateX(-1%) scale(0);
-  opacity: 0; }
 .loaded .loading-view {
   opacity: 0;
   visibility: hidden; }
+  .loaded .loading-view .text-container span {
+    -webkit-transform: translateY(50%);
+        -ms-transform: translateY(50%);
+            transform: translateY(50%); }
+  .loaded .loading-view .circle.circle-1 {
+    -webkit-transform: translateY(-49%) translateX(1%) scale(0);
+        -ms-transform: translateY(-49%) translateX(1%) scale(0);
+            transform: translateY(-49%) translateX(1%) scale(0);
+    opacity: 0; }
+  .loaded .loading-view .circle.circle-2 {
+    -webkit-transform: translateY(-51%) translateX(-1%) scale(0);
+        -ms-transform: translateY(-51%) translateX(-1%) scale(0);
+            transform: translateY(-51%) translateX(-1%) scale(0);
+    opacity: 0; }
 
 body {
   margin: 0 0 130px; }
@@ -2928,7 +2932,7 @@ main.full-height {
 .vertically-center {
   position: absolute;
   margin: 0 auto;
-  top: 40%;
+  top: 48%;
   left: 0;
   right: 0;
   -webkit-transform: translateY(-50%);
@@ -3096,7 +3100,7 @@ button.icon {
 .transparent {
   color: #6f6f6f; }
 
-.slight-gradient {
+.slight-gradient, .loading-view {
   background: radial-gradient(#009688, #004D40); }
 
 .opacity {
@@ -3156,6 +3160,32 @@ button.icon {
     background-color: #eceeef;
     border-color: #ddd; }
 
+.circle {
+  position: fixed;
+  top: 50%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  border-radius: 50%;
+  height: 65vw;
+  width: 65vw;
+  -webkit-transform-origin: center center;
+      -ms-transform-origin: center center;
+          transform-origin: center center;
+  box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
+  .circle.circle-1 {
+    -webkit-transform: translateY(-49%) translateX(1%) scale(1.12);
+        -ms-transform: translateY(-49%) translateX(1%) scale(1.12);
+            transform: translateY(-49%) translateX(1%) scale(1.12);
+    background: #E0E0E0;
+    opacity: 0.5; }
+  .circle.circle-2 {
+    -webkit-transform: translateY(-51%) translateX(-1%) scale(1);
+        -ms-transform: translateY(-51%) translateX(-1%) scale(1);
+            transform: translateY(-51%) translateX(-1%) scale(1);
+    background: #448AFF;
+    opacity: 0.4; }
+
 .loading-view {
   display: block;
   position: fixed;
@@ -3168,7 +3198,6 @@ button.icon {
   text-align: center;
   font-family: "butlerbold", serif;
   font-size: 5rem;
-  background: #004D40;
   visibility: visible;
   opacity: 1;
   transition: visibility 0.2s, opacity 0.2s;
@@ -3183,33 +3212,10 @@ button.icon {
         -ms-transform: translateY(-50%);
             transform: translateY(-50%); }
   .loading-view .circle {
-    border-radius: 50%;
-    height: 65vw;
-    width: 65vw;
-    -webkit-transform-origin: center center;
-        -ms-transform-origin: center center;
-            transform-origin: center center;
-    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
-    .loading-view .circle.circle-1 {
-      -webkit-transform: translateY(-49%) translateX(1%) scale(1.12);
-          -ms-transform: translateY(-49%) translateX(1%) scale(1.12);
-              transform: translateY(-49%) translateX(1%) scale(1.12);
-      transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition: transform 0.6s ease-out, opacity 0.6s ease-out;
-      transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition-delay: 1s;
-      background: #E0E0E0;
-      opacity: 0.5; }
-    .loading-view .circle.circle-2 {
-      -webkit-transform: translateY(-51%) translateX(-1%) scale(1);
-          -ms-transform: translateY(-51%) translateX(-1%) scale(1);
-              transform: translateY(-51%) translateX(-1%) scale(1);
-      transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition: transform 0.6s ease-out, opacity 0.6s ease-out;
-      transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
-      transition-delay: 1s;
-      background: #448AFF;
-      opacity: 0.4; }
+    transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
+    transition-delay: 1s; }
   .loading-view .text-container {
     color: #FAFAFA;
     overflow: hidden;
@@ -3225,23 +3231,23 @@ button.icon {
               transform: translateY(-50%);
       transition-delay: 1.3s; }
 
-.loaded .text-container span {
-  -webkit-transform: translateY(50%);
-      -ms-transform: translateY(50%);
-          transform: translateY(50%); }
-.loaded .circle.circle-1 {
-  -webkit-transform: translateY(-49%) translateX(1%) scale(0);
-      -ms-transform: translateY(-49%) translateX(1%) scale(0);
-          transform: translateY(-49%) translateX(1%) scale(0);
-  opacity: 0; }
-.loaded .circle.circle-2 {
-  -webkit-transform: translateY(-51%) translateX(-1%) scale(0);
-      -ms-transform: translateY(-51%) translateX(-1%) scale(0);
-          transform: translateY(-51%) translateX(-1%) scale(0);
-  opacity: 0; }
 .loaded .loading-view {
   opacity: 0;
   visibility: hidden; }
+  .loaded .loading-view .text-container span {
+    -webkit-transform: translateY(50%);
+        -ms-transform: translateY(50%);
+            transform: translateY(50%); }
+  .loaded .loading-view .circle.circle-1 {
+    -webkit-transform: translateY(-49%) translateX(1%) scale(0);
+        -ms-transform: translateY(-49%) translateX(1%) scale(0);
+            transform: translateY(-49%) translateX(1%) scale(0);
+    opacity: 0; }
+  .loaded .loading-view .circle.circle-2 {
+    -webkit-transform: translateY(-51%) translateX(-1%) scale(0);
+        -ms-transform: translateY(-51%) translateX(-1%) scale(0);
+            transform: translateY(-51%) translateX(-1%) scale(0);
+    opacity: 0; }
 
 .bounce {
   -webkit-animation-name: bounce;
