@@ -48109,7 +48109,7 @@
 	    }, {
 	        key: 'trimTodosInList',
 	        value: function trimTodosInList(list) {
-	            if (list.tasks.length > this.todosPerList) {
+	            if (list.tasks.length >= this.todosPerList) {
 	                list.tasks.length = this.todosPerList;
 	                list.overTasksLimit = true;
 	                list.noMoreTasks = false;
@@ -48140,7 +48140,9 @@
 	                    if (list.tasks[i].id === todo.id) {
 	                        if (todo.status === 'Complete' || remove) {
 	                            list.tasks.splice(i, 1);
-	                            this.appendTodoAtEndOfList(list.id, list.tasks.length);
+	                            if (!list.showAllTasks && list.tasks.length === 5) {
+	                                this.appendTodoAtEndOfList(list.id, list.tasks.length);
+	                            }
 	                        } else {
 	                            list.tasks[i] = todo;
 	                        }
@@ -48231,6 +48233,7 @@
 	                    }, _this8);
 	                    if (list) {
 	                        list.tasks.push(result.data.tasks[0]);
+	                        _this8.trimTodosInList(list);
 	                    }
 	                }
 	            }, this.handleError.bind(this));

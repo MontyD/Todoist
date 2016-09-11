@@ -150,7 +150,9 @@ class RoomCtrl {
                 if (list.tasks[i].id === todo.id) {
                     if (todo.status === 'Complete' || remove) {
                         list.tasks.splice(i, 1);
-                        this.appendTodoAtEndOfList(list.id, list.tasks.length);
+                        if (!list.showAllTasks && list.tasks.length === 5) {
+                            this.appendTodoAtEndOfList(list.id, list.tasks.length);
+                        }
                     } else {
                         list.tasks[i] = todo;
                     }
@@ -231,6 +233,7 @@ class RoomCtrl {
                     }, this);
                     if (list) {
                         list.tasks.push(result.data.tasks[0]);
+                        this.trimTodosInList(list);
                     }
                 }
             },

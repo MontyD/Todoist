@@ -148,6 +148,10 @@ p.slight {
             background: $colorError;
         }
     }
+    &.full-width {
+      display: block;
+      width: 100%;
+    }
 
     &:hover {
         @include shadow(1);
