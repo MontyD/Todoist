@@ -18,6 +18,10 @@ ui-view {
     width                 : 100%;
     font-family           : $sans-serif;
     -webkit-font-smoothing: antialiased;
+    &.padded {
+      padding: 2em 0;
+      box-sizing: border-box;
+    }
 }
 
 main.full-height {
@@ -150,7 +154,7 @@ main.full-height {
 .modal {
     position  : relative;
     display   : block;
-    margin    : 2em auto;
+    margin    : 0 auto;
     width     : 90%;
     max-width : 600px;
     padding   : 1.6rem 1rem;

@@ -66,6 +66,7 @@ router.post('/new', function(req, res, next) {
         models.todoLists.create({
             roomId: room.id
         }).then(function(todoList) {
+          console.log(req.body);
             authenticateRoom(req, res, next);
         }).catch(function(err) {
             return handleError(err, next);
