@@ -32,26 +32,15 @@
     opacity  : 1;
     transform: translateX(0);
 }
-
-.task-item.ng-enter {
-    transition: 0.8s linear all;
-    opacity   : 0;
-}
-/* The finishing CSS styles for the enter animation */
-.task-item.ng-enter.ng-enter-active {
-    opacity: 1;
-}
-
 main {
-    transition: opacity 0.5s ease;
+    transition: opacity 0.8s ease-in;
 }
-
 ui-view.ng-enter,
 ui-view.ng-leave {
     position  : absolute;
     left      : 0;
     right     : 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.8s ease-in;
 }
 
 ui-view.ng-enter {
