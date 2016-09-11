@@ -14,6 +14,7 @@ var express = require('express'),
 
 // Passport auth
 function authenticateRoom(req, res, next) {
+    console.log(req.body);
     if (req.body.name) {
         req.session.username = req.body.name;
     }
@@ -66,7 +67,8 @@ router.post('/new', function(req, res, next) {
         models.todoLists.create({
             roomId: room.id
         }).then(function(todoList) {
-          console.log(req.body);
+          req.body.username = req.body.name;
+          req.body.password = req.body.adminPassword;
             authenticateRoom(req, res, next);
         }).catch(function(err) {
             return handleError(err, next);
