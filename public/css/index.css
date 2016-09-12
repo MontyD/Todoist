@@ -3332,14 +3332,17 @@ button.icon {
           transform: translateX(0); }
 
 main {
-  transition: opacity 0.8s ease-in; }
+  transition: opacity 0.3s ease-in; }
 
 ui-view.ng-enter,
 ui-view.ng-leave {
   position: absolute;
   left: 0;
   right: 0;
-  transition: opacity 0.8s ease-in; }
+  transition: opacity 0.7s ease-in; }
+
+ui-view.ng-enter main {
+  transition-delay: 0.3s; }
 
 ui-view.ng-enter main {
   opacity: 0; }
@@ -3511,14 +3514,17 @@ ui-view.ng-leave-active main {
           transform: translateX(0); }
 
 main {
-  transition: opacity 0.8s ease-in; }
+  transition: opacity 0.3s ease-in; }
 
 ui-view.ng-enter,
 ui-view.ng-leave {
   position: absolute;
   left: 0;
   right: 0;
-  transition: opacity 0.8s ease-in; }
+  transition: opacity 0.7s ease-in; }
+
+ui-view.ng-enter main {
+  transition-delay: 0.3s; }
 
 ui-view.ng-enter main {
   opacity: 0; }

@@ -1,9 +1,11 @@
 'use strict';
 
-function config($stateProvider, $urlRouterProvider, $locationProvider) {
+function config($stateProvider, $urlRouterProvider, $locationProvider, $animateProvider) {
     $locationProvider.html5Mode(true);
 
     $urlRouterProvider.otherwise('/');
+
+    $animateProvider.classNameFilter(/js-ani/);
 
     $stateProvider
         .state('home', {
@@ -27,4 +29,4 @@ function config($stateProvider, $urlRouterProvider, $locationProvider) {
 
 }
 
-export default ['$stateProvider', '$urlRouterProvider', '$locationProvider', config];
+export default ['$stateProvider', '$urlRouterProvider', '$locationProvider', '$animateProvider', config];

@@ -47923,10 +47923,12 @@
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	function config($stateProvider, $urlRouterProvider, $locationProvider) {
+	function config($stateProvider, $urlRouterProvider, $locationProvider, $animateProvider) {
 	    $locationProvider.html5Mode(true);
 
 	    $urlRouterProvider.otherwise('/');
+
+	    $animateProvider.classNameFilter(/js-ani/);
 
 	    $stateProvider.state('home', {
 	        url: '/',
@@ -47946,7 +47948,7 @@
 	    });
 	}
 
-	exports['default'] = ['$stateProvider', '$urlRouterProvider', '$locationProvider', config];
+	exports['default'] = ['$stateProvider', '$urlRouterProvider', '$locationProvider', '$animateProvider', config];
 	module.exports = exports['default'];
 
 /***/ },
