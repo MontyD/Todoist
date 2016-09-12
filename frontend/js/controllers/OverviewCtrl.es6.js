@@ -10,6 +10,8 @@ class OverviewCtrl {
         this.RoomService = RoomService;
         this.$scope = $scope;
 
+        this.hash = '';
+
         this.room = {
             name: '',
             isAdmin: false,
@@ -28,29 +30,12 @@ class OverviewCtrl {
         // initially seven blank strings
         this.daysOfTheWeek = ['', '', '', '', '', '', ''];
 
-        // read todos count
-        this.TasksService.countTodos().then(
-            result => this.todo = result.data.count,
-            this.handleError.bind(this)
-        );
-
-        // read completed count
-        this.TasksService.countCompleted().then(
-            result => {
-                this.completed = result.data.count;
-                this.initSockets();
-            },
-            this.handleError.bind(this)
-        );
-
-        this.TasksService.getCompletedLastWeek().then(
-            result => this.sortToDays(result.data),
-            this.handleError.bind(this)
-        );
+        this.init();
 
         this.RoomService.getInfo(
           roomInfo => {
             this.room = roomInfo;
+            this.hash = this.SocketsService.init(roomInfo.name);
           }.bind(this),
           this.handleError.bind(this)
         );
@@ -89,6 +74,15 @@ class OverviewCtrl {
             this.$scope.$apply();
         }).bind(this));
 
+        this.SocketsService.on('DeletedList', (function(data) {
+
+            // everything will be out of whack - grab all!
+            this.init();
+            // force view to update;
+            this.$scope.$apply();
+        }).bind(this));
+
+
         this.SocketsService.on('DeletedAllComplete', (function(data) {
           this.completed = 0;
           this.completedWeek = [0, 0, 0, 0, 0, 0, 0];
@@ -121,6 +115,29 @@ class OverviewCtrl {
         }
     }
 
+    init() {
+
+      // read todos count
+      this.TasksService.countTodos().then(
+          result => this.todo = result.data.count,
+          this.handleError.bind(this)
+      );
+
+      // read completed count
+      this.TasksService.countCompleted().then(
+          result => {
+              this.completed = result.data.count;
+              this.initSockets();
+          },
+          this.handleError.bind(this)
+      );
+
+      this.TasksService.getCompletedLastWeek().then(
+          result => this.sortToDays(result.data),
+          this.handleError.bind(this)
+      );
+    }
+
     percentageDone() {
       let done = (Math.round((this.completed / (this.todo + this.completed)) * 10000)) / 100;
       return isNaN(done) ? 0 : done;
@@ -139,6 +156,8 @@ class OverviewCtrl {
     sortToDays(array) {
       let today = this.dateWithoutTime();
       let oneDay = 24*60*60*1000;
+      // reset for re-init
+      this.completedWeek = [0, 0, 0, 0, 0, 0, 0];
         array.forEach(function(element, index) {
           let date = this.dateWithoutTime(element.updatedAt);
           let daysAgo = Math.round(Math.abs((date.getTime() - today.getTime())/(oneDay)));
