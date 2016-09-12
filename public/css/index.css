@@ -374,12 +374,12 @@ body {
   position: relative;
   min-height: 100%;
   width: 100%;
-  padding-bottom: 14em;
+  padding-bottom: 15em;
   font-family: "Droid Sans", sans-serif;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased; }
   body.padded {
-    padding: 2em 0 14em;
+    padding: 2em 0 15em;
     box-sizing: border-box; }
 
 ui-view {
@@ -619,7 +619,8 @@ footer {
   right: 0;
   bottom: 0;
   left: 0;
-  height: 14em;
+  height: 13em;
+  margin-top: 1em;
   box-sizing: border-box;
   background-color: #efefef;
   text-align: center; }
@@ -963,7 +964,7 @@ button.icon {
     opacity: 0; }
 
 footer {
-  background-image: linear-gradient(to bottom right, #004D40, #053d65);
+  background: #004D40;
   color: #E0E0E0; }
   footer h2 {
     font-weight: normal; }
@@ -1601,12 +1602,12 @@ body {
   position: relative;
   min-height: 100%;
   width: 100%;
-  padding-bottom: 14em;
+  padding-bottom: 15em;
   font-family: "Droid Sans", sans-serif;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased; }
   body.padded {
-    padding: 2em 0 14em;
+    padding: 2em 0 15em;
     box-sizing: border-box; }
 
 ui-view {
@@ -1846,7 +1847,8 @@ footer {
   right: 0;
   bottom: 0;
   left: 0;
-  height: 14em;
+  height: 13em;
+  margin-top: 1em;
   box-sizing: border-box;
   background-color: #efefef;
   text-align: center; }
@@ -2190,7 +2192,7 @@ button.icon {
     opacity: 0; }
 
 footer {
-  background-image: linear-gradient(to bottom right, #004D40, #053d65);
+  background: #004D40;
   color: #E0E0E0; }
   footer h2 {
     font-weight: normal; }
@@ -2209,7 +2211,7 @@ nav.top {
   height: 3.8rem;
   box-sizing: border-box;
   padding: 0.6rem 0.2rem;
-  background: linear-gradient(to top right, #004D40, #053d65); }
+  background: #004D40; }
   nav.top.absolute {
     position: absolute;
     top: 0;
@@ -2692,12 +2694,12 @@ body {
   position: relative;
   min-height: 100%;
   width: 100%;
-  padding-bottom: 14em;
+  padding-bottom: 15em;
   font-family: "Droid Sans", sans-serif;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased; }
   body.padded {
-    padding: 2em 0 14em;
+    padding: 2em 0 15em;
     box-sizing: border-box; }
 
 ui-view {
@@ -2937,7 +2939,8 @@ footer {
   right: 0;
   bottom: 0;
   left: 0;
-  height: 14em;
+  height: 13em;
+  margin-top: 1em;
   box-sizing: border-box;
   background-color: #efefef;
   text-align: center; }
@@ -3281,7 +3284,7 @@ button.icon {
     opacity: 0; }
 
 footer {
-  background-image: linear-gradient(to bottom right, #004D40, #053d65);
+  background: #004D40;
   color: #E0E0E0; }
   footer h2 {
     font-weight: normal; }

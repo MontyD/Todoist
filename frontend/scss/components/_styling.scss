@@ -411,7 +411,7 @@ button.icon {
 }
 
 footer {
-    background-image: linear-gradient(to bottom right,$colorDark, #053d65);
+    background: $colorDark;
     color: $colorSubtle;
     h2 {
       font-weight: normal;
