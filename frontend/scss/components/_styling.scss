@@ -58,9 +58,10 @@ h1 {
     &.shadow {
         text-shadow: 5px 5px 0 $colorDark;
     }
+
     &.short {
-      margin-top: 0;
-      margin-bottom: 0;
+        margin-top   : 0;
+        margin-bottom: 0;
     }
 }
 
@@ -273,7 +274,6 @@ button.icon {
 }
 
 .pagination {
-
     li:last-child a {
         border-bottom-right-radius: 0.25rem;
         border-top-right-radius   : 0.25rem;
@@ -407,5 +407,19 @@ button.icon {
             transform: translateY(-51%) translateX(-1%) scale(0);
             opacity  : 0;
         }
+    }
+}
+
+footer {
+    background-image: linear-gradient(to bottom right,$colorDark, #053d65);
+    color: $colorSubtle;
+    h2 {
+      font-weight: normal;
+    }
+    p a {
+      font-style: italic;
+      &:hover {
+        text-decoration: underline;
+      }
     }
 }

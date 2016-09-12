@@ -11,23 +11,31 @@ html {
     position: relative;
 }
 
-body,
-ui-view {
+body {
     display               : block;
-    height                : 100%;
+    position              : relative;
+    min-height            : 100%;
     width                 : 100%;
+    padding-bottom        : 14em;
     font-family           : $sans-serif;
+    box-sizing            : border-box;
     -webkit-font-smoothing: antialiased;
 
     &.padded {
-        padding   : 2em 0;
+        padding   : 2em 0 14em;
         box-sizing: border-box;
     }
 }
 
+ui-view {
+    display: block;
+    width  : 100%;
+    height : 100%;
+}
+
 main.full-height {
     position  : relative;
-    min-height: calc(100% - 3.8rem);
+    min-height: calc(100vh - 3.8rem);
 }
 
 .halfWidth {
@@ -322,6 +330,21 @@ main.full-height {
         border-bottom-left-radius: 0.25rem;
         border-top-left-radius   : 0.25rem;
     }
+}
+
+.loading-view {
+    z-index: 100;
+}
+
+footer {
+    position        : absolute;
+    right           : 0;
+    bottom          : 0;
+    left            : 0;
+    height          : 14em;
+    box-sizing      : border-box;
+    background-color: #efefef;
+    text-align      : center;
 }
 
 .container {

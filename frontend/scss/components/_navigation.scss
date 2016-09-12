@@ -9,7 +9,7 @@ nav.top {
     height    : 3.8rem;
     box-sizing: border-box;
     padding   : 0.6rem 0.2rem;
-    background: $colorDark;
+    background: linear-gradient(to top right,$colorDark, #053d65);
     &.absolute {
         position  : absolute;
         top       : 0;
@@ -57,23 +57,5 @@ nav.top {
         &:hover {
             background-color: rgba(0,0,0,0.3);
         }
-    }
-}
-footer {
-    position  : absolute;
-    left      : 0;
-    bottom    : 0;
-    height    : 100px;
-    width     : 100%;
-    margin    : 0;
-    box-sizing: border-box;
-    text-align: center;
-    font-size : 0.8rem;
-    .container {
-        padding: 0;
-    }
-    h3 {
-        margin   : 0.6rem 0 0;
-        font-size: 1.8rem;
     }
 }
