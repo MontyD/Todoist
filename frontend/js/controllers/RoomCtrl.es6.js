@@ -224,6 +224,7 @@ class RoomCtrl {
         this.TasksService.update(task.id, task, this.hash).then(
             result => {
                 if (result.data.status === 'Complete') {
+                  this.Notify('You completed a todo!', 'Success');
                     return this.updateTaskLocally(result.data);
                 }
             },

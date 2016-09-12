@@ -9,14 +9,20 @@
         </ul>
     </div>
 </nav>
-<main class="container">
-  <article class="todo-list thirds" dir-paginate="list in home.lists | itemsPerPage: home.listsAmountPerPage" total-items="home.listsTotal" current-page="home.listsCurrentPage">
-    <todo-list list="list" createtodo="home.createTodo(list.id, list.newTask)" edittask="home.editTask(task)" deletetask="home.deleteTask(task)" editlist="home.editList(list.id, list.name)" deletelist="home.deleteList(list.id)">
-    </todo-list>
-  </article>
-  <dir-pagination-controls on-page-change="home.changePage(newPageNumber)"></dir-pagination-controls>
-
-  <p class="todo-list-new thirds" ng-click="home.newList()">
-      <i class="lnr lnr-plus-circle"></i> Add new list
-  </p>
+<main class="container center">
+    <article class="transparent center">
+        <h1 class="short">Hi {{home.room.username}}</h1>
+        <button class="button secondary" ng-click="home.newList()">New List</button>
+    </article>
+    <article class="todo-list thirds" dir-paginate="list in home.lists | itemsPerPage: home.listsAmountPerPage" total-items="home.listsTotal" current-page="home.listsCurrentPage">
+        <todo-list list="list" createtodo="home.createTodo(list.id, list.newTask)" edittask="home.editTask(task)" deletetask="home.deleteTask(task)" editlist="home.editList(list.id, list.name)" deletelist="home.deleteList(list.id)">
+        </todo-list>
+    </article>
+    <article ng-if="home.lists.length === 0" class="empty-notification main">
+      <h2>No lists :(</h2>
+      <p>What are you even doing here?</p>
+    </artice>
+    <div class="paginination-container">
+      <dir-pagination-controls on-page-change="home.changePage(newPageNumber)"></dir-pagination-controls>
+    </div>
 </main>

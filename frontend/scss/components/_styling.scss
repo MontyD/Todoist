@@ -58,6 +58,10 @@ h1 {
     &.shadow {
         text-shadow: 5px 5px 0 $colorDark;
     }
+    &.short {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
 }
 
 h2 {
@@ -269,63 +273,47 @@ button.icon {
 }
 
 .pagination {
-    display      : block;
-    padding-left : 0;
-    margin-top   : 1rem;
-    margin-bottom: 1rem;
-    border-radius: 0.25rem;
 
-    li {
-        display: inline;
-    }
-
-    li:first-child .page-link {
-        margin-left              : 0;
-        border-bottom-left-radius: 0.25rem;
-        border-top-left-radius   : 0.25rem;
-    }
-
-    li:last-child .page-link {
+    li:last-child a {
         border-bottom-right-radius: 0.25rem;
         border-top-right-radius   : 0.25rem;
     }
 
-    li.active .page-link,
-    li.active .page-link:focus,
-    li.active .page-link:hover {
-        z-index         : 2;
-        color           : #fff;
-        cursor          : default;
-        background-color: #0275d8;
-        border-color    : #0275d8;
+    li:first-child a {
+        border-bottom-left-radius: 0.25rem;
+        border-top-left-radius   : 0.25rem;
     }
 
-    li.disabled .page-link,
-    li.disabled .page-link:focus,
-    li.disabled .page-link:hover {
-        color           : #818a91;
+    li.active a {
+        color           : $colorWhite;
+        cursor          : default;
+        background-color: $colorDark;
+        border-color    : $colorDark;
+    }
+
+    li.disabled a {
+        color           : $colorGrey;
         pointer-events  : none;
         cursor          : not-allowed;
-        background-color: #fff;
-        border-color    : #ddd;
+        background-color: $colorSubtle;
+        border-color    : $colorSubtle;
     }
 
     a {
         position        : relative;
         float           : left;
-        padding         : 0.5rem 0.75rem;
+        padding         : 0.75rem 1rem;
         margin-left     : -1px;
-        color           : #0275d8;
+        color           : $colorDark;
         text-decoration : none;
-        background-color: #fff;
-        border          : 1px solid #ddd;
+        background-color: $colorWhite;
+        border          : 1px solid $colorMain;
     }
 
     a:focus,
     a:hover {
-        color           : #014c8c;
+        color           : $colorDark;
         background-color: #eceeef;
-        border-color    : #ddd;
     }
 }
 
