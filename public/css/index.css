@@ -371,15 +371,12 @@ html {
 
 body {
   display: block;
-  position: relative;
-  min-height: 100%;
+  height: 100%;
   width: 100%;
-  padding-bottom: 15em;
   font-family: "Droid Sans", sans-serif;
-  box-sizing: border-box;
   -webkit-font-smoothing: antialiased; }
   body.padded {
-    padding: 2em 0 15em;
+    padding: 2em 0;
     box-sizing: border-box; }
 
 ui-view {
@@ -389,7 +386,7 @@ ui-view {
 
 main.full-height {
   position: relative;
-  min-height: calc(100vh - 3.8rem); }
+  min-height: calc(100% - 3.8rem); }
 
 .halfWidth {
   display: inline-block;
@@ -483,7 +480,7 @@ main.full-height {
       .thirds.two {
         width: 90%; } }
 
-.modal {
+.modal, .main-stats-container {
   position: relative;
   display: block;
   margin: 0 auto;
@@ -492,13 +489,15 @@ main.full-height {
   padding: 1.6rem 1rem;
   box-sizing: border-box;
   text-align: center; }
-  .modal.main {
+  .modal.main, .main.main-stats-container {
     margin: 5% auto; }
-  .modal.full-width {
+  .modal.full-width, .full-width.main-stats-container {
     max-width: none; }
-  .modal h1,
+  .modal h1, .main-stats-container h1,
   .modal h2,
-  .modal h3 {
+  .main-stats-container h2,
+  .modal h3,
+  .main-stats-container h3 {
     margin-top: 0; }
 
 .stats-container {
@@ -516,14 +515,40 @@ main.full-height {
     font-family: "butlerbold", serif;
     font-size: 5.5rem;
     line-height: 90%; }
+    @media (max-width: 900px) {
+      .stats-container .large-number {
+        font-size: 3.5rem; } }
+
+.main-stats-container {
+  display: block;
+  position: absolute;
+  top: 45%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  text-transform: center; }
+  @media (max-width: 900px) {
+    .main-stats-container {
+      position: relative;
+      -webkit-transform: translateY(0);
+          -ms-transform: translateY(0);
+              transform: translateY(0);
+      top: 0;
+      padding: 1.5em 0.5em 0.5em;
+      max-width: 450px;
+      border-top-left-radius: 0 !important;
+      border-top-right-radius: 0 !important; } }
 
 .overview-percentage {
   margin: 0;
   line-height: 90%;
-  font-size: 8rem; }
+  font-size: 7rem; }
   @media (max-width: 900px) {
     .overview-percentage {
-      font-size: 5rem; } }
+      font-size: 4.5rem; } }
 
 .graphs {
   position: absolute;
@@ -564,6 +589,10 @@ main.full-height {
       transition: opacity 0.2s ease;
       opacity: 0;
       font-size: 0.8rem; }
+      @media (max-width: 1100px) {
+        .graphs .week-graph span {
+          bottom: 1.4rem;
+          font-size: 0.7rem; } }
     .graphs .week-graph .big-number {
       font-family: "butlerbold", serif;
       font-size: 4rem;
@@ -615,14 +644,8 @@ main.full-height {
   z-index: 100; }
 
 footer {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 13em;
   margin-top: 1em;
   box-sizing: border-box;
-  background-color: #efefef;
   text-align: center; }
 
 .container {
@@ -667,7 +690,7 @@ ui-view {
   color: #212121;
   overflow-x: hidden; }
 
-.modal {
+.modal, .main-stats-container {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
   border-radius: 0.3rem; }
 
@@ -1599,15 +1622,12 @@ html {
 
 body {
   display: block;
-  position: relative;
-  min-height: 100%;
+  height: 100%;
   width: 100%;
-  padding-bottom: 15em;
   font-family: "Droid Sans", sans-serif;
-  box-sizing: border-box;
   -webkit-font-smoothing: antialiased; }
   body.padded {
-    padding: 2em 0 15em;
+    padding: 2em 0;
     box-sizing: border-box; }
 
 ui-view {
@@ -1617,7 +1637,7 @@ ui-view {
 
 main.full-height {
   position: relative;
-  min-height: calc(100vh - 3.8rem); }
+  min-height: calc(100% - 3.8rem); }
 
 .halfWidth {
   display: inline-block;
@@ -1711,7 +1731,7 @@ main.full-height {
       .thirds.two {
         width: 90%; } }
 
-.modal {
+.modal, .main-stats-container {
   position: relative;
   display: block;
   margin: 0 auto;
@@ -1720,13 +1740,15 @@ main.full-height {
   padding: 1.6rem 1rem;
   box-sizing: border-box;
   text-align: center; }
-  .modal.main {
+  .modal.main, .main.main-stats-container {
     margin: 5% auto; }
-  .modal.full-width {
+  .modal.full-width, .full-width.main-stats-container {
     max-width: none; }
-  .modal h1,
+  .modal h1, .main-stats-container h1,
   .modal h2,
-  .modal h3 {
+  .main-stats-container h2,
+  .modal h3,
+  .main-stats-container h3 {
     margin-top: 0; }
 
 .stats-container {
@@ -1744,14 +1766,40 @@ main.full-height {
     font-family: "butlerbold", serif;
     font-size: 5.5rem;
     line-height: 90%; }
+    @media (max-width: 900px) {
+      .stats-container .large-number {
+        font-size: 3.5rem; } }
+
+.main-stats-container {
+  display: block;
+  position: absolute;
+  top: 45%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  text-transform: center; }
+  @media (max-width: 900px) {
+    .main-stats-container {
+      position: relative;
+      -webkit-transform: translateY(0);
+          -ms-transform: translateY(0);
+              transform: translateY(0);
+      top: 0;
+      padding: 1.5em 0.5em 0.5em;
+      max-width: 450px;
+      border-top-left-radius: 0 !important;
+      border-top-right-radius: 0 !important; } }
 
 .overview-percentage {
   margin: 0;
   line-height: 90%;
-  font-size: 8rem; }
+  font-size: 7rem; }
   @media (max-width: 900px) {
     .overview-percentage {
-      font-size: 5rem; } }
+      font-size: 4.5rem; } }
 
 .graphs {
   position: absolute;
@@ -1792,6 +1840,10 @@ main.full-height {
       transition: opacity 0.2s ease;
       opacity: 0;
       font-size: 0.8rem; }
+      @media (max-width: 1100px) {
+        .graphs .week-graph span {
+          bottom: 1.4rem;
+          font-size: 0.7rem; } }
     .graphs .week-graph .big-number {
       font-family: "butlerbold", serif;
       font-size: 4rem;
@@ -1843,14 +1895,8 @@ main.full-height {
   z-index: 100; }
 
 footer {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 13em;
   margin-top: 1em;
   box-sizing: border-box;
-  background-color: #efefef;
   text-align: center; }
 
 .container {
@@ -1895,7 +1941,7 @@ ui-view {
   color: #212121;
   overflow-x: hidden; }
 
-.modal {
+.modal, .main-stats-container {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
   border-radius: 0.3rem; }
 
@@ -2691,15 +2737,12 @@ html {
 
 body {
   display: block;
-  position: relative;
-  min-height: 100%;
+  height: 100%;
   width: 100%;
-  padding-bottom: 15em;
   font-family: "Droid Sans", sans-serif;
-  box-sizing: border-box;
   -webkit-font-smoothing: antialiased; }
   body.padded {
-    padding: 2em 0 15em;
+    padding: 2em 0;
     box-sizing: border-box; }
 
 ui-view {
@@ -2709,7 +2752,7 @@ ui-view {
 
 main.full-height {
   position: relative;
-  min-height: calc(100vh - 3.8rem); }
+  min-height: calc(100% - 3.8rem); }
 
 .halfWidth {
   display: inline-block;
@@ -2803,7 +2846,7 @@ main.full-height {
       .thirds.two {
         width: 90%; } }
 
-.modal {
+.modal, .main-stats-container {
   position: relative;
   display: block;
   margin: 0 auto;
@@ -2812,13 +2855,15 @@ main.full-height {
   padding: 1.6rem 1rem;
   box-sizing: border-box;
   text-align: center; }
-  .modal.main {
+  .modal.main, .main.main-stats-container {
     margin: 5% auto; }
-  .modal.full-width {
+  .modal.full-width, .full-width.main-stats-container {
     max-width: none; }
-  .modal h1,
+  .modal h1, .main-stats-container h1,
   .modal h2,
-  .modal h3 {
+  .main-stats-container h2,
+  .modal h3,
+  .main-stats-container h3 {
     margin-top: 0; }
 
 .stats-container {
@@ -2836,14 +2881,40 @@ main.full-height {
     font-family: "butlerbold", serif;
     font-size: 5.5rem;
     line-height: 90%; }
+    @media (max-width: 900px) {
+      .stats-container .large-number {
+        font-size: 3.5rem; } }
+
+.main-stats-container {
+  display: block;
+  position: absolute;
+  top: 45%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  text-transform: center; }
+  @media (max-width: 900px) {
+    .main-stats-container {
+      position: relative;
+      -webkit-transform: translateY(0);
+          -ms-transform: translateY(0);
+              transform: translateY(0);
+      top: 0;
+      padding: 1.5em 0.5em 0.5em;
+      max-width: 450px;
+      border-top-left-radius: 0 !important;
+      border-top-right-radius: 0 !important; } }
 
 .overview-percentage {
   margin: 0;
   line-height: 90%;
-  font-size: 8rem; }
+  font-size: 7rem; }
   @media (max-width: 900px) {
     .overview-percentage {
-      font-size: 5rem; } }
+      font-size: 4.5rem; } }
 
 .graphs {
   position: absolute;
@@ -2884,6 +2955,10 @@ main.full-height {
       transition: opacity 0.2s ease;
       opacity: 0;
       font-size: 0.8rem; }
+      @media (max-width: 1100px) {
+        .graphs .week-graph span {
+          bottom: 1.4rem;
+          font-size: 0.7rem; } }
     .graphs .week-graph .big-number {
       font-family: "butlerbold", serif;
       font-size: 4rem;
@@ -2935,14 +3010,8 @@ main.full-height {
   z-index: 100; }
 
 footer {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 13em;
   margin-top: 1em;
   box-sizing: border-box;
-  background-color: #efefef;
   text-align: center; }
 
 .container {
@@ -2987,7 +3056,7 @@ ui-view {
   color: #212121;
   overflow-x: hidden; }
 
-.modal {
+.modal, .main-stats-container {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
   border-radius: 0.3rem; }
 
@@ -3354,9 +3423,6 @@ ui-view.ng-leave {
   left: 0;
   right: 0;
   transition: opacity 0.7s ease-in; }
-  ui-view.ng-enter + footer,
-  ui-view.ng-leave + footer {
-    opacity: 0; }
 
 ui-view.ng-enter main {
   transition-delay: 0.3s; }
@@ -3485,6 +3551,9 @@ ui-view.ng-leave-active main {
       font-size: 3rem;
       margin-bottom: 0.2rem; }
 
+.intro-container {
+  margin: 0.2em auto 2em; }
+
 .empty-notification {
   margin: 1.5rem 0.5rem;
   padding: 1.8em 0;
@@ -3539,9 +3608,6 @@ ui-view.ng-leave {
   left: 0;
   right: 0;
   transition: opacity 0.7s ease-in; }
-  ui-view.ng-enter + footer,
-  ui-view.ng-leave + footer {
-    opacity: 0; }
 
 ui-view.ng-enter main {
   transition-delay: 0.3s; }
