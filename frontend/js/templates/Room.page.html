@@ -14,10 +14,12 @@
         <h1 class="short">Hi {{home.room.username}}</h1>
         <button class="button secondary" ng-click="home.newList()">New List</button>
     </article>
-    <article class="todo-list thirds" dir-paginate="list in home.lists | itemsPerPage: home.listsAmountPerPage" total-items="home.listsTotal" current-page="home.listsCurrentPage">
-        <todo-list list="list" createtodo="home.createTodo(list.id, list.newTask)" edittask="home.editTask(task)" deletetask="home.deleteTask(task)" editlist="home.editList(list.id, list.name)" deletelist="home.deleteList(list.id)">
-        </todo-list>
-    </article>
+    <section class="lists-container">
+        <article class="todo-list thirds" dir-paginate="list in home.lists | itemsPerPage: home.listsAmountPerPage" total-items="home.listsTotal" current-page="home.listsCurrentPage">
+            <todo-list list="list" createtodo="home.createTodo(list.id, list.newTask)" edittask="home.editTask(task)" deletetask="home.deleteTask(task)" editlist="home.editList(list.id, list.name)" deletelist="home.deleteList(list.id)">
+            </todo-list>
+        </article>
+    </section>
     <article ng-if="home.lists.length === 0" class="empty-notification main">
         <h2>No lists :(</h2>
         <p>What are you even doing here?</p>

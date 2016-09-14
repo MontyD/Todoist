@@ -88,7 +88,9 @@
         border-top: none;
     }
 }
-
+.lists-container {
+  text-align: left;
+}
 .todo-list {
     position     : relative;
     padding      : 0 0 1rem;
@@ -96,6 +98,7 @@
     max-width    : 600px;
     box-shadow   : 0 1.5px 4px rgba(0,0,0,.24),0 1.5px 6px rgba(0,0,0,.12);
     border-radius: 0.3rem;
+    flex: auto;
     @extend .light;
     text-align   : left;
     @media(max-width: $mediumBP) {
