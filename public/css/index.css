@@ -579,7 +579,7 @@ main.full-height {
     height: 100%;
     width: 14%;
     top: 0; }
-    .graphs .week-graph span {
+    .graphs .week-graph .label {
       position: absolute;
       bottom: 1rem;
       width: 100%;
@@ -588,15 +588,37 @@ main.full-height {
       padding: 0 0.5rem;
       transition: opacity 0.2s ease;
       opacity: 0;
-      font-size: 0.8rem; }
+      font-size: 0.8rem;
+      vertical-align: middle; }
       @media (max-width: 1100px) {
-        .graphs .week-graph span {
+        .graphs .week-graph .label {
           bottom: 1.4rem;
           font-size: 0.7rem; } }
+      @media (max-width: 630px) {
+        .graphs .week-graph .label {
+          bottom: 0;
+          left: 50%;
+          font-size: 0.8rem;
+          text-align: left;
+          width: 300px;
+          -webkit-transform: rotate(-90deg);
+              -ms-transform: rotate(-90deg);
+                  transform: rotate(-90deg);
+          -webkit-transform-origin: 0;
+              -ms-transform-origin: 0;
+                  transform-origin: 0; } }
     .graphs .week-graph .big-number {
+      display: block;
+      margin: 0 auto;
       font-family: "butlerbold", serif;
       font-size: 4rem;
-      line-height: 90%; }
+      line-height: 90%;
+      vertical-align: middle; }
+      @media (max-width: 630px) {
+        .graphs .week-graph .big-number {
+          display: inline-block;
+          font-size: 2.2rem;
+          padding-right: 0.2em; } }
     .graphs .week-graph .graph {
       position: absolute;
       top: 0;
@@ -856,7 +878,7 @@ button.icon {
   background: radial-gradient(#009688, #004D40); }
 
 .opacity {
-  opacity: 0.6; }
+  opacity: 0.5; }
 
 .main-graph {
   background: rgba(68, 138, 255, 0.2); }
@@ -1830,7 +1852,7 @@ main.full-height {
     height: 100%;
     width: 14%;
     top: 0; }
-    .graphs .week-graph span {
+    .graphs .week-graph .label {
       position: absolute;
       bottom: 1rem;
       width: 100%;
@@ -1839,15 +1861,37 @@ main.full-height {
       padding: 0 0.5rem;
       transition: opacity 0.2s ease;
       opacity: 0;
-      font-size: 0.8rem; }
+      font-size: 0.8rem;
+      vertical-align: middle; }
       @media (max-width: 1100px) {
-        .graphs .week-graph span {
+        .graphs .week-graph .label {
           bottom: 1.4rem;
           font-size: 0.7rem; } }
+      @media (max-width: 630px) {
+        .graphs .week-graph .label {
+          bottom: 0;
+          left: 50%;
+          font-size: 0.8rem;
+          text-align: left;
+          width: 300px;
+          -webkit-transform: rotate(-90deg);
+              -ms-transform: rotate(-90deg);
+                  transform: rotate(-90deg);
+          -webkit-transform-origin: 0;
+              -ms-transform-origin: 0;
+                  transform-origin: 0; } }
     .graphs .week-graph .big-number {
+      display: block;
+      margin: 0 auto;
       font-family: "butlerbold", serif;
       font-size: 4rem;
-      line-height: 90%; }
+      line-height: 90%;
+      vertical-align: middle; }
+      @media (max-width: 630px) {
+        .graphs .week-graph .big-number {
+          display: inline-block;
+          font-size: 2.2rem;
+          padding-right: 0.2em; } }
     .graphs .week-graph .graph {
       position: absolute;
       top: 0;
@@ -2107,7 +2151,7 @@ button.icon {
   background: radial-gradient(#009688, #004D40); }
 
 .opacity {
-  opacity: 0.6; }
+  opacity: 0.5; }
 
 .main-graph {
   background: rgba(68, 138, 255, 0.2); }
@@ -2945,7 +2989,7 @@ main.full-height {
     height: 100%;
     width: 14%;
     top: 0; }
-    .graphs .week-graph span {
+    .graphs .week-graph .label {
       position: absolute;
       bottom: 1rem;
       width: 100%;
@@ -2954,15 +2998,37 @@ main.full-height {
       padding: 0 0.5rem;
       transition: opacity 0.2s ease;
       opacity: 0;
-      font-size: 0.8rem; }
+      font-size: 0.8rem;
+      vertical-align: middle; }
       @media (max-width: 1100px) {
-        .graphs .week-graph span {
+        .graphs .week-graph .label {
           bottom: 1.4rem;
           font-size: 0.7rem; } }
+      @media (max-width: 630px) {
+        .graphs .week-graph .label {
+          bottom: 0;
+          left: 50%;
+          font-size: 0.8rem;
+          text-align: left;
+          width: 300px;
+          -webkit-transform: rotate(-90deg);
+              -ms-transform: rotate(-90deg);
+                  transform: rotate(-90deg);
+          -webkit-transform-origin: 0;
+              -ms-transform-origin: 0;
+                  transform-origin: 0; } }
     .graphs .week-graph .big-number {
+      display: block;
+      margin: 0 auto;
       font-family: "butlerbold", serif;
       font-size: 4rem;
-      line-height: 90%; }
+      line-height: 90%;
+      vertical-align: middle; }
+      @media (max-width: 630px) {
+        .graphs .week-graph .big-number {
+          display: inline-block;
+          font-size: 2.2rem;
+          padding-right: 0.2em; } }
     .graphs .week-graph .graph {
       position: absolute;
       top: 0;
@@ -3222,7 +3288,7 @@ button.icon {
   background: radial-gradient(#009688, #004D40); }
 
 .opacity {
-  opacity: 0.6; }
+  opacity: 0.5; }
 
 .main-graph {
   background: rgba(68, 138, 255, 0.2); }
