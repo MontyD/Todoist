@@ -88,17 +88,22 @@
         border-top: none;
     }
 }
+
 .lists-container {
-  text-align: left;
+    display          : flex;
+    -webkit-flex-flow: row wrap;
+    justify-content  : space-around;
 }
+
 .todo-list {
     position     : relative;
     padding      : 0 0 1rem;
+    height       : 0%;
     margin       : 0.5rem 0.3rem;
     max-width    : 600px;
     box-shadow   : 0 1.5px 4px rgba(0,0,0,.24),0 1.5px 6px rgba(0,0,0,.12);
     border-radius: 0.3rem;
-    flex: auto;
+    flex         : auto;
     @extend .light;
     text-align   : left;
     @media(max-width: $mediumBP) {
@@ -181,7 +186,7 @@
 }
 
 .intro-container {
-  margin: 0.2em auto 2em;
+    margin: 0.2em auto 2em;
 }
 
 .empty-notification {
