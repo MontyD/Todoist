@@ -2361,15 +2361,33 @@ nav.top {
     padding: 0.6rem 0;
     display: inline-block;
     margin: auto;
-    height: 100%; }
+    height: 100vh; }
     @media (max-width: 630px) {
       nav.top ul {
-        display: none; } }
+        position: fixed;
+        width: 200px;
+        height: 100%;
+        top: 0;
+        right: -200px;
+        text-align: center;
+        transition: -webkit-transform 0.2s ease;
+        transition: transform 0.2s ease;
+        transition: transform 0.2s ease, -webkit-transform 0.2s ease;
+        background: #004D40;
+        z-index: 1000;
+        box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); } }
   nav.top li {
     list-style: none;
     display: inline-block;
     padding: 0;
     margin: 0; }
+    @media (max-width: 630px) {
+      nav.top li {
+        display: block;
+        font-size: 1.2em;
+        margin: 2em auto; }
+        nav.top li:first-child {
+          margin-top: 4em; } }
   nav.top a {
     color: #FAFAFA;
     padding: 0.6rem 0.8rem;
@@ -2399,6 +2417,28 @@ nav.top {
           display: inline-block; } }
       nav.top a.menu-icon img {
         vertical-align: middle; }
+    nav.top a.close {
+      display: block;
+      height: 38px;
+      width: 42px;
+      padding: 0;
+      margin: 0 auto;
+      line-height: 36px;
+      display: block;
+      position: absolute;
+      top: 0.5em;
+      right: 0.5em; }
+      nav.top a.close img {
+        vertical-align: middle; }
+      @media (min-width: 630px) {
+        nav.top a.close {
+          display: none; } }
+
+@media (max-width: 630px) {
+  .menu-open ul {
+    -webkit-transform: translateX(-200px);
+        -ms-transform: translateX(-200px);
+            transform: translateX(-200px); } }
 
 /**
  * angular-ui-notification - Angular.js service providing simple notifications using Bootstrap 3 styles with css transitions for animating
@@ -3574,6 +3614,10 @@ ui-view.ng-leave main {
 
 ui-view.ng-leave-active main {
   opacity: 0; }
+ui-view.ng-leave-active nav.top.menu-open ul {
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0); }
 
 .task-item {
   display: block;
@@ -3765,3 +3809,7 @@ ui-view.ng-leave main {
 
 ui-view.ng-leave-active main {
   opacity: 0; }
+ui-view.ng-leave-active nav.top.menu-open ul {
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0); }

@@ -73,4 +73,7 @@ ui-view.ng-leave-active {
     main {
         opacity: 0;
     }
+    nav.top.menu-open ul {
+      transform: translateX(0);
+    }
 }
