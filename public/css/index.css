@@ -509,6 +509,10 @@ main.full-height {
   padding: 1rem 0.4rem;
   text-align: center;
   font-size: 0.9rem; }
+  @media (max-width: 630px) {
+    .stats-container {
+      padding: 0.2rem 0.2rem;
+      font-size: 0.7rem; } }
   .stats-container .large-number {
     display: block;
     width: 100%;
@@ -518,6 +522,12 @@ main.full-height {
     @media (max-width: 900px) {
       .stats-container .large-number {
         font-size: 3.5rem; } }
+    @media (max-width: 630px) {
+      .stats-container .large-number {
+        font-size: 2.5rem; } }
+  @media (max-width: 630px) {
+    .stats-container .button {
+      font-size: 0.8rem; } }
 
 .main-stats-container {
   display: block;
@@ -549,6 +559,9 @@ main.full-height {
   @media (max-width: 900px) {
     .overview-percentage {
       font-size: 4.5rem; } }
+  @media (max-width: 630px) {
+    .overview-percentage {
+      font-size: 2.5rem; } }
 
 .graphs {
   position: absolute;
@@ -598,7 +611,7 @@ main.full-height {
         .graphs .week-graph .label {
           bottom: 0;
           left: 50%;
-          font-size: 0.8rem;
+          font-size: 0.7rem;
           text-align: left;
           width: 300px;
           -webkit-transform: rotate(-90deg);
@@ -1782,6 +1795,10 @@ main.full-height {
   padding: 1rem 0.4rem;
   text-align: center;
   font-size: 0.9rem; }
+  @media (max-width: 630px) {
+    .stats-container {
+      padding: 0.2rem 0.2rem;
+      font-size: 0.7rem; } }
   .stats-container .large-number {
     display: block;
     width: 100%;
@@ -1791,6 +1808,12 @@ main.full-height {
     @media (max-width: 900px) {
       .stats-container .large-number {
         font-size: 3.5rem; } }
+    @media (max-width: 630px) {
+      .stats-container .large-number {
+        font-size: 2.5rem; } }
+  @media (max-width: 630px) {
+    .stats-container .button {
+      font-size: 0.8rem; } }
 
 .main-stats-container {
   display: block;
@@ -1822,6 +1845,9 @@ main.full-height {
   @media (max-width: 900px) {
     .overview-percentage {
       font-size: 4.5rem; } }
+  @media (max-width: 630px) {
+    .overview-percentage {
+      font-size: 2.5rem; } }
 
 .graphs {
   position: absolute;
@@ -1871,7 +1897,7 @@ main.full-height {
         .graphs .week-graph .label {
           bottom: 0;
           left: 50%;
-          font-size: 0.8rem;
+          font-size: 0.7rem;
           text-align: left;
           width: 300px;
           -webkit-transform: rotate(-90deg);
@@ -2320,6 +2346,10 @@ nav.top {
     padding: 0; }
     nav.top .home-link:hover {
       background: transparent; }
+    @media (max-width: 630px) {
+      nav.top .home-link {
+        font-size: 1.4rem;
+        padding-top: 0.5rem; } }
   nav.top ul {
     position: absolute;
     right: 0;
@@ -2342,6 +2372,8 @@ nav.top {
     margin: 0 0.5rem; }
     nav.top a:hover {
       background-color: rgba(0, 0, 0, 0.3); }
+    nav.top a.current {
+      background-color: rgba(0, 0, 0, 0.1); }
 
 /**
  * angular-ui-notification - Angular.js service providing simple notifications using Bootstrap 3 styles with css transitions for animating
@@ -2919,6 +2951,10 @@ main.full-height {
   padding: 1rem 0.4rem;
   text-align: center;
   font-size: 0.9rem; }
+  @media (max-width: 630px) {
+    .stats-container {
+      padding: 0.2rem 0.2rem;
+      font-size: 0.7rem; } }
   .stats-container .large-number {
     display: block;
     width: 100%;
@@ -2928,6 +2964,12 @@ main.full-height {
     @media (max-width: 900px) {
       .stats-container .large-number {
         font-size: 3.5rem; } }
+    @media (max-width: 630px) {
+      .stats-container .large-number {
+        font-size: 2.5rem; } }
+  @media (max-width: 630px) {
+    .stats-container .button {
+      font-size: 0.8rem; } }
 
 .main-stats-container {
   display: block;
@@ -2959,6 +3001,9 @@ main.full-height {
   @media (max-width: 900px) {
     .overview-percentage {
       font-size: 4.5rem; } }
+  @media (max-width: 630px) {
+    .overview-percentage {
+      font-size: 2.5rem; } }
 
 .graphs {
   position: absolute;
@@ -3008,7 +3053,7 @@ main.full-height {
         .graphs .week-graph .label {
           bottom: 0;
           left: 50%;
-          font-size: 0.8rem;
+          font-size: 0.7rem;
           text-align: left;
           width: 300px;
           -webkit-transform: rotate(-90deg);

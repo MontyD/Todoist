@@ -31,6 +31,10 @@ nav.top {
         &:hover {
             background: transparent;
         }
+        @media(max-width: $smallBP) {
+          font-size: 1.4rem;
+          padding-top: 0.5rem;
+        }
     }
     ul {
         position: absolute;
@@ -56,6 +60,9 @@ nav.top {
         margin       : 0 0.5rem;
         &:hover {
             background-color: rgba(0,0,0,0.3);
+        }
+        &.current {
+          background-color: rgba(0,0,0,0.1);
         }
     }
 }
