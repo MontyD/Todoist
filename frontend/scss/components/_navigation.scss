@@ -54,7 +54,6 @@ nav.top {
         padding : 0.6rem 0;
         display : inline-block;
         margin  : auto;
-        height  : 100vh;
         @media(max-width: $smallBP) {
             position  : fixed;
             width     : 200px;
@@ -75,11 +74,12 @@ nav.top {
         padding   : 0;
         margin    : 0;
         @media(max-width: $smallBP) {
-            display: block;
+            display  : block;
             font-size: 1.2em;
-            margin : 2em auto;
+            margin   : 2em auto;
+
             &:first-child {
-              margin-top: 4em;
+                margin-top: 4em;
             }
         }
     }
@@ -123,22 +123,24 @@ nav.top {
                 vertical-align: middle;
             }
         }
+
         &.close {
-            display: block;
+            display    : block;
             height     : 38px;
             width      : 42px;
-            padding: 0;
+            padding    : 0;
             margin     : 0 auto;
             line-height: 36px;
             display    : block;
-            position: absolute;
-            top: 0.5em;
-            right: 0.5em;
+            position   : absolute;
+            top        : 0.5em;
+            right      : 0.5em;
+
             img {
-              vertical-align: middle;
+                vertical-align: middle;
             }
             @media(min-width: $smallBP) {
-              display: none;
+                display: none;
             }
         }
     }

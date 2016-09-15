@@ -2360,8 +2360,7 @@ nav.top {
     top: 0;
     padding: 0.6rem 0;
     display: inline-block;
-    margin: auto;
-    height: 100vh; }
+    margin: auto; }
     @media (max-width: 630px) {
       nav.top ul {
         position: fixed;
