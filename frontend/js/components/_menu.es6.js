@@ -3,24 +3,21 @@ import addEvent from './_addEvent.es6.js';
 
 class Menu {
 
-  constructor(className = 'menu') {
-
-    this.elements = document.getElementsByTagName(className);
+  constructor(openMenuClass = 'menu', closeMenuIDs = ['overlay', 'closeMenu']) {
 
     this.body = document.body || document.getElementsByTagName('body')[0];
 
-    for (var i = 0; i < this.elements.length; i++) {
-      addEvent('click', this.element[i], this.menuOnClick);
-    }
+    this.elements = Array.prototype.slice.call(document.getElementsByTagName(openMenuClass));
 
-    addEvent('click', document.getElementById('overlay'), this.closeMenu);
+    this.closeMenuElements = closeMenuIDs.map(ID => document.getElementById(ID));
 
-    addEvent('click', document.getElementById('closeMenu'), this.closeMenu);
+    this.elements.forEach(el => addEvent('click', el, this.toggleMenu), this);
 
+    this.closeMenuElements.forEach(el => addEvent('click', el, this.closeMenu), this);
 
   }
 
-	menuOnClick(e, close) {
+	toggleMenu(e, close) {
 		if (!close) {
 			var evt = e || window.event;
 			if (evt.preventDefault) {
@@ -30,10 +27,10 @@ class Menu {
 			}
 		}
 
-		if (this.body.className.indexOf(' menuOpen') > -1 || close) {
-			this.body.className = this.body.className.replace(' menuOpen', '');
+		if (this.body.className.indexOf(' menu-open') > -1 || close) {
+			this.body.className = this.body.className.replace(' menu-open', '');
 		} else {
-			this.body.className += ' menuOpen';
+			this.body.className += ' menu-open';
 		}
 
 	}

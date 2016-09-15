@@ -40329,26 +40329,33 @@
 
 	var Menu = (function () {
 	  function Menu() {
-	    var className = arguments.length <= 0 || arguments[0] === undefined ? 'menu' : arguments[0];
+	    var _this = this;
+
+	    var openMenuClass = arguments.length <= 0 || arguments[0] === undefined ? 'menu' : arguments[0];
+	    var closeMenuIDs = arguments.length <= 1 || arguments[1] === undefined ? ['overlay', 'closeMenu'] : arguments[1];
 
 	    _classCallCheck(this, Menu);
 
-	    this.elements = document.getElementsByTagName(className);
-
 	    this.body = document.body || document.getElementsByTagName('body')[0];
 
-	    for (var i = 0; i < this.elements.length; i++) {
-	      (0, _addEventEs6Js2['default'])('click', this.element[i], this.menuOnClick);
-	    }
+	    this.elements = Array.prototype.slice.call(document.getElementsByTagName(openMenuClass));
 
-	    (0, _addEventEs6Js2['default'])('click', document.getElementById('overlay'), this.closeMenu);
+	    this.closeMenuElements = closeMenuIDs.map(function (ID) {
+	      return document.getElementById(ID);
+	    });
 
-	    (0, _addEventEs6Js2['default'])('click', document.getElementById('closeMenu'), this.closeMenu);
+	    this.elements.forEach(function (el) {
+	      return (0, _addEventEs6Js2['default'])('click', el, _this.toggleMenu);
+	    }, this);
+
+	    this.closeMenuElements.forEach(function (el) {
+	      return (0, _addEventEs6Js2['default'])('click', el, _this.closeMenu);
+	    }, this);
 	  }
 
 	  _createClass(Menu, [{
-	    key: 'menuOnClick',
-	    value: function menuOnClick(e, close) {
+	    key: 'toggleMenu',
+	    value: function toggleMenu(e, close) {
 	      if (!close) {
 	        var evt = e || window.event;
 	        if (evt.preventDefault) {
@@ -40358,10 +40365,10 @@
 	        }
 	      }
 
-	      if (this.body.className.indexOf(' menuOpen') > -1 || close) {
-	        this.body.className = this.body.className.replace(' menuOpen', '');
+	      if (this.body.className.indexOf(' menu-open') > -1 || close) {
+	        this.body.className = this.body.className.replace(' menu-open', '');
 	      } else {
-	        this.body.className += ' menuOpen';
+	        this.body.className += ' menu-open';
 	      }
 	    }
 	  }, {
@@ -40394,6 +40401,13 @@
 	});
 	var addEvent = function addEvent(evnt, elem, func) {
 	  'use strict';
+	  if (!evnt || !elem || !func) {
+	    console.warn('event attach failed on: ');
+	    console.warn(evnt);
+	    console.warn(elem);
+	    console.warn(func);
+	    return false;
+	  }
 	  if (elem.addEventListener) {
 	    elem.addEventListener(evnt, func, false);
 	  } else if (elem.attachEvent) {
