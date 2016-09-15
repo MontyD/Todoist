@@ -1,7 +1,9 @@
 @import "_styling";
+
 body {
     margin: 0 0 130px;
 }
+
 nav.top {
     position  : relative;
     margin    : 0;
@@ -10,6 +12,7 @@ nav.top {
     box-sizing: border-box;
     padding   : 0.6rem 0.2rem;
     background: $colorDark;
+
     &.absolute {
         position  : absolute;
         top       : 0;
@@ -17,10 +20,12 @@ nav.top {
         background: transparent;
         z-index   : 10;
     }
+
     .container {
         margin : 0 auto;
         padding: 0;
     }
+
     .home-link {
         display       : inline-block;
         vertical-align: middle;
@@ -28,14 +33,20 @@ nav.top {
         font-size     : 2rem;
         font-weight   : normal;
         padding       : 0;
+
         &:hover {
             background: transparent;
         }
+        @media(max-width: $mediumBP) {
+            font-size  : 1.6rem;
+            padding-top: 0.4rem;
+        }
         @media(max-width: $smallBP) {
-          font-size: 1.4rem;
-          padding-top: 0.5rem;
+            font-size  : 1.4rem;
+            padding-top: 0.5rem;
         }
     }
+
     ul {
         position: absolute;
         right   : 0;
@@ -44,13 +55,18 @@ nav.top {
         display : inline-block;
         margin  : auto;
         height  : 100%;
+        @media(max-width: $smallBP) {
+            display: none;
+        }
     }
+
     li {
         list-style: none;
         display   : inline-block;
         padding   : 0;
         margin    : 0;
     }
+
     a {
         color        : $colorWhite;
         padding      : 0.6rem 0.8rem;
@@ -58,11 +74,36 @@ nav.top {
         transition   : background-color 0.2s;
         border-radius: 0.2rem;
         margin       : 0 0.5rem;
+
         &:hover {
             background-color: rgba(0,0,0,0.3);
         }
+
         &.current {
-          background-color: rgba(0,0,0,0.1);
+            background-color: rgba(0,0,0,0.1);
+        }
+
+        &.menu-icon {
+            display    : none;
+            position   : absolute;
+            top        : 0;
+            right      : 0;
+            padding    : 0;
+            height     : 40px;
+            width      : 60px;
+            text-align : center;
+            line-height: 38px;
+            background-color: rgba(0,0,0,0.1);
+            &:hover {
+              background-color: rgba(0,0,0,0.3);
+            }
+            @media(max-width: $smallBP) {
+                display: inline-block;
+            }
+
+            img {
+                vertical-align: middle;
+            }
         }
     }
 }

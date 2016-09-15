@@ -3,11 +3,11 @@ import addEvent from './_addEvent.es6.js';
 
 class Menu {
 
-  constructor(openMenuClass = 'menu', closeMenuIDs = ['overlay', 'closeMenu']) {
+  constructor(openMenuClass = 'menu', closeMenuIDs = ['overlay']) {
 
     this.body = document.body || document.getElementsByTagName('body')[0];
 
-    this.elements = Array.prototype.slice.call(document.getElementsByTagName(openMenuClass));
+    this.elements = Array.prototype.slice.call(document.getElementsByClassName(openMenuClass));
 
     this.closeMenuElements = closeMenuIDs.map(ID => document.getElementById(ID));
 

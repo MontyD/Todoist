@@ -2346,6 +2346,10 @@ nav.top {
     padding: 0; }
     nav.top .home-link:hover {
       background: transparent; }
+    @media (max-width: 900px) {
+      nav.top .home-link {
+        font-size: 1.6rem;
+        padding-top: 0.4rem; } }
     @media (max-width: 630px) {
       nav.top .home-link {
         font-size: 1.4rem;
@@ -2358,6 +2362,9 @@ nav.top {
     display: inline-block;
     margin: auto;
     height: 100%; }
+    @media (max-width: 630px) {
+      nav.top ul {
+        display: none; } }
   nav.top li {
     list-style: none;
     display: inline-block;
@@ -2374,6 +2381,24 @@ nav.top {
       background-color: rgba(0, 0, 0, 0.3); }
     nav.top a.current {
       background-color: rgba(0, 0, 0, 0.1); }
+    nav.top a.menu-icon {
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0;
+      height: 40px;
+      width: 60px;
+      text-align: center;
+      line-height: 38px;
+      background-color: rgba(0, 0, 0, 0.1); }
+      nav.top a.menu-icon:hover {
+        background-color: rgba(0, 0, 0, 0.3); }
+      @media (max-width: 630px) {
+        nav.top a.menu-icon {
+          display: inline-block; } }
+      nav.top a.menu-icon img {
+        vertical-align: middle; }
 
 /**
  * angular-ui-notification - Angular.js service providing simple notifications using Bootstrap 3 styles with css transitions for animating
