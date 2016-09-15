@@ -60,65 +60,59 @@
 
 	var _angularAnimate2 = _interopRequireDefault(_angularAnimate);
 
-	var _components_menuEs6Js = __webpack_require__(6);
-
-	var _components_menuEs6Js2 = _interopRequireDefault(_components_menuEs6Js);
-
-	var _socketIoClient = __webpack_require__(8);
+	var _socketIoClient = __webpack_require__(6);
 
 	var _socketIoClient2 = _interopRequireDefault(_socketIoClient);
 
-	var _configRoomConfigEs6Js = __webpack_require__(58);
+	var _configRoomConfigEs6Js = __webpack_require__(56);
 
 	var _configRoomConfigEs6Js2 = _interopRequireDefault(_configRoomConfigEs6Js);
 
-	var _controllersRoomCtrlEs6Js = __webpack_require__(62);
+	var _controllersRoomCtrlEs6Js = __webpack_require__(60);
 
 	var _controllersRoomCtrlEs6Js2 = _interopRequireDefault(_controllersRoomCtrlEs6Js);
 
-	var _controllersOverviewCtrlEs6Js = __webpack_require__(63);
+	var _controllersOverviewCtrlEs6Js = __webpack_require__(61);
 
 	var _controllersOverviewCtrlEs6Js2 = _interopRequireDefault(_controllersOverviewCtrlEs6Js);
 
-	var _controllersSettingsCtrlEs6Js = __webpack_require__(64);
+	var _controllersSettingsCtrlEs6Js = __webpack_require__(62);
 
 	var _controllersSettingsCtrlEs6Js2 = _interopRequireDefault(_controllersSettingsCtrlEs6Js);
 
-	var _directivesTaskViewEs6Js = __webpack_require__(65);
+	var _directivesTaskViewEs6Js = __webpack_require__(63);
 
 	var _directivesTaskViewEs6Js2 = _interopRequireDefault(_directivesTaskViewEs6Js);
 
-	var _directivesTodoListEs6Js = __webpack_require__(67);
+	var _directivesTodoListEs6Js = __webpack_require__(65);
 
 	var _directivesTodoListEs6Js2 = _interopRequireDefault(_directivesTodoListEs6Js);
 
 	//Vendor imports
 
-	var _angularUiNotification = __webpack_require__(69);
+	var _angularUiNotification = __webpack_require__(67);
 
 	var _angularUiNotification2 = _interopRequireDefault(_angularUiNotification);
 
-	var _angularUtilsPagination = __webpack_require__(71);
+	var _angularUtilsPagination = __webpack_require__(69);
 
 	var _angularUtilsPagination2 = _interopRequireDefault(_angularUtilsPagination);
 
-	var _servicesTasksEs6Js = __webpack_require__(73);
+	var _servicesTasksEs6Js = __webpack_require__(71);
 
 	var _servicesTasksEs6Js2 = _interopRequireDefault(_servicesTasksEs6Js);
 
-	var _servicesSocketsEs6Js = __webpack_require__(74);
+	var _servicesSocketsEs6Js = __webpack_require__(72);
 
 	var _servicesSocketsEs6Js2 = _interopRequireDefault(_servicesSocketsEs6Js);
 
-	var _servicesRoomEs6Js = __webpack_require__(75);
+	var _servicesRoomEs6Js = __webpack_require__(73);
 
 	var _servicesRoomEs6Js2 = _interopRequireDefault(_servicesRoomEs6Js);
 
-	var _servicesTodolistsEs6Js = __webpack_require__(76);
+	var _servicesTodolistsEs6Js = __webpack_require__(74);
 
 	var _servicesTodolistsEs6Js2 = _interopRequireDefault(_servicesTodolistsEs6Js);
-
-	var menu = new _components_menuEs6Js2['default']();
 
 	window.io = _socketIoClient2['default'];
 
@@ -40311,128 +40305,15 @@
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _addEventEs6Js = __webpack_require__(7);
-
-	var _addEventEs6Js2 = _interopRequireDefault(_addEventEs6Js);
-
-	var Menu = (function () {
-	  function Menu() {
-	    var _this = this;
-
-	    var openMenuClass = arguments.length <= 0 || arguments[0] === undefined ? 'menu' : arguments[0];
-	    var closeMenuIDs = arguments.length <= 1 || arguments[1] === undefined ? ['overlay'] : arguments[1];
-
-	    _classCallCheck(this, Menu);
-
-	    this.body = document.body || document.getElementsByTagName('body')[0];
-
-	    this.elements = Array.prototype.slice.call(document.getElementsByClassName(openMenuClass));
-
-	    this.closeMenuElements = closeMenuIDs.map(function (ID) {
-	      return document.getElementById(ID);
-	    });
-
-	    this.elements.forEach(function (el) {
-	      return (0, _addEventEs6Js2['default'])('click', el, _this.toggleMenu);
-	    }, this);
-
-	    this.closeMenuElements.forEach(function (el) {
-	      return (0, _addEventEs6Js2['default'])('click', el, _this.closeMenu);
-	    }, this);
-	  }
-
-	  _createClass(Menu, [{
-	    key: 'toggleMenu',
-	    value: function toggleMenu(e, close) {
-	      if (!close) {
-	        var evt = e || window.event;
-	        if (evt.preventDefault) {
-	          evt.preventDefault();
-	        } else {
-	          evt.returnValue = false;
-	        }
-	      }
-
-	      if (this.body.className.indexOf(' menu-open') > -1 || close) {
-	        this.body.className = this.body.className.replace(' menu-open', '');
-	      } else {
-	        this.body.className += ' menu-open';
-	      }
-	    }
-	  }, {
-	    key: 'closeMenu',
-	    value: function closeMenu(e) {
-	      var evt = e || window.event;
-	      if (evt.preventDefault) {
-	        evt.preventDefault();
-	      } else {
-	        evt.returnValue = false;
-	      }
-	      this.menuOnClick(null, true);
-	    }
-	  }]);
-
-	  return Menu;
-	})();
-
-	exports['default'] = Menu;
-	module.exports = exports['default'];
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	var addEvent = function addEvent(evnt, elem, func) {
-	  'use strict';
-	  if (!evnt || !elem || !func) {
-	    console.warn('event attach failed on: ');
-	    console.warn(evnt);
-	    console.warn(elem);
-	    console.warn(func);
-	    return false;
-	  }
-	  if (elem.addEventListener) {
-	    elem.addEventListener(evnt, func, false);
-	  } else if (elem.attachEvent) {
-	    elem.attachEvent('on' + evnt, func);
-	  } else {
-	    elem[evnt] = func;
-	  }
-	};
-
-	exports['default'] = addEvent;
-	module.exports = exports['default'];
-
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
 	
 	/**
 	 * Module dependencies.
 	 */
 
-	var url = __webpack_require__(9);
-	var parser = __webpack_require__(14);
-	var Manager = __webpack_require__(22);
-	var debug = __webpack_require__(11)('socket.io-client');
+	var url = __webpack_require__(7);
+	var parser = __webpack_require__(12);
+	var Manager = __webpack_require__(20);
+	var debug = __webpack_require__(9)('socket.io-client');
 
 	/**
 	 * Module exports.
@@ -40514,12 +40395,12 @@
 	 * @api public
 	 */
 
-	exports.Manager = __webpack_require__(22);
-	exports.Socket = __webpack_require__(50);
+	exports.Manager = __webpack_require__(20);
+	exports.Socket = __webpack_require__(48);
 
 
 /***/ },
-/* 9 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -40527,8 +40408,8 @@
 	 * Module dependencies.
 	 */
 
-	var parseuri = __webpack_require__(10);
-	var debug = __webpack_require__(11)('socket.io-client:url');
+	var parseuri = __webpack_require__(8);
+	var debug = __webpack_require__(9)('socket.io-client:url');
 
 	/**
 	 * Module exports.
@@ -40602,7 +40483,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 10 */
+/* 8 */
 /***/ function(module, exports) {
 
 	/**
@@ -40647,7 +40528,7 @@
 
 
 /***/ },
-/* 11 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -40657,7 +40538,7 @@
 	 * Expose `debug()` as the module.
 	 */
 
-	exports = module.exports = __webpack_require__(12);
+	exports = module.exports = __webpack_require__(10);
 	exports.log = log;
 	exports.formatArgs = formatArgs;
 	exports.save = save;
@@ -40821,7 +40702,7 @@
 
 
 /***/ },
-/* 12 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -40837,7 +40718,7 @@
 	exports.disable = disable;
 	exports.enable = enable;
 	exports.enabled = enabled;
-	exports.humanize = __webpack_require__(13);
+	exports.humanize = __webpack_require__(11);
 
 	/**
 	 * The currently active debug mode names, and names to skip.
@@ -41024,7 +40905,7 @@
 
 
 /***/ },
-/* 13 */
+/* 11 */
 /***/ function(module, exports) {
 
 	/**
@@ -41155,7 +41036,7 @@
 
 
 /***/ },
-/* 14 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -41163,12 +41044,12 @@
 	 * Module dependencies.
 	 */
 
-	var debug = __webpack_require__(11)('socket.io-parser');
-	var json = __webpack_require__(15);
-	var isArray = __webpack_require__(18);
-	var Emitter = __webpack_require__(19);
-	var binary = __webpack_require__(20);
-	var isBuf = __webpack_require__(21);
+	var debug = __webpack_require__(9)('socket.io-parser');
+	var json = __webpack_require__(13);
+	var isArray = __webpack_require__(16);
+	var Emitter = __webpack_require__(17);
+	var binary = __webpack_require__(18);
+	var isBuf = __webpack_require__(19);
 
 	/**
 	 * Protocol version.
@@ -41561,14 +41442,14 @@
 
 
 /***/ },
-/* 15 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! JSON v3.3.2 | http://bestiejs.github.io/json3 | Copyright 2012-2014, Kit Cambridge | http://kit.mit-license.org */
 	;(function () {
 	  // Detect the `define` function exposed by asynchronous module loaders. The
 	  // strict `define` check is necessary for compatibility with `r.js`.
-	  var isLoader = "function" === "function" && __webpack_require__(17);
+	  var isLoader = "function" === "function" && __webpack_require__(15);
 
 	  // A set of types used to distinguish objects from primitives.
 	  var objectTypes = {
@@ -42467,10 +42348,10 @@
 	  }
 	}).call(this);
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14)(module), (function() { return this; }())))
 
 /***/ },
-/* 16 */
+/* 14 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -42486,7 +42367,7 @@
 
 
 /***/ },
-/* 17 */
+/* 15 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
@@ -42494,7 +42375,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 18 */
+/* 16 */
 /***/ function(module, exports) {
 
 	module.exports = Array.isArray || function (arr) {
@@ -42503,7 +42384,7 @@
 
 
 /***/ },
-/* 19 */
+/* 17 */
 /***/ function(module, exports) {
 
 	
@@ -42673,7 +42554,7 @@
 
 
 /***/ },
-/* 20 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*global Blob,File*/
@@ -42682,8 +42563,8 @@
 	 * Module requirements
 	 */
 
-	var isArray = __webpack_require__(18);
-	var isBuf = __webpack_require__(21);
+	var isArray = __webpack_require__(16);
+	var isBuf = __webpack_require__(19);
 
 	/**
 	 * Replaces every Buffer | ArrayBuffer in packet with a numbered placeholder.
@@ -42821,7 +42702,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 21 */
+/* 19 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -42841,7 +42722,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 22 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -42849,15 +42730,15 @@
 	 * Module dependencies.
 	 */
 
-	var eio = __webpack_require__(23);
-	var Socket = __webpack_require__(50);
-	var Emitter = __webpack_require__(51);
-	var parser = __webpack_require__(14);
-	var on = __webpack_require__(53);
-	var bind = __webpack_require__(54);
-	var debug = __webpack_require__(11)('socket.io-client:manager');
-	var indexOf = __webpack_require__(48);
-	var Backoff = __webpack_require__(57);
+	var eio = __webpack_require__(21);
+	var Socket = __webpack_require__(48);
+	var Emitter = __webpack_require__(49);
+	var parser = __webpack_require__(12);
+	var on = __webpack_require__(51);
+	var bind = __webpack_require__(52);
+	var debug = __webpack_require__(9)('socket.io-client:manager');
+	var indexOf = __webpack_require__(46);
+	var Backoff = __webpack_require__(55);
 
 	/**
 	 * IE6+ hasOwnProperty
@@ -43404,19 +43285,19 @@
 
 
 /***/ },
-/* 23 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	module.exports =  __webpack_require__(24);
+	module.exports =  __webpack_require__(22);
 
 
 /***/ },
-/* 24 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	module.exports = __webpack_require__(25);
+	module.exports = __webpack_require__(23);
 
 	/**
 	 * Exports parser
@@ -43424,25 +43305,25 @@
 	 * @api public
 	 *
 	 */
-	module.exports.parser = __webpack_require__(32);
+	module.exports.parser = __webpack_require__(30);
 
 
 /***/ },
-/* 25 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module dependencies.
 	 */
 
-	var transports = __webpack_require__(26);
-	var Emitter = __webpack_require__(41);
-	var debug = __webpack_require__(11)('engine.io-client:socket');
-	var index = __webpack_require__(48);
-	var parser = __webpack_require__(32);
-	var parseuri = __webpack_require__(10);
-	var parsejson = __webpack_require__(49);
-	var parseqs = __webpack_require__(42);
+	var transports = __webpack_require__(24);
+	var Emitter = __webpack_require__(39);
+	var debug = __webpack_require__(9)('engine.io-client:socket');
+	var index = __webpack_require__(46);
+	var parser = __webpack_require__(30);
+	var parseuri = __webpack_require__(8);
+	var parsejson = __webpack_require__(47);
+	var parseqs = __webpack_require__(40);
 
 	/**
 	 * Module exports.
@@ -43566,9 +43447,9 @@
 	 */
 
 	Socket.Socket = Socket;
-	Socket.Transport = __webpack_require__(31);
-	Socket.transports = __webpack_require__(26);
-	Socket.parser = __webpack_require__(32);
+	Socket.Transport = __webpack_require__(29);
+	Socket.transports = __webpack_require__(24);
+	Socket.parser = __webpack_require__(30);
 
 	/**
 	 * Creates transport of the given type.
@@ -44163,17 +44044,17 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 26 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module dependencies
 	 */
 
-	var XMLHttpRequest = __webpack_require__(27);
-	var XHR = __webpack_require__(29);
-	var JSONP = __webpack_require__(45);
-	var websocket = __webpack_require__(46);
+	var XMLHttpRequest = __webpack_require__(25);
+	var XHR = __webpack_require__(27);
+	var JSONP = __webpack_require__(43);
+	var websocket = __webpack_require__(44);
 
 	/**
 	 * Export transports.
@@ -44223,11 +44104,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 27 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// browser shim for xmlhttprequest module
-	var hasCORS = __webpack_require__(28);
+	var hasCORS = __webpack_require__(26);
 
 	module.exports = function(opts) {
 	  var xdomain = opts.xdomain;
@@ -44265,7 +44146,7 @@
 
 
 /***/ },
-/* 28 */
+/* 26 */
 /***/ function(module, exports) {
 
 	
@@ -44288,18 +44169,18 @@
 
 
 /***/ },
-/* 29 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module requirements.
 	 */
 
-	var XMLHttpRequest = __webpack_require__(27);
-	var Polling = __webpack_require__(30);
-	var Emitter = __webpack_require__(41);
-	var inherit = __webpack_require__(43);
-	var debug = __webpack_require__(11)('engine.io-client:polling-xhr');
+	var XMLHttpRequest = __webpack_require__(25);
+	var Polling = __webpack_require__(28);
+	var Emitter = __webpack_require__(39);
+	var inherit = __webpack_require__(41);
+	var debug = __webpack_require__(9)('engine.io-client:polling-xhr');
 
 	/**
 	 * Module exports.
@@ -44707,19 +44588,19 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 30 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 
-	var Transport = __webpack_require__(31);
-	var parseqs = __webpack_require__(42);
-	var parser = __webpack_require__(32);
-	var inherit = __webpack_require__(43);
-	var yeast = __webpack_require__(44);
-	var debug = __webpack_require__(11)('engine.io-client:polling');
+	var Transport = __webpack_require__(29);
+	var parseqs = __webpack_require__(40);
+	var parser = __webpack_require__(30);
+	var inherit = __webpack_require__(41);
+	var yeast = __webpack_require__(42);
+	var debug = __webpack_require__(9)('engine.io-client:polling');
 
 	/**
 	 * Module exports.
@@ -44732,7 +44613,7 @@
 	 */
 
 	var hasXHR2 = (function() {
-	  var XMLHttpRequest = __webpack_require__(27);
+	  var XMLHttpRequest = __webpack_require__(25);
 	  var xhr = new XMLHttpRequest({ xdomain: false });
 	  return null != xhr.responseType;
 	})();
@@ -44960,15 +44841,15 @@
 
 
 /***/ },
-/* 31 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 
-	var parser = __webpack_require__(32);
-	var Emitter = __webpack_require__(41);
+	var parser = __webpack_require__(30);
+	var Emitter = __webpack_require__(39);
 
 	/**
 	 * Module exports.
@@ -45121,19 +45002,19 @@
 
 
 /***/ },
-/* 32 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module dependencies.
 	 */
 
-	var keys = __webpack_require__(33);
-	var hasBinary = __webpack_require__(34);
-	var sliceBuffer = __webpack_require__(36);
-	var base64encoder = __webpack_require__(37);
-	var after = __webpack_require__(38);
-	var utf8 = __webpack_require__(39);
+	var keys = __webpack_require__(31);
+	var hasBinary = __webpack_require__(32);
+	var sliceBuffer = __webpack_require__(34);
+	var base64encoder = __webpack_require__(35);
+	var after = __webpack_require__(36);
+	var utf8 = __webpack_require__(37);
 
 	/**
 	 * Check if we are running an android browser. That requires us to use
@@ -45190,7 +45071,7 @@
 	 * Create a blob api even for blob builder when vendor prefixes exist
 	 */
 
-	var Blob = __webpack_require__(40);
+	var Blob = __webpack_require__(38);
 
 	/**
 	 * Encodes a packet.
@@ -45722,7 +45603,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 33 */
+/* 31 */
 /***/ function(module, exports) {
 
 	
@@ -45747,7 +45628,7 @@
 
 
 /***/ },
-/* 34 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -45755,7 +45636,7 @@
 	 * Module requirements.
 	 */
 
-	var isArray = __webpack_require__(35);
+	var isArray = __webpack_require__(33);
 
 	/**
 	 * Module exports.
@@ -45812,7 +45693,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 35 */
+/* 33 */
 /***/ function(module, exports) {
 
 	module.exports = Array.isArray || function (arr) {
@@ -45821,7 +45702,7 @@
 
 
 /***/ },
-/* 36 */
+/* 34 */
 /***/ function(module, exports) {
 
 	/**
@@ -45856,7 +45737,7 @@
 
 
 /***/ },
-/* 37 */
+/* 35 */
 /***/ function(module, exports) {
 
 	/*
@@ -45921,7 +45802,7 @@
 
 
 /***/ },
-/* 38 */
+/* 36 */
 /***/ function(module, exports) {
 
 	module.exports = after
@@ -45955,7 +45836,7 @@
 
 
 /***/ },
-/* 39 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! https://mths.be/utf8js v2.0.0 by @mathias */
@@ -46201,10 +46082,10 @@
 
 	}(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14)(module), (function() { return this; }())))
 
 /***/ },
-/* 40 */
+/* 38 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -46307,7 +46188,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 41 */
+/* 39 */
 /***/ function(module, exports) {
 
 	
@@ -46477,7 +46358,7 @@
 
 
 /***/ },
-/* 42 */
+/* 40 */
 /***/ function(module, exports) {
 
 	/**
@@ -46520,7 +46401,7 @@
 
 
 /***/ },
-/* 43 */
+/* 41 */
 /***/ function(module, exports) {
 
 	
@@ -46532,7 +46413,7 @@
 	};
 
 /***/ },
-/* 44 */
+/* 42 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -46606,7 +46487,7 @@
 
 
 /***/ },
-/* 45 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -46614,8 +46495,8 @@
 	 * Module requirements.
 	 */
 
-	var Polling = __webpack_require__(30);
-	var inherit = __webpack_require__(43);
+	var Polling = __webpack_require__(28);
+	var inherit = __webpack_require__(41);
 
 	/**
 	 * Module exports.
@@ -46851,19 +46732,19 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 46 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module dependencies.
 	 */
 
-	var Transport = __webpack_require__(31);
-	var parser = __webpack_require__(32);
-	var parseqs = __webpack_require__(42);
-	var inherit = __webpack_require__(43);
-	var yeast = __webpack_require__(44);
-	var debug = __webpack_require__(11)('engine.io-client:websocket');
+	var Transport = __webpack_require__(29);
+	var parser = __webpack_require__(30);
+	var parseqs = __webpack_require__(40);
+	var inherit = __webpack_require__(41);
+	var yeast = __webpack_require__(42);
+	var debug = __webpack_require__(9)('engine.io-client:websocket');
 	var BrowserWebSocket = global.WebSocket || global.MozWebSocket;
 
 	/**
@@ -46875,7 +46756,7 @@
 	var WebSocket = BrowserWebSocket;
 	if (!WebSocket && typeof window === 'undefined') {
 	  try {
-	    WebSocket = __webpack_require__(47);
+	    WebSocket = __webpack_require__(45);
 	  } catch (e) { }
 	}
 
@@ -47146,13 +47027,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 47 */
+/* 45 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 48 */
+/* 46 */
 /***/ function(module, exports) {
 
 	
@@ -47167,7 +47048,7 @@
 	};
 
 /***/ },
-/* 49 */
+/* 47 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -47205,7 +47086,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 50 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -47213,13 +47094,13 @@
 	 * Module dependencies.
 	 */
 
-	var parser = __webpack_require__(14);
-	var Emitter = __webpack_require__(51);
-	var toArray = __webpack_require__(52);
-	var on = __webpack_require__(53);
-	var bind = __webpack_require__(54);
-	var debug = __webpack_require__(11)('socket.io-client:socket');
-	var hasBin = __webpack_require__(55);
+	var parser = __webpack_require__(12);
+	var Emitter = __webpack_require__(49);
+	var toArray = __webpack_require__(50);
+	var on = __webpack_require__(51);
+	var bind = __webpack_require__(52);
+	var debug = __webpack_require__(9)('socket.io-client:socket');
+	var hasBin = __webpack_require__(53);
 
 	/**
 	 * Module exports.
@@ -47623,7 +47504,7 @@
 
 
 /***/ },
-/* 51 */
+/* 49 */
 /***/ function(module, exports) {
 
 	
@@ -47790,7 +47671,7 @@
 
 
 /***/ },
-/* 52 */
+/* 50 */
 /***/ function(module, exports) {
 
 	module.exports = toArray
@@ -47809,7 +47690,7 @@
 
 
 /***/ },
-/* 53 */
+/* 51 */
 /***/ function(module, exports) {
 
 	
@@ -47839,7 +47720,7 @@
 
 
 /***/ },
-/* 54 */
+/* 52 */
 /***/ function(module, exports) {
 
 	/**
@@ -47868,7 +47749,7 @@
 
 
 /***/ },
-/* 55 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -47876,7 +47757,7 @@
 	 * Module requirements.
 	 */
 
-	var isArray = __webpack_require__(56);
+	var isArray = __webpack_require__(54);
 
 	/**
 	 * Module exports.
@@ -47934,7 +47815,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 56 */
+/* 54 */
 /***/ function(module, exports) {
 
 	module.exports = Array.isArray || function (arr) {
@@ -47943,7 +47824,7 @@
 
 
 /***/ },
-/* 57 */
+/* 55 */
 /***/ function(module, exports) {
 
 	
@@ -48034,7 +47915,7 @@
 
 
 /***/ },
-/* 58 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -48051,17 +47932,17 @@
 
 	    $stateProvider.state('home', {
 	        url: '/',
-	        template: __webpack_require__(59),
+	        template: __webpack_require__(57),
 	        controller: 'RoomCtrl',
 	        controllerAs: 'home'
 	    }).state('overview', {
 	        url: '/overview',
-	        template: __webpack_require__(60),
+	        template: __webpack_require__(58),
 	        controller: 'OverviewCtrl',
 	        controllerAs: 'overview'
 	    }).state('settings', {
 	        url: '/settings',
-	        template: __webpack_require__(61),
+	        template: __webpack_require__(59),
 	        controller: 'SettingsCtrl',
 	        controllerAs: 'settings'
 	    });
@@ -48071,25 +47952,25 @@
 	module.exports = exports['default'];
 
 /***/ },
+/* 57 */
+/***/ function(module, exports) {
+
+	module.exports = "<nav class=\"top\" ng-class=\"{'menu-open': home.menuOpen}\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.room.name}}</a>\n        <ul>\n            <li><a ng-click=\"home.toggleMenu()\" class=\"close\" title=\"Close\"><img src=\"/img/close.png\" alt=\"Close\" /></a></li>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.room.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n        <a href=\"#\" ng-click=\"home.toggleMenu()\" title=\"Open Menu\" class=\"menu menu-icon\"><img src=\"/img/menu.png\" alt=\"Menu\" /></a>\n    </div>\n</nav>\n<main class=\"container center\">\n    <article class=\"transparent center intro-container\">\n        <h1 class=\"short\">Hi {{home.room.username}}</h1>\n        <button class=\"button secondary\" ng-click=\"home.newList()\">New List</button>\n    </article>\n    <section class=\"lists-container\">\n        <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmountPerPage\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n            <todo-list list=\"list\" createtodo=\"home.createTodo(list.id, list.newTask)\" edittask=\"home.editTask(task)\" deletetask=\"home.deleteTask(task)\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n            </todo-list>\n        </article>\n    </section>\n    <article ng-if=\"home.lists.length === 0\" class=\"empty-notification main\">\n        <h2>No lists :(</h2>\n        <p>What are you even doing here?</p>\n    </article>\n    <div class=\"paginination-container\">\n        <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n    </div>\n</main>\n";
+
+/***/ },
+/* 58 */
+/***/ function(module, exports) {
+
+	module.exports = "<nav class=\"top\" ng-class=\"{'menu-open': overview.menuOpen}\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{overview.room.name}}</a>\n        <ul>\n            <li><a ng-click=\"overview.toggleMenu()\" class=\"close\" title=\"Close\"><img src=\"/img/close.png\" alt=\"Close\" /></a></li>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li ng-if=\"overview.room.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n        <a href=\"#\" ng-click=\"overview.toggleMenu()\" title=\"Open Menu\" class=\"menu menu-icon\"><img src=\"/img/menu.png\" alt=\"Menu\" /></a>\n    </div>\n</nav>\n<main class=\"full-height\">\n    <section class=\"graphs\" ng-class=\"{'weekly': overview.showWeeklyGraph}\">\n        <div class=\"graph main-graph\" ng-style=\"{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform() }\"></div>\n        <div class=\"week-graph six\">\n            <div class=\"graph\" ng-if=\"overview.completedWeek[5]\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[6]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[6]) }\"></div>\n            <span class=\"label\"><span class=\"big-number\">{{overview.completedWeek[6]}}</span> completed on {{overview.daysOfTheWeek[6]}}</span>\n        </div>\n        <div class=\"week-graph five\">\n            <div ng-if=\"overview.completedWeek[5]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[5]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[5]) }\"></div>\n            <span class=\"label\"><span class=\"big-number\">{{overview.completedWeek[5]}}</span> completed on {{overview.daysOfTheWeek[5]}}</span>\n        </div>\n        <div class=\"week-graph four\">\n            <div ng-if=\"overview.completedWeek[4]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[4]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[4]) }\"></div>\n            <span class=\"label\"><span class=\"big-number\">{{overview.completedWeek[4]}}</span> completed on {{overview.daysOfTheWeek[4]}}</span>\n        </div>\n        <div class=\"week-graph three\">\n            <div ng-if=\"overview.completedWeek[3]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[3]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[3]) }\"></div>\n            <span class=\"label\"><span class=\"big-number\">{{overview.completedWeek[3]}}</span> completed on {{overview.daysOfTheWeek[3]}}</span>\n        </div>\n        <div class=\"week-graph two\">\n            <div ng-if=\"overview.completedWeek[2]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[2]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[2]) }\"></div>\n            <span class=\"label\"><span class=\"big-number\">{{overview.completedWeek[2]}}</span> completed on {{overview.daysOfTheWeek[2]}}</span>\n        </div>\n        <div class=\"week-graph one\">\n            <div ng-if=\"overview.completedWeek[1]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[1]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[1]) }\"></div>\n            <span class=\"label\"><span class=\"big-number\">{{overview.completedWeek[1]}}</span> completed yesterday</span>\n        </div>\n        <div class=\"week-graph zero\">\n            <div ng-if=\"overview.completedWeek[0]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[0]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[0]) }\"></div>\n            <span class=\"label\"><span class=\"big-number\">{{overview.completedWeek[0]}}</span> completed today</span>\n        </div>\n    </section>\n    <section class=\"main-stats-container transparent light\" ng-class=\"{'opacity': overview.showWeeklyGraph}\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">of all todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container\">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todos done\n            </article>\n            <button class=\"button secondary\" ng-if=\"overview.completed > 0\" ng-click=\"overview.toggleWeeklygraph()\">Toggle weekly graph</button>\n        </div>\n    </section>\n</ma";
+
+/***/ },
 /* 59 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{home.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\" class=\"current\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li ng-if=\"home.room.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n        <a href=\"#\" target=\"_self\" title=\"Open Menu\" class=\"menu menu-icon\"><img src=\"/img/menu.png\" alt=\"Menu\" /></a>\n    </div>\n</nav>\n<main class=\"container center\">\n    <article class=\"transparent center intro-container\">\n        <h1 class=\"short\">Hi {{home.room.username}}</h1>\n        <button class=\"button secondary\" ng-click=\"home.newList()\">New List</button>\n    </article>\n    <section class=\"lists-container\">\n        <article class=\"todo-list thirds\" dir-paginate=\"list in home.lists | itemsPerPage: home.listsAmountPerPage\" total-items=\"home.listsTotal\" current-page=\"home.listsCurrentPage\">\n            <todo-list list=\"list\" createtodo=\"home.createTodo(list.id, list.newTask)\" edittask=\"home.editTask(task)\" deletetask=\"home.deleteTask(task)\" editlist=\"home.editList(list.id, list.name)\" deletelist=\"home.deleteList(list.id)\">\n            </todo-list>\n        </article>\n    </section>\n    <article ng-if=\"home.lists.length === 0\" class=\"empty-notification main\">\n        <h2>No lists :(</h2>\n        <p>What are you even doing here?</p>\n    </article>\n    <div class=\"paginination-container\">\n        <dir-pagination-controls on-page-change=\"home.changePage(newPageNumber)\"></dir-pagination-controls>\n    </div>\n</main>\n";
+	module.exports = "<nav class=\"top\" ng-class=\"{'menu-open': overview.menuOpen}\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{settings.room.name}}</a>\n        <ul>\n            <li><a ng-click=\"settings.toggleMenu()\" class=\"close\" title=\"Close\"><img src=\"/img/close.png\" alt=\"Close\" /></a></li>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\" class=\"current\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n        <a href=\"#\" ng-click=\"settings.toggleMenu()\" title=\"Open Menu\" class=\"menu menu-icon\"><img src=\"/img/menu.png\" alt=\"Menu\" /></a>\n    </div>\n</nav>\n<main class=\"container\">\n  <section class=\"modal light\">\n    <h2>{{settings.roomName}} Settings</h2>\n    <article class=\"settings-article\" ng-if=\"settings.completed\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Remove completed todos:\n        <span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingDeleteTasks\" class=\"button danger\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Remove Completed</button>\n        <div ng-if=\"settings.confirmingDeleteTasks\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Cancel</button>\n          <button class=\"button danger\" ng-click=\"settings.deleteCompletedTasks()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Log out all members of this room:<span class=\"explaination-text\">You will also be logged out</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingLogOut\" class=\"button secondary\" ng-click=\"settings.toggleConfirmingLogOut()\">Log all out</button>\n        <div ng-if=\"settings.confirmingLogOut\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingLogOut()\">Cancel</button>\n          <button class=\"button primary\" ng-click=\"settings.logAllOut()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the passcode for access to this room:\n        <span class=\"explaination-text\">Passcode must be between five and seventy characters long</span>\n      </p>\n      <form class=\"inline\" name=\"passcodeForm\" ng-class=\"{'attempted-submit': settings.passcodeAttemptedSubmit}\" ng-submit=\"settings.changePasscode(passcodeForm.$valid)\" novalidate=\"novalidate\">\n        <label for=\"passcode\">New passcode:</label>\n        <input type=\"text\" id=\"passcode\" name=\"passcode\" pattern=\".{5,70}\" ng-model=\"settings.newPassCode\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change passcode\" />\n      </form>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the admin password for this room:\n        <span class=\"explaination-text\">Password must be between five and seventy characters long</span>\n      </p>\n      <form class=\"inline\" name=\"passwordForm\" ng-class=\"{'attempted-submit': settings.passwordAttemptedSubmit}\" ng-submit=\"settings.changeAdminPassword(passwordForm.$valid)\" novalidate=\"novalidate\">\n        <label for=\"current-password\">Current password:</label>\n        <input type=\"password\" pattern=\".{5,70}\" ng-model=\"settings.passwords.old\" id=\"current-password\" name=\"current-password\" required=\"requied\" />\n        <label for=\"password\">New password:</label>\n        <input type=\"password\" pattern=\".{5,70}\" ng-model=\"settings.passwords.new\" id=\"password\" name=\"password\" required=\"requied\" />\n        <label for=\"password-confirm\" >Confirm password:</label>\n        <input type=\"password\" pattern=\".{5,70}\" ng-model=\"settings.passwords.confirm\" id=\"password-confirm\" name=\"password-confirm\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change Password\" />\n      </form>\n    </article>\n\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Delete this room completely:<span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingDeleteRooms\" class=\"button danger\" ng-click=\"settings.toggleConfirmingDeleteRoom()\">Delete this room</button>\n        <div ng-if=\"settings.confirmingDeleteRooms\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingDeleteRoom()\">Cancel</button>\n          <button class=\"button danger\" ng-click=\"settings.deleteRoom()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n  </section>\n</main>\n";
 
 /***/ },
 /* 60 */
-/***/ function(module, exports) {
-
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{overview.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\" class=\"current\">Overview</a></li>\n            <li ng-if=\"overview.room.isAdmin\"><a ui-sref=\"settings\" title=\"Settings\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n        <a href=\"#\" target=\"_self\" title=\"Open Menu\" class=\"menu menu-icon\"><img src=\"/img/menu.png\" alt=\"Menu\" /></a>\n    </div>\n</nav>\n<main class=\"full-height\">\n    <section class=\"graphs\" ng-class=\"{'weekly': overview.showWeeklyGraph}\">\n        <div class=\"graph main-graph\" ng-style=\"{'transform': overview.percentageDoneTransform(), '-webkit-transform': overview.percentageDoneTransform() }\"></div>\n        <div class=\"week-graph six\">\n            <div class=\"graph\" ng-if=\"overview.completedWeek[5]\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[6]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[6]) }\"></div>\n            <span class=\"label\"><span class=\"big-number\">{{overview.completedWeek[6]}}</span> completed on {{overview.daysOfTheWeek[6]}}</span>\n        </div>\n        <div class=\"week-graph five\">\n            <div ng-if=\"overview.completedWeek[5]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[5]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[5]) }\"></div>\n            <span class=\"label\"><span class=\"big-number\">{{overview.completedWeek[5]}}</span> completed on {{overview.daysOfTheWeek[5]}}</span>\n        </div>\n        <div class=\"week-graph four\">\n            <div ng-if=\"overview.completedWeek[4]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[4]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[4]) }\"></div>\n            <span class=\"label\"><span class=\"big-number\">{{overview.completedWeek[4]}}</span> completed on {{overview.daysOfTheWeek[4]}}</span>\n        </div>\n        <div class=\"week-graph three\">\n            <div ng-if=\"overview.completedWeek[3]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[3]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[3]) }\"></div>\n            <span class=\"label\"><span class=\"big-number\">{{overview.completedWeek[3]}}</span> completed on {{overview.daysOfTheWeek[3]}}</span>\n        </div>\n        <div class=\"week-graph two\">\n            <div ng-if=\"overview.completedWeek[2]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[2]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[2]) }\"></div>\n            <span class=\"label\"><span class=\"big-number\">{{overview.completedWeek[2]}}</span> completed on {{overview.daysOfTheWeek[2]}}</span>\n        </div>\n        <div class=\"week-graph one\">\n            <div ng-if=\"overview.completedWeek[1]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[1]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[1]) }\"></div>\n            <span class=\"label\"><span class=\"big-number\">{{overview.completedWeek[1]}}</span> completed yesterday</span>\n        </div>\n        <div class=\"week-graph zero\">\n            <div ng-if=\"overview.completedWeek[0]\" class=\"graph\" ng-style=\"{'transform': overview.calculateTransform(overview.completedWeek[0]), '-webkit-transform': overview.calculateTransform(overview.completedWeek[0]) }\"></div>\n            <span class=\"label\"><span class=\"big-number\">{{overview.completedWeek[0]}}</span> completed today</span>\n        </div>\n    </section>\n    <section class=\"main-stats-container transparent light\" ng-class=\"{'opacity': overview.showWeeklyGraph}\">\n        <h1 class=\"overview-percentage\">{{overview.percentageDone()}}%</h1>\n        <p class=\"transparent center\">of all todos complete</p>\n        <div class=\"thirds two\">\n            <article class=\"stats-container first\">\n                <div class=\"large-number\">{{overview.todo}}</div>\n                Todos to do\n            </article>\n            <article class=\"stats-container\">\n                <div class=\"large-number\">{{overview.completed}}</div>\n                Todos done\n            </article>\n            <button class=\"button secondary\" ng-if=\"overview.completed > 0\" ng-click=\"overview.toggleWeeklygraph()\">Toggle weekly graph</button>\n        </div>\n    </section>\n</main>\n";
-
-/***/ },
-/* 61 */
-/***/ function(module, exports) {
-
-	module.exports = "<nav class=\"top\">\n    <div class=\"container\">\n        <a class=\"home-link\" href=\"/\" title=\"Home\">Todoist | {{settings.room.name}}</a>\n        <ul>\n            <li><a ui-sref=\"home\" title=\"Todo\">Todos</a></li>\n            <li><a ui-sref=\"overview\" title=\"Overview\">Overview</a></li>\n            <li><a ui-sref=\"settings\" title=\"Settings\" class=\"current\">Settings</a></li>\n            <li><a target=\"_self\" href=\"/rooms/login/\" title=\"Logout\">Logout</a></li>\n        </ul>\n        <a href=\"#\" target=\"_self\" title=\"Open Menu\" class=\"menu menu-icon\"><img src=\"/img/menu.png\" alt=\"Menu\" /></a>\n    </div>\n</nav>\n<main class=\"container\">\n  <section class=\"modal light\">\n    <h2>{{settings.roomName}} Settings</h2>\n    <article class=\"settings-article\" ng-if=\"settings.completed\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Remove completed todos:\n        <span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingDeleteTasks\" class=\"button danger\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Remove Completed</button>\n        <div ng-if=\"settings.confirmingDeleteTasks\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingDeleteTasks()\">Cancel</button>\n          <button class=\"button danger\" ng-click=\"settings.deleteCompletedTasks()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Log out all members of this room:<span class=\"explaination-text\">You will also be logged out</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingLogOut\" class=\"button secondary\" ng-click=\"settings.toggleConfirmingLogOut()\">Log all out</button>\n        <div ng-if=\"settings.confirmingLogOut\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingLogOut()\">Cancel</button>\n          <button class=\"button primary\" ng-click=\"settings.logAllOut()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the passcode for access to this room:\n        <span class=\"explaination-text\">Passcode must be between five and seventy characters long</span>\n      </p>\n      <form class=\"inline\" name=\"passcodeForm\" ng-class=\"{'attempted-submit': settings.passcodeAttemptedSubmit}\" ng-submit=\"settings.changePasscode(passcodeForm.$valid)\" novalidate=\"novalidate\">\n        <label for=\"passcode\">New passcode:</label>\n        <input type=\"text\" id=\"passcode\" name=\"passcode\" pattern=\".{5,70}\" ng-model=\"settings.newPassCode\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change passcode\" />\n      </form>\n    </article>\n    <article class=\"settings-article\">\n      <p class=\"left-aligned\">\n        Change the admin password for this room:\n        <span class=\"explaination-text\">Password must be between five and seventy characters long</span>\n      </p>\n      <form class=\"inline\" name=\"passwordForm\" ng-class=\"{'attempted-submit': settings.passwordAttemptedSubmit}\" ng-submit=\"settings.changeAdminPassword(passwordForm.$valid)\" novalidate=\"novalidate\">\n        <label for=\"current-password\">Current password:</label>\n        <input type=\"password\" pattern=\".{5,70}\" ng-model=\"settings.passwords.old\" id=\"current-password\" name=\"current-password\" required=\"requied\" />\n        <label for=\"password\">New password:</label>\n        <input type=\"password\" pattern=\".{5,70}\" ng-model=\"settings.passwords.new\" id=\"password\" name=\"password\" required=\"requied\" />\n        <label for=\"password-confirm\" >Confirm password:</label>\n        <input type=\"password\" pattern=\".{5,70}\" ng-model=\"settings.passwords.confirm\" id=\"password-confirm\" name=\"password-confirm\" required=\"requied\" />\n        <input type=\"submit\" class=\"button secondary\" value=\"Change Password\" />\n      </form>\n    </article>\n\n    <article class=\"settings-article\">\n      <div class=\"halves left-aligned vertical-middle\">\n        Delete this room completely:<span class=\"explaination-text\">This cannot be undone</span>\n      </div>\n      <div class=\"halves vertical-middle\">\n        <button ng-if=\"!settings.confirmingDeleteRooms\" class=\"button danger\" ng-click=\"settings.toggleConfirmingDeleteRoom()\">Delete this room</button>\n        <div ng-if=\"settings.confirmingDeleteRooms\" class=\"button-group\">\n          <button class=\"button secondary\" ng-click=\"settings.toggleConfirmingDeleteRoom()\">Cancel</button>\n          <button class=\"button danger\" ng-click=\"settings.deleteRoom()\">Confirm</button>\n        </div>\n      </div>\n    </article>\n  </section>\n</main>\n";
-
-/***/ },
-/* 62 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -48129,6 +48010,8 @@
 	        this.listsTotal = 0;
 
 	        this.hash = '';
+
+	        this.menuOpen = false;
 
 	        this.init();
 	    }
@@ -48171,6 +48054,11 @@
 	                    cb();
 	                }
 	            }, this.handleError.bind(this));
+	        }
+	    }, {
+	        key: 'toggleMenu',
+	        value: function toggleMenu() {
+	            this.menuOpen = !this.menuOpen;
 	        }
 
 	        /*
@@ -48448,7 +48336,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 63 */
+/* 61 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -48500,6 +48388,8 @@
 	            _this.room = roomInfo;
 	            _this.hash = _this.SocketsService.init(roomInfo.name);
 	        }).bind(this), this.handleError.bind(this));
+
+	        this.menuOpen = false;
 
 	        this.calculateDaysOfTheWeek();
 
@@ -48657,6 +48547,11 @@
 	            this.showWeeklyGraph = !this.showWeeklyGraph;
 	        }
 	    }, {
+	        key: 'toggleMenu',
+	        value: function toggleMenu() {
+	            this.menuOpen = !this.menuOpen;
+	        }
+	    }, {
 	        key: 'handleError',
 	        value: function handleError(error) {
 	            if (error.status === 401 || error.status === 403) {
@@ -48676,13 +48571,13 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 64 */
+/* 62 */
 /***/ function(module, exports) {
 
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	    value: true
 	});
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -48690,173 +48585,186 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var SettingsCtrl = (function () {
-	  function SettingsCtrl(Notification, TasksService, SocketsService, RoomService) {
-	    var _this = this;
+	    function SettingsCtrl(Notification, TasksService, SocketsService, RoomService) {
+	        var _this = this;
 
-	    _classCallCheck(this, SettingsCtrl);
+	        _classCallCheck(this, SettingsCtrl);
 
-	    // Dependencies
-	    this.Notification = Notification;
-	    this.TasksService = TasksService;
-	    this.SocketsService = SocketsService;
-	    this.RoomService = RoomService;
+	        // Dependencies
+	        this.Notification = Notification;
+	        this.TasksService = TasksService;
+	        this.SocketsService = SocketsService;
+	        this.RoomService = RoomService;
 
-	    this.room = {
-	      name: '',
-	      isAdmin: false,
-	      username: ''
-	    };
+	        this.room = {
+	            name: '',
+	            isAdmin: false,
+	            username: ''
+	        };
 
-	    this.hash = '';
+	        this.hash = '';
 
-	    this.completed = false;
+	        this.completed = false;
 
-	    this.confirmingDeleteTasks = false;
-	    this.confirmingLogOut = false;
+	        this.confirmingDeleteTasks = false;
+	        this.confirmingLogOut = false;
 
-	    this.passwordAttemptedSubmit = false;
-	    this.passwords = {
-	      old: '',
-	      'new': '',
-	      confirm: ''
-	    };
+	        this.passwordAttemptedSubmit = false;
+	        this.passwords = {
+	            old: '',
+	            'new': '',
+	            confirm: ''
+	        };
 
-	    this.passcodeAttemptedSubmit = false;
-	    this.newPassCode = '';
+	        this.passcodeAttemptedSubmit = false;
+	        this.newPassCode = '';
 
-	    this.confirmingDeleteRooms = false;
+	        this.confirmingDeleteRooms = false;
 
-	    this.TasksService.countCompleted().then(function (result) {
-	      return _this.completed = result.data.count > 0 ? true : false;
-	    }, this.handleError.bind(this));
+	        this.TasksService.countCompleted().then(function (result) {
+	            return _this.completed = result.data.count > 0 ? true : false;
+	        }, this.handleError.bind(this));
 
-	    this.RoomService.getInfo((function (roomInfo) {
-	      _this.room = roomInfo;
-	      _this.hash = _this.SocketsService.init(roomInfo.name);
-	    }).bind(this), this.handleError.bind(this));
+	        this.RoomService.getInfo((function (roomInfo) {
+	            _this.room = roomInfo;
+	            _this.hash = _this.SocketsService.init(roomInfo.name);
+	        }).bind(this), this.handleError.bind(this));
 
-	    this.initSockets();
+	        this.initSockets();
 
-	    document.body.className = 'loaded';
-	  }
+	        this.menuOpen = false;
 
-	  _createClass(SettingsCtrl, [{
-	    key: 'Notify',
-	    value: function Notify(text, type) {
-	      if (this.doNotNotify) {
-	        return false;
-	      }
-	      switch (type) {
-	        case 'Success':
-	          this.Notification.success(text);
-	          break;
-	        case 'Error':
-	          this.Notification.error(text);
-	          break;
-	        default:
-	          this.Notification.info(text);
-	      }
+	        document.body.className = 'loaded';
 	    }
-	  }, {
-	    key: 'initSockets',
-	    value: function initSockets() {
-	      // echo room name
-	      this.SocketsService.emit('room', this.roomName);
 
-	      this.SocketsService.on('logAllOut', (function (data) {
-	        window.location = '/rooms/login?kicked=true';
-	      }).bind(this));
-	    }
-	  }, {
-	    key: 'toggleConfirmingDeleteTasks',
-	    value: function toggleConfirmingDeleteTasks() {
-	      this.confirmingDeleteTasks = !this.confirmingDeleteTasks;
-	    }
-	  }, {
-	    key: 'deleteCompletedTasks',
-	    value: function deleteCompletedTasks() {
-	      var _this2 = this;
+	    _createClass(SettingsCtrl, [{
+	        key: 'Notify',
+	        value: function Notify(text, type) {
+	            if (this.doNotNotify) {
+	                return false;
+	            }
+	            switch (type) {
+	                case 'Success':
+	                    this.Notification.success(text);
+	                    break;
+	                case 'Error':
+	                    this.Notification.error(text);
+	                    break;
+	                default:
+	                    this.Notification.info(text);
+	            }
+	        }
+	    }, {
+	        key: 'initSockets',
+	        value: function initSockets() {
+	            // echo room name
+	            this.SocketsService.emit('room', this.roomName);
 
-	      this.TasksService.clearCompleted(this.hash).then(function (result) {
-	        return _this2.completed = false;
-	      }, this.handleError.bind(this));
-	    }
-	  }, {
-	    key: 'toggleConfirmingLogOut',
-	    value: function toggleConfirmingLogOut() {
-	      this.confirmingLogOut = !this.confirmingLogOut;
-	    }
-	  }, {
-	    key: 'logAllOut',
-	    value: function logAllOut() {
-	      this.RoomService.logAllOut().then(function (result) {
-	        return window.location = '/rooms/login?kicked=true';
-	      }, this.handleError.bind(this));
-	    }
-	  }, {
-	    key: 'changePasscode',
-	    value: function changePasscode(valid) {
-	      var _this3 = this;
+	            this.SocketsService.on('logAllOut', (function (data) {
+	                window.location = '/rooms/login?kicked=true';
+	            }).bind(this));
+	        }
+	    }, {
+	        key: 'toggleConfirmingDeleteTasks',
+	        value: function toggleConfirmingDeleteTasks() {
+	            this.confirmingDeleteTasks = !this.confirmingDeleteTasks;
+	        }
+	    }, {
+	        key: 'deleteCompletedTasks',
+	        value: function deleteCompletedTasks() {
+	            var _this2 = this;
 
-	      if (!valid) {
-	        this.passcodeAttemptedSubmit = true;
-	        return;
-	      }
-	      this.RoomService.updatePasscode({ passcode: this.newPassCode }).then(function (result) {
-	        _this3.Notify('Passcode sucessfully changed!', 'Success');
-	        _this3.newPassCode = '';
-	        _this3.passcodeAttemptedSubmit = false;
-	      }, this.handleError.bind(this));
-	    }
-	  }, {
-	    key: 'changeAdminPassword',
-	    value: function changeAdminPassword(valid) {
-	      var _this4 = this;
+	            this.TasksService.clearCompleted(this.hash).then(function (result) {
+	                return _this2.completed = false;
+	            }, this.handleError.bind(this));
+	        }
+	    }, {
+	        key: 'toggleConfirmingLogOut',
+	        value: function toggleConfirmingLogOut() {
+	            this.confirmingLogOut = !this.confirmingLogOut;
+	        }
+	    }, {
+	        key: 'logAllOut',
+	        value: function logAllOut() {
+	            this.RoomService.logAllOut().then(function (result) {
+	                return window.location = '/rooms/login?kicked=true';
+	            }, this.handleError.bind(this));
+	        }
+	    }, {
+	        key: 'changePasscode',
+	        value: function changePasscode(valid) {
+	            var _this3 = this;
 
-	      if (!valid) {
-	        this.passwordAttemptedSubmit = true;
-	        return;
-	      }
-	      if (this.passwords['new'] !== this.passwords.confirm) {
-	        this.passwordAttemptedSubmit = true;
-	        this.Notify('Passwords do not match', 'Error');
-	        return;
-	      }
-	      this.RoomService.updateAdminPassword(this.passwords).then(function (result) {
-	        _this4.Notify('Admin password sucessfully changed!', 'Success');
-	        _this4.passwords = { old: '', 'new': '', confirm: '' };
-	        _this4.passwordAttemptedSubmit = false;
-	      }, this.handleError.bind(this));
-	    }
-	  }, {
-	    key: 'toggleConfirmingDeleteRoom',
-	    value: function toggleConfirmingDeleteRoom() {
-	      this.confirmingDeleteRooms = !this.confirmingDeleteRooms;
-	    }
-	  }, {
-	    key: 'deleteRoom',
-	    value: function deleteRoom() {
-	      this.RoomService.deleteRoom().then(function (result) {
-	        return window.location = '/rooms/login';
-	      }, this.handleError.bind(this));
-	    }
-	  }, {
-	    key: 'handleError',
-	    value: function handleError(error) {
-	      if (error.status === 401 || error.status === 403) {
-	        window.location = '/rooms/login?timeout=true';
-	        return;
-	      }
-	      if (error.status === 400) {
-	        this.Notify(error.data, 'Error');
-	        return;
-	      }
-	      console.error(error);
-	      this.Notify('Error communicating with server', 'Error');
-	    }
-	  }]);
+	            if (!valid) {
+	                this.passcodeAttemptedSubmit = true;
+	                return;
+	            }
+	            this.RoomService.updatePasscode({
+	                passcode: this.newPassCode
+	            }).then(function (result) {
+	                _this3.Notify('Passcode sucessfully changed!', 'Success');
+	                _this3.newPassCode = '';
+	                _this3.passcodeAttemptedSubmit = false;
+	            }, this.handleError.bind(this));
+	        }
+	    }, {
+	        key: 'changeAdminPassword',
+	        value: function changeAdminPassword(valid) {
+	            var _this4 = this;
 
-	  return SettingsCtrl;
+	            if (!valid) {
+	                this.passwordAttemptedSubmit = true;
+	                return;
+	            }
+	            if (this.passwords['new'] !== this.passwords.confirm) {
+	                this.passwordAttemptedSubmit = true;
+	                this.Notify('Passwords do not match', 'Error');
+	                return;
+	            }
+	            this.RoomService.updateAdminPassword(this.passwords).then(function (result) {
+	                _this4.Notify('Admin password sucessfully changed!', 'Success');
+	                _this4.passwords = {
+	                    old: '',
+	                    'new': '',
+	                    confirm: ''
+	                };
+	                _this4.passwordAttemptedSubmit = false;
+	            }, this.handleError.bind(this));
+	        }
+	    }, {
+	        key: 'toggleConfirmingDeleteRoom',
+	        value: function toggleConfirmingDeleteRoom() {
+	            this.confirmingDeleteRooms = !this.confirmingDeleteRooms;
+	        }
+	    }, {
+	        key: 'deleteRoom',
+	        value: function deleteRoom() {
+	            this.RoomService.deleteRoom().then(function (result) {
+	                return window.location = '/rooms/login';
+	            }, this.handleError.bind(this));
+	        }
+	    }, {
+	        key: 'toggleMenu',
+	        value: function toggleMenu() {
+	            this.menuOpen = !this.menuOpen;
+	        }
+	    }, {
+	        key: 'handleError',
+	        value: function handleError(error) {
+	            if (error.status === 401 || error.status === 403) {
+	                window.location = '/rooms/login?timeout=true';
+	                return;
+	            }
+	            if (error.status === 400) {
+	                this.Notify(error.data, 'Error');
+	                return;
+	            }
+	            console.error(error);
+	            this.Notify('Error communicating with server', 'Error');
+	        }
+	    }]);
+
+	    return SettingsCtrl;
 	})();
 
 	SettingsCtrl.$inject = ['Notification', 'TasksService', 'SocketsService', 'RoomService'];
@@ -48865,7 +48773,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 65 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -48882,7 +48790,7 @@
 	      edited: '&',
 	      deleted: '&'
 	    },
-	    template: __webpack_require__(66),
+	    template: __webpack_require__(64),
 
 	    link: function link(scope, element, attrs) {
 
@@ -48935,13 +48843,13 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 66 */
+/* 64 */
 /***/ function(module, exports) {
 
 	module.exports = "<div ng-if=\"!editing\" class=\"task-description\">\n    <p class=\"task-title\">{{task.title}}</p>\n    <p class=\"task-details\">{{task.username}} on {{task.createdAt | date : longDate}}</p>\n</div>\n<form ng-if=\"editing\" class=\"inline\" ng-submit=\"save()\">\n    <input type=\"text\" ng-model=\"task.title\" /><input type=\"submit\" class=\"button\" value=\"&#43;\"/>\n</form>\n<div ng-if=\"!editing && !deleting\" class=\"control-container\">\n    <button ng-click=\"startDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n    <button ng-click=\"edit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n    <button ng-click=\"completed()\" class=\"done icon\" title=\"Mark as complete\"><span class=\"lnr lnr-checkmark-circle\"></span></button>\n</div>\n<div class=\"control-container\" ng-if=\"deleting\">\n    <div class=\"button-group small\">\n        <button ng-click=\"cancelDelete()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"deleted()\" class=\"button danger\">Delete</button>\n    </div>\n</div>\n";
 
 /***/ },
-/* 67 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -48962,7 +48870,7 @@
 	      editList: '&editlist',
 	      deleteList: '&deletelist'
 	    },
-	    template: __webpack_require__(68),
+	    template: __webpack_require__(66),
 
 	    link: function link(scope, element, attrs) {
 
@@ -49021,23 +48929,23 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 68 */
+/* 66 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"list-title\">\n    <span ng-if=\"!editing && !deleting\">{{list.name || 'Todo list'}}</span>\n    <span ng-if=\"!editing && !deleting\" class=\"control-container\">\n    <button ng-click=\"toggleListEdit()\" class=\"slide-out icon\"><span class=\"lnr lnr-pencil\"></span></button>\n    <button ng-click=\"toggleListDelete()\" class=\"slide-out delete icon\"><span class=\"lnr lnr-cross\"></span></button>\n    </span>\n    <form ng-if=\"editing\" name=\"listUpdate\" class=\"inline\" ng-submit=\"submitListEdit()\">\n        <input type=\"text\" ng-model=\"list.name\" placeholder=\"List name\" /><input type=\"submit\" class=\"button secondary\" value=\"&#43;\" />\n    </form>\n    <div ng-if=\"deleting\" class=\"button-group\">\n        <button ng-click=\"toggleListDelete()\" class=\"button secondary\">Cancel</button>\n        <button ng-click=\"removeList()\" class=\"button danger\">Delete</button>\n    </div>\n</div>\n<div class=\"list-body\">\n    <div class=\"task-item\" ng-repeat=\"task in list.tasks\">\n        <task-view task=\"task\" edited=\"updateTask(task)\" deleted=\"removeTask(task)\">\n        </task-view>\n    </div>\n    <p class=\"empty-notification\" ng-if=\"!list.tasks.length\">No todos to be done</p>\n</div>\n<form class=\"add-task inline\" ng-class=\"{'attempted-submit': attemptedSubmit}\" name=\"add\" novalidate=\"novalidate\" ng-submit=\"addTask(add.$valid)\">\n  <input type=\"text\" id=\"{{'new' + list.id}}\" ng-model=\"list.newTask.title\" placeholder=\"New Todo\" required=\"required\" /><input type=\"submit\" class=\"button primary\" value=\"&#43;\" />\n</form>\n";
 
 /***/ },
-/* 69 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by alex_crack on 20.11.15.
 	 */
-	__webpack_require__(70);
+	__webpack_require__(68);
 	module.exports = 'ui-notification';
 
 /***/ },
-/* 70 */
+/* 68 */
 /***/ function(module, exports) {
 
 	/**
@@ -49269,15 +49177,15 @@
 	angular.module("ui-notification").run(["$templateCache", function($templateCache) {$templateCache.put("angular-ui-notification.html","<div class=\"ui-notification\"><h3 ng-show=\"title\" ng-bind-html=\"title\"></h3><div class=\"message\" ng-bind-html=\"message\"></div></div>");}]);
 
 /***/ },
-/* 71 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(72);
+	__webpack_require__(70);
 	module.exports = 'angularUtils.directives.dirPagination';
 
 
 /***/ },
-/* 72 */
+/* 70 */
 /***/ function(module, exports) {
 
 	/**
@@ -49922,7 +49830,7 @@
 
 
 /***/ },
-/* 73 */
+/* 71 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -50023,7 +49931,7 @@
 	module.exports = TasksService;
 
 /***/ },
-/* 74 */
+/* 72 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -50086,7 +49994,7 @@
 	module.exports = SocketsService;
 
 /***/ },
-/* 75 */
+/* 73 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -50157,7 +50065,7 @@
 	module.exports = RoomService;
 
 /***/ },
-/* 76 */
+/* 74 */
 /***/ function(module, exports) {
 
 	'use strict';

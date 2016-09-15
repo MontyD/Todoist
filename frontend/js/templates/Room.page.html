@@ -1,13 +1,14 @@
-<nav class="top">
+<nav class="top" ng-class="{'menu-open': home.menuOpen}">
     <div class="container">
         <a class="home-link" href="/" title="Home">Todoist | {{home.room.name}}</a>
         <ul>
+            <li><a ng-click="home.toggleMenu()" class="close" title="Close"><img src="/img/close.png" alt="Close" /></a></li>
             <li><a ui-sref="home" title="Todo" class="current">Todos</a></li>
             <li><a ui-sref="overview" title="Overview">Overview</a></li>
             <li ng-if="home.room.isAdmin"><a ui-sref="settings" title="Settings">Settings</a></li>
             <li><a target="_self" href="/rooms/login/" title="Logout">Logout</a></li>
         </ul>
-        <a href="#" target="_self" title="Open Menu" class="menu menu-icon"><img src="/img/menu.png" alt="Menu" /></a>
+        <a href="#" ng-click="home.toggleMenu()" title="Open Menu" class="menu menu-icon"><img src="/img/menu.png" alt="Menu" /></a>
     </div>
 </nav>
 <main class="container center">

@@ -11,10 +11,14 @@ class Menu {
 
     this.closeMenuElements = closeMenuIDs.map(ID => document.getElementById(ID));
 
+    this.placeListeners();
+  }
+
+  placeListeners() {
+    console.log(this.elements);
+
     this.elements.forEach(el => addEvent('click', el, this.toggleMenu), this);
-
     this.closeMenuElements.forEach(el => addEvent('click', el, this.closeMenu), this);
-
   }
 
 	toggleMenu(e, close) {

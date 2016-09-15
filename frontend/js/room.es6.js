@@ -2,9 +2,6 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
 
-import Menu from './components/_menu.es6.js';
-const menu = new Menu();
-
 import io from 'socket.io-client';
 window.io = io;
 

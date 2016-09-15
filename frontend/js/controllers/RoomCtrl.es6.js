@@ -27,6 +27,8 @@ class RoomCtrl {
 
         this.hash = '';
 
+        this.menuOpen = false;
+
         this.init();
     }
 
@@ -69,6 +71,10 @@ class RoomCtrl {
             },
             this.handleError.bind(this)
         );
+    }
+
+    toggleMenu() {
+      this.menuOpen = !this.menuOpen;
     }
 
 

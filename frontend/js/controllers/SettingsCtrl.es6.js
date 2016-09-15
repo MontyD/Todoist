@@ -24,9 +24,9 @@ class SettingsCtrl {
 
         this.passwordAttemptedSubmit = false;
         this.passwords = {
-          old: '',
-          new: '',
-          confirm: ''
+            old: '',
+            new: '',
+            confirm: ''
         };
 
         this.passcodeAttemptedSubmit = false;
@@ -40,14 +40,16 @@ class SettingsCtrl {
         );
 
         this.RoomService.getInfo(
-          roomInfo => {
-            this.room = roomInfo;
-            this.hash = this.SocketsService.init(roomInfo.name);
-          }.bind(this),
-          this.handleError.bind(this)
+            roomInfo => {
+                this.room = roomInfo;
+                this.hash = this.SocketsService.init(roomInfo.name);
+            }.bind(this),
+            this.handleError.bind(this)
         );
 
         this.initSockets();
+
+        this.menuOpen = false;
 
         document.body.className = 'loaded';
     }
@@ -93,56 +95,66 @@ class SettingsCtrl {
     }
 
     logAllOut() {
-      this.RoomService.logAllOut().then(
-        result => window.location = '/rooms/login?kicked=true',
-        this.handleError.bind(this)
-      );
+        this.RoomService.logAllOut().then(
+            result => window.location = '/rooms/login?kicked=true',
+            this.handleError.bind(this)
+        );
     }
 
     changePasscode(valid) {
-      if (!valid) {
-        this.passcodeAttemptedSubmit = true;
-        return;
-      }
-      this.RoomService.updatePasscode({passcode: this.newPassCode}).then(
-        result => {
-          this.Notify('Passcode sucessfully changed!', 'Success');
-          this.newPassCode = '';
-          this.passcodeAttemptedSubmit = false;
-        },
-        this.handleError.bind(this)
-      );
+        if (!valid) {
+            this.passcodeAttemptedSubmit = true;
+            return;
+        }
+        this.RoomService.updatePasscode({
+            passcode: this.newPassCode
+        }).then(
+            result => {
+                this.Notify('Passcode sucessfully changed!', 'Success');
+                this.newPassCode = '';
+                this.passcodeAttemptedSubmit = false;
+            },
+            this.handleError.bind(this)
+        );
     }
 
     changeAdminPassword(valid) {
-      if (!valid) {
-        this.passwordAttemptedSubmit = true;
-        return;
-      }
-      if (this.passwords.new !== this.passwords.confirm) {
-        this.passwordAttemptedSubmit = true;
-        this.Notify('Passwords do not match', 'Error');
-        return;
-      }
-      this.RoomService.updateAdminPassword(this.passwords).then(
-        result => {
-          this.Notify('Admin password sucessfully changed!', 'Success');
-          this.passwords = {old: '', new: '', confirm: ''};
-          this.passwordAttemptedSubmit = false;
-        },
-        this.handleError.bind(this)
-      );
+        if (!valid) {
+            this.passwordAttemptedSubmit = true;
+            return;
+        }
+        if (this.passwords.new !== this.passwords.confirm) {
+            this.passwordAttemptedSubmit = true;
+            this.Notify('Passwords do not match', 'Error');
+            return;
+        }
+        this.RoomService.updateAdminPassword(this.passwords).then(
+            result => {
+                this.Notify('Admin password sucessfully changed!', 'Success');
+                this.passwords = {
+                    old: '',
+                    new: '',
+                    confirm: ''
+                };
+                this.passwordAttemptedSubmit = false;
+            },
+            this.handleError.bind(this)
+        );
     }
 
     toggleConfirmingDeleteRoom() {
-      this.confirmingDeleteRooms = !this.confirmingDeleteRooms;
+        this.confirmingDeleteRooms = !this.confirmingDeleteRooms;
     }
 
     deleteRoom() {
-      this.RoomService.deleteRoom().then(
-        result => window.location = '/rooms/login',
-        this.handleError.bind(this)
-      );
+        this.RoomService.deleteRoom().then(
+            result => window.location = '/rooms/login',
+            this.handleError.bind(this)
+        );
+    }
+
+    toggleMenu() {
+      this.menuOpen = !this.menuOpen;
     }
 
     handleError(error) {
@@ -151,8 +163,8 @@ class SettingsCtrl {
             return;
         }
         if (error.status === 400) {
-          this.Notify(error.data, 'Error');
-          return;
+            this.Notify(error.data, 'Error');
+            return;
         }
         console.error(error);
         this.Notify('Error communicating with server', 'Error');

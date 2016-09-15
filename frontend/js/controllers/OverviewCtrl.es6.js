@@ -40,6 +40,8 @@ class OverviewCtrl {
           this.handleError.bind(this)
         );
 
+        this.menuOpen = false;
+
         this.calculateDaysOfTheWeek();
 
         document.body.className = 'loaded';
@@ -189,6 +191,10 @@ class OverviewCtrl {
 
     toggleWeeklygraph() {
       this.showWeeklyGraph = !this.showWeeklyGraph;
+    }
+
+    toggleMenu() {
+      this.menuOpen = !this.menuOpen;
     }
 
     handleError(error) {
