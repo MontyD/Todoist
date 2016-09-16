@@ -14,12 +14,8 @@ if (config.use_env_variable) {
     var sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
-fs
-    .readdirSync(__dirname)
-    .filter(function(file) {
-        return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-    })
-    .forEach(function(file) {
+
+  ['./rooms.js', './tasks.js', './todoLists.js'].forEach(function(file) {
         var model = sequelize['import'](path.join(__dirname, file));
         db[model.name] = model;
     });
@@ -36,7 +32,7 @@ db.Sequelize = Sequelize;
 
 // Relationships
 db.tasks.belongsTo(db.todoLists);
-db.todoLists.hasMany(db.tasks, { onDelete: 'cascade', hooks: true });
+db.todoLists.hasMany(db.tasks, {hooks: true });
 
 db.rooms.hasMany(db.tasks, { onDelete: 'cascade', hooks: true });
 db.tasks.belongsTo(db.rooms);
