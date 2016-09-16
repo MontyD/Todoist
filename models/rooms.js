@@ -11,9 +11,10 @@ module.exports = function(sequelize, DataTypes) {
             validate: {
                 is: ['^[a-z0-9]+$', 'i'],
                 len: {
-                    args: [5, 20],
+                    args: [4, 20],
                     msg: 'Please enter a username consisting of only letters and numbers between five and twenty characters long'
-                }
+                },
+                notIn: [['rooms', 'tasks', 'todo-lists', 'settings', 'overview']]
             }
         },
         theme: DataTypes.STRING,
