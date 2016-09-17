@@ -66,7 +66,10 @@ router.post('/new', function(req, res, next) {
         models.todoLists.create({
             roomId: room.id
         }).then(function(todoList) {
-            req.body.username = req.body.name;
+            var userName = req.body.username;
+            var roomName = req.body.name;
+            req.body.name = userName;
+            req.body.username = roomName;
             req.body.password = req.body.adminPassword;
             authenticateRoom(req, res, next);
         }).catch(function(err) {
@@ -129,13 +132,13 @@ router.get('/is-unique', respondsToJSON, function(req, res, next) {
         },
         attributes: ['name']
     }).then(function(room) {
-      if (room) {
-        res.json(false);
-      } else {
-        res.json(true);
-      }
+        if (room) {
+            res.json(false);
+        } else {
+            res.json(true);
+        }
     }).catch(function(err) {
-      return handleError(err, next);
+        return handleError(err, next);
     });
 });
 
