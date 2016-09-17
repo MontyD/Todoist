@@ -74,15 +74,22 @@ class FormValidation {
 
     }
 
+    createObjectFromInputs(inputArray) {
+      let object = {};
+      inputArray.forEach(el => object[el.name] = el.value, this);
+      return object;
+    }
+
     validateInput(element) {
-        this.errors = validate.async(this.form, this.constraints || {}).then(
+        validate.async(this.createObjectFromInputs(this.inputs), this.constraints || {}).then(
             success => {},
-            function(errors){
+            function(errors) {
                 if (errors instanceof Error) {
                     throw errors;
+                } else {
+                    this.errors = errors;
+                    this.showErrorsForInput(element, this.errors[element.name]);
                 }
-                this.errors = errors;
-                this.showErrorsForInput(element, this.errors[element.name]);
             }.bind(this)
         );
     }
@@ -122,18 +129,19 @@ class FormValidation {
     }
 
     handleSubmission() {
-      this.errors = validate.async(this.form, this.constraints || {}).then(
-          function() {
-            this.form.submit();
-          }.bind(this),
-          function(errors){
-              if (errors instanceof Error) {
-                  throw errors;
-              }
-              this.errors = errors;
-              this.showAllErrors();
-          }.bind(this)
-      );
+      validate.async(this.createObjectFromInputs(this.inputs), this.constraints || {}).then(
+            function() {
+                this.form.submit();
+            }.bind(this),
+            function(errors) {
+                if (errors instanceof Error) {
+                    throw errors;
+                } else {
+                    this.errors = errors;
+                    this.showAllErrors();
+                }
+            }.bind(this)
+        );
     }
 }
 

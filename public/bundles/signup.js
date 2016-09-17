@@ -81,7 +81,8 @@
 	                flags: 'i',
 	                message: '^Room name must only contain only letters or numbers (no spaces)'
 	            },
-	            exclusion: ['rooms', 'settings', 'overview', 'index', 'todo-lists']
+	            exclusion: ['rooms', 'settings', 'overview', 'index', 'todo-lists'],
+	            nameUnique: true
 	        },
 	        passcode: {
 	            length: {
@@ -232,14 +233,24 @@
 	            }, this);
 	        }
 	    }, {
+	        key: 'createObjectFromInputs',
+	        value: function createObjectFromInputs(inputArray) {
+	            var object = {};
+	            inputArray.forEach(function (el) {
+	                return object[el.name] = el.value;
+	            }, this);
+	            return object;
+	        }
+	    }, {
 	        key: 'validateInput',
 	        value: function validateInput(element) {
-	            this.errors = _validateJs2['default'].async(this.form, this.constraints || {}).then(function (success) {}, (function (errors) {
+	            _validateJs2['default'].async(this.createObjectFromInputs(this.inputs), this.constraints || {}).then(function (success) {}, (function (errors) {
 	                if (errors instanceof Error) {
 	                    throw errors;
+	                } else {
+	                    this.errors = errors;
+	                    this.showErrorsForInput(element, this.errors[element.name]);
 	                }
-	                this.errors = errors;
-	                this.showErrorsForInput(element, this.errors[element.name]);
 	            }).bind(this));
 	        }
 	    }, {
@@ -289,14 +300,15 @@
 	    }, {
 	        key: 'handleSubmission',
 	        value: function handleSubmission() {
-	            this.errors = _validateJs2['default'].async(this.form, this.constraints || {}).then((function () {
+	            _validateJs2['default'].async(this.createObjectFromInputs(this.inputs), this.constraints || {}).then((function () {
 	                this.form.submit();
 	            }).bind(this), (function (errors) {
 	                if (errors instanceof Error) {
 	                    throw errors;
+	                } else {
+	                    this.errors = errors;
+	                    this.showAllErrors();
 	                }
-	                this.errors = errors;
-	                this.showAllErrors();
 	            }).bind(this));
 	        }
 	    }]);

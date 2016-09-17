@@ -28,7 +28,8 @@ import FormValidation from './components/_FormValidation.es6.js';
                 flags: 'i',
                 message: '^Room name must only contain only letters or numbers (no spaces)'
             },
-            exclusion: ['rooms', 'settings', 'overview', 'index', 'todo-lists']
+            exclusion: ['rooms', 'settings', 'overview', 'index', 'todo-lists'],
+            nameUnique: true
         },
         passcode: {
             length: {
