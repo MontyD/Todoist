@@ -728,12 +728,16 @@ ui-view {
 
 h1 {
   font-family: "butlerbold", serif;
-  font-size: 5rem; }
+  font-size: 5rem;
+  line-height: 90%; }
   h1.shadow {
     text-shadow: 5px 5px 0 #004D40; }
   h1.short {
     margin-top: 0;
     margin-bottom: 0; }
+  @media (max-width: 630px) {
+    h1 {
+      font-size: 3rem; } }
 
 h2 {
   font-family: "Droid Sans", sans-serif;
@@ -2019,12 +2023,16 @@ ui-view {
 
 h1 {
   font-family: "butlerbold", serif;
-  font-size: 5rem; }
+  font-size: 5rem;
+  line-height: 90%; }
   h1.shadow {
     text-shadow: 5px 5px 0 #004D40; }
   h1.short {
     margin-top: 0;
     margin-bottom: 0; }
+  @media (max-width: 630px) {
+    h1 {
+      font-size: 3rem; } }
 
 h2 {
   font-family: "Droid Sans", sans-serif;
@@ -3236,12 +3244,16 @@ ui-view {
 
 h1 {
   font-family: "butlerbold", serif;
-  font-size: 5rem; }
+  font-size: 5rem;
+  line-height: 90%; }
   h1.shadow {
     text-shadow: 5px 5px 0 #004D40; }
   h1.short {
     margin-top: 0;
     margin-bottom: 0; }
+  @media (max-width: 630px) {
+    h1 {
+      font-size: 3rem; } }
 
 h2 {
   font-family: "Droid Sans", sans-serif;

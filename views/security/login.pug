@@ -10,7 +10,7 @@ block content
           h1 Login
           if badCredentials
               p.error-holder Incorrect login details
-          form(method="POST", action="/rooms/login")
+          form(id="sign-in-form" method="POST", action="/rooms/login")
               label(for="name") Your name
               if (userName)
                   input(type="text", name="name", id="name", autofocus="autofocus", required="required", value=userName)
@@ -26,3 +26,4 @@ block content
               input(type="submit", value="Login").button.primary
               if (originalURL)
                   input(type="text", value=originalURL, name="originalURL").hidden
+      script(type="text/javascript", src="bundles/signin.js")

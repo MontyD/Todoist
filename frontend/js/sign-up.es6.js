@@ -33,8 +33,8 @@ import FormValidation from './components/_FormValidation.es6.js';
         },
         passcode: {
             length: {
-                minimum: 3,
-                maximum: 20
+                minimum: 5,
+                maximum: 70
             },
             presence: true,
             equality: {

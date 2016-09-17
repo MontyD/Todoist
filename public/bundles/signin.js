@@ -58,7 +58,7 @@
 	    'use strict';
 
 	    var constraints = {
-	        username: {
+	        name: {
 	            presence: true,
 	            length: {
 	                minimum: 3,
@@ -70,7 +70,7 @@
 	                message: '^Your name must only contain only letters or numbers (no spaces)'
 	            }
 	        },
-	        name: {
+	        username: {
 	            presence: true,
 	            length: {
 	                minimum: 4,
@@ -79,42 +79,19 @@
 	            format: {
 	                pattern: '[a-z0-9]+',
 	                flags: 'i',
-	                message: '^Room name must only contain only letters or numbers (no spaces)'
-	            },
-	            exclusion: ['rooms', 'settings', 'overview', 'index', 'todo-lists'],
-	            nameUnique: true
+	                message: '^Room names only contain letters or numbers (no spaces)'
+	            }
 	        },
-	        passcode: {
+	        password: {
 	            length: {
-	                minimum: 5,
-	                maximum: 70
+	                minimum: 3,
+	                maximum: 20
 	            },
-	            presence: true,
-	            equality: {
-	                attribute: 'adminPassword',
-	                message: '^Passcode must not match admin password',
-	                comparator: function comparator(v1, v2) {
-	                    return v1 !== v2;
-	                }
-	            }
-	        },
-	        adminPassword: {
-	            presence: true,
-	            length: {
-	                minimum: 5,
-	                maximum: 70
-	            }
-	        },
-	        confirmAdmin: {
-	            presence: true,
-	            equality: {
-	                attribute: 'adminPassword',
-	                message: '^Passwords do not match'
-	            }
+	            presence: true
 	        }
 	    };
 
-	    var validateForm = new _components_FormValidationEs6Js2['default']('sign-up-form', constraints);
+	    var validateForm = new _components_FormValidationEs6Js2['default']('sign-in-form', constraints);
 	})();
 
 /***/ },
