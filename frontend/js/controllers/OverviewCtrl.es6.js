@@ -199,7 +199,7 @@ class OverviewCtrl {
 
     handleError(error) {
         if (error.status === 401 || error.status === 403) {
-            window.location = '/rooms/login?timeout=true';
+            window.location = '/' + this.room.name + '?logout=true';
         }
         console.error(error);
         this.Notify('Error communicating with server', 'Error');

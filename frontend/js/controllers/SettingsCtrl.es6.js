@@ -96,7 +96,7 @@ class SettingsCtrl {
 
     logAllOut() {
         this.RoomService.logAllOut().then(
-            result => window.location = '/rooms/login?kicked=true',
+            result => window.location = '/' + this.room.name + '?logout=true',
             this.handleError.bind(this)
         );
     }
@@ -159,7 +159,7 @@ class SettingsCtrl {
 
     handleError(error) {
         if (error.status === 401 || error.status === 403) {
-            window.location = '/rooms/login?timeout=true';
+            window.location = '/' + this.room.name + '?logout=true';
             return;
         }
         if (error.status === 400) {

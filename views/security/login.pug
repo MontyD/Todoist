@@ -16,11 +16,11 @@ block content
                   input(type="text", name="name", id="name", autofocus="autofocus", required="required", value=userName)
               else
                   input(type="text", name="name", id="name", autofocus="autofocus", required="required")
-              label(for="username") Room name
-              if (roomName)
-                  input(type="text", name="username", id="username", required="required", value=roomName)
+              if (room)
+                  input(type="text", name="username", id="username", required="required", value=room).hidden
               else
-                  input(type="text", name="username", id="username", required="required")
+                label(for="username") Room name
+                input(type="text", name="username", id="username", required="required")
               label(for="password") Room password
               input(type="password", name="password", id="password", required="required")
               input(type="submit", value="Login").button.primary

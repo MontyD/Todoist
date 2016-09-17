@@ -6,7 +6,7 @@
             <li><a ui-sref="home" title="Todo">Todos</a></li>
             <li><a ui-sref="overview" title="Overview">Overview</a></li>
             <li><a ui-sref="settings" title="Settings" class="current">Settings</a></li>
-            <li><a target="_self" href="/rooms/login/" title="Logout">Logout</a></li>
+            <li><a target="_self" href="/{{settings.room.name}}?logout=true" title="Logout">Logout</a></li>
         </ul>
         <a href="#" ng-click="settings.toggleMenu()" title="Open Menu" class="menu menu-icon"><img src="/img/menu.png" alt="Menu" /></a>
     </div>

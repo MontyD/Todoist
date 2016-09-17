@@ -32,5 +32,18 @@ router.get('/settings', checkRoom, passRoomAndUser, isAdmin,  function(req, res)
   }
 });
 
+// render login page for room
+router.get('/:room', function(req, res) {
+  if (req.room && !req.query.logout) {
+      return res.redirect('/');
+  }
+  if (req.room) {
+    req.logout();
+  }
+  res.render('security/login', {
+    room: req.params.room
+  });
+});
+
 
 module.exports = router;

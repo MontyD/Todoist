@@ -733,8 +733,8 @@ h1 {
   h1.shadow {
     text-shadow: 5px 5px 0 #004D40; }
   h1.short {
-    margin-top: 0;
-    margin-bottom: 0; }
+    margin-top: 0.1em;
+    margin-bottom: 0.3em; }
   @media (max-width: 630px) {
     h1 {
       font-size: 3rem; } }
@@ -2028,8 +2028,8 @@ h1 {
   h1.shadow {
     text-shadow: 5px 5px 0 #004D40; }
   h1.short {
-    margin-top: 0;
-    margin-bottom: 0; }
+    margin-top: 0.1em;
+    margin-bottom: 0.3em; }
   @media (max-width: 630px) {
     h1 {
       font-size: 3rem; } }
@@ -3249,8 +3249,8 @@ h1 {
   h1.shadow {
     text-shadow: 5px 5px 0 #004D40; }
   h1.short {
-    margin-top: 0;
-    margin-bottom: 0; }
+    margin-top: 0.1em;
+    margin-bottom: 0.3em; }
   @media (max-width: 630px) {
     h1 {
       font-size: 3rem; } }
