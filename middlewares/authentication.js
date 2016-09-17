@@ -12,9 +12,9 @@ var authentication = new LocalStrategy(
             },
             attributes: ['passcodeSalt', 'passcode', 'adminSalt', 'adminPassword', 'id', 'name']
         }).then(function(room) {
-            if (!room) {
+            if (room === null) {
                 return done(null, false, {
-                    message: 'Room not found'
+                    noroom: true
                 });
             }
             bcrypt.hash(password, room.passcodeSalt, function(err, hash) {
@@ -41,7 +41,7 @@ var authentication = new LocalStrategy(
                             });
                         } else {
                             return done(null, false, {
-                                message: 'Incorrect password'
+                                room: room.name
                             });
                         }
                     });

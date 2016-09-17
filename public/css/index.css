@@ -1050,6 +1050,17 @@ form {
     font-size: 0.9em;
     font-style: italic;
     text-align: right;
+    color: #E64A19; }
+    form p.error.main {
+      font-size: 1.1em;
+      text-align: center; }
+  form p.explain {
+    margin: -.9em auto 2em;
+    width: 90%;
+    padding-top: 0;
+    font-size: 0.9em;
+    font-style: italic;
+    text-align: center;
     color: #6f6f6f; }
 
 label.checkbox {

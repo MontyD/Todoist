@@ -22,10 +22,10 @@ function authenticateRoom(req, res, next) {
             return next(err);
         }
         if (!room) {
-            return res.render('security/login', {
-                badCredentials: true,
-                originalURL: req.body.originalURL
-            });
+          if (!info.noroom && info.room) {
+            return res.redirect('/' + info.room + '?badpassword=true');
+          }
+          return res.redirect('/rooms/login?noroom=true');
         }
         req.logIn(room, function(err) {
             if (err) {
@@ -40,9 +40,14 @@ function authenticateRoom(req, res, next) {
 // Get - register page
 router.get('/login', function(req, res, next) {
     req.logout();
-    req.session.destroy();
+    var username;
+    if (req.session && req.session.username) {
+      username = req.session.username;
+    }
     res.render('security/login', {
-        roomName: req.query.name
+        roomName: req.query.name,
+        noRoom: req.query.noroom,
+        username: username
     });
 });
 

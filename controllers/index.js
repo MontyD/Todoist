@@ -40,8 +40,14 @@ router.get('/:room', function(req, res) {
   if (req.room) {
     req.logout();
   }
+  var username;
+  if (req.session && req.session.username) {
+    username = req.session.username;
+  }
   res.render('security/login', {
-    room: req.params.room
+    room: req.params.room,
+    username: username,
+    badpassword: req.query.badpassword
   });
 });
 

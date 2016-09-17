@@ -17,8 +17,10 @@ block content
         input(type="text", name="name", id="name", required="required")
         label(for="passcode") Room passcode
         input(type="text", name="passcode", id="passcode", required="required")
+        p.explain Share this with others to allow them access to Todos
         label(for="adminPassword") Room admin password
         input(type="password", name="adminPassword", id="adminPassword", required="required")
+        p.explain Login using this password to access room settings as well as Todos
         label(for="confirmAdmin") Confirm password
         input(type="password", name="confirmAdmin", id="confirmAdmin", required="required")
         input(type="submit", value="Create").button.primary
