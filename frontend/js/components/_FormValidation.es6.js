@@ -82,7 +82,10 @@ class FormValidation {
 
     validateInput(element) {
         validate.async(this.createObjectFromInputs(this.inputs), this.constraints || {}).then(
-            success => {},
+            success => {
+              this.errors = {};
+              this.showAllErrors();
+            },
             function(errors) {
                 if (errors instanceof Error) {
                     throw errors;
@@ -124,6 +127,8 @@ class FormValidation {
         this.inputs.forEach(el => {
             if (this.errors[el.name]) {
                 this.showErrorsForInput(el, this.errors[el.name]);
+            } else {
+              this.resetErrors(el);
             }
         });
     }
@@ -131,6 +136,8 @@ class FormValidation {
     handleSubmission() {
       validate.async(this.createObjectFromInputs(this.inputs), this.constraints || {}).then(
             function() {
+                this.errors = {};
+                this.showAllErrors();
                 this.form.submit();
             }.bind(this),
             function(errors) {

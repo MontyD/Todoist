@@ -244,7 +244,12 @@
 	    }, {
 	        key: 'validateInput',
 	        value: function validateInput(element) {
-	            _validateJs2['default'].async(this.createObjectFromInputs(this.inputs), this.constraints || {}).then(function (success) {}, (function (errors) {
+	            var _this2 = this;
+
+	            _validateJs2['default'].async(this.createObjectFromInputs(this.inputs), this.constraints || {}).then(function (success) {
+	                _this2.errors = {};
+	                _this2.showAllErrors();
+	            }, (function (errors) {
 	                if (errors instanceof Error) {
 	                    throw errors;
 	                } else {
@@ -256,13 +261,13 @@
 	    }, {
 	        key: 'showErrorsForInput',
 	        value: function showErrorsForInput(element, errors) {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            this.resetErrors(element);
 	            if (errors) {
 	                element.className = element.className + ' error';
 	                errors.forEach(function (error) {
-	                    return _this2.addErrorsToElement(element, error);
+	                    return _this3.addErrorsToElement(element, error);
 	                }, this);
 	            } else {
 	                element.className = element.className + ' valid';
@@ -289,11 +294,13 @@
 	    }, {
 	        key: 'showAllErrors',
 	        value: function showAllErrors() {
-	            var _this3 = this;
+	            var _this4 = this;
 
 	            this.inputs.forEach(function (el) {
-	                if (_this3.errors[el.name]) {
-	                    _this3.showErrorsForInput(el, _this3.errors[el.name]);
+	                if (_this4.errors[el.name]) {
+	                    _this4.showErrorsForInput(el, _this4.errors[el.name]);
+	                } else {
+	                    _this4.resetErrors(el);
 	                }
 	            });
 	        }
@@ -301,6 +308,8 @@
 	        key: 'handleSubmission',
 	        value: function handleSubmission() {
 	            _validateJs2['default'].async(this.createObjectFromInputs(this.inputs), this.constraints || {}).then((function () {
+	                this.errors = {};
+	                this.showAllErrors();
 	                this.form.submit();
 	            }).bind(this), (function (errors) {
 	                if (errors instanceof Error) {
