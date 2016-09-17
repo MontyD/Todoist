@@ -8,6 +8,7 @@ var bundlesPath = path.resolve(__dirname, 'public', 'bundles');
 
 var entryPoints = {
     room: path.resolve(__dirname, 'frontend', 'js', 'room.es6.js'),
+    signup: path.resolve(__dirname, 'frontend', 'js', 'sign-up.es6.js'),
 };
 
 module.exports = function(grunt) {
