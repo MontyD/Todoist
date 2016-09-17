@@ -1,5 +1,5 @@
 import validate from 'validate.js';
-import addEvent from './components/_addEvent.es6.js';
+import addEvent from './_addEvent.es6.js';
 
 class FormValidation {
 
@@ -9,11 +9,13 @@ class FormValidation {
 
         this.constraints = constraints;
 
-        this.form = document.getElementById('formId');
+        this.form = document.getElementById(this.formId);
 
-        this.inputs = Array.prototype.slice.call(this.form.querySelectorAll('input, textarea, select'));
+        this.inputs = [];
 
         this.errors = {};
+
+        this.init();
 
     }
 
@@ -23,6 +25,8 @@ class FormValidation {
             console.warn('Could not attach to form: ' + this.formId);
             return false;
         }
+
+        this.inputs = Array.prototype.slice.call(this.form.querySelectorAll('input, textarea, select'));
 
         addEvent('submit', this.form, (function(ev) {
             ev.preventDefault();
@@ -60,11 +64,11 @@ class FormValidation {
       let errorEl = document.createElement('p');
       errorEl.className = 'error error-' + element.id;
       errorEl.innerText = error;
-      element.parent.insertBefore(errorEl, element.nextSibling);
+      element.parentNode.insertBefore(errorEl, element.nextSibling);
     }
 
     resetErrors(element) {
-      let errorsClass = + 'error-' + element.id;
+      let errorsClass = 'error-' + element.id;
       let errorMessages = Array.prototype.slice.call(this.form.getElementsByClassName(errorsClass));
       errorMessages.forEach(el => {
         el.parentNode.removeChild(el);
@@ -85,7 +89,7 @@ class FormValidation {
       if (this.errors) {
         this.showAllErrors();
       } else {
-        this.form.Submit();
+        this.form.submit();
       }
     }
 

@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
             validate: {
                 len: {
                     args: [5, 70],
-                    msg: 'Please enter a password between five and seventy characters long'
+                    msg: 'Please enter a passcode between five and seventy characters long'
                 }
             }
         },
@@ -35,7 +35,7 @@ module.exports = function(sequelize, DataTypes) {
             validate: {
                 len: {
                     args: [5, 70],
-                    msg: 'Please enter a password between five and seventy characters long'
+                    msg: 'Please enter an admin password between five and seventy characters long'
                 }
             }
         },

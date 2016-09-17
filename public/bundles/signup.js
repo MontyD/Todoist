@@ -47,42 +47,45 @@
 
 	'use strict';
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	var _components_FormValidationEs6Js = __webpack_require__(75);
 
-	var _validateJs = __webpack_require__(75);
+	var _components_FormValidationEs6Js2 = _interopRequireDefault(_components_FormValidationEs6Js);
 
-	var _validateJs2 = _interopRequireDefault(_validateJs);
+	(function () {
 
-	var _components_addEventEs6Js = __webpack_require__(77);
+	    'use strict';
 
-	var _components_addEventEs6Js2 = _interopRequireDefault(_components_addEventEs6Js);
+	    var validateForm = new _components_FormValidationEs6Js2['default']('sign-up-form', {
+	        username: {
+	            presence: true,
+	            length: {
+	                minimum: 3,
+	                maximum: 20
+	            },
+	            format: {
+	                pattern: '[a-z0-9]+',
+	                flags: 'i',
+	                message: 'Username must only contain a-z and 0-9'
+	            }
+	        },
+	        adminPassword: {
+	            presence: true,
+	            length: {
+	                minimum: 5,
+	                maximum: 70
+	            }
+	        },
+	        'confirmAdmin': {
+	            presence: true,
+	            equality: {
+	                attribute: 'adminPassword',
+	                message: '^The passwords does not match'
+	            }
+	        }
 
-	var ValidateForm = (function () {
-	  function ValidateForm(formId, constraints) {
-	    _classCallCheck(this, ValidateForm);
-
-	    this.formId = formId;
-
-	    this.constraints = constraints;
-
-	    this.form = document.getElementById('formId');
-	  }
-
-	  _createClass(ValidateForm, [{
-	    key: 'init',
-	    value: function init() {
-	      if (!this.form) {
-	        console.warn('Could not attach to form: ' + this.formId);
-	        return false;
-	      }
-	    }
-	  }]);
-
-	  return ValidateForm;
+	    });
 	})();
 
 /***/ },
@@ -105,6 +108,143 @@
 /***/ },
 
 /***/ 75:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _validateJs = __webpack_require__(76);
+
+	var _validateJs2 = _interopRequireDefault(_validateJs);
+
+	var _addEventEs6Js = __webpack_require__(78);
+
+	var _addEventEs6Js2 = _interopRequireDefault(_addEventEs6Js);
+
+	var FormValidation = (function () {
+	  function FormValidation(formId, constraints) {
+	    _classCallCheck(this, FormValidation);
+
+	    this.formId = formId;
+
+	    this.constraints = constraints;
+
+	    this.form = document.getElementById(this.formId);
+
+	    this.inputs = [];
+
+	    this.errors = {};
+
+	    this.init();
+	  }
+
+	  _createClass(FormValidation, [{
+	    key: 'init',
+	    value: function init() {
+	      var _this = this;
+
+	      if (!this.form || !this.inputs) {
+	        console.warn('Could not attach to form: ' + this.formId);
+	        return false;
+	      }
+
+	      this.inputs = Array.prototype.slice.call(this.form.querySelectorAll('input, textarea, select'));
+
+	      (0, _addEventEs6Js2['default'])('submit', this.form, (function (ev) {
+	        ev.preventDefault();
+	        this.handleSubmission();
+	        return false;
+	      }).bind(this));
+
+	      this.form.noValidate = true;
+
+	      this.inputs.forEach(function (el) {
+	        (0, _addEventEs6Js2['default'])('change', el, (function (evt) {
+	          evt.preventDefault();
+	          this.validateInput(el);
+	        }).bind(_this));
+	      }, this);
+	    }
+	  }, {
+	    key: 'validateInput',
+	    value: function validateInput(element) {
+	      this.errors = (0, _validateJs2['default'])(this.form, this.constraints) || {};
+	      this.showErrorsForInput(element, this.errors[element.name]);
+	    }
+	  }, {
+	    key: 'showErrorsForInput',
+	    value: function showErrorsForInput(element, errors) {
+	      var _this2 = this;
+
+	      this.resetErrors(element);
+	      if (errors) {
+	        element.className = element.className + ' error';
+	        errors.forEach(function (error) {
+	          return _this2.addErrorsToElement(element, error);
+	        }, this);
+	      } else {
+	        element.className = element.className + ' valid';
+	      }
+	    }
+	  }, {
+	    key: 'addErrorsToElement',
+	    value: function addErrorsToElement(element, error) {
+	      var errorEl = document.createElement('p');
+	      errorEl.className = 'error error-' + element.id;
+	      errorEl.innerText = error;
+	      element.parentNode.insertBefore(errorEl, element.nextSibling);
+	    }
+	  }, {
+	    key: 'resetErrors',
+	    value: function resetErrors(element) {
+	      var errorsClass = 'error-' + element.id;
+	      var errorMessages = Array.prototype.slice.call(this.form.getElementsByClassName(errorsClass));
+	      errorMessages.forEach(function (el) {
+	        el.parentNode.removeChild(el);
+	      }, this);
+	      element.className = element.className.replace(' error', '');
+	    }
+	  }, {
+	    key: 'showAllErrors',
+	    value: function showAllErrors() {
+	      var _this3 = this;
+
+	      this.inputs.forEach(function (el) {
+	        if (_this3.errors[el.name]) {
+	          _this3.showErrorsForInput(el, _this3.errors[el.name]);
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'handleSubmission',
+	    value: function handleSubmission() {
+	      this.errors = (0, _validateJs2['default'])(this.form, this.constraints);
+	      if (this.errors) {
+	        this.showAllErrors();
+	      } else {
+	        this.form.submit();
+	      }
+	    }
+	  }]);
+
+	  return FormValidation;
+	})();
+
+	exports['default'] = FormValidation;
+	module.exports = exports['default'];
+
+/***/ },
+
+/***/ 76:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/*!
@@ -1240,17 +1380,17 @@
 	    }
 	  };
 
-	  validate.exposeModule(validate, this, exports, module, __webpack_require__(76));
+	  validate.exposeModule(validate, this, exports, module, __webpack_require__(77));
 	}).call(this,
 	         true ? /* istanbul ignore next */ exports : null,
 	         true ? /* istanbul ignore next */ module : null,
-	        __webpack_require__(76));
+	        __webpack_require__(77));
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14)(module)))
 
 /***/ },
 
-/***/ 76:
+/***/ 77:
 /***/ function(module, exports) {
 
 	module.exports = function() { throw new Error("define cannot be used indirect"); };
@@ -1258,7 +1398,7 @@
 
 /***/ },
 
-/***/ 77:
+/***/ 78:
 /***/ function(module, exports) {
 
 	'use strict';

@@ -10,7 +10,7 @@ block content
       h1 New Room
       if error
         p.error= error.message
-      form(method="POST", action="/rooms/new")
+      form(id="sign-up-form" method="POST", action="/rooms/new")
         label(for="username") Your name
         input(type="text", name="username", id="username", autofocus="autofocus", required="required")
         label(for="name") Room name
@@ -24,3 +24,4 @@ block content
         input(type="submit", value="Create").button.primary
         if (originalURL)
           input(type="text", value=originalURL, name="originalURL").hidden
+    script(type="text/javascript", src="bundles/signup.js")
