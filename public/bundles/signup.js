@@ -57,7 +57,7 @@
 
 	    'use strict';
 
-	    var validateForm = new _components_FormValidationEs6Js2['default']('sign-up-form', {
+	    var constraints = {
 	        username: {
 	            presence: true,
 	            length: {
@@ -67,7 +67,34 @@
 	            format: {
 	                pattern: '[a-z0-9]+',
 	                flags: 'i',
-	                message: 'Username must only contain a-z and 0-9'
+	                message: '^Your name must only contain only letters or numbers (no spaces)'
+	            }
+	        },
+	        name: {
+	            presence: true,
+	            length: {
+	                minimum: 4,
+	                maximum: 20
+	            },
+	            format: {
+	                pattern: '[a-z0-9]+',
+	                flags: 'i',
+	                message: '^Room name must only contain only letters or numbers (no spaces)'
+	            },
+	            exclusion: ['rooms', 'settings', 'overview', 'index', 'todo-lists']
+	        },
+	        passcode: {
+	            length: {
+	                minimum: 3,
+	                maximum: 20
+	            },
+	            presence: true,
+	            equality: {
+	                attribute: 'adminPassword',
+	                message: '^Passcode must not match admin password',
+	                comparator: function comparator(v1, v2) {
+	                    return v1 !== v2;
+	                }
 	            }
 	        },
 	        adminPassword: {
@@ -77,15 +104,16 @@
 	                maximum: 70
 	            }
 	        },
-	        'confirmAdmin': {
+	        confirmAdmin: {
 	            presence: true,
 	            equality: {
 	                attribute: 'adminPassword',
-	                message: '^The passwords does not match'
+	                message: '^Passwords do not match'
 	            }
 	        }
+	    };
 
-	    });
+	    var validateForm = new _components_FormValidationEs6Js2['default']('sign-up-form', constraints);
 	})();
 
 /***/ },
@@ -113,7 +141,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	    value: true
 	});
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -130,113 +158,150 @@
 
 	var _addEventEs6Js2 = _interopRequireDefault(_addEventEs6Js);
 
-	var FormValidation = (function () {
-	  function FormValidation(formId, constraints) {
-	    _classCallCheck(this, FormValidation);
+	_validateJs2['default'].validators.nameUnique = function (value) {
+	    'use strict';
+	    return new _validateJs2['default'].Promise(function (resolve, reject) {
+	        if (!value) {
+	            resolve();
+	        } else {
 
-	    this.formId = formId;
-
-	    this.constraints = constraints;
-
-	    this.form = document.getElementById(this.formId);
-
-	    this.inputs = [];
-
-	    this.errors = {};
-
-	    this.init();
-	  }
-
-	  _createClass(FormValidation, [{
-	    key: 'init',
-	    value: function init() {
-	      var _this = this;
-
-	      if (!this.form || !this.inputs) {
-	        console.warn('Could not attach to form: ' + this.formId);
-	        return false;
-	      }
-
-	      this.inputs = Array.prototype.slice.call(this.form.querySelectorAll('input, textarea, select'));
-
-	      (0, _addEventEs6Js2['default'])('submit', this.form, (function (ev) {
-	        ev.preventDefault();
-	        this.handleSubmission();
-	        return false;
-	      }).bind(this));
-
-	      this.form.noValidate = true;
-
-	      this.inputs.forEach(function (el) {
-	        (0, _addEventEs6Js2['default'])('change', el, (function (evt) {
-	          evt.preventDefault();
-	          this.validateInput(el);
-	        }).bind(_this));
-	      }, this);
-	    }
-	  }, {
-	    key: 'validateInput',
-	    value: function validateInput(element) {
-	      this.errors = (0, _validateJs2['default'])(this.form, this.constraints) || {};
-	      this.showErrorsForInput(element, this.errors[element.name]);
-	    }
-	  }, {
-	    key: 'showErrorsForInput',
-	    value: function showErrorsForInput(element, errors) {
-	      var _this2 = this;
-
-	      this.resetErrors(element);
-	      if (errors) {
-	        element.className = element.className + ' error';
-	        errors.forEach(function (error) {
-	          return _this2.addErrorsToElement(element, error);
-	        }, this);
-	      } else {
-	        element.className = element.className + ' valid';
-	      }
-	    }
-	  }, {
-	    key: 'addErrorsToElement',
-	    value: function addErrorsToElement(element, error) {
-	      var errorEl = document.createElement('p');
-	      errorEl.className = 'error error-' + element.id;
-	      errorEl.innerText = error;
-	      element.parentNode.insertBefore(errorEl, element.nextSibling);
-	    }
-	  }, {
-	    key: 'resetErrors',
-	    value: function resetErrors(element) {
-	      var errorsClass = 'error-' + element.id;
-	      var errorMessages = Array.prototype.slice.call(this.form.getElementsByClassName(errorsClass));
-	      errorMessages.forEach(function (el) {
-	        el.parentNode.removeChild(el);
-	      }, this);
-	      element.className = element.className.replace(' error', '');
-	    }
-	  }, {
-	    key: 'showAllErrors',
-	    value: function showAllErrors() {
-	      var _this3 = this;
-
-	      this.inputs.forEach(function (el) {
-	        if (_this3.errors[el.name]) {
-	          _this3.showErrorsForInput(el, _this3.errors[el.name]);
+	            var request = new XMLHttpRequest();
+	            (0, _addEventEs6Js2['default'])('load', request, function () {
+	                var result = JSON.parse(this.responseText);
+	                if (result) {
+	                    resolve();
+	                } else {
+	                    resolve('Sorry, that name is already taken');
+	                }
+	            });
+	            (0, _addEventEs6Js2['default'])('error', request, function () {
+	                reject();
+	            });
+	            (0, _addEventEs6Js2['default'])('abort', request, function () {
+	                reject();
+	            });
+	            request.open('GET', '/rooms/is-unique?name=' + value, true);
+	            request.setRequestHeader('Accept', 'application/json');
+	            request.send();
 	        }
-	      });
-	    }
-	  }, {
-	    key: 'handleSubmission',
-	    value: function handleSubmission() {
-	      this.errors = (0, _validateJs2['default'])(this.form, this.constraints);
-	      if (this.errors) {
-	        this.showAllErrors();
-	      } else {
-	        this.form.submit();
-	      }
-	    }
-	  }]);
+	    });
+	};
 
-	  return FormValidation;
+	var FormValidation = (function () {
+	    function FormValidation(formId, constraints) {
+	        _classCallCheck(this, FormValidation);
+
+	        this.formId = formId;
+
+	        this.constraints = constraints;
+
+	        this.form = document.getElementById(this.formId);
+
+	        this.inputs = [];
+
+	        this.errors = {};
+
+	        this.init();
+	    }
+
+	    _createClass(FormValidation, [{
+	        key: 'init',
+	        value: function init() {
+	            var _this = this;
+
+	            if (!this.form || !this.inputs) {
+	                console.warn('Could not attach to form: ' + this.formId);
+	                return false;
+	            }
+
+	            this.inputs = Array.prototype.slice.call(this.form.querySelectorAll('input, textarea, select'));
+
+	            (0, _addEventEs6Js2['default'])('submit', this.form, (function (ev) {
+	                ev.preventDefault();
+	                this.handleSubmission();
+	                return false;
+	            }).bind(this));
+
+	            this.form.noValidate = true;
+
+	            this.inputs.forEach(function (el) {
+	                (0, _addEventEs6Js2['default'])('change', el, (function (evt) {
+	                    evt.preventDefault();
+	                    this.validateInput(el);
+	                }).bind(_this));
+	            }, this);
+	        }
+	    }, {
+	        key: 'validateInput',
+	        value: function validateInput(element) {
+	            this.errors = _validateJs2['default'].async(this.form, this.constraints || {}).then(function (success) {}, (function (errors) {
+	                if (errors instanceof Error) {
+	                    throw errors;
+	                }
+	                this.errors = errors;
+	                this.showErrorsForInput(element, this.errors[element.name]);
+	            }).bind(this));
+	        }
+	    }, {
+	        key: 'showErrorsForInput',
+	        value: function showErrorsForInput(element, errors) {
+	            var _this2 = this;
+
+	            this.resetErrors(element);
+	            if (errors) {
+	                element.className = element.className + ' error';
+	                errors.forEach(function (error) {
+	                    return _this2.addErrorsToElement(element, error);
+	                }, this);
+	            } else {
+	                element.className = element.className + ' valid';
+	            }
+	        }
+	    }, {
+	        key: 'addErrorsToElement',
+	        value: function addErrorsToElement(element, error) {
+	            var errorEl = document.createElement('p');
+	            errorEl.className = 'error error-' + element.id;
+	            errorEl.innerText = error;
+	            element.parentNode.insertBefore(errorEl, element.nextSibling);
+	        }
+	    }, {
+	        key: 'resetErrors',
+	        value: function resetErrors(element) {
+	            var errorsClass = 'error-' + element.id;
+	            var errorMessages = Array.prototype.slice.call(this.form.getElementsByClassName(errorsClass));
+	            errorMessages.forEach(function (el) {
+	                el.parentNode.removeChild(el);
+	            }, this);
+	            element.className = element.className.replace(' error', '');
+	        }
+	    }, {
+	        key: 'showAllErrors',
+	        value: function showAllErrors() {
+	            var _this3 = this;
+
+	            this.inputs.forEach(function (el) {
+	                if (_this3.errors[el.name]) {
+	                    _this3.showErrorsForInput(el, _this3.errors[el.name]);
+	                }
+	            });
+	        }
+	    }, {
+	        key: 'handleSubmission',
+	        value: function handleSubmission() {
+	            this.errors = _validateJs2['default'].async(this.form, this.constraints || {}).then((function () {
+	                this.form.submit();
+	            }).bind(this), (function (errors) {
+	                if (errors instanceof Error) {
+	                    throw errors;
+	                }
+	                this.errors = errors;
+	                this.showAllErrors();
+	            }).bind(this));
+	        }
+	    }]);
+
+	    return FormValidation;
 	})();
 
 	exports['default'] = FormValidation;

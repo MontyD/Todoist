@@ -252,7 +252,7 @@ button.icon {
 }
 
 .slight-gradient {
-    background: radial-gradient($colorMain, $colorDark);
+    background: $colorDark;
 }
 
 .opacity {

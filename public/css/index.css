@@ -888,7 +888,7 @@ button.icon {
   color: #6f6f6f; }
 
 .slight-gradient, .loading-view {
-  background: radial-gradient(#009688, #004D40); }
+  background: #004D40; }
 
 .opacity {
   opacity: 0.5; }
@@ -2174,7 +2174,7 @@ button.icon {
   color: #6f6f6f; }
 
 .slight-gradient, .loading-view {
-  background: radial-gradient(#009688, #004D40); }
+  background: #004D40; }
 
 .opacity {
   opacity: 0.5; }
@@ -3394,7 +3394,7 @@ button.icon {
   color: #6f6f6f; }
 
 .slight-gradient, .loading-view {
-  background: radial-gradient(#009688, #004D40); }
+  background: #004D40; }
 
 .opacity {
   opacity: 0.5; }
