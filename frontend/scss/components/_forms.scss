@@ -17,6 +17,16 @@ form {
             border-color: $colorError;
         }
     }
+
+    p.error {
+        margin     : -.9em auto 2em;
+        width      : 90%;
+        padding-top: 0;
+        font-size  : 0.9em;
+        font-style : italic;
+        text-align : right;
+        color      : $colorDarkGrey;
+    }
 }
 
 label {
@@ -272,7 +282,7 @@ form.inline {
         height                   : 32px;
         border-top-left-radius   : 0;
         border-bottom-left-radius: 0;
-        font-weight: normal;
+        font-weight              : normal;
     }
 
     label {

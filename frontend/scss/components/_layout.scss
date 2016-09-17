@@ -17,11 +17,6 @@ body {
     width                 : 100%;
     font-family           : $sans-serif;
     -webkit-font-smoothing: antialiased;
-
-    &.padded {
-        padding   : 2em 0;
-        box-sizing: border-box;
-    }
 }
 
 ui-view {

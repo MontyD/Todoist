@@ -14,7 +14,7 @@ validate.validators.nameUnique = function(value) {
                 if (result) {
                     resolve();
                 } else {
-                    resolve('Sorry, that name is already taken');
+                    resolve('^Sorry, that name is already taken');
                 }
             });
             addEvent('error', request, function() {
@@ -100,10 +100,10 @@ class FormValidation {
     showErrorsForInput(element, errors) {
         this.resetErrors(element);
         if (errors) {
-            element.className = element.className + ' error';
+            element.className = element.className.replace(/\s(error|valid)/gi, '') + ' error';
             errors.forEach(error => this.addErrorsToElement(element, error), this);
         } else {
-            element.className = element.className + ' valid';
+            element.className = element.className.replace(/\s(error|valid)/gi, '') + ' valid';
         }
     }
 
@@ -120,7 +120,7 @@ class FormValidation {
         errorMessages.forEach(el => {
             el.parentNode.removeChild(el);
         }, this);
-        element.className = element.className.replace(' error', '');
+        element.className = element.className.replace(/\s(error|valid)/gi, '');
     }
 
     showAllErrors() {

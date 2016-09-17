@@ -172,7 +172,7 @@
 	                if (result) {
 	                    resolve();
 	                } else {
-	                    resolve('Sorry, that name is already taken');
+	                    resolve('^Sorry, that name is already taken');
 	                }
 	            });
 	            (0, _addEventEs6Js2['default'])('error', request, function () {
@@ -265,12 +265,12 @@
 
 	            this.resetErrors(element);
 	            if (errors) {
-	                element.className = element.className + ' error';
+	                element.className = element.className.replace(/\s(error|valid)/gi, '') + ' error';
 	                errors.forEach(function (error) {
 	                    return _this3.addErrorsToElement(element, error);
 	                }, this);
 	            } else {
-	                element.className = element.className + ' valid';
+	                element.className = element.className.replace(/\s(error|valid)/gi, '') + ' valid';
 	            }
 	        }
 	    }, {
@@ -289,7 +289,7 @@
 	            errorMessages.forEach(function (el) {
 	                el.parentNode.removeChild(el);
 	            }, this);
-	            element.className = element.className.replace(' error', '');
+	            element.className = element.className.replace(/\s(error|valid)/gi, '');
 	        }
 	    }, {
 	        key: 'showAllErrors',

@@ -375,9 +375,6 @@ body {
   width: 100%;
   font-family: "Droid Sans", sans-serif;
   -webkit-font-smoothing: antialiased; }
-  body.padded {
-    padding: 2em 0;
-    box-sizing: border-box; }
 
 ui-view {
   display: block;
@@ -1042,6 +1039,14 @@ form {
     font-family: "Droid Sans", sans-serif; }
   form.attempted-submit input.ng-invalid {
     border-color: #E64A19; }
+  form p.error {
+    margin: -.9em auto 2em;
+    width: 90%;
+    padding-top: 0;
+    font-size: 0.9em;
+    font-style: italic;
+    text-align: right;
+    color: #6f6f6f; }
 
 label.checkbox {
   display: inline-block;
@@ -1661,9 +1666,6 @@ body {
   width: 100%;
   font-family: "Droid Sans", sans-serif;
   -webkit-font-smoothing: antialiased; }
-  body.padded {
-    padding: 2em 0;
-    box-sizing: border-box; }
 
 ui-view {
   display: block;
@@ -2881,9 +2883,6 @@ body {
   width: 100%;
   font-family: "Droid Sans", sans-serif;
   -webkit-font-smoothing: antialiased; }
-  body.padded {
-    padding: 2em 0;
-    box-sizing: border-box; }
 
 ui-view {
   display: block;
@@ -3552,11 +3551,11 @@ footer {
     -webkit-transform: translateY(0);
             transform: translateY(0); }
   33% {
-    -webkit-transform: translateY(-3px);
-            transform: translateY(-3px); }
+    -webkit-transform: translateY(-2px);
+            transform: translateY(-2px); }
   66% {
-    -webkit-transform: translateY(3px);
-            transform: translateY(3px); }
+    -webkit-transform: translateY(2px);
+            transform: translateY(2px); }
   100% {
     -webkit-transform: translateY(0);
             transform: translateY(0); } }
@@ -3566,11 +3565,11 @@ footer {
     -webkit-transform: translateY(0);
             transform: translateY(0); }
   33% {
-    -webkit-transform: translateY(-3px);
-            transform: translateY(-3px); }
+    -webkit-transform: translateY(-2px);
+            transform: translateY(-2px); }
   66% {
-    -webkit-transform: translateY(3px);
-            transform: translateY(3px); }
+    -webkit-transform: translateY(2px);
+            transform: translateY(2px); }
   100% {
     -webkit-transform: translateY(0);
             transform: translateY(0); } }
@@ -3766,11 +3765,11 @@ ui-view.ng-leave-active nav.top.menu-open ul {
     -webkit-transform: translateY(0);
             transform: translateY(0); }
   33% {
-    -webkit-transform: translateY(-3px);
-            transform: translateY(-3px); }
+    -webkit-transform: translateY(-2px);
+            transform: translateY(-2px); }
   66% {
-    -webkit-transform: translateY(3px);
-            transform: translateY(3px); }
+    -webkit-transform: translateY(2px);
+            transform: translateY(2px); }
   100% {
     -webkit-transform: translateY(0);
             transform: translateY(0); } }

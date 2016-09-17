@@ -1,12 +1,12 @@
 extends ../layouts/base
 block content
-  body.slight-gradient.padded
+  body.slight-gradient
     .circle.circle-1.no-transition
     .circle.circle-2.no-transition
     nav.top.absolute
       .container
         include ../includes/_headerLinks.pug
-    section.modal.light
+    section.modal.light.main
       h1 New Room
       if error
         p.error= error.message
