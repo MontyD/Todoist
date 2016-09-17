@@ -55,6 +55,7 @@ h1 {
     font-family: $serif;
     font-size  : 5rem;
     line-height: 90%;
+
     &.shadow {
         text-shadow: 5px 5px 0 $colorDark;
     }
@@ -64,7 +65,7 @@ h1 {
         margin-bottom: 0.3em;
     }
     @media(max-width: $smallBP) {
-      font-size: 3rem;
+        font-size: 3rem;
     }
 }
 
@@ -331,6 +332,10 @@ button.icon {
     width           : 65vw;
     transform-origin: center center;
     @include shadow(1);
+    @media(max-width: $smallBP) {
+        height: 95vw;
+        width : 95vw;
+    }
 
     &.circle-1 {
         transform : translateY(-49%) translateX(1%) scale(1.12);
@@ -415,14 +420,17 @@ button.icon {
 
 footer {
     background: $colorDark;
-    color: $colorSubtle;
+    color     : $colorSubtle;
+
     h2 {
-      font-weight: normal;
+        font-weight: normal;
     }
+
     p a {
-      font-style: italic;
-      &:hover {
-        text-decoration: underline;
-      }
+        font-style: italic;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }

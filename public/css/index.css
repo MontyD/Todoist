@@ -946,6 +946,10 @@ button.icon {
       -ms-transform-origin: center center;
           transform-origin: center center;
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
+  @media (max-width: 630px) {
+    .circle {
+      height: 95vw;
+      width: 95vw; } }
   .circle.circle-1 {
     -webkit-transform: translateY(-49%) translateX(1%) scale(1.12);
         -ms-transform: translateY(-49%) translateX(1%) scale(1.12);
@@ -2252,6 +2256,10 @@ button.icon {
       -ms-transform-origin: center center;
           transform-origin: center center;
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
+  @media (max-width: 630px) {
+    .circle {
+      height: 95vw;
+      width: 95vw; } }
   .circle.circle-1 {
     -webkit-transform: translateY(-49%) translateX(1%) scale(1.12);
         -ms-transform: translateY(-49%) translateX(1%) scale(1.12);
@@ -3473,6 +3481,10 @@ button.icon {
       -ms-transform-origin: center center;
           transform-origin: center center;
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
+  @media (max-width: 630px) {
+    .circle {
+      height: 95vw;
+      width: 95vw; } }
   .circle.circle-1 {
     -webkit-transform: translateY(-49%) translateX(1%) scale(1.12);
         -ms-transform: translateY(-49%) translateX(1%) scale(1.12);
