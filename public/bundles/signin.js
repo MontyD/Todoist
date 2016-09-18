@@ -1,4 +1,438 @@
-!function(e){function t(r){if(n[r])return n[r].exports;var i=n[r]={exports:{},id:r,loaded:!1};return e[r].call(i.exports,i,i.exports,t),i.loaded=!0,i.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}({0:function(e,t,n){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}var i=n(77),o=r(i),s=n(1),a=r(s);!function(){var e={name:{presence:!0,length:{minimum:3,maximum:20},format:{pattern:"[a-z0-9]+",flags:"i",message:"^Your name must only contain only letters or numbers (no spaces)"}},username:{presence:!0,length:{minimum:4,maximum:20},format:{pattern:"[a-z0-9]+",flags:"i",message:"^Room names only contain letters or numbers (no spaces)"}},password:{length:{minimum:3,maximum:20},presence:!0}};new o["default"]("sign-in-form",e),new a["default"]("menu",["close-menu"])}()},1:function(e,t,n){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(t,"__esModule",{value:!0});var o=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),s=n(2),a=r(s),u=function(){function e(){var t=arguments.length<=0||void 0===arguments[0]?"menu":arguments[0],n=arguments.length<=1||void 0===arguments[1]?["overlay"]:arguments[1];i(this,e),this.body=document.body||document.getElementsByTagName("body")[0],this.elements=Array.prototype.slice.call(document.getElementsByClassName(t)),this.closeMenuElements=n.map(function(e){return document.getElementById(e)}),this.placeListeners()}return o(e,[{key:"placeListeners",value:function(){var e=this;this.elements.forEach(function(t){return(0,a["default"])("click",t,e.toggleMenu.bind(e))},this),this.closeMenuElements.forEach(function(t){return(0,a["default"])("click",t,e.closeMenu.bind(e))},this)}},{key:"toggleMenu",value:function(e,t){if(!t){var n=e||window.event;n.preventDefault?n.preventDefault():n.returnValue=!1}this.body.className.indexOf(" menu-open")>-1||t?this.body.className=this.body.className.replace(" menu-open",""):this.body.className+=" menu-open"}},{key:"closeMenu",value:function(e){var t=e||window.event;t.preventDefault?t.preventDefault():t.returnValue=!1,this.toggleMenu(null,!0)}}]),e}();t["default"]=u,e.exports=t["default"]},2:function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=function(e,t,n){return!!(e&&t&&n)&&void(t.addEventListener?t.addEventListener(e,n,!1):t.attachEvent?t.attachEvent("on"+e,n):t[e]=n)};t["default"]=n,e.exports=t["default"]},16:function(e,t){e.exports=function(e){return e.webpackPolyfill||(e.deprecate=function(){},e.paths=[],e.children=[],e.webpackPolyfill=1),e}},77:function(e,t,n){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(t,"__esModule",{value:!0});var o=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),s=n(78),a=r(s),u=n(2),l=r(u);a["default"].validators.nameUnique=function(e){return new a["default"].Promise(function(t,n){if(e){var r=new XMLHttpRequest;(0,l["default"])("load",r,function(){var e=JSON.parse(this.responseText);e?t():t("^Sorry, that name is already taken")}),(0,l["default"])("error",r,function(){n()}),(0,l["default"])("abort",r,function(){n()}),r.open("GET","/rooms/is-unique?name="+e,!0),r.setRequestHeader("Accept","application/json"),r.send()}else t()})};var c=function(){function e(t,n){i(this,e),this.formId=t,this.constraints=n,this.form=document.getElementById(this.formId),this.inputs=[],this.errors={},this.init()}return o(e,[{key:"init",value:function(){var e=this;return this.form&&this.inputs?(this.inputs=Array.prototype.slice.call(this.form.querySelectorAll("input, textarea, select")),(0,l["default"])("submit",this.form,function(e){return e.preventDefault(),this.handleSubmission(),!1}.bind(this)),this.form.noValidate=!0,void this.inputs.forEach(function(t){(0,l["default"])("change",t,function(e){e.preventDefault(),this.validateInput(t)}.bind(e))},this)):(console.warn("Could not attach to form: "+this.formId),!1)}},{key:"createObjectFromInputs",value:function(e){var t={};return e.forEach(function(e){return t[e.name]=e.value},this),t}},{key:"validateInput",value:function(e){var t=this;a["default"].async(this.createObjectFromInputs(this.inputs),this.constraints||{}).then(function(e){t.errors={},t.showAllErrors()},function(t){if(t instanceof Error)throw t;this.errors=t,this.showErrorsForInput(e,this.errors[e.name])}.bind(this))}},{key:"showErrorsForInput",value:function(e,t){var n=this;this.resetErrors(e),t?(e.className=e.className.replace(/\s(error|valid)/gi,"")+" error",t.forEach(function(t){return n.addErrorsToElement(e,t)},this)):e.className=e.className.replace(/\s(error|valid)/gi,"")+" valid"}},{key:"addErrorsToElement",value:function(e,t){var n=document.createElement("p");n.className="error error-"+e.id,n.innerText=t,e.parentNode.insertBefore(n,e.nextSibling)}},{key:"resetErrors",value:function(e){var t="error-"+e.id,n=Array.prototype.slice.call(this.form.getElementsByClassName(t));n.forEach(function(e){e.parentNode.removeChild(e)},this),e.className=e.className.replace(/\s(error|valid)/gi,"")}},{key:"showAllErrors",value:function(){var e=this;this.inputs.forEach(function(t){e.errors[t.name]?e.showErrorsForInput(t,e.errors[t.name]):e.resetErrors(t)})}},{key:"handleSubmission",value:function(){a["default"].async(this.createObjectFromInputs(this.inputs),this.constraints||{}).then(function(){this.errors={},this.showAllErrors(),this.form.submit()}.bind(this),function(e){if(e instanceof Error)throw e;this.errors=e,this.showAllErrors()}.bind(this))}}]),e}();t["default"]=c,e.exports=t["default"]},78:function(e,t,n){(function(e){/*!
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 0:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _components_FormValidationEs6Js = __webpack_require__(77);
+
+	var _components_FormValidationEs6Js2 = _interopRequireDefault(_components_FormValidationEs6Js);
+
+	var _components_menuEs6Js = __webpack_require__(1);
+
+	var _components_menuEs6Js2 = _interopRequireDefault(_components_menuEs6Js);
+
+	(function () {
+
+	    'use strict';
+
+	    var constraints = {
+	        name: {
+	            presence: true,
+	            length: {
+	                minimum: 3,
+	                maximum: 20
+	            },
+	            format: {
+	                pattern: '[a-z0-9]+',
+	                flags: 'i',
+	                message: '^Your name must only contain only letters or numbers (no spaces)'
+	            }
+	        },
+	        username: {
+	            presence: true,
+	            length: {
+	                minimum: 4,
+	                maximum: 20
+	            },
+	            format: {
+	                pattern: '[a-z0-9]+',
+	                flags: 'i',
+	                message: '^Room names only contain letters or numbers (no spaces)'
+	            }
+	        },
+	        password: {
+	            length: {
+	                minimum: 3,
+	                maximum: 20
+	            },
+	            presence: true
+	        }
+	    };
+
+	    if (navigator.userAgent.indexOf('MSIE') === -1 && navigator.userAgent.indexOf('rv:11.0') === -1) {
+	        var validateForm = new _components_FormValidationEs6Js2['default']('sign-in-form', constraints);
+	    }
+
+	    var menuToggle = new _components_menuEs6Js2['default']('menu', ['close-menu']);
+	})();
+
+/***/ },
+
+/***/ 1:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _addEventEs6Js = __webpack_require__(2);
+
+	var _addEventEs6Js2 = _interopRequireDefault(_addEventEs6Js);
+
+	var Menu = (function () {
+	  function Menu() {
+	    var openMenuClass = arguments.length <= 0 || arguments[0] === undefined ? 'menu' : arguments[0];
+	    var closeMenuIDs = arguments.length <= 1 || arguments[1] === undefined ? ['overlay'] : arguments[1];
+
+	    _classCallCheck(this, Menu);
+
+	    this.body = document.body || document.getElementsByTagName('body')[0];
+
+	    this.elements = Array.prototype.slice.call(document.getElementsByClassName(openMenuClass));
+
+	    this.closeMenuElements = closeMenuIDs.map(function (ID) {
+	      return document.getElementById(ID);
+	    });
+
+	    this.placeListeners();
+	  }
+
+	  _createClass(Menu, [{
+	    key: 'placeListeners',
+	    value: function placeListeners() {
+	      var _this = this;
+
+	      this.elements.forEach(function (el) {
+	        return (0, _addEventEs6Js2['default'])('click', el, _this.toggleMenu.bind(_this));
+	      }, this);
+	      this.closeMenuElements.forEach(function (el) {
+	        return (0, _addEventEs6Js2['default'])('click', el, _this.closeMenu.bind(_this));
+	      }, this);
+	    }
+	  }, {
+	    key: 'toggleMenu',
+	    value: function toggleMenu(e, close) {
+	      if (!close) {
+	        var evt = e || window.event;
+	        if (evt.preventDefault) {
+	          evt.preventDefault();
+	        } else {
+	          evt.returnValue = false;
+	        }
+	      }
+	      if (this.body.className.indexOf(' menu-open') > -1 || close) {
+	        this.body.className = this.body.className.replace(' menu-open', '');
+	      } else {
+	        this.body.className += ' menu-open';
+	      }
+	    }
+	  }, {
+	    key: 'closeMenu',
+	    value: function closeMenu(e) {
+	      var evt = e || window.event;
+	      if (evt.preventDefault) {
+	        evt.preventDefault();
+	      } else {
+	        evt.returnValue = false;
+	      }
+	      this.toggleMenu(null, true);
+	    }
+	  }]);
+
+	  return Menu;
+	})();
+
+	exports['default'] = Menu;
+	module.exports = exports['default'];
+
+/***/ },
+
+/***/ 2:
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	var addEvent = function addEvent(evnt, elem, func) {
+	  'use strict';
+	  if (!evnt || !elem || !func) {
+	    return false;
+	  }
+	  if (elem.addEventListener) {
+	    elem.addEventListener(evnt, func, false);
+	  } else if (elem.attachEvent) {
+	    elem.attachEvent('on' + evnt, func);
+	  } else {
+	    elem[evnt] = func;
+	  }
+	};
+
+	exports['default'] = addEvent;
+	module.exports = exports['default'];
+
+/***/ },
+
+/***/ 16:
+/***/ function(module, exports) {
+
+	module.exports = function(module) {
+		if(!module.webpackPolyfill) {
+			module.deprecate = function() {};
+			module.paths = [];
+			// module.parent = undefined by default
+			module.children = [];
+			module.webpackPolyfill = 1;
+		}
+		return module;
+	}
+
+
+/***/ },
+
+/***/ 77:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _validateJs = __webpack_require__(78);
+
+	var _validateJs2 = _interopRequireDefault(_validateJs);
+
+	var _addEventEs6Js = __webpack_require__(2);
+
+	var _addEventEs6Js2 = _interopRequireDefault(_addEventEs6Js);
+
+	_validateJs2['default'].validators.nameUnique = function (value) {
+	    'use strict';
+	    return new _validateJs2['default'].Promise(function (resolve, reject) {
+	        if (!value) {
+	            resolve();
+	        } else {
+
+	            var request = new XMLHttpRequest();
+	            (0, _addEventEs6Js2['default'])('load', request, function () {
+	                var result = JSON.parse(this.responseText);
+	                if (result) {
+	                    resolve();
+	                } else {
+	                    resolve('^Sorry, that name is already taken');
+	                }
+	            });
+	            (0, _addEventEs6Js2['default'])('error', request, function () {
+	                reject();
+	            });
+	            (0, _addEventEs6Js2['default'])('abort', request, function () {
+	                reject();
+	            });
+	            request.open('GET', '/rooms/is-unique?name=' + value, true);
+	            request.setRequestHeader('Accept', 'application/json');
+	            request.send();
+	        }
+	    });
+	};
+
+	var FormValidation = (function () {
+	    function FormValidation(formId, constraints) {
+	        _classCallCheck(this, FormValidation);
+
+	        this.formId = formId;
+
+	        this.constraints = constraints;
+
+	        this.form = document.getElementById(this.formId);
+
+	        this.inputs = [];
+
+	        this.errors = {};
+
+	        this.init();
+	    }
+
+	    _createClass(FormValidation, [{
+	        key: 'init',
+	        value: function init() {
+	            var _this = this;
+
+	            if (!this.form || !this.inputs) {
+	                console.warn('Could not attach to form: ' + this.formId);
+	                return false;
+	            }
+
+	            this.inputs = Array.prototype.slice.call(this.form.querySelectorAll('input, textarea, select'));
+
+	            (0, _addEventEs6Js2['default'])('submit', this.form, (function (ev) {
+	                ev.preventDefault();
+	                this.handleSubmission();
+	                return false;
+	            }).bind(this));
+
+	            this.form.noValidate = true;
+
+	            this.inputs.forEach(function (el) {
+	                (0, _addEventEs6Js2['default'])('change', el, (function (evt) {
+	                    evt.preventDefault();
+	                    this.validateInput(el);
+	                }).bind(_this));
+	            }, this);
+	        }
+	    }, {
+	        key: 'createObjectFromInputs',
+	        value: function createObjectFromInputs(inputArray) {
+	            var object = {};
+	            inputArray.forEach(function (el) {
+	                return object[el.name] = el.value;
+	            }, this);
+	            return object;
+	        }
+	    }, {
+	        key: 'validateInput',
+	        value: function validateInput(element) {
+	            var _this2 = this;
+
+	            _validateJs2['default'].async(this.createObjectFromInputs(this.inputs), this.constraints || {}).then(function (success) {
+	                _this2.errors = {};
+	                _this2.showAllErrors();
+	            }, (function (errors) {
+	                if (errors instanceof Error) {
+	                    throw errors;
+	                } else {
+	                    this.errors = errors;
+	                    this.showErrorsForInput(element, this.errors[element.name]);
+	                }
+	            }).bind(this));
+	        }
+	    }, {
+	        key: 'showErrorsForInput',
+	        value: function showErrorsForInput(element, errors) {
+	            var _this3 = this;
+
+	            this.resetErrors(element);
+	            if (errors) {
+	                element.className = element.className.replace(/\s(error|valid)/gi, '') + ' error';
+	                errors.forEach(function (error) {
+	                    return _this3.addErrorsToElement(element, error);
+	                }, this);
+	            } else {
+	                element.className = element.className.replace(/\s(error|valid)/gi, '') + ' valid';
+	            }
+	        }
+	    }, {
+	        key: 'addErrorsToElement',
+	        value: function addErrorsToElement(element, error) {
+	            var errorEl = document.createElement('p');
+	            errorEl.className = 'error error-' + element.id;
+	            errorEl.innerText = error;
+	            element.parentNode.insertBefore(errorEl, element.nextSibling);
+	        }
+	    }, {
+	        key: 'resetErrors',
+	        value: function resetErrors(element) {
+	            var errorsClass = 'error-' + element.id;
+	            var errorMessages = Array.prototype.slice.call(this.form.getElementsByClassName(errorsClass));
+	            errorMessages.forEach(function (el) {
+	                el.parentNode.removeChild(el);
+	            }, this);
+	            element.className = element.className.replace(/\s(error|valid)/gi, '');
+	        }
+	    }, {
+	        key: 'showAllErrors',
+	        value: function showAllErrors() {
+	            var _this4 = this;
+
+	            this.inputs.forEach(function (el) {
+	                if (_this4.errors[el.name]) {
+	                    _this4.showErrorsForInput(el, _this4.errors[el.name]);
+	                } else {
+	                    _this4.resetErrors(el);
+	                }
+	            });
+	        }
+	    }, {
+	        key: 'handleSubmission',
+	        value: function handleSubmission() {
+	            _validateJs2['default'].async(this.createObjectFromInputs(this.inputs), this.constraints || {}).then((function () {
+	                this.errors = {};
+	                this.showAllErrors();
+	                this.form.submit();
+	            }).bind(this), (function (errors) {
+	                if (errors instanceof Error) {
+	                    throw errors;
+	                } else {
+	                    this.errors = errors;
+	                    this.showAllErrors();
+	                }
+	            }).bind(this));
+	        }
+	    }]);
+
+	    return FormValidation;
+	})();
+
+	exports['default'] = FormValidation;
+	module.exports = exports['default'];
+
+/***/ },
+
+/***/ 78:
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/*!
 	 * validate.js 0.10.0
 	 *
 	 * (c) 2013-2016 Nicklas Ansman, 2013 Wrapp
@@ -6,4 +440,1147 @@
 	 * For all details and documentation:
 	 * http://validatejs.org/
 	 */
-(function(e,t,r){"use strict";var i=function(e,t,n){n=o.extend({},o.options,n);var r,s,a=o.runValidations(e,t,n);for(r in a)for(s in a[r])if(o.isPromise(a[r][s]))throw new Error("Use validate.async if you want support for promises");return i.processValidationResults(a,n)},o=i;o.extend=function(e){return[].slice.call(arguments,1).forEach(function(t){for(var n in t)e[n]=t[n]}),e},o.extend(i,{version:{major:0,minor:10,patch:0,metadata:null,toString:function(){var e=o.format("%{major}.%{minor}.%{patch}",o.version);return o.isEmpty(o.version.metadata)||(e+="+"+o.version.metadata),e}},Promise:"undefined"!=typeof Promise?Promise:null,EMPTY_STRING_REGEXP:/^\s*$/,runValidations:function(e,t,n){var r,i,s,a,u,l,c,f=[];(o.isDomElement(e)||o.isJqueryElement(e))&&(e=o.collectFormValues(e));for(r in t){s=o.getDeepObjectValue(e,r),a=o.result(t[r],s,e,r,n,t);for(i in a){if(u=o.validators[i],!u)throw c=o.format("Unknown validator %{name}",{name:i}),new Error(c);l=a[i],l=o.result(l,s,e,r,n,t),l&&f.push({attribute:r,value:s,validator:i,globalOptions:n,attributes:e,options:l,error:u.call(u,s,l,r,e,n)})}}return f},processValidationResults:function(e,t){var n;switch(e=o.pruneEmptyErrors(e,t),e=o.expandMultipleErrors(e,t),e=o.convertErrorMessages(e,t),t.format||"grouped"){case"detailed":break;case"flat":e=o.flattenErrorsToArray(e);break;case"grouped":e=o.groupErrorsByAttribute(e);for(n in e)e[n]=o.flattenErrorsToArray(e[n]);break;default:throw new Error(o.format("Unknown format %{format}",t))}return o.isEmpty(e)?void 0:e},async:function(e,t,n){n=o.extend({},o.async.options,n);var r=n.wrapErrors||function(e){return e};n.cleanAttributes!==!1&&(e=o.cleanAttributes(e,t));var i=o.runValidations(e,t,n);return new o.Promise(function(s,a){o.waitForResults(i).then(function(){var u=o.processValidationResults(i,n);u?a(new r(u,n,e,t)):s(e)},function(e){a(e)})})},single:function(e,t,n){return n=o.extend({},o.single.options,n,{format:"flat",fullMessages:!1}),o({single:e},{single:t},n)},waitForResults:function(e){return e.reduce(function(e,t){return o.isPromise(t.error)?e.then(function(){return t.error.then(function(e){t.error=e||null},function(e){if(e instanceof Error)throw e;o.error("Rejecting promises with the result is deprecated. Please use the resolve callback instead."),t.error=e})}):e},new o.Promise(function(e){e()}))},result:function(e){var t=[].slice.call(arguments,1);return"function"==typeof e&&(e=e.apply(null,t)),e},isNumber:function(e){return"number"==typeof e&&!isNaN(e)},isFunction:function(e){return"function"==typeof e},isInteger:function(e){return o.isNumber(e)&&e%1===0},isBoolean:function(e){return"boolean"==typeof e},isObject:function(e){return e===Object(e)},isDate:function(e){return e instanceof Date},isDefined:function(e){return null!==e&&void 0!==e},isPromise:function(e){return!!e&&o.isFunction(e.then)},isJqueryElement:function(e){return e&&o.isString(e.jquery)},isDomElement:function(e){return!!e&&(!(!e.querySelectorAll||!e.querySelector)&&(!(!o.isObject(document)||e!==document)||("object"==typeof HTMLElement?e instanceof HTMLElement:e&&"object"==typeof e&&null!==e&&1===e.nodeType&&"string"==typeof e.nodeName)))},isEmpty:function(e){var t;if(!o.isDefined(e))return!0;if(o.isFunction(e))return!1;if(o.isString(e))return o.EMPTY_STRING_REGEXP.test(e);if(o.isArray(e))return 0===e.length;if(o.isDate(e))return!1;if(o.isObject(e)){for(t in e)return!1;return!0}return!1},format:o.extend(function(e,t){return o.isString(e)?e.replace(o.format.FORMAT_REGEXP,function(e,n,r){return"%"===n?"%{"+r+"}":String(t[r])}):e},{FORMAT_REGEXP:/(%?)%\{([^\}]+)\}/g}),prettify:function(e){return o.isNumber(e)?100*e%1===0?""+e:parseFloat(Math.round(100*e)/100).toFixed(2):o.isArray(e)?e.map(function(e){return o.prettify(e)}).join(", "):o.isObject(e)?e.toString():(e=""+e,e.replace(/([^\s])\.([^\s])/g,"$1 $2").replace(/\\+/g,"").replace(/[_-]/g," ").replace(/([a-z])([A-Z])/g,function(e,t,n){return""+t+" "+n.toLowerCase()}).toLowerCase())},stringifyValue:function(e){return o.prettify(e)},isString:function(e){return"string"==typeof e},isArray:function(e){return"[object Array]"==={}.toString.call(e)},isHash:function(e){return o.isObject(e)&&!o.isArray(e)&&!o.isFunction(e)},contains:function(e,t){return!!o.isDefined(e)&&(o.isArray(e)?e.indexOf(t)!==-1:t in e)},unique:function(e){return o.isArray(e)?e.filter(function(e,t,n){return n.indexOf(e)==t}):e},forEachKeyInKeypath:function(e,t,n){if(o.isString(t)){var r,i="",s=!1;for(r=0;r<t.length;++r)switch(t[r]){case".":s?(s=!1,i+="."):(e=n(e,i,!1),i="");break;case"\\":s?(s=!1,i+="\\"):s=!0;break;default:s=!1,i+=t[r]}return n(e,i,!0)}},getDeepObjectValue:function(e,t){if(o.isObject(e))return o.forEachKeyInKeypath(e,t,function(e,t){if(o.isObject(e))return e[t]})},collectFormValues:function(e,t){var n,r,i,s,a={};if(o.isJqueryElement(e)&&(e=e[0]),!e)return a;for(t=t||{},i=e.querySelectorAll("input[name], textarea[name]"),n=0;n<i.length;++n)r=i.item(n),o.isDefined(r.getAttribute("data-ignored"))||(s=o.sanitizeFormValue(r.value,t),"number"===r.type?s=s?+s:null:"checkbox"===r.type?r.attributes.value?r.checked||(s=a[r.name]||null):s=r.checked:"radio"===r.type&&(r.checked||(s=a[r.name]||null)),a[r.name]=s);for(i=e.querySelectorAll("select[name]"),n=0;n<i.length;++n)r=i.item(n),s=o.sanitizeFormValue(r.options[r.selectedIndex].value,t),a[r.name]=s;return a},sanitizeFormValue:function(e,t){return t.trim&&o.isString(e)&&(e=e.trim()),t.nullify!==!1&&""===e?null:e},capitalize:function(e){return o.isString(e)?e[0].toUpperCase()+e.slice(1):e},pruneEmptyErrors:function(e){return e.filter(function(e){return!o.isEmpty(e.error)})},expandMultipleErrors:function(e){var t=[];return e.forEach(function(e){o.isArray(e.error)?e.error.forEach(function(n){t.push(o.extend({},e,{error:n}))}):t.push(e)}),t},convertErrorMessages:function(e,t){t=t||{};var n=[];return e.forEach(function(e){var r=o.result(e.error,e.value,e.attribute,e.options,e.attributes,e.globalOptions);return o.isString(r)?("^"===r[0]?r=r.slice(1):t.fullMessages!==!1&&(r=o.capitalize(o.prettify(e.attribute))+" "+r),r=r.replace(/\\\^/g,"^"),r=o.format(r,{value:o.stringifyValue(e.value)}),void n.push(o.extend({},e,{error:r}))):void n.push(e)}),n},groupErrorsByAttribute:function(e){var t={};return e.forEach(function(e){var n=t[e.attribute];n?n.push(e):t[e.attribute]=[e]}),t},flattenErrorsToArray:function(e){return e.map(function(e){return e.error})},cleanAttributes:function(e,t){function n(e,t,n){return o.isObject(e[t])?e[t]:e[t]=!!n||{}}function r(e){var t,r={};for(t in e)e[t]&&o.forEachKeyInKeypath(r,t,n);return r}function i(e,t){if(!o.isObject(e))return e;var n,r,s=o.extend({},e);for(r in e)n=t[r],o.isObject(n)?s[r]=i(s[r],n):n||delete s[r];return s}return o.isObject(t)&&o.isObject(e)?(t=r(t),i(e,t)):{}},exposeModule:function(e,t,n,r,i){n?(r&&r.exports&&(n=r.exports=e),n.validate=e):(t.validate=e,e.isFunction(i)&&i.amd&&i([],function(){return e}))},warn:function(e){"undefined"!=typeof console&&console.warn&&console.warn("[validate.js] "+e)},error:function(e){"undefined"!=typeof console&&console.error&&console.error("[validate.js] "+e)}}),i.validators={presence:function(e,t){if(t=o.extend({},this.options,t),o.isEmpty(e))return t.message||this.message||"can't be blank"},length:function(e,t,n){if(!o.isEmpty(e)){t=o.extend({},this.options,t);var r,i=t.is,s=t.maximum,a=t.minimum,u=t.tokenizer||function(e){return e},l=[];e=u(e);var c=e.length;return o.isNumber(c)?(o.isNumber(i)&&c!==i&&(r=t.wrongLength||this.wrongLength||"is the wrong length (should be %{count} characters)",l.push(o.format(r,{count:i}))),o.isNumber(a)&&c<a&&(r=t.tooShort||this.tooShort||"is too short (minimum is %{count} characters)",l.push(o.format(r,{count:a}))),o.isNumber(s)&&c>s&&(r=t.tooLong||this.tooLong||"is too long (maximum is %{count} characters)",l.push(o.format(r,{count:s}))),l.length>0?t.message||l:void 0):(o.error(o.format("Attribute %{attr} has a non numeric value for `length`",{attr:n})),t.message||this.notValid||"has an incorrect length")}},numericality:function(e,t){if(!o.isEmpty(e)){t=o.extend({},this.options,t);var n,r,i=[],s={greaterThan:function(e,t){return e>t},greaterThanOrEqualTo:function(e,t){return e>=t},equalTo:function(e,t){return e===t},lessThan:function(e,t){return e<t},lessThanOrEqualTo:function(e,t){return e<=t},divisibleBy:function(e,t){return e%t===0}};if(o.isString(e)&&t.strict){var a="^(0|[1-9]\\d*)";if(t.onlyInteger||(a+="(\\.\\d+)?"),a+="$",!new RegExp(a).test(e))return t.message||t.notValid||this.notValid||"must be a valid number"}if(t.noStrings!==!0&&o.isString(e)&&(e=+e),!o.isNumber(e))return t.message||t.notValid||this.notValid||"is not a number";if(t.onlyInteger&&!o.isInteger(e))return t.message||t.notInteger||this.notInteger||"must be an integer";for(n in s)if(r=t[n],o.isNumber(r)&&!s[n](e,r)){var u="not"+o.capitalize(n),l=t[u]||this[u]||"must be %{type} %{count}";i.push(o.format(l,{count:r,type:o.prettify(n)}))}return t.odd&&e%2!==1&&i.push(t.notOdd||this.notOdd||"must be odd"),t.even&&e%2!==0&&i.push(t.notEven||this.notEven||"must be even"),i.length?t.message||i:void 0}},datetime:o.extend(function(e,t){if(!o.isFunction(this.parse)||!o.isFunction(this.format))throw new Error("Both the parse and format functions needs to be set to use the datetime/date validator");if(!o.isEmpty(e)){t=o.extend({},this.options,t);var n,r=[],i=t.earliest?this.parse(t.earliest,t):NaN,s=t.latest?this.parse(t.latest,t):NaN;return e=this.parse(e,t),isNaN(e)||t.dateOnly&&e%864e5!==0?(n=t.notValid||t.message||this.notValid||"must be a valid date",o.format(n,{value:arguments[0]})):(!isNaN(i)&&e<i&&(n=t.tooEarly||t.message||this.tooEarly||"must be no earlier than %{date}",n=o.format(n,{value:this.format(e,t),date:this.format(i,t)}),r.push(n)),!isNaN(s)&&e>s&&(n=t.tooLate||t.message||this.tooLate||"must be no later than %{date}",n=o.format(n,{date:this.format(s,t),value:this.format(e,t)}),r.push(n)),r.length?o.unique(r):void 0)}},{parse:null,format:null}),date:function(e,t){return t=o.extend({},t,{dateOnly:!0}),o.validators.datetime.call(o.validators.datetime,e,t)},format:function(e,t){(o.isString(t)||t instanceof RegExp)&&(t={pattern:t}),t=o.extend({},this.options,t);var n,r=t.message||this.message||"is invalid",i=t.pattern;if(!o.isEmpty(e))return o.isString(e)?(o.isString(i)&&(i=new RegExp(t.pattern,t.flags)),n=i.exec(e),n&&n[0].length==e.length?void 0:r):r},inclusion:function(e,t){if(!o.isEmpty(e)&&(o.isArray(t)&&(t={within:t}),t=o.extend({},this.options,t),!o.contains(t.within,e))){var n=t.message||this.message||"^%{value} is not included in the list";return o.format(n,{value:e})}},exclusion:function(e,t){if(!o.isEmpty(e)&&(o.isArray(t)&&(t={within:t}),t=o.extend({},this.options,t),o.contains(t.within,e))){var n=t.message||this.message||"^%{value} is restricted";return o.format(n,{value:e})}},email:o.extend(function(e,t){t=o.extend({},this.options,t);var n=t.message||this.message||"is not a valid email";if(!o.isEmpty(e))return o.isString(e)&&this.PATTERN.exec(e)?void 0:n},{PATTERN:/^[a-z0-9\u007F-\uffff!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9\u007F-\uffff!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}$/i}),equality:function(e,t,n,r){if(!o.isEmpty(e)){o.isString(t)&&(t={attribute:t}),t=o.extend({},this.options,t);var i=t.message||this.message||"is not equal to %{attribute}";if(o.isEmpty(t.attribute)||!o.isString(t.attribute))throw new Error("The attribute must be a non empty string");var s=o.getDeepObjectValue(r,t.attribute),a=t.comparator||function(e,t){return e===t};return a(e,s,t,n,r)?void 0:o.format(i,{attribute:o.prettify(t.attribute)})}},url:function(e,t){if(!o.isEmpty(e)){t=o.extend({},this.options,t);var n=t.message||this.message||"is not a valid url",r=t.schemes||this.schemes||["http","https"],i=t.allowLocal||this.allowLocal||!1;if(!o.isString(e))return n;var s="^(?:(?:"+r.join("|")+"):\\/\\/)(?:\\S+(?::\\S*)?@)?";s+="(?:";var a="(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))";i?a+="?":s+="(?!10(?:\\.\\d{1,3}){3})(?!127(?:\\.\\d{1,3}){3})(?!169\\.254(?:\\.\\d{1,3}){2})(?!192\\.168(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})";var u="(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*"+a+")";s+="(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|"+u+"(?::\\d{2,5})?(?:\\/[^\\s]*)?$";var l=new RegExp(s,"i");return l.exec(e)?void 0:n}}},i.exposeModule(i,this,e,t,n(79))}).call(this,t,e,n(79))}).call(t,n(16)(e))},79:function(e,t){e.exports=function(){throw new Error("define cannot be used indirect")}}});
+
+	(function(exports, module, define) {
+	  "use strict";
+
+	  // The main function that calls the validators specified by the constraints.
+	  // The options are the following:
+	  //   - format (string) - An option that controls how the returned value is formatted
+	  //     * flat - Returns a flat array of just the error messages
+	  //     * grouped - Returns the messages grouped by attribute (default)
+	  //     * detailed - Returns an array of the raw validation data
+	  //   - fullMessages (boolean) - If `true` (default) the attribute name is prepended to the error.
+	  //
+	  // Please note that the options are also passed to each validator.
+	  var validate = function(attributes, constraints, options) {
+	    options = v.extend({}, v.options, options);
+
+	    var results = v.runValidations(attributes, constraints, options)
+	      , attr
+	      , validator;
+
+	    for (attr in results) {
+	      for (validator in results[attr]) {
+	        if (v.isPromise(results[attr][validator])) {
+	          throw new Error("Use validate.async if you want support for promises");
+	        }
+	      }
+	    }
+	    return validate.processValidationResults(results, options);
+	  };
+
+	  var v = validate;
+
+	  // Copies over attributes from one or more sources to a single destination.
+	  // Very much similar to underscore's extend.
+	  // The first argument is the target object and the remaining arguments will be
+	  // used as sources.
+	  v.extend = function(obj) {
+	    [].slice.call(arguments, 1).forEach(function(source) {
+	      for (var attr in source) {
+	        obj[attr] = source[attr];
+	      }
+	    });
+	    return obj;
+	  };
+
+	  v.extend(validate, {
+	    // This is the version of the library as a semver.
+	    // The toString function will allow it to be coerced into a string
+	    version: {
+	      major: 0,
+	      minor: 10,
+	      patch: 0,
+	      metadata: null,
+	      toString: function() {
+	        var version = v.format("%{major}.%{minor}.%{patch}", v.version);
+	        if (!v.isEmpty(v.version.metadata)) {
+	          version += "+" + v.version.metadata;
+	        }
+	        return version;
+	      }
+	    },
+
+	    // Below is the dependencies that are used in validate.js
+
+	    // The constructor of the Promise implementation.
+	    // If you are using Q.js, RSVP or any other A+ compatible implementation
+	    // override this attribute to be the constructor of that promise.
+	    // Since jQuery promises aren't A+ compatible they won't work.
+	    Promise: typeof Promise !== "undefined" ? Promise : /* istanbul ignore next */ null,
+
+	    EMPTY_STRING_REGEXP: /^\s*$/,
+
+	    // Runs the validators specified by the constraints object.
+	    // Will return an array of the format:
+	    //     [{attribute: "<attribute name>", error: "<validation result>"}, ...]
+	    runValidations: function(attributes, constraints, options) {
+	      var results = []
+	        , attr
+	        , validatorName
+	        , value
+	        , validators
+	        , validator
+	        , validatorOptions
+	        , error;
+
+	      if (v.isDomElement(attributes) || v.isJqueryElement(attributes)) {
+	        attributes = v.collectFormValues(attributes);
+	      }
+
+	      // Loops through each constraints, finds the correct validator and run it.
+	      for (attr in constraints) {
+	        value = v.getDeepObjectValue(attributes, attr);
+	        // This allows the constraints for an attribute to be a function.
+	        // The function will be called with the value, attribute name, the complete dict of
+	        // attributes as well as the options and constraints passed in.
+	        // This is useful when you want to have different
+	        // validations depending on the attribute value.
+	        validators = v.result(constraints[attr], value, attributes, attr, options, constraints);
+
+	        for (validatorName in validators) {
+	          validator = v.validators[validatorName];
+
+	          if (!validator) {
+	            error = v.format("Unknown validator %{name}", {name: validatorName});
+	            throw new Error(error);
+	          }
+
+	          validatorOptions = validators[validatorName];
+	          // This allows the options to be a function. The function will be
+	          // called with the value, attribute name, the complete dict of
+	          // attributes as well as the options and constraints passed in.
+	          // This is useful when you want to have different
+	          // validations depending on the attribute value.
+	          validatorOptions = v.result(validatorOptions, value, attributes, attr, options, constraints);
+	          if (!validatorOptions) {
+	            continue;
+	          }
+	          results.push({
+	            attribute: attr,
+	            value: value,
+	            validator: validatorName,
+	            globalOptions: options,
+	            attributes: attributes,
+	            options: validatorOptions,
+	            error: validator.call(validator,
+	                value,
+	                validatorOptions,
+	                attr,
+	                attributes,
+	                options)
+	          });
+	        }
+	      }
+
+	      return results;
+	    },
+
+	    // Takes the output from runValidations and converts it to the correct
+	    // output format.
+	    processValidationResults: function(errors, options) {
+	      var attr;
+
+	      errors = v.pruneEmptyErrors(errors, options);
+	      errors = v.expandMultipleErrors(errors, options);
+	      errors = v.convertErrorMessages(errors, options);
+
+	      switch (options.format || "grouped") {
+	        case "detailed":
+	          // Do nothing more to the errors
+	          break;
+
+	        case "flat":
+	          errors = v.flattenErrorsToArray(errors);
+	          break;
+
+	        case "grouped":
+	          errors = v.groupErrorsByAttribute(errors);
+	          for (attr in errors) {
+	            errors[attr] = v.flattenErrorsToArray(errors[attr]);
+	          }
+	          break;
+
+	        default:
+	          throw new Error(v.format("Unknown format %{format}", options));
+	      }
+
+	      return v.isEmpty(errors) ? undefined : errors;
+	    },
+
+	    // Runs the validations with support for promises.
+	    // This function will return a promise that is settled when all the
+	    // validation promises have been completed.
+	    // It can be called even if no validations returned a promise.
+	    async: function(attributes, constraints, options) {
+	      options = v.extend({}, v.async.options, options);
+
+	      var WrapErrors = options.wrapErrors || function(errors) {
+	        return errors;
+	      };
+
+	      // Removes unknown attributes
+	      if (options.cleanAttributes !== false) {
+	        attributes = v.cleanAttributes(attributes, constraints);
+	      }
+
+	      var results = v.runValidations(attributes, constraints, options);
+
+	      return new v.Promise(function(resolve, reject) {
+	        v.waitForResults(results).then(function() {
+	          var errors = v.processValidationResults(results, options);
+	          if (errors) {
+	            reject(new WrapErrors(errors, options, attributes, constraints));
+	          } else {
+	            resolve(attributes);
+	          }
+	        }, function(err) {
+	          reject(err);
+	        });
+	      });
+	    },
+
+	    single: function(value, constraints, options) {
+	      options = v.extend({}, v.single.options, options, {
+	        format: "flat",
+	        fullMessages: false
+	      });
+	      return v({single: value}, {single: constraints}, options);
+	    },
+
+	    // Returns a promise that is resolved when all promises in the results array
+	    // are settled. The promise returned from this function is always resolved,
+	    // never rejected.
+	    // This function modifies the input argument, it replaces the promises
+	    // with the value returned from the promise.
+	    waitForResults: function(results) {
+	      // Create a sequence of all the results starting with a resolved promise.
+	      return results.reduce(function(memo, result) {
+	        // If this result isn't a promise skip it in the sequence.
+	        if (!v.isPromise(result.error)) {
+	          return memo;
+	        }
+
+	        return memo.then(function() {
+	          return result.error.then(
+	            function(error) {
+	              result.error = error || null;
+	            },
+	            function(error) {
+	              if (error instanceof Error) {
+	                throw error;
+	              }
+	              v.error("Rejecting promises with the result is deprecated. Please use the resolve callback instead.");
+	              result.error = error;
+	            }
+	          );
+	        });
+	      }, new v.Promise(function(r) { r(); })); // A resolved promise
+	    },
+
+	    // If the given argument is a call: function the and: function return the value
+	    // otherwise just return the value. Additional arguments will be passed as
+	    // arguments to the function.
+	    // Example:
+	    // ```
+	    // result('foo') // 'foo'
+	    // result(Math.max, 1, 2) // 2
+	    // ```
+	    result: function(value) {
+	      var args = [].slice.call(arguments, 1);
+	      if (typeof value === 'function') {
+	        value = value.apply(null, args);
+	      }
+	      return value;
+	    },
+
+	    // Checks if the value is a number. This function does not consider NaN a
+	    // number like many other `isNumber` functions do.
+	    isNumber: function(value) {
+	      return typeof value === 'number' && !isNaN(value);
+	    },
+
+	    // Returns false if the object is not a function
+	    isFunction: function(value) {
+	      return typeof value === 'function';
+	    },
+
+	    // A simple check to verify that the value is an integer. Uses `isNumber`
+	    // and a simple modulo check.
+	    isInteger: function(value) {
+	      return v.isNumber(value) && value % 1 === 0;
+	    },
+
+	    // Checks if the value is a boolean
+	    isBoolean: function(value) {
+	      return typeof value === 'boolean';
+	    },
+
+	    // Uses the `Object` function to check if the given argument is an object.
+	    isObject: function(obj) {
+	      return obj === Object(obj);
+	    },
+
+	    // Simply checks if the object is an instance of a date
+	    isDate: function(obj) {
+	      return obj instanceof Date;
+	    },
+
+	    // Returns false if the object is `null` of `undefined`
+	    isDefined: function(obj) {
+	      return obj !== null && obj !== undefined;
+	    },
+
+	    // Checks if the given argument is a promise. Anything with a `then`
+	    // function is considered a promise.
+	    isPromise: function(p) {
+	      return !!p && v.isFunction(p.then);
+	    },
+
+	    isJqueryElement: function(o) {
+	      return o && v.isString(o.jquery);
+	    },
+
+	    isDomElement: function(o) {
+	      if (!o) {
+	        return false;
+	      }
+
+	      if (!o.querySelectorAll || !o.querySelector) {
+	        return false;
+	      }
+
+	      if (v.isObject(document) && o === document) {
+	        return true;
+	      }
+
+	      // http://stackoverflow.com/a/384380/699304
+	      /* istanbul ignore else */
+	      if (typeof HTMLElement === "object") {
+	        return o instanceof HTMLElement;
+	      } else {
+	        return o &&
+	          typeof o === "object" &&
+	          o !== null &&
+	          o.nodeType === 1 &&
+	          typeof o.nodeName === "string";
+	      }
+	    },
+
+	    isEmpty: function(value) {
+	      var attr;
+
+	      // Null and undefined are empty
+	      if (!v.isDefined(value)) {
+	        return true;
+	      }
+
+	      // functions are non empty
+	      if (v.isFunction(value)) {
+	        return false;
+	      }
+
+	      // Whitespace only strings are empty
+	      if (v.isString(value)) {
+	        return v.EMPTY_STRING_REGEXP.test(value);
+	      }
+
+	      // For arrays we use the length property
+	      if (v.isArray(value)) {
+	        return value.length === 0;
+	      }
+
+	      // Dates have no attributes but aren't empty
+	      if (v.isDate(value)) {
+	        return false;
+	      }
+
+	      // If we find at least one property we consider it non empty
+	      if (v.isObject(value)) {
+	        for (attr in value) {
+	          return false;
+	        }
+	        return true;
+	      }
+
+	      return false;
+	    },
+
+	    // Formats the specified strings with the given values like so:
+	    // ```
+	    // format("Foo: %{foo}", {foo: "bar"}) // "Foo bar"
+	    // ```
+	    // If you want to write %{...} without having it replaced simply
+	    // prefix it with % like this `Foo: %%{foo}` and it will be returned
+	    // as `"Foo: %{foo}"`
+	    format: v.extend(function(str, vals) {
+	      if (!v.isString(str)) {
+	        return str;
+	      }
+	      return str.replace(v.format.FORMAT_REGEXP, function(m0, m1, m2) {
+	        if (m1 === '%') {
+	          return "%{" + m2 + "}";
+	        } else {
+	          return String(vals[m2]);
+	        }
+	      });
+	    }, {
+	      // Finds %{key} style patterns in the given string
+	      FORMAT_REGEXP: /(%?)%\{([^\}]+)\}/g
+	    }),
+
+	    // "Prettifies" the given string.
+	    // Prettifying means replacing [.\_-] with spaces as well as splitting
+	    // camel case words.
+	    prettify: function(str) {
+	      if (v.isNumber(str)) {
+	        // If there are more than 2 decimals round it to two
+	        if ((str * 100) % 1 === 0) {
+	          return "" + str;
+	        } else {
+	          return parseFloat(Math.round(str * 100) / 100).toFixed(2);
+	        }
+	      }
+
+	      if (v.isArray(str)) {
+	        return str.map(function(s) { return v.prettify(s); }).join(", ");
+	      }
+
+	      if (v.isObject(str)) {
+	        return str.toString();
+	      }
+
+	      // Ensure the string is actually a string
+	      str = "" + str;
+
+	      return str
+	        // Splits keys separated by periods
+	        .replace(/([^\s])\.([^\s])/g, '$1 $2')
+	        // Removes backslashes
+	        .replace(/\\+/g, '')
+	        // Replaces - and - with space
+	        .replace(/[_-]/g, ' ')
+	        // Splits camel cased words
+	        .replace(/([a-z])([A-Z])/g, function(m0, m1, m2) {
+	          return "" + m1 + " " + m2.toLowerCase();
+	        })
+	        .toLowerCase();
+	    },
+
+	    stringifyValue: function(value) {
+	      return v.prettify(value);
+	    },
+
+	    isString: function(value) {
+	      return typeof value === 'string';
+	    },
+
+	    isArray: function(value) {
+	      return {}.toString.call(value) === '[object Array]';
+	    },
+
+	    // Checks if the object is a hash, which is equivalent to an object that
+	    // is neither an array nor a function.
+	    isHash: function(value) {
+	      return v.isObject(value) && !v.isArray(value) && !v.isFunction(value);
+	    },
+
+	    contains: function(obj, value) {
+	      if (!v.isDefined(obj)) {
+	        return false;
+	      }
+	      if (v.isArray(obj)) {
+	        return obj.indexOf(value) !== -1;
+	      }
+	      return value in obj;
+	    },
+
+	    unique: function(array) {
+	      if (!v.isArray(array)) {
+	        return array;
+	      }
+	      return array.filter(function(el, index, array) {
+	        return array.indexOf(el) == index;
+	      });
+	    },
+
+	    forEachKeyInKeypath: function(object, keypath, callback) {
+	      if (!v.isString(keypath)) {
+	        return undefined;
+	      }
+
+	      var key = ""
+	        , i
+	        , escape = false;
+
+	      for (i = 0; i < keypath.length; ++i) {
+	        switch (keypath[i]) {
+	          case '.':
+	            if (escape) {
+	              escape = false;
+	              key += '.';
+	            } else {
+	              object = callback(object, key, false);
+	              key = "";
+	            }
+	            break;
+
+	          case '\\':
+	            if (escape) {
+	              escape = false;
+	              key += '\\';
+	            } else {
+	              escape = true;
+	            }
+	            break;
+
+	          default:
+	            escape = false;
+	            key += keypath[i];
+	            break;
+	        }
+	      }
+
+	      return callback(object, key, true);
+	    },
+
+	    getDeepObjectValue: function(obj, keypath) {
+	      if (!v.isObject(obj)) {
+	        return undefined;
+	      }
+
+	      return v.forEachKeyInKeypath(obj, keypath, function(obj, key) {
+	        if (v.isObject(obj)) {
+	          return obj[key];
+	        }
+	      });
+	    },
+
+	    // This returns an object with all the values of the form.
+	    // It uses the input name as key and the value as value
+	    // So for example this:
+	    // <input type="text" name="email" value="foo@bar.com" />
+	    // would return:
+	    // {email: "foo@bar.com"}
+	    collectFormValues: function(form, options) {
+	      var values = {}
+	        , i
+	        , input
+	        , inputs
+	        , value;
+
+	      if (v.isJqueryElement(form)) {
+	        form = form[0];
+	      }
+
+	      if (!form) {
+	        return values;
+	      }
+
+	      options = options || {};
+
+	      inputs = form.querySelectorAll("input[name], textarea[name]");
+	      for (i = 0; i < inputs.length; ++i) {
+	        input = inputs.item(i);
+
+	        if (v.isDefined(input.getAttribute("data-ignored"))) {
+	          continue;
+	        }
+
+	        value = v.sanitizeFormValue(input.value, options);
+	        if (input.type === "number") {
+	          value = value ? +value : null;
+	        } else if (input.type === "checkbox") {
+	          if (input.attributes.value) {
+	            if (!input.checked) {
+	              value = values[input.name] || null;
+	            }
+	          } else {
+	            value = input.checked;
+	          }
+	        } else if (input.type === "radio") {
+	          if (!input.checked) {
+	            value = values[input.name] || null;
+	          }
+	        }
+	        values[input.name] = value;
+	      }
+
+	      inputs = form.querySelectorAll("select[name]");
+	      for (i = 0; i < inputs.length; ++i) {
+	        input = inputs.item(i);
+	        value = v.sanitizeFormValue(input.options[input.selectedIndex].value, options);
+	        values[input.name] = value;
+	      }
+
+	      return values;
+	    },
+
+	    sanitizeFormValue: function(value, options) {
+	      if (options.trim && v.isString(value)) {
+	        value = value.trim();
+	      }
+
+	      if (options.nullify !== false && value === "") {
+	        return null;
+	      }
+	      return value;
+	    },
+
+	    capitalize: function(str) {
+	      if (!v.isString(str)) {
+	        return str;
+	      }
+	      return str[0].toUpperCase() + str.slice(1);
+	    },
+
+	    // Remove all errors who's error attribute is empty (null or undefined)
+	    pruneEmptyErrors: function(errors) {
+	      return errors.filter(function(error) {
+	        return !v.isEmpty(error.error);
+	      });
+	    },
+
+	    // In
+	    // [{error: ["err1", "err2"], ...}]
+	    // Out
+	    // [{error: "err1", ...}, {error: "err2", ...}]
+	    //
+	    // All attributes in an error with multiple messages are duplicated
+	    // when expanding the errors.
+	    expandMultipleErrors: function(errors) {
+	      var ret = [];
+	      errors.forEach(function(error) {
+	        // Removes errors without a message
+	        if (v.isArray(error.error)) {
+	          error.error.forEach(function(msg) {
+	            ret.push(v.extend({}, error, {error: msg}));
+	          });
+	        } else {
+	          ret.push(error);
+	        }
+	      });
+	      return ret;
+	    },
+
+	    // Converts the error mesages by prepending the attribute name unless the
+	    // message is prefixed by ^
+	    convertErrorMessages: function(errors, options) {
+	      options = options || {};
+
+	      var ret = [];
+	      errors.forEach(function(errorInfo) {
+	        var error = v.result(errorInfo.error,
+	            errorInfo.value,
+	            errorInfo.attribute,
+	            errorInfo.options,
+	            errorInfo.attributes,
+	            errorInfo.globalOptions);
+
+	        if (!v.isString(error)) {
+	          ret.push(errorInfo);
+	          return;
+	        }
+
+	        if (error[0] === '^') {
+	          error = error.slice(1);
+	        } else if (options.fullMessages !== false) {
+	          error = v.capitalize(v.prettify(errorInfo.attribute)) + " " + error;
+	        }
+	        error = error.replace(/\\\^/g, "^");
+	        error = v.format(error, {value: v.stringifyValue(errorInfo.value)});
+	        ret.push(v.extend({}, errorInfo, {error: error}));
+	      });
+	      return ret;
+	    },
+
+	    // In:
+	    // [{attribute: "<attributeName>", ...}]
+	    // Out:
+	    // {"<attributeName>": [{attribute: "<attributeName>", ...}]}
+	    groupErrorsByAttribute: function(errors) {
+	      var ret = {};
+	      errors.forEach(function(error) {
+	        var list = ret[error.attribute];
+	        if (list) {
+	          list.push(error);
+	        } else {
+	          ret[error.attribute] = [error];
+	        }
+	      });
+	      return ret;
+	    },
+
+	    // In:
+	    // [{error: "<message 1>", ...}, {error: "<message 2>", ...}]
+	    // Out:
+	    // ["<message 1>", "<message 2>"]
+	    flattenErrorsToArray: function(errors) {
+	      return errors.map(function(error) { return error.error; });
+	    },
+
+	    cleanAttributes: function(attributes, whitelist) {
+	      function whitelistCreator(obj, key, last) {
+	        if (v.isObject(obj[key])) {
+	          return obj[key];
+	        }
+	        return (obj[key] = last ? true : {});
+	      }
+
+	      function buildObjectWhitelist(whitelist) {
+	        var ow = {}
+	          , lastObject
+	          , attr;
+	        for (attr in whitelist) {
+	          if (!whitelist[attr]) {
+	            continue;
+	          }
+	          v.forEachKeyInKeypath(ow, attr, whitelistCreator);
+	        }
+	        return ow;
+	      }
+
+	      function cleanRecursive(attributes, whitelist) {
+	        if (!v.isObject(attributes)) {
+	          return attributes;
+	        }
+
+	        var ret = v.extend({}, attributes)
+	          , w
+	          , attribute;
+
+	        for (attribute in attributes) {
+	          w = whitelist[attribute];
+
+	          if (v.isObject(w)) {
+	            ret[attribute] = cleanRecursive(ret[attribute], w);
+	          } else if (!w) {
+	            delete ret[attribute];
+	          }
+	        }
+	        return ret;
+	      }
+
+	      if (!v.isObject(whitelist) || !v.isObject(attributes)) {
+	        return {};
+	      }
+
+	      whitelist = buildObjectWhitelist(whitelist);
+	      return cleanRecursive(attributes, whitelist);
+	    },
+
+	    exposeModule: function(validate, root, exports, module, define) {
+	      if (exports) {
+	        if (module && module.exports) {
+	          exports = module.exports = validate;
+	        }
+	        exports.validate = validate;
+	      } else {
+	        root.validate = validate;
+	        if (validate.isFunction(define) && define.amd) {
+	          define([], function () { return validate; });
+	        }
+	      }
+	    },
+
+	    warn: function(msg) {
+	      if (typeof console !== "undefined" && console.warn) {
+	        console.warn("[validate.js] " + msg);
+	      }
+	    },
+
+	    error: function(msg) {
+	      if (typeof console !== "undefined" && console.error) {
+	        console.error("[validate.js] " + msg);
+	      }
+	    }
+	  });
+
+	  validate.validators = {
+	    // Presence validates that the value isn't empty
+	    presence: function(value, options) {
+	      options = v.extend({}, this.options, options);
+	      if (v.isEmpty(value)) {
+	        return options.message || this.message || "can't be blank";
+	      }
+	    },
+	    length: function(value, options, attribute) {
+	      // Empty values are allowed
+	      if (v.isEmpty(value)) {
+	        return;
+	      }
+
+	      options = v.extend({}, this.options, options);
+
+	      var is = options.is
+	        , maximum = options.maximum
+	        , minimum = options.minimum
+	        , tokenizer = options.tokenizer || function(val) { return val; }
+	        , err
+	        , errors = [];
+
+	      value = tokenizer(value);
+	      var length = value.length;
+	      if(!v.isNumber(length)) {
+	        v.error(v.format("Attribute %{attr} has a non numeric value for `length`", {attr: attribute}));
+	        return options.message || this.notValid || "has an incorrect length";
+	      }
+
+	      // Is checks
+	      if (v.isNumber(is) && length !== is) {
+	        err = options.wrongLength ||
+	          this.wrongLength ||
+	          "is the wrong length (should be %{count} characters)";
+	        errors.push(v.format(err, {count: is}));
+	      }
+
+	      if (v.isNumber(minimum) && length < minimum) {
+	        err = options.tooShort ||
+	          this.tooShort ||
+	          "is too short (minimum is %{count} characters)";
+	        errors.push(v.format(err, {count: minimum}));
+	      }
+
+	      if (v.isNumber(maximum) && length > maximum) {
+	        err = options.tooLong ||
+	          this.tooLong ||
+	          "is too long (maximum is %{count} characters)";
+	        errors.push(v.format(err, {count: maximum}));
+	      }
+
+	      if (errors.length > 0) {
+	        return options.message || errors;
+	      }
+	    },
+	    numericality: function(value, options) {
+	      // Empty values are fine
+	      if (v.isEmpty(value)) {
+	        return;
+	      }
+
+	      options = v.extend({}, this.options, options);
+
+	      var errors = []
+	        , name
+	        , count
+	        , checks = {
+	            greaterThan:          function(v, c) { return v > c; },
+	            greaterThanOrEqualTo: function(v, c) { return v >= c; },
+	            equalTo:              function(v, c) { return v === c; },
+	            lessThan:             function(v, c) { return v < c; },
+	            lessThanOrEqualTo:    function(v, c) { return v <= c; },
+	            divisibleBy:          function(v, c) { return v % c === 0; }
+	          };
+
+	      // Strict will check that it is a valid looking number
+	      if (v.isString(value) && options.strict) {
+	        var pattern = "^(0|[1-9]\\d*)";
+	        if (!options.onlyInteger) {
+	          pattern += "(\\.\\d+)?";
+	        }
+	        pattern += "$";
+
+	        if (!(new RegExp(pattern).test(value))) {
+	          return options.message || options.notValid || this.notValid || "must be a valid number";
+	        }
+	      }
+
+	      // Coerce the value to a number unless we're being strict.
+	      if (options.noStrings !== true && v.isString(value)) {
+	        value = +value;
+	      }
+
+	      // If it's not a number we shouldn't continue since it will compare it.
+	      if (!v.isNumber(value)) {
+	        return options.message || options.notValid || this.notValid || "is not a number";
+	      }
+
+	      // Same logic as above, sort of. Don't bother with comparisons if this
+	      // doesn't pass.
+	      if (options.onlyInteger && !v.isInteger(value)) {
+	        return options.message || options.notInteger || this.notInteger  || "must be an integer";
+	      }
+
+	      for (name in checks) {
+	        count = options[name];
+	        if (v.isNumber(count) && !checks[name](value, count)) {
+	          // This picks the default message if specified
+	          // For example the greaterThan check uses the message from
+	          // this.notGreaterThan so we capitalize the name and prepend "not"
+	          var key = "not" + v.capitalize(name);
+	          var msg = options[key] || this[key] || "must be %{type} %{count}";
+
+	          errors.push(v.format(msg, {
+	            count: count,
+	            type: v.prettify(name)
+	          }));
+	        }
+	      }
+
+	      if (options.odd && value % 2 !== 1) {
+	        errors.push(options.notOdd || this.notOdd || "must be odd");
+	      }
+	      if (options.even && value % 2 !== 0) {
+	        errors.push(options.notEven || this.notEven || "must be even");
+	      }
+
+	      if (errors.length) {
+	        return options.message || errors;
+	      }
+	    },
+	    datetime: v.extend(function(value, options) {
+	      if (!v.isFunction(this.parse) || !v.isFunction(this.format)) {
+	        throw new Error("Both the parse and format functions needs to be set to use the datetime/date validator");
+	      }
+
+	      // Empty values are fine
+	      if (v.isEmpty(value)) {
+	        return;
+	      }
+
+	      options = v.extend({}, this.options, options);
+
+	      var err
+	        , errors = []
+	        , earliest = options.earliest ? this.parse(options.earliest, options) : NaN
+	        , latest = options.latest ? this.parse(options.latest, options) : NaN;
+
+	      value = this.parse(value, options);
+
+	      // 86400000 is the number of seconds in a day, this is used to remove
+	      // the time from the date
+	      if (isNaN(value) || options.dateOnly && value % 86400000 !== 0) {
+	        err = options.notValid ||
+	          options.message ||
+	          this.notValid ||
+	          "must be a valid date";
+	        return v.format(err, {value: arguments[0]});
+	      }
+
+	      if (!isNaN(earliest) && value < earliest) {
+	        err = options.tooEarly ||
+	          options.message ||
+	          this.tooEarly ||
+	          "must be no earlier than %{date}";
+	        err = v.format(err, {
+	          value: this.format(value, options),
+	          date: this.format(earliest, options)
+	        });
+	        errors.push(err);
+	      }
+
+	      if (!isNaN(latest) && value > latest) {
+	        err = options.tooLate ||
+	          options.message ||
+	          this.tooLate ||
+	          "must be no later than %{date}";
+	        err = v.format(err, {
+	          date: this.format(latest, options),
+	          value: this.format(value, options)
+	        });
+	        errors.push(err);
+	      }
+
+	      if (errors.length) {
+	        return v.unique(errors);
+	      }
+	    }, {
+	      parse: null,
+	      format: null
+	    }),
+	    date: function(value, options) {
+	      options = v.extend({}, options, {dateOnly: true});
+	      return v.validators.datetime.call(v.validators.datetime, value, options);
+	    },
+	    format: function(value, options) {
+	      if (v.isString(options) || (options instanceof RegExp)) {
+	        options = {pattern: options};
+	      }
+
+	      options = v.extend({}, this.options, options);
+
+	      var message = options.message || this.message || "is invalid"
+	        , pattern = options.pattern
+	        , match;
+
+	      // Empty values are allowed
+	      if (v.isEmpty(value)) {
+	        return;
+	      }
+	      if (!v.isString(value)) {
+	        return message;
+	      }
+
+	      if (v.isString(pattern)) {
+	        pattern = new RegExp(options.pattern, options.flags);
+	      }
+	      match = pattern.exec(value);
+	      if (!match || match[0].length != value.length) {
+	        return message;
+	      }
+	    },
+	    inclusion: function(value, options) {
+	      // Empty values are fine
+	      if (v.isEmpty(value)) {
+	        return;
+	      }
+	      if (v.isArray(options)) {
+	        options = {within: options};
+	      }
+	      options = v.extend({}, this.options, options);
+	      if (v.contains(options.within, value)) {
+	        return;
+	      }
+	      var message = options.message ||
+	        this.message ||
+	        "^%{value} is not included in the list";
+	      return v.format(message, {value: value});
+	    },
+	    exclusion: function(value, options) {
+	      // Empty values are fine
+	      if (v.isEmpty(value)) {
+	        return;
+	      }
+	      if (v.isArray(options)) {
+	        options = {within: options};
+	      }
+	      options = v.extend({}, this.options, options);
+	      if (!v.contains(options.within, value)) {
+	        return;
+	      }
+	      var message = options.message || this.message || "^%{value} is restricted";
+	      return v.format(message, {value: value});
+	    },
+	    email: v.extend(function(value, options) {
+	      options = v.extend({}, this.options, options);
+	      var message = options.message || this.message || "is not a valid email";
+	      // Empty values are fine
+	      if (v.isEmpty(value)) {
+	        return;
+	      }
+	      if (!v.isString(value)) {
+	        return message;
+	      }
+	      if (!this.PATTERN.exec(value)) {
+	        return message;
+	      }
+	    }, {
+	      PATTERN: /^[a-z0-9\u007F-\uffff!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9\u007F-\uffff!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}$/i
+	    }),
+	    equality: function(value, options, attribute, attributes) {
+	      if (v.isEmpty(value)) {
+	        return;
+	      }
+
+	      if (v.isString(options)) {
+	        options = {attribute: options};
+	      }
+	      options = v.extend({}, this.options, options);
+	      var message = options.message ||
+	        this.message ||
+	        "is not equal to %{attribute}";
+
+	      if (v.isEmpty(options.attribute) || !v.isString(options.attribute)) {
+	        throw new Error("The attribute must be a non empty string");
+	      }
+
+	      var otherValue = v.getDeepObjectValue(attributes, options.attribute)
+	        , comparator = options.comparator || function(v1, v2) {
+	          return v1 === v2;
+	        };
+
+	      if (!comparator(value, otherValue, options, attribute, attributes)) {
+	        return v.format(message, {attribute: v.prettify(options.attribute)});
+	      }
+	    },
+
+	    // A URL validator that is used to validate URLs with the ability to
+	    // restrict schemes and some domains.
+	    url: function(value, options) {
+	      if (v.isEmpty(value)) {
+	        return;
+	      }
+
+	      options = v.extend({}, this.options, options);
+
+	      var message = options.message || this.message || "is not a valid url"
+	        , schemes = options.schemes || this.schemes || ['http', 'https']
+	        , allowLocal = options.allowLocal || this.allowLocal || false;
+
+	      if (!v.isString(value)) {
+	        return message;
+	      }
+
+	      // https://gist.github.com/dperini/729294
+	      var regex =
+	        "^" +
+	          // schemes
+	          "(?:(?:" + schemes.join("|") + "):\\/\\/)" +
+	          // credentials
+	          "(?:\\S+(?::\\S*)?@)?";
+
+	      regex += "(?:";
+
+	      var tld = "(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))";
+
+	      // This ia a special case for the localhost hostname
+	      if (allowLocal) {
+	        tld += "?";
+	      } else {
+	        // private & local addresses
+	        regex +=
+	          "(?!10(?:\\.\\d{1,3}){3})" +
+	          "(?!127(?:\\.\\d{1,3}){3})" +
+	          "(?!169\\.254(?:\\.\\d{1,3}){2})" +
+	          "(?!192\\.168(?:\\.\\d{1,3}){2})" +
+	          "(?!172" +
+	          "\\.(?:1[6-9]|2\\d|3[0-1])" +
+	          "(?:\\.\\d{1,3})" +
+	          "{2})";
+	      }
+
+	      var hostname =
+	          "(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)" +
+	          "(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*" +
+	          tld + ")";
+
+	      // reserved addresses
+	      regex +=
+	          "(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])" +
+	          "(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}" +
+	          "(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))" +
+	        "|" +
+	          hostname +
+	          // port number
+	          "(?::\\d{2,5})?" +
+	          // path
+	          "(?:\\/[^\\s]*)?" +
+	        "$";
+
+	      var PATTERN = new RegExp(regex, 'i');
+	      if (!PATTERN.exec(value)) {
+	        return message;
+	      }
+	    }
+	  };
+
+	  validate.exposeModule(validate, this, exports, module, __webpack_require__(79));
+	}).call(this,
+	         true ? /* istanbul ignore next */ exports : null,
+	         true ? /* istanbul ignore next */ module : null,
+	        __webpack_require__(79));
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module)))
+
+/***/ },
+
+/***/ 79:
+/***/ function(module, exports) {
+
+	module.exports = function() { throw new Error("define cannot be used indirect"); };
+
+
+/***/ }
+
+/******/ });

@@ -1,1 +1,173 @@
-!function(e){function t(u){if(n[u])return n[u].exports;var r=n[u]={exports:{},id:u,loaded:!1};return e[u].call(r.exports,r,r.exports,t),r.loaded=!0,r.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){"use strict";function u(e){return e&&e.__esModule?e:{"default":e}}var r=n(1),o=u(r);!function(){new o["default"]("menu",["close-menu"])}()},function(e,t,n){"use strict";function u(e){return e&&e.__esModule?e:{"default":e}}function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(t,"__esModule",{value:!0});var o=function(){function e(e,t){for(var n=0;n<t.length;n++){var u=t[n];u.enumerable=u.enumerable||!1,u.configurable=!0,"value"in u&&(u.writable=!0),Object.defineProperty(e,u.key,u)}}return function(t,n,u){return n&&e(t.prototype,n),u&&e(t,u),t}}(),a=n(2),l=u(a),i=function(){function e(){var t=arguments.length<=0||void 0===arguments[0]?"menu":arguments[0],n=arguments.length<=1||void 0===arguments[1]?["overlay"]:arguments[1];r(this,e),this.body=document.body||document.getElementsByTagName("body")[0],this.elements=Array.prototype.slice.call(document.getElementsByClassName(t)),this.closeMenuElements=n.map(function(e){return document.getElementById(e)}),this.placeListeners()}return o(e,[{key:"placeListeners",value:function(){var e=this;this.elements.forEach(function(t){return(0,l["default"])("click",t,e.toggleMenu.bind(e))},this),this.closeMenuElements.forEach(function(t){return(0,l["default"])("click",t,e.closeMenu.bind(e))},this)}},{key:"toggleMenu",value:function(e,t){if(!t){var n=e||window.event;n.preventDefault?n.preventDefault():n.returnValue=!1}this.body.className.indexOf(" menu-open")>-1||t?this.body.className=this.body.className.replace(" menu-open",""):this.body.className+=" menu-open"}},{key:"closeMenu",value:function(e){var t=e||window.event;t.preventDefault?t.preventDefault():t.returnValue=!1,this.toggleMenu(null,!0)}}]),e}();t["default"]=i,e.exports=t["default"]},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=function(e,t,n){return!!(e&&t&&n)&&void(t.addEventListener?t.addEventListener(e,n,!1):t.attachEvent?t.attachEvent("on"+e,n):t[e]=n)};t["default"]=n,e.exports=t["default"]}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _components_menuEs6Js = __webpack_require__(1);
+
+	var _components_menuEs6Js2 = _interopRequireDefault(_components_menuEs6Js);
+
+	(function () {
+	  'use strict';
+	  var menuToggle = new _components_menuEs6Js2['default']('menu', ['close-menu']);
+	})();
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _addEventEs6Js = __webpack_require__(2);
+
+	var _addEventEs6Js2 = _interopRequireDefault(_addEventEs6Js);
+
+	var Menu = (function () {
+	  function Menu() {
+	    var openMenuClass = arguments.length <= 0 || arguments[0] === undefined ? 'menu' : arguments[0];
+	    var closeMenuIDs = arguments.length <= 1 || arguments[1] === undefined ? ['overlay'] : arguments[1];
+
+	    _classCallCheck(this, Menu);
+
+	    this.body = document.body || document.getElementsByTagName('body')[0];
+
+	    this.elements = Array.prototype.slice.call(document.getElementsByClassName(openMenuClass));
+
+	    this.closeMenuElements = closeMenuIDs.map(function (ID) {
+	      return document.getElementById(ID);
+	    });
+
+	    this.placeListeners();
+	  }
+
+	  _createClass(Menu, [{
+	    key: 'placeListeners',
+	    value: function placeListeners() {
+	      var _this = this;
+
+	      this.elements.forEach(function (el) {
+	        return (0, _addEventEs6Js2['default'])('click', el, _this.toggleMenu.bind(_this));
+	      }, this);
+	      this.closeMenuElements.forEach(function (el) {
+	        return (0, _addEventEs6Js2['default'])('click', el, _this.closeMenu.bind(_this));
+	      }, this);
+	    }
+	  }, {
+	    key: 'toggleMenu',
+	    value: function toggleMenu(e, close) {
+	      if (!close) {
+	        var evt = e || window.event;
+	        if (evt.preventDefault) {
+	          evt.preventDefault();
+	        } else {
+	          evt.returnValue = false;
+	        }
+	      }
+	      if (this.body.className.indexOf(' menu-open') > -1 || close) {
+	        this.body.className = this.body.className.replace(' menu-open', '');
+	      } else {
+	        this.body.className += ' menu-open';
+	      }
+	    }
+	  }, {
+	    key: 'closeMenu',
+	    value: function closeMenu(e) {
+	      var evt = e || window.event;
+	      if (evt.preventDefault) {
+	        evt.preventDefault();
+	      } else {
+	        evt.returnValue = false;
+	      }
+	      this.toggleMenu(null, true);
+	    }
+	  }]);
+
+	  return Menu;
+	})();
+
+	exports['default'] = Menu;
+	module.exports = exports['default'];
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	var addEvent = function addEvent(evnt, elem, func) {
+	  'use strict';
+	  if (!evnt || !elem || !func) {
+	    return false;
+	  }
+	  if (elem.addEventListener) {
+	    elem.addEventListener(evnt, func, false);
+	  } else if (elem.attachEvent) {
+	    elem.attachEvent('on' + evnt, func);
+	  } else {
+	    elem[evnt] = func;
+	  }
+	};
+
+	exports['default'] = addEvent;
+	module.exports = exports['default'];
+
+/***/ }
+/******/ ]);

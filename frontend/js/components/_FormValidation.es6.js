@@ -75,16 +75,16 @@ class FormValidation {
     }
 
     createObjectFromInputs(inputArray) {
-      let object = {};
-      inputArray.forEach(el => object[el.name] = el.value, this);
-      return object;
+        let object = {};
+        inputArray.forEach(el => object[el.name] = el.value, this);
+        return object;
     }
 
     validateInput(element) {
         validate.async(this.createObjectFromInputs(this.inputs), this.constraints || {}).then(
             success => {
-              this.errors = {};
-              this.showAllErrors();
+                this.errors = {};
+                this.showAllErrors();
             },
             function(errors) {
                 if (errors instanceof Error) {
@@ -128,13 +128,13 @@ class FormValidation {
             if (this.errors[el.name]) {
                 this.showErrorsForInput(el, this.errors[el.name]);
             } else {
-              this.resetErrors(el);
+                this.resetErrors(el);
             }
         });
     }
 
     handleSubmission() {
-      validate.async(this.createObjectFromInputs(this.inputs), this.constraints || {}).then(
+        validate.async(this.createObjectFromInputs(this.inputs), this.constraints || {}).then(
             function() {
                 this.errors = {};
                 this.showAllErrors();

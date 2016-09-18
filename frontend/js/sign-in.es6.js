@@ -39,7 +39,9 @@ import Menu from './components/_menu.es6.js';
     },
   };
 
-  const validateForm = new FormValidation('sign-in-form', constraints);
+  if (navigator.userAgent.indexOf('MSIE') === -1 && navigator.userAgent.indexOf('rv:11.0') === -1) {
+    const validateForm = new FormValidation('sign-in-form', constraints);
+  }
 
   const menuToggle = new Menu('menu', ['close-menu']);
 
