@@ -618,18 +618,6 @@ main.full-height {
           -webkit-transform-origin: 0;
               -ms-transform-origin: 0;
                   transform-origin: 0; } }
-    .graphs .week-graph .big-number {
-      display: block;
-      margin: 0 auto;
-      font-family: "butlerbold", serif;
-      font-size: 4rem;
-      line-height: 90%;
-      vertical-align: middle; }
-      @media (max-width: 630px) {
-        .graphs .week-graph .big-number {
-          display: inline-block;
-          font-size: 2.2rem;
-          padding-right: 0.2em; } }
     .graphs .week-graph .graph {
       position: absolute;
       top: 0;
@@ -673,6 +661,23 @@ main.full-height {
     border-bottom-left-radius: 0.25rem;
     border-top-left-radius: 0.25rem; }
 
+.big-number {
+  display: block;
+  margin: 0 auto;
+  font-family: "butlerbold", serif;
+  font-size: 4rem;
+  line-height: 90%;
+  vertical-align: middle; }
+  @media (max-width: 630px) {
+    .big-number {
+      display: inline-block;
+      font-size: 2.2rem;
+      padding-right: 0.2em; } }
+  .big-number.inline {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0.4rem 0.4rem 0; }
+
 .loading-view {
   z-index: 100; }
 
@@ -684,6 +689,8 @@ footer {
   box-sizing: border-box;
   text-align: center;
   z-index: 10; }
+  footer.large-margin {
+    margin-top: 8%; }
 
 .container {
   display: block;
@@ -693,6 +700,17 @@ footer {
   padding: 1rem 0;
   width: 100%;
   max-width: 1100px; }
+
+.small-text {
+  font-size: 0.9em; }
+
+.clear {
+  display: block;
+  clear: both; }
+
+.padded {
+  box-sizing: border-box;
+  padding: 0.8rem; }
 
 .nopad {
   padding: 0; }
@@ -730,6 +748,11 @@ ui-view {
 .modal, .main-stats-container {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
   border-radius: 0.3rem; }
+  .modal hr, .main-stats-container hr {
+    margin: 2em auto;
+    border: none;
+    max-width: 300px;
+    border-top: 1px solid #004D40; }
 
 h1 {
   font-family: "butlerbold", serif;
@@ -758,6 +781,10 @@ h3 {
   font-size: 1.6rem; }
   h3.shadow {
     text-shadow: 5px 5px 0 #004D40; }
+  h3.serif {
+    font-size: 2.4rem;
+    margin-bottom: 0;
+    font-family: "butlerbold", serif; }
 
 h4,
 h5 {
@@ -770,6 +797,9 @@ a {
   color: inherit;
   text-decoration: none;
   cursor: pointer; }
+  a:hover {
+    text-decoration: underline;
+    color: #004D40; }
 
 .hidden {
   display: none !important; }
@@ -895,6 +925,9 @@ button.icon {
 
 .slight-gradient, .loading-view {
   background: #004D40; }
+
+.bordered {
+  border-right: 0.3rem solid #004D40; }
 
 .opacity {
   opacity: 0.5; }
@@ -1936,18 +1969,6 @@ main.full-height {
           -webkit-transform-origin: 0;
               -ms-transform-origin: 0;
                   transform-origin: 0; } }
-    .graphs .week-graph .big-number {
-      display: block;
-      margin: 0 auto;
-      font-family: "butlerbold", serif;
-      font-size: 4rem;
-      line-height: 90%;
-      vertical-align: middle; }
-      @media (max-width: 630px) {
-        .graphs .week-graph .big-number {
-          display: inline-block;
-          font-size: 2.2rem;
-          padding-right: 0.2em; } }
     .graphs .week-graph .graph {
       position: absolute;
       top: 0;
@@ -1991,6 +2012,23 @@ main.full-height {
     border-bottom-left-radius: 0.25rem;
     border-top-left-radius: 0.25rem; }
 
+.big-number {
+  display: block;
+  margin: 0 auto;
+  font-family: "butlerbold", serif;
+  font-size: 4rem;
+  line-height: 90%;
+  vertical-align: middle; }
+  @media (max-width: 630px) {
+    .big-number {
+      display: inline-block;
+      font-size: 2.2rem;
+      padding-right: 0.2em; } }
+  .big-number.inline {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0.4rem 0.4rem 0; }
+
 .loading-view {
   z-index: 100; }
 
@@ -2002,6 +2040,8 @@ footer {
   box-sizing: border-box;
   text-align: center;
   z-index: 10; }
+  footer.large-margin {
+    margin-top: 8%; }
 
 .container {
   display: block;
@@ -2011,6 +2051,17 @@ footer {
   padding: 1rem 0;
   width: 100%;
   max-width: 1100px; }
+
+.small-text {
+  font-size: 0.9em; }
+
+.clear {
+  display: block;
+  clear: both; }
+
+.padded {
+  box-sizing: border-box;
+  padding: 0.8rem; }
 
 .nopad {
   padding: 0; }
@@ -2048,6 +2099,11 @@ ui-view {
 .modal, .main-stats-container {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
   border-radius: 0.3rem; }
+  .modal hr, .main-stats-container hr {
+    margin: 2em auto;
+    border: none;
+    max-width: 300px;
+    border-top: 1px solid #004D40; }
 
 h1 {
   font-family: "butlerbold", serif;
@@ -2076,6 +2132,10 @@ h3 {
   font-size: 1.6rem; }
   h3.shadow {
     text-shadow: 5px 5px 0 #004D40; }
+  h3.serif {
+    font-size: 2.4rem;
+    margin-bottom: 0;
+    font-family: "butlerbold", serif; }
 
 h4,
 h5 {
@@ -2088,6 +2148,9 @@ a {
   color: inherit;
   text-decoration: none;
   cursor: pointer; }
+  a:hover {
+    text-decoration: underline;
+    color: #004D40; }
 
 .hidden {
   display: none !important; }
@@ -2213,6 +2276,9 @@ button.icon {
 
 .slight-gradient, .loading-view {
   background: #004D40; }
+
+.bordered {
+  border-right: 0.3rem solid #004D40; }
 
 .opacity {
   opacity: 0.5; }
@@ -2446,7 +2512,8 @@ nav.top {
       nav.top a {
         display: block; } }
     nav.top a:hover {
-      background-color: rgba(0, 0, 0, 0.3); }
+      background-color: rgba(0, 0, 0, 0.3);
+      text-decoration: none; }
     nav.top a.current {
       background-color: rgba(0, 0, 0, 0.1); }
     nav.top a.menu-icon {
@@ -3175,18 +3242,6 @@ main.full-height {
           -webkit-transform-origin: 0;
               -ms-transform-origin: 0;
                   transform-origin: 0; } }
-    .graphs .week-graph .big-number {
-      display: block;
-      margin: 0 auto;
-      font-family: "butlerbold", serif;
-      font-size: 4rem;
-      line-height: 90%;
-      vertical-align: middle; }
-      @media (max-width: 630px) {
-        .graphs .week-graph .big-number {
-          display: inline-block;
-          font-size: 2.2rem;
-          padding-right: 0.2em; } }
     .graphs .week-graph .graph {
       position: absolute;
       top: 0;
@@ -3230,6 +3285,23 @@ main.full-height {
     border-bottom-left-radius: 0.25rem;
     border-top-left-radius: 0.25rem; }
 
+.big-number {
+  display: block;
+  margin: 0 auto;
+  font-family: "butlerbold", serif;
+  font-size: 4rem;
+  line-height: 90%;
+  vertical-align: middle; }
+  @media (max-width: 630px) {
+    .big-number {
+      display: inline-block;
+      font-size: 2.2rem;
+      padding-right: 0.2em; } }
+  .big-number.inline {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0.4rem 0.4rem 0; }
+
 .loading-view {
   z-index: 100; }
 
@@ -3241,6 +3313,8 @@ footer {
   box-sizing: border-box;
   text-align: center;
   z-index: 10; }
+  footer.large-margin {
+    margin-top: 8%; }
 
 .container {
   display: block;
@@ -3250,6 +3324,17 @@ footer {
   padding: 1rem 0;
   width: 100%;
   max-width: 1100px; }
+
+.small-text {
+  font-size: 0.9em; }
+
+.clear {
+  display: block;
+  clear: both; }
+
+.padded {
+  box-sizing: border-box;
+  padding: 0.8rem; }
 
 .nopad {
   padding: 0; }
@@ -3287,6 +3372,11 @@ ui-view {
 .modal, .main-stats-container {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
   border-radius: 0.3rem; }
+  .modal hr, .main-stats-container hr {
+    margin: 2em auto;
+    border: none;
+    max-width: 300px;
+    border-top: 1px solid #004D40; }
 
 h1 {
   font-family: "butlerbold", serif;
@@ -3315,6 +3405,10 @@ h3 {
   font-size: 1.6rem; }
   h3.shadow {
     text-shadow: 5px 5px 0 #004D40; }
+  h3.serif {
+    font-size: 2.4rem;
+    margin-bottom: 0;
+    font-family: "butlerbold", serif; }
 
 h4,
 h5 {
@@ -3327,6 +3421,9 @@ a {
   color: inherit;
   text-decoration: none;
   cursor: pointer; }
+  a:hover {
+    text-decoration: underline;
+    color: #004D40; }
 
 .hidden {
   display: none !important; }
@@ -3452,6 +3549,9 @@ button.icon {
 
 .slight-gradient, .loading-view {
   background: #004D40; }
+
+.bordered {
+  border-right: 0.3rem solid #004D40; }
 
 .opacity {
   opacity: 0.5; }

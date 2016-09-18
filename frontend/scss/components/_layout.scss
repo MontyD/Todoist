@@ -301,20 +301,6 @@ main.full-height {
             }
         }
 
-        .big-number {
-            display       : block;
-            margin        : 0 auto;
-            font-family   : $serif;
-            font-size     : 4rem;
-            line-height   : 90%;
-            vertical-align: middle;
-            @media(max-width: $smallBP) {
-                display      : inline-block;
-                font-size    : 2.2rem;
-                padding-right: 0.2em;
-            }
-        }
-
         .graph {
             position: absolute;
             top     : 0;
@@ -386,6 +372,24 @@ main.full-height {
         border-top-left-radius   : 0.25rem;
     }
 }
+.big-number {
+    display       : block;
+    margin        : 0 auto;
+    font-family   : $serif;
+    font-size     : 4rem;
+    line-height   : 90%;
+    vertical-align: middle;
+    @media(max-width: $smallBP) {
+        display      : inline-block;
+        font-size    : 2.2rem;
+        padding-right: 0.2em;
+    }
+    &.inline {
+      display: inline-block;
+      vertical-align: middle;
+      padding: 0.4rem 0.4rem 0;
+    }
+}
 
 .loading-view {
     z-index: 100;
@@ -399,6 +403,9 @@ footer {
     box-sizing: border-box;
     text-align: center;
     z-index   : 10;
+    &.large-margin {
+      margin-top: 8%;
+    }
 }
 
 .container {
@@ -409,6 +416,19 @@ footer {
     padding   : 1rem 0;
     width     : 100%;
     max-width : $containerWidth;
+}
+.small-text {
+  font-size: 0.9em;
+}
+
+.clear {
+  display: block;
+  clear: both;
+}
+
+.padded {
+  box-sizing: border-box;
+  padding: 0.8rem;
 }
 
 .nopad {
