@@ -1,4 +1,5 @@
 import FormValidation from './components/_FormValidation.es6.js';
+import Menu from './components/_menu.es6.js';
 
 (function() {
 
@@ -62,5 +63,7 @@ import FormValidation from './components/_FormValidation.es6.js';
     };
 
     const validateForm = new FormValidation('sign-up-form', constraints);
+
+    const menuToggle = new Menu('menu', ['close-menu']);
 
 })();

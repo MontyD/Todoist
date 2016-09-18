@@ -15,10 +15,8 @@ class Menu {
   }
 
   placeListeners() {
-    console.log(this.elements);
-
-    this.elements.forEach(el => addEvent('click', el, this.toggleMenu), this);
-    this.closeMenuElements.forEach(el => addEvent('click', el, this.closeMenu), this);
+    this.elements.forEach(el => addEvent('click', el, this.toggleMenu.bind(this)), this);
+    this.closeMenuElements.forEach(el => addEvent('click', el, this.closeMenu.bind(this)), this);
   }
 
 	toggleMenu(e, close) {
@@ -30,7 +28,6 @@ class Menu {
 				evt.returnValue = false;
 			}
 		}
-
 		if (this.body.className.indexOf(' menu-open') > -1 || close) {
 			this.body.className = this.body.className.replace(' menu-open', '');
 		} else {
@@ -46,7 +43,7 @@ class Menu {
     } else {
       evt.returnValue = false;
     }
-    this.menuOnClick(null, true);
+    this.toggleMenu(null, true);
   }
 
 }

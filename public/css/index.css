@@ -383,6 +383,7 @@ ui-view {
 
 main.full-height {
   position: relative;
+  min-height: 100%;
   min-height: calc(100% - 3.8rem); }
 
 .halfWidth {
@@ -1700,6 +1701,7 @@ ui-view {
 
 main.full-height {
   position: relative;
+  min-height: 100%;
   min-height: calc(100% - 3.8rem); }
 
 .halfWidth {
@@ -2430,7 +2432,7 @@ nav.top {
       nav.top li {
         display: block;
         font-size: 1.2em;
-        margin: 2em auto; }
+        margin: 1em auto; }
         nav.top li:first-child {
           margin-top: 4em; } }
   nav.top a {
@@ -2440,6 +2442,9 @@ nav.top {
     transition: background-color 0.2s;
     border-radius: 0.2rem;
     margin: 0 0.5rem; }
+    @media (max-width: 630px) {
+      nav.top a {
+        display: block; } }
     nav.top a:hover {
       background-color: rgba(0, 0, 0, 0.3); }
     nav.top a.current {
@@ -2935,6 +2940,7 @@ ui-view {
 
 main.full-height {
   position: relative;
+  min-height: 100%;
   min-height: calc(100% - 3.8rem); }
 
 .halfWidth {
