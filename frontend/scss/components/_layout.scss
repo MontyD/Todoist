@@ -406,6 +406,9 @@ footer {
     box-sizing: border-box;
     text-align: center;
     z-index   : 10;
+    p {
+      font-size: 0.9em;
+    }
     &.large-margin {
       margin-top: 10%;
     }

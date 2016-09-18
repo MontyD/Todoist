@@ -691,6 +691,8 @@ footer {
   box-sizing: border-box;
   text-align: center;
   z-index: 10; }
+  footer p {
+    font-size: 0.9em; }
   footer.large-margin {
     margin-top: 10%; }
   footer.absolute {
@@ -2055,6 +2057,8 @@ footer {
   box-sizing: border-box;
   text-align: center;
   z-index: 10; }
+  footer p {
+    font-size: 0.9em; }
   footer.large-margin {
     margin-top: 10%; }
   footer.absolute {
@@ -3341,6 +3345,8 @@ footer {
   box-sizing: border-box;
   text-align: center;
   z-index: 10; }
+  footer p {
+    font-size: 0.9em; }
   footer.large-margin {
     margin-top: 10%; }
   footer.absolute {
