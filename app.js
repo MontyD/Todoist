@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(cookieParser());
 app.use(session({
-    secret: require(path.join(__dirname, 'config.js')).sessionSecret,
+    secret: process.env.SESSIONKEY || require(path.join(__dirname, 'config.js')).sessionSecret,
     resave: true,
     saveUninitialized: true,
     cookie: {
@@ -54,12 +54,8 @@ passport.deserializeUser(function(room, done) {
 
 passport.use(authentication);
 
-// Logging
-if (require(path.join(__dirname, 'config.js')).env === 'development') {
-    app.use(morgan('dev'));
-} else {
-    app.use(morgan('combined'));
-}
+app.use(morgan('combined'));
+
 
 // Add io to res
 app.use(function(req, res, next){
@@ -82,33 +78,6 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
-
-
-// development error handler
-if (require(path.join(__dirname, 'config.js')).env === 'development') {
-    app.use(function(err, req, res, next) {
-        if (err.status === 401) {
-            res.status(401);
-            if (/json/gi.test(req.get('accept'))) {
-                return res.send('Unauthorised');
-            }
-            return res.render('security/login', {
-                originalURL: req.originalUrl
-            });
-        }
-
-        console.error(err);
-        res.status(err.status || 500);
-        if (/json/gi.test(req.get('accept'))) {
-            res.json(err.message);
-        } else {
-            res.render('error', {
-                message: err.message,
-                error: err
-            });
-        }
-    });
-}
 
 // production error handler
 app.use(function(err, req, res, next) {
