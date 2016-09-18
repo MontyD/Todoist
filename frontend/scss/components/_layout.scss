@@ -170,6 +170,9 @@ main.full-height {
     &.full-width {
         max-width: none;
     }
+    &.vertically-center {
+      top: 40%;
+    }
 
     h1,
     h2,
@@ -398,13 +401,20 @@ main.full-height {
 footer {
     position  : relative;
     display   : block;
-    margin-top: 2em;
+    margin-top: 4em;
     padding   : 1em 0 2.5em;
     box-sizing: border-box;
     text-align: center;
     z-index   : 10;
     &.large-margin {
-      margin-top: 8%;
+      margin-top: 10%;
+    }
+    &.absolute {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 0.3em 0 1em;
     }
 }
 

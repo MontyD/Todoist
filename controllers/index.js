@@ -23,6 +23,12 @@ router.get(['/', '/overview'], passRoomAndUser, function(req, res) {
   }
 });
 
+// render faqs
+router.get('/faq', function(req, res) {
+  res.render('faq');
+});
+
+
 // render index or login if no user
 router.get('/settings', checkRoom, passRoomAndUser, isAdmin,  function(req, res) {
   if (req.room) {

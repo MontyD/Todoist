@@ -17,14 +17,31 @@ block content
       <a href="http://browsehappy.com/" title="GO ON!">Off you toddle!</a>
     </div>
     <!-->
-
-    section.modal.light.vertically-center
-      h1 Todoist
-      p A realtime todolist webapp
-      .button-group
-        a.fake-button.primary(href="/rooms/login", title="login") Login to a room
-        a.fake-button(href="/rooms/new", title="new") Start a new room
-    footer.grey.absolute
+    section.modal.light.bordered
+      h3.serif Too stupid to figure it out?
+      p.left-aligned
+        span.big-number.inline.transparent 1
+        span.small-text.vertical-middle Sign up and create a room.
+      p.left-aligned
+        span.big-number.inline.transparent 2
+        span.small-text.vertical-middle Share your room passcode to allow others access.
+      p.left-aligned
+        span.big-number.inline.transparent 3
+        span.small-text.vertical-middle Collaborate in real time on your todos.
+      p.left-aligned
+        span.big-number.inline.transparent 4
+        span.small-text.vertical-middle Profit.
+      hr
+      h3.serif Why you do this?
+      p.small-text I thought creating an online todolist was such a unique idea, so I made this and am thoroughly expecting Microsoft to buy me out for 10 figures (?) in about 2 months time.
+      p.small-text Nah seriously, I wanted to get some practice of working with Angular, Websockets, Postgres and Express.
+      hr
+      h3.serif I want to insult you, how?
+      p.small-text
+        a(href="https://twitter.com/monty_dawson", title="Twatter") Twitter
+        | &nbsp;or&nbsp;
+        a(href="https://montydawson.co.uk", title="Monty Dawson") my website
+    footer.grey.large-margin
         h2
           a(href="/" title="Todoist") Todoist
         p An experiment in using Angular and Websockets for realtime interactions

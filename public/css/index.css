@@ -491,6 +491,8 @@ main.full-height {
     margin: 5% auto; }
   .modal.full-width, .full-width.main-stats-container {
     max-width: none; }
+  .modal.vertically-center, .vertically-center.main-stats-container {
+    top: 40%; }
   .modal h1, .main-stats-container h1,
   .modal h2,
   .main-stats-container h2,
@@ -684,13 +686,19 @@ main.full-height {
 footer {
   position: relative;
   display: block;
-  margin-top: 2em;
+  margin-top: 4em;
   padding: 1em 0 2.5em;
   box-sizing: border-box;
   text-align: center;
   z-index: 10; }
   footer.large-margin {
-    margin-top: 8%; }
+    margin-top: 10%; }
+  footer.absolute {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.3em 0 1em; }
 
 .container {
   display: block;
@@ -1847,6 +1855,8 @@ main.full-height {
     margin: 5% auto; }
   .modal.full-width, .full-width.main-stats-container {
     max-width: none; }
+  .modal.vertically-center, .vertically-center.main-stats-container {
+    top: 40%; }
   .modal h1, .main-stats-container h1,
   .modal h2,
   .main-stats-container h2,
@@ -2040,13 +2050,19 @@ main.full-height {
 footer {
   position: relative;
   display: block;
-  margin-top: 2em;
+  margin-top: 4em;
   padding: 1em 0 2.5em;
   box-sizing: border-box;
   text-align: center;
   z-index: 10; }
   footer.large-margin {
-    margin-top: 8%; }
+    margin-top: 10%; }
+  footer.absolute {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.3em 0 1em; }
 
 .container {
   display: block;
@@ -3125,6 +3141,8 @@ main.full-height {
     margin: 5% auto; }
   .modal.full-width, .full-width.main-stats-container {
     max-width: none; }
+  .modal.vertically-center, .vertically-center.main-stats-container {
+    top: 40%; }
   .modal h1, .main-stats-container h1,
   .modal h2,
   .main-stats-container h2,
@@ -3318,13 +3336,19 @@ main.full-height {
 footer {
   position: relative;
   display: block;
-  margin-top: 2em;
+  margin-top: 4em;
   padding: 1em 0 2.5em;
   box-sizing: border-box;
   text-align: center;
   z-index: 10; }
   footer.large-margin {
-    margin-top: 8%; }
+    margin-top: 10%; }
+  footer.absolute {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.3em 0 1em; }
 
 .container {
   display: block;
