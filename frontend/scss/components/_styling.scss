@@ -166,6 +166,10 @@ p.slight {
         background: $colorWhite;
         border    : 1px solid $colorDarkGrey;
         color     : $colorDarkGrey;
+
+        &:hover {
+            color: $colorDarkGrey;
+        }
     }
 
     &.danger {
@@ -185,6 +189,8 @@ p.slight {
     }
 
     &:hover {
+        color          : $colorWhite;
+        text-decoration: none;
         @include shadow(1);
     }
 
