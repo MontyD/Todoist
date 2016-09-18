@@ -1,6 +1,8 @@
-if (user)
-  ul
-    li
-      a(href="/users/home", title="Your account") Hello #{user.firstName}
-    li
-      a(href="/users/logout", title="Logout") Logout
+a(href="/", title="Home").home-link Todoist
+ul
+  li
+    a(href="/rooms/new", title="Your rooms") Sign up
+  li
+    a(href="/rooms/login", title="Logout") Login
+a(href="#", title="Open Menu", class="menu menu-icon")
+  img(src="/img/menu.png", alt="Menu")

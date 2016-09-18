@@ -3,12 +3,13 @@ block content
   body.slight-gradient
     .circle.circle-1.no-transition
     .circle.circle-2.no-transition
-    nav.top.absolute
+    nav.top.grey
       .container
         include ./includes/_headerLinks
-    section.modal.light.vertically-center
+    section.modal.light.main
       h1 Todoist
       p A realtime todolist webapp
       .button-group
         a.fake-button.primary(href="/rooms/login", title="login") Login to a room
         a.fake-button(href="/rooms/new", title="new") Start a new room
+    include ./includes/_footer
