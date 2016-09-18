@@ -410,7 +410,7 @@ main.full-height {
     min-width: 0; }
   .button-group a,
   .button-group button {
-    font-size: initial;
+    font-size: 1rem;
     margin: 0.4rem -1px 0.4rem 0;
     border-radius: 0;
     min-width: 75px; }
@@ -1766,7 +1766,7 @@ main.full-height {
     min-width: 0; }
   .button-group a,
   .button-group button {
-    font-size: initial;
+    font-size: 1rem;
     margin: 0.4rem -1px 0.4rem 0;
     border-radius: 0;
     min-width: 75px; }
@@ -3044,7 +3044,7 @@ main.full-height {
     min-width: 0; }
   .button-group a,
   .button-group button {
-    font-size: initial;
+    font-size: 1rem;
     margin: 0.4rem -1px 0.4rem 0;
     border-radius: 0;
     min-width: 75px; }

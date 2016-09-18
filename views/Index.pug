@@ -11,10 +11,13 @@ block content
         h1 USE JAVASCRIPT
         p Just turn JavaScript on you numpty.
         p I don't care enough about you to try and steal your data.
-    //if IE
-      .modal.light.main
-        h1 GET A BETTER BROWSER
-        a(href='http://browsehappy.com/', title="GO ON", class="button primary") Off you go!
+    <!--[if !IE]>
+    <div class="modal light main">
+      <h1>GET A BETTER BROWSER</h1>
+      <a href="http://browsehappy.com/" title="GO ON!">Off you toddle!</a>
+    </div>
+    <!-->
+
     section.modal.light.main
       h1 Todoist
       p A realtime todolist webapp
