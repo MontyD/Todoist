@@ -15,8 +15,7 @@ var express = require('express'),
     socketsRouting = require(path.join(__dirname, 'sockets')),
     controllers = require(path.join(__dirname, 'controllers')),
     models = require(path.join(__dirname, 'models')),
-    authentication = require(path.join(__dirname, 'middlewares', 'authentication.js')),
-    config = require(path.join(__dirname, 'config.js'));
+    authentication = require(path.join(__dirname, 'middlewares', 'authentication.js'));
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
@@ -31,7 +30,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(cookieParser());
 app.use(session({
-    secret: config.sessionSecret,
+    secret: require(path.join(__dirname, 'config.js')).sessionSecret,
     resave: true,
     saveUninitialized: true,
     cookie: {
@@ -56,7 +55,7 @@ passport.deserializeUser(function(room, done) {
 passport.use(authentication);
 
 // Logging
-if (config.env === 'development') {
+if (require(path.join(__dirname, 'config.js')).env === 'development') {
     app.use(morgan('dev'));
 } else {
     app.use(morgan('combined'));
@@ -86,7 +85,7 @@ app.use(function(req, res, next) {
 
 
 // development error handler
-if (config.env === 'development') {
+if (require(path.join(__dirname, 'config.js')).env === 'development') {
     app.use(function(err, req, res, next) {
         if (err.status === 401) {
             res.status(401);
