@@ -26,4 +26,5 @@ block content
         input(type="submit", value="Create").button.primary
         if (originalURL)
           input(type="text", value=originalURL, name="originalURL").hidden
-    script(type="text/javascript", src="bundles/signup.js")
+    include ../includes/_footer
+    script(type="text/javascript", src="/bundles/signup.js")

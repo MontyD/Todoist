@@ -3,10 +3,10 @@ block content
     body.slight-gradient
       .circle.circle-1.no-transition
       .circle.circle-2.no-transition
-      nav.top.absolute.grey
+      nav.top.grey
           .container
               include ../includes/_headerLinks.pug
-      section.modal.light.vertically-center
+      section.modal.light.main
           h1 Login
           form(id="sign-in-form" method="POST", action="/rooms/login")
             if noRoom
@@ -35,4 +35,5 @@ block content
             input(type="submit", value="Login").button.primary
             if (originalURL)
                 input(type="text", value=originalURL, name="originalURL").hidden
-      script(type="text/javascript", src="bundles/signin.js")
+      include ../includes/_footer
+      script(type="text/javascript", src="/bundles/signin.js")

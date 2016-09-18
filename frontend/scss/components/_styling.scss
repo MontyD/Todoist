@@ -422,6 +422,11 @@ footer {
     background: $colorDark;
     color     : $colorSubtle;
 
+    &.grey {
+        background: rgba(0,0,0, 0.1);
+        @include shadow(1);
+    }
+
     h2 {
         font-weight: normal;
     }

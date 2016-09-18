@@ -508,7 +508,7 @@ main.full-height {
   font-size: 0.9rem; }
   @media (max-width: 630px) {
     .stats-container {
-      padding: 0.2rem 0.2rem;
+      padding: 0.2rem;
       font-size: 0.7rem; } }
   .stats-container .large-number {
     display: block;
@@ -676,9 +676,13 @@ main.full-height {
   z-index: 100; }
 
 footer {
-  margin-top: 1em;
+  position: relative;
+  display: block;
+  margin-top: 2em;
+  padding: 1em 0 2.5em;
   box-sizing: border-box;
-  text-align: center; }
+  text-align: center;
+  z-index: 10; }
 
 .container {
   display: block;
@@ -1029,6 +1033,9 @@ button.icon {
 footer {
   background: #004D40;
   color: #E0E0E0; }
+  footer.grey {
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
   footer h2 {
     font-weight: normal; }
   footer p a {
@@ -1818,7 +1825,7 @@ main.full-height {
   font-size: 0.9rem; }
   @media (max-width: 630px) {
     .stats-container {
-      padding: 0.2rem 0.2rem;
+      padding: 0.2rem;
       font-size: 0.7rem; } }
   .stats-container .large-number {
     display: block;
@@ -1986,9 +1993,13 @@ main.full-height {
   z-index: 100; }
 
 footer {
-  margin-top: 1em;
+  position: relative;
+  display: block;
+  margin-top: 2em;
+  padding: 1em 0 2.5em;
   box-sizing: border-box;
-  text-align: center; }
+  text-align: center;
+  z-index: 10; }
 
 .container {
   display: block;
@@ -2339,6 +2350,9 @@ button.icon {
 footer {
   background: #004D40;
   color: #E0E0E0; }
+  footer.grey {
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
   footer h2 {
     font-weight: normal; }
   footer p a {
@@ -3046,7 +3060,7 @@ main.full-height {
   font-size: 0.9rem; }
   @media (max-width: 630px) {
     .stats-container {
-      padding: 0.2rem 0.2rem;
+      padding: 0.2rem;
       font-size: 0.7rem; } }
   .stats-container .large-number {
     display: block;
@@ -3214,9 +3228,13 @@ main.full-height {
   z-index: 100; }
 
 footer {
-  margin-top: 1em;
+  position: relative;
+  display: block;
+  margin-top: 2em;
+  padding: 1em 0 2.5em;
   box-sizing: border-box;
-  text-align: center; }
+  text-align: center;
+  z-index: 10; }
 
 .container {
   display: block;
@@ -3567,6 +3585,9 @@ button.icon {
 footer {
   background: #004D40;
   color: #E0E0E0; }
+  footer.grey {
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
   footer h2 {
     font-weight: normal; }
   footer p a {

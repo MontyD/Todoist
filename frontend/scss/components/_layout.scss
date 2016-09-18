@@ -186,10 +186,9 @@ main.full-height {
     padding   : 1rem 0.4rem;
     text-align: center;
     font-size : 0.9rem;
-
     @media(max-width: $smallBP) {
-      padding: 0.2rem 0.2rem;
-      font-size: 0.7rem;
+        padding  : 0.2rem;
+        font-size: 0.7rem;
     }
 
     .large-number {
@@ -392,9 +391,13 @@ main.full-height {
 }
 
 footer {
-    margin-top: 1em;
+    position  : relative;
+    display   : block;
+    margin-top: 2em;
+    padding   : 1em 0 2.5em;
     box-sizing: border-box;
     text-align: center;
+    z-index   : 10;
 }
 
 .container {
